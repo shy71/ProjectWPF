@@ -25,4 +25,22 @@ namespace dotNetWPF_03_7897_4726
             InitializeComponent();
         }
     }
+    public class PrinterEventArgs : EventArgs
+    {
+        bool critical;
+        public bool Critical { get { return critical; } }
+        DateTime time;
+        public DateTime Time { get { return time; } }
+        string errorMessage, printerName;
+        public string ErrorMessage { get { return errorMessage; } }
+        public string PrinterName { get { return printerName; } }
+        public PrinterEventArgs(bool crit, string errorMessage, string name)
+        {
+            critical = crit;
+            this.errorMessage = errorMessage;
+            printerName = name;
+            time = DateTime.Now;
+        }
+
+    }
 }
