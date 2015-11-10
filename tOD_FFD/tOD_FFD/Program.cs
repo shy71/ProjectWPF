@@ -10,8 +10,7 @@ namespace tOD_FFD
     {
         static void Main(string[] args)
         {
-            int ai;
-            Console.WriteLine("shy");
+            Console.WriteLine("i did it! work on my house :) (shy)");
         }
     }
 }
