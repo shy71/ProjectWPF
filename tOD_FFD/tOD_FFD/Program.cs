@@ -10,7 +10,7 @@ namespace tOD_FFD
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Shut up!!!");
+            Console.WriteLine("Shut u!!");
         }
     }
 }
