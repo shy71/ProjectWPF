@@ -20,8 +20,8 @@ namespace dotNetWPF_03_7897_4726
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
-        int MAX_PAGES = 400, MIN_ADD_PAGES = 0, MAX_ADD_PAGES = 400, MAX_PRINT_PAGES = 200;
-        double MAX_INK = 10.0, MIN_ADD_INK = 0.0, MAX_ADD_INK = 100.0, MAX_PRINT_INK = 90.0;
+        int MAX_PAGES = 400, MIN_ADD_PAGES = 10, MAX_PRINT_PAGES = 200;
+        double MAX_INK = 100, MIN_ADD_INK = 10.0, MAX_PRINT_INK = 90.0;
         string printerName;
         public string PrinterName
         {
@@ -42,7 +42,7 @@ namespace dotNetWPF_03_7897_4726
                     inkCount = MAX_INK;
                 else
                     inkCount = Math.Round(value, 1);
-                inkLabel.Content = inkCount;
+                inkCountProgressBar.Value = inkCount;
             }
         }
         int pageCount;
@@ -54,31 +54,30 @@ namespace dotNetWPF_03_7897_4726
                 if (value > MAX_PAGES)
                     pageCount = MAX_PAGES;
                 else
-                    PageCount = value;
-                pageLabel.Content = pageCount;
+                    pageCount = value;
+                pageCountSlider.Value = pageCount;
             }
         }
         public bool ChangePages(int num)///מוסיף/מדפיס דפים ודואג לכל העניינים הקשורים(עדכון שדות,אירועים וכו')
         {
+            /*
+             * צריך לבדוק מה קורה אם הוא מנסה להדפיס יותר מידי דפים
+             * האם זה "ממשיך" אחרי השגיאה להדפיס
+             * לבדוק עם עובד!
+             */
             int temp;
             if (num > MIN_ADD_PAGES)
             {
-                bool toManyPages = false;
-                if (num > MAX_ADD_PAGES)
+                if (PageCount + num < MAX_PAGES)
                 {
-                    num = MAX_ADD_PAGES;
-                    toManyPages = true;
-                }
-                if (this.PageCount + num > MAX_PAGES)
-                {
-                    temp = this.PageCount + num;
-                    this.PageCount = temp;
-                    return !toManyPages;
+                    temp = PageCount + num;
+                    PageCount = temp;
+                    return false;
                 }
                 else
                 {
-                    this.PageCount = MAX_PAGES;
-                    return false;
+                    PageCount = MAX_PAGES;
+                    return true;
                 }
             }
             else if (num < 0)
@@ -87,7 +86,7 @@ namespace dotNetWPF_03_7897_4726
                 {
                     return false;
                 }
-                if (this.PageCount - num > 0)
+                else if (this.PageCount - num > 0)
                 {
                     temp = this.PageCount + num;
                     this.PageCount = temp;
@@ -95,7 +94,10 @@ namespace dotNetWPF_03_7897_4726
                 }
                 else
                 {
-                    PageMissing(this, new PrinterEventArgs(true, "Out Of Paper(" + System.Math.Abs(pageCount - num) + ")", this.PrinterName));
+                    temp = PageCount;
+                    PageCount = 0;
+                    pageLabel.Foreground = Brushes.Red;
+                    PageMissing(this, new PrinterEventArgs(true, "Out Of Paper(" + System.Math.Abs(temp + num) + ")", this.PrinterName));
                     //מה אמור לעשות פה?
                     return false;
                 }
@@ -105,43 +107,51 @@ namespace dotNetWPF_03_7897_4726
         }
         public bool ChangeInk(double num)///מוסיף/מדפיס דיו ודואג לכל העניינים הקשורים(עדכון שדות,אירועים וכו')
         {
+            /*
+             * לבדוק מה אמורים לעשות עם נגמר הדיו וגם האם אפשר להמשיך להדפיס למרות שנשאר רק אחד אחוז
+             * לבדוק עם עובד!
+             */
             double temp;
             if (num > MIN_ADD_INK)
             {
-                bool toMuchInk = false;
-                if (num > MAX_ADD_PAGES)
+                if (this.InkCount + num < MAX_INK)
                 {
-                    num = MAX_ADD_INK;
-                    toMuchInk = true;
-                }
-                if (this.inkCount + num > MAX_INK)
-                {
-                    temp = this.inkCount + num;
-                    inkCountProgressBar.Value = this.inkCount = Math.Round(temp, 1);
-                    return !toMuchInk;
+                    temp= InkCount +num;
+                    InkCount = temp;
+                    return true;
                 }
                 else
                 {
-                    inkCountProgressBar.Value = this.inkCount = MAX_INK;
+                    InkCount = MAX_INK;
                     return false;
                 }
             }
             else if (num < 0)
             {
                 if (num < -MAX_PRINT_INK)
-                {
                     return false;
-                }
-                if (this.inkCount - num > 0)
+                else if (InkCount - num > 0)
                 {
-                    temp = this.inkCount + num;
-                    inkCountProgressBar.Value = this.inkCount = Math.Round(temp, 1);
+                    temp = InkCount + num;
+                    InkCount = temp;
+                    if(InkCount>=1&&InkCount<=15)
+                    {
+                        inkCountProgressBar.Foreground =(InkCount>10)?Brushes.Yellow:Brushes.Orange;
+                        InkEmpty(this, new PrinterEventArgs(false, "Ink is Low! only " + InkCount + "% is left", this.PrinterName));
+                    }
+                    else if(InkCount<1)
+                    {
+                        inkCountProgressBar.Foreground = Brushes.Red;
+                        InkEmpty(this, new PrinterEventArgs(true, "Ink is Low! only " + InkCount + "% is left", this.PrinterName));
+                    }
                     return true;
                 }
                 else
                 {
-                    InkEmpty(this, new PrinterEventArgs(true, "Out Of Ink (" + System.Math.Abs(inkCount - num) + ")", this.PrinterName));
-                    inkCountProgressBar.Value = 0;
+                    temp = InkCount;
+                    InkCount = 0;
+                    inkCountProgressBar.Foreground = Brushes.Red;
+                    InkEmpty(this, new PrinterEventArgs(true, "Out Of Ink (" + System.Math.Abs(temp - num) + ")", this.PrinterName));
                     return false;
                 }
             }
@@ -171,6 +181,5 @@ namespace dotNetWPF_03_7897_4726
             printerName = name;
             time = DateTime.Now;
         }
-
     }
 }
