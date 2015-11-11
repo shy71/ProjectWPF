@@ -20,6 +20,78 @@ namespace dotNetWPF_03_7897_4726
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
+        int MAX_INK = 100, MAX_PAGES=400;
+        string printerName;
+        public string PrinterName
+        {
+            get { return printerName; }
+            set
+            {
+                printerName = value;
+                printerNameLabel.Content = printerName;
+            }
+        }
+        double inkCount;
+        public double InkCount
+        {
+            get { return inkCount; }
+            set
+            {
+                if (value > MAX_INK)
+                    inkCount = MAX_INK;
+                else
+                    inkCount =System.Math.Round(value,1);
+                inkLabel.Content = inkCount;
+            }
+        }
+        int pageCount;
+        public int PageCount
+        {
+            get { return pageCount; }
+            set
+            {
+                if (value > MAX_PAGES)
+                    pageCount = MAX_PAGES;
+                else
+                    PageCount = value;
+                pageLabel.Content = pageCount;
+            }
+        }
+        public bool ChangePages(int num)///מוסיף/מדפיס דפים ודואג לכל העניינים הקשורים(עדכון שדות,אירועים וכו')
+        {
+            int temp;
+            if (num > 0)
+            {
+                if (this.PageCount + num > MAX_PAGES)
+                {
+                    temp = this.PageCount + num;
+                    this.PageCount = temp;
+                    return true;
+                }
+                else
+                {
+                    this.PageCount = MAX_PAGES;
+                    return false;
+                }
+            }
+            else if(num<0)
+            {
+                if (this.PageCount - num > 0)
+                {
+                    temp = this.PageCount + num;
+                    this.PageCount = temp;
+                    return true;
+                }
+                else
+                {
+                    PageMissing(this,new PrinterEventArgs(true,"Out Of Paper("+System.Math.Abs(pageCount-num)+")",this.PrinterName);
+                    //מה אמור לעשות פה?
+                    return false;
+                }
+            }
+            else
+                return false;
+        }
         EventHandler<PrinterEventArgs> PageMissing, InkEmpty;
         public PrinterUserControl()
         {
