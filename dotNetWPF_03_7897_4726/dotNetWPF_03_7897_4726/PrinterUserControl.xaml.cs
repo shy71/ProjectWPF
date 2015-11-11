@@ -57,6 +57,41 @@ namespace dotNetWPF_03_7897_4726
                 pageLabel.Content = pageCount;
             }
         }
+        public bool ChangePages(int num)///מוסיף/מדפיס דפים ודואג לכל העניינים הקשורים(עדכון שדות,אירועים וכו')
+        {
+            int temp;
+            if (num > 0)
+            {
+                if (this.PageCount + num > MAX_PAGES)
+                {
+                    temp = this.PageCount + num;
+                    this.PageCount = temp;
+                    return true;
+                }
+                else
+                {
+                    this.PageCount = MAX_PAGES;
+                    return false;
+                }
+            }
+            else if(num<0)
+            {
+                if (this.PageCount - num > 0)
+                {
+                    temp = this.PageCount + num;
+                    this.PageCount = temp;
+                    return true;
+                }
+                else
+                {
+                    PageMissing(this,new PrinterEventArgs(true,"Out Of Paper("+System.Math.Abs(pageCount-num)+")",this.PrinterName);
+                    //מה אמור לעשות פה?
+                    return false;
+                }
+            }
+            else
+                return false;
+        }
         EventHandler<PrinterEventArgs> PageMissing, InkEmpty;
         public PrinterUserControl()
         {
