@@ -97,7 +97,8 @@ namespace dotNetWPF_03_7897_4726
                     temp = PageCount;
                     PageCount = 0;
                     pageLabel.Foreground = Brushes.Red;
-                    PageMissing(this, new PrinterEventArgs(true, "Out Of Paper(" + System.Math.Abs(temp + num) + ")", this.PrinterName));
+                    if (PageMissing != null)
+                        PageMissing(this, new PrinterEventArgs(true, "Out Of Paper(" + System.Math.Abs(temp + num) + ")", this.PrinterName));
                     //מה אמור לעשות פה?
                     return false;
                 }
@@ -137,12 +138,14 @@ namespace dotNetWPF_03_7897_4726
                     if(InkCount>=1&&InkCount<=15)
                     {
                         inkCountProgressBar.Foreground =(InkCount>10)?Brushes.Yellow:Brushes.Orange;
-                        InkEmpty(this, new PrinterEventArgs(false, "Ink is Low! only " + InkCount + "% is left", this.PrinterName));
+                        if (InkEmpty != null)
+                            InkEmpty(this, new PrinterEventArgs(false, "Ink is Low! only " + InkCount + "% is left", this.PrinterName));
                     }
                     else if(InkCount<1)
                     {
                         inkCountProgressBar.Foreground = Brushes.Red;
-                        InkEmpty(this, new PrinterEventArgs(true, "Ink is Low! only " + InkCount + "% is left", this.PrinterName));
+                        if (InkEmpty != null)
+                            InkEmpty(this, new PrinterEventArgs(true, "Ink is Low! only " + InkCount + "% is left", this.PrinterName));
                     }
                     return true;
                 }
@@ -151,7 +154,8 @@ namespace dotNetWPF_03_7897_4726
                     temp = InkCount;
                     InkCount = 0;
                     inkCountProgressBar.Foreground = Brushes.Red;
-                    InkEmpty(this, new PrinterEventArgs(true, "Out Of Ink (" + System.Math.Abs(temp - num) + ")", this.PrinterName));
+                    if (InkEmpty != null)
+                        InkEmpty(this, new PrinterEventArgs(true, "Out Of Ink (" + System.Math.Abs(temp - num) + ")", this.PrinterName));
                     return false;
                 }
             }
@@ -159,27 +163,23 @@ namespace dotNetWPF_03_7897_4726
                 return false;
         }
 
-        EventHandler<PrinterEventArgs> PageMissing, InkEmpty;
+        public event EventHandler PageMissing, InkEmpty;
         public PrinterUserControl()
         {
             InitializeComponent();
         }
     }
-    public class PrinterEventArgs
+    public class PrinterEventArgs : EventArgs
     {
-        bool critical;
-        public bool Critical { get { return critical; } }
-        DateTime time;
-        public DateTime Time { get { return time; } }
-        string errorMessage, printerName;
-        public string ErrorMessage { get { return errorMessage; } }
-        public string PrinterName { get { return printerName; } }
-        public PrinterEventArgs(bool crit, string errorMessage, string name)
+        readonly bool Critical;
+        readonly DateTime Time;
+        readonly string ErrorMessage, PrinterName;
+        public PrinterEventArgs(bool critical, string errorMessage, string printerName)
         {
-            critical = crit;
-            this.errorMessage = errorMessage;
-            printerName = name;
-            time = DateTime.Now;
+            Critical = critical;
+            ErrorMessage = errorMessage;
+            PrinterName = printerName;
+            Time = DateTime.Now;
         }
     }
 }
