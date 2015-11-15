@@ -164,17 +164,17 @@ namespace dotNetWPF_03_7897_4726
             else
                 return false;
         }
-        void AddInk()
+        public void AddInk()
         {
             Random s = new Random();
             ChangeInk(s.Next((int)MIN_ADD_INK));
         }
-        void AddPages()
+        public void AddPages()
         {
             Random s = new Random();
             ChangePages(s.Next((int)MIN_ADD_PAGES));
         }
-        void Print()
+        public void Print()
         {
             Random s = new Random();
             ChangePages(-s.Next((int)MAX_PRINT_PAGES));
