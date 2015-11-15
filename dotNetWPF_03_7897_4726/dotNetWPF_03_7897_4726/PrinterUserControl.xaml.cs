@@ -20,8 +20,9 @@ namespace dotNetWPF_03_7897_4726
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
-        int MAX_PAGES = 400, MIN_ADD_PAGES = 10, MAX_PRINT_PAGES = 200;
-        double MAX_INK = 100, MIN_ADD_INK = 10.0, MAX_PRINT_INK = 90.0;
+        static int amountOfPrinters=0;
+        const int MAX_PAGES = 400, MIN_ADD_PAGES = 10, MAX_PRINT_PAGES = 200;
+        const double MAX_INK = 100, MIN_ADD_INK = 10.0, MAX_PRINT_INK = 90.0;
         string printerName;
         public string PrinterName
         {
@@ -32,6 +33,7 @@ namespace dotNetWPF_03_7897_4726
                 printerNameLabel.Content = printerName;
             }
         }
+        public static readonly double MaxPages = MAX_PAGES;
         double inkCount;
         public double InkCount
         {
@@ -162,10 +164,28 @@ namespace dotNetWPF_03_7897_4726
             else
                 return false;
         }
-
+        void AddInk()
+        {
+            Random s = new Random();
+            ChangeInk(s.Next((int)MIN_ADD_INK));
+        }
+        void AddPages()
+        {
+            Random s = new Random();
+            ChangePages(s.Next((int)MIN_ADD_PAGES));
+        }
+        void Print()
+        {
+            Random s = new Random();
+            ChangePages(-s.Next((int)MAX_PRINT_PAGES));
+            ChangeInk(-s.Next((int)MAX_PRINT_INK));
+        }
         public event EventHandler PageMissing, InkEmpty;
+        
         public PrinterUserControl()
         {
+
+            this.PrinterName = ("Printer " + (++amountOfPrinters));
             InitializeComponent();
         }
     }

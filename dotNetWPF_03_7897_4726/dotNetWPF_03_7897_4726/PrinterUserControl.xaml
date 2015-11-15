@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:dotNetWPF_03_7897_4726"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" BorderThickness="1">
     <Grid>
@@ -25,7 +27,12 @@
         <Label x:Name="inkLabel" Grid.Row="0" Content="Ink:"/>
         <Label x:Name="pageLabel" Content="Pages:"  Grid.Row="1" />
         <ProgressBar  x:Name="inkCountProgressBar" Grid.Column="1" Value="23"/>
-        <Slider x:Name="pageCountSlider" Grid.Column="1" Grid.Row="1" Value="200" Maximum="400"/>
+            <Slider 
+                x:Name="pageCountSlider" 
+                Grid.Column="1" 
+                Grid.Row="1" 
+                Value="200" 
+                Maximum="{x:Static local:PrinterUserControl.MaxPages}"></Slider>
         </Grid>
     </Grid>
 </UserControl>
