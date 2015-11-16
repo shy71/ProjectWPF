@@ -20,6 +20,7 @@ namespace dotNetWPF_03_7897_4726
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
+        static Random rand=new Random();
         static int amountOfPrinters=0;
         const int MAX_PAGES = 400, MIN_ADD_PAGES = 10, MAX_PRINT_PAGES = 60;
         const double MAX_INK = 100, MIN_ADD_INK = 10.0, MAX_PRINT_INK = 10;
@@ -176,19 +177,16 @@ namespace dotNetWPF_03_7897_4726
        
         public void AddInk()
         {
-            Random rand = new Random();
             ChangeInk(rand.NextDouble()*MIN_ADD_INK);
         }
         public void AddPages()
         {
-            Random rand = new Random();
             ChangePages(rand.Next((int)MIN_ADD_PAGES));
         }
         public void Print()
         {
-            Random randPage = new Random(), randInk = new Random();
-            ChangePages(-randPage.Next(MAX_PRINT_PAGES));
-            ChangeInk(-(randInk.NextDouble()*MAX_PRINT_INK));
+            ChangePages(-rand.Next(MAX_PRINT_PAGES));
+            ChangeInk(-(rand.NextDouble()*MAX_PRINT_INK));
         }
         public event EventHandler PageMissing, InkEmpty;
         
