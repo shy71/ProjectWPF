@@ -20,9 +20,47 @@ namespace dotNetWPF_03_7897_4726
     /// </summary>
     public partial class MainWindow : Window
     {
+        PrinterUserControl CourentPrinter;
+        Queue<PrinterUserControl> printers;
         public MainWindow()
         {
             InitializeComponent();
+            printers = new Queue<PrinterUserControl>();
+            foreach (Control item in printersGrid.Children)
+            {
+                if (item is PrinterUserControl)
+                {
+                    PrinterUserControl printer = item as PrinterUserControl;
+                    // …
+                    printer.PageMissing += OutOfPaper;
+                    printers.Enqueue(printer);
+
+                }
+            }
+            CourentPrinter = printers.Dequeue();
+
         }
+
+        public void OutOfPaper(object sender,EventArgs args)
+        {
+
+        }
+
+        private void printButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }
+
+
+
+/*
+        * שימו לב שבהוספת חומרים אסור לעבור את הכמות המרבית של אותו חומר )דיו או דפים(, והפיזור הרנדומלי של כמות שנוספה
+צריך להיות אחיד, זאת אומרת לא מתאים "לחתוך" את המספר עם הכמות גדולה מידי אלא צריך לדאוג מראש שהכמות שמוסיפים
+יחד עם הכמות שהייתה לא תעבור את המקסימום.
+        * לבדוק האם זה בסדר
+        * */
+
+// לגבי משתנים לומר לעזרא

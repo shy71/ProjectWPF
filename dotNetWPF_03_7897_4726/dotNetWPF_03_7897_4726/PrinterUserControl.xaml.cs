@@ -164,29 +164,29 @@ namespace dotNetWPF_03_7897_4726
             else
                 return false;
         }
+       
         public void AddInk()
         {
-            Random s = new Random();
-            ChangeInk(s.Next((int)MIN_ADD_INK));
+            Random rand = new Random();
+            ChangeInk(rand.Next((int)MIN_ADD_INK));
         }
         public void AddPages()
         {
-            Random s = new Random();
-            ChangePages(s.Next((int)MIN_ADD_PAGES));
+            Random rand = new Random();
+            ChangePages(rand.Next((int)MIN_ADD_PAGES));
         }
         public void Print()
         {
-            Random s = new Random();
-            ChangePages(-s.Next((int)MAX_PRINT_PAGES));
-            ChangeInk(-s.Next((int)MAX_PRINT_INK));
+            Random randPage = new Random(), randInk = new Random();
+            ChangePages(-randPage.Next((int)MAX_PRINT_PAGES));
+            ChangeInk(-randInk.Next((int)MAX_PRINT_INK));
         }
         public event EventHandler PageMissing, InkEmpty;
         
         public PrinterUserControl()
         {
-
-            this.PrinterName = ("Printer " + (++amountOfPrinters));
             InitializeComponent();
+            this.PrinterName = ("Printer " + (++amountOfPrinters));
         }
     }
     public class PrinterEventArgs : EventArgs
