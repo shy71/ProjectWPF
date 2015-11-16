@@ -43,26 +43,52 @@ namespace dotNetWPF_03_7897_4726
 
         }
 
+        PrinterUserControl BestPrinter()
+        {
+            PrinterUserControl printer;
+            for (int i = 0; i < printers.Count; i++)
+            {
+                printer = printers.Dequeue();
+                if (printer.InkCount > 15 && printer.PageCount > 0)
+                    return printer;
+                printers.Enqueue(printer);
+            }
+            for (int i = 0; i < printers.Count; i++)
+            {
+                printer = printers.Dequeue();
+                if (printer.InkCount > 10 && printer.PageCount > 0)
+                    return printer;
+                printers.Enqueue(printer);
+            }
+            for (int i = 0; i < printers.Count; i++)
+            {
+                printer = printers.Dequeue();
+                if (printer.InkCount > 1 && printer.PageCount > 0)
+                    return printer;
+                printers.Enqueue(printer);
+            }
+            return printers.Dequeue();
+        }
         public void OutOfPaper(object sender, EventArgs args)
         {
             PrinterEventArgs arg = args as PrinterEventArgs;
             MessageBox.Show("Message from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!");
-            (sender as PrinterUserControl).ChangePages(100);
             if (arg.Critical)
             {
                 printers.Enqueue(CourentPrinter);
-                CourentPrinter = printers.Dequeue();
+                CourentPrinter = BestPrinter();
             }
+            (sender as PrinterUserControl).ChangePages(100);
         }
         public void LowOnInk(object sender, EventArgs args)
         {
             PrinterEventArgs arg = args as PrinterEventArgs;
-            MessageBox.Show("Message from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is "+((arg.Critical)?"out":"low") + " of Ink!!");
+            MessageBox.Show("Message from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is " + ((arg.Critical) ? "out" : "low") + " of Ink!!");
             if (arg.Critical)
             {
-                (sender as PrinterUserControl).ChangeInk(50);
                 printers.Enqueue(CourentPrinter);
-                CourentPrinter = printers.Dequeue();
+                CourentPrinter = BestPrinter();
+                (sender as PrinterUserControl).ChangeInk(50);
             }
 
 

@@ -177,7 +177,7 @@ namespace dotNetWPF_03_7897_4726
         public void AddInk()
         {
             Random rand = new Random();
-            ChangeInk(rand.Next((int)MIN_ADD_INK));
+            ChangeInk(rand.NextDouble()*MIN_ADD_INK);
         }
         public void AddPages()
         {
@@ -187,8 +187,8 @@ namespace dotNetWPF_03_7897_4726
         public void Print()
         {
             Random randPage = new Random(), randInk = new Random();
-            ChangePages(-randPage.Next((int)MAX_PRINT_PAGES));
-            ChangeInk(-randInk.Next((int)MAX_PRINT_INK));
+            ChangePages(-randPage.Next(MAX_PRINT_PAGES));
+            ChangeInk(-(randInk.NextDouble()*MAX_PRINT_INK));
         }
         public event EventHandler PageMissing, InkEmpty;
         

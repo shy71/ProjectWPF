@@ -30,7 +30,7 @@
             x:Name="inkCountProgressBar" 
             Grid.Column="1"
             Value="23"
-            ToolTipService.InitialShowDelay="2000"
+            ToolTipService.InitialShowDelay="1000"
             ToolTip="{Binding ElementName=inkCountProgressBar,Path=Value}">
             </ProgressBar>
             <Slider 
