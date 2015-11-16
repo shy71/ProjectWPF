@@ -209,6 +209,7 @@ namespace dotNetWPF_03_7897_4726
         {
             printerNameLabel.FontSize = 16;
         }
+
     }
     public class PrinterEventArgs : EventArgs
     {
