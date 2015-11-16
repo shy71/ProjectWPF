@@ -88,7 +88,7 @@ namespace dotNetWPF_03_7897_4726
                 {
                     return false;
                 }
-                else if (this.PageCount - num > 0)
+                else if (this.PageCount + num > 0)
                 {
                     temp = this.PageCount + num;
                     this.PageCount = temp;
@@ -133,7 +133,7 @@ namespace dotNetWPF_03_7897_4726
             {
                 if (num < -MAX_PRINT_INK)
                     return false;
-                else if (InkCount - num > 0)
+                else if (InkCount + num > 0)
                 {
                     temp = InkCount + num;
                     InkCount = temp;
@@ -157,7 +157,7 @@ namespace dotNetWPF_03_7897_4726
                     InkCount = 0;
                     inkCountProgressBar.Foreground = Brushes.Red;
                     if (InkEmpty != null)
-                        InkEmpty(this, new PrinterEventArgs(true, "Out Of Ink (" + System.Math.Abs(temp - num) + ")", this.PrinterName));
+                        InkEmpty(this, new PrinterEventArgs(true, "Out Of Ink", this.PrinterName));
                     return false;
                 }
             }
@@ -187,13 +187,15 @@ namespace dotNetWPF_03_7897_4726
         {
             InitializeComponent();
             this.PrinterName = ("Printer " + (++amountOfPrinters));
+            InkCount = 50;
+            PageCount = 250;
         }
     }
     public class PrinterEventArgs : EventArgs
     {
-        readonly bool Critical;
-        readonly DateTime Time;
-        readonly string ErrorMessage, PrinterName;
+        public readonly bool Critical;
+        public readonly DateTime Time;
+        public readonly string ErrorMessage, PrinterName;
         public PrinterEventArgs(bool critical, string errorMessage, string printerName)
         {
             Critical = critical;

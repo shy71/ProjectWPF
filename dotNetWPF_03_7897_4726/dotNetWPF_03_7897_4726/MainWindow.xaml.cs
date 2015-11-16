@@ -24,6 +24,7 @@ namespace dotNetWPF_03_7897_4726
         Queue<PrinterUserControl> printers;
         public MainWindow()
         {
+
             InitializeComponent();
             printers = new Queue<PrinterUserControl>();
             foreach (Control item in printersGrid.Children)
@@ -33,6 +34,7 @@ namespace dotNetWPF_03_7897_4726
                     PrinterUserControl printer = item as PrinterUserControl;
                     // …
                     printer.PageMissing += OutOfPaper;
+                    printer.InkEmpty += LowOnInk;
                     printers.Enqueue(printer);
 
                 }
@@ -41,14 +43,33 @@ namespace dotNetWPF_03_7897_4726
 
         }
 
-        public void OutOfPaper(object sender,EventArgs args)
+        public void OutOfPaper(object sender, EventArgs args)
         {
+            PrinterEventArgs arg = args as PrinterEventArgs;
+            MessageBox.Show("Message from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!");
+            (sender as PrinterUserControl).ChangePages(100);
+            if (arg.Critical)
+            {
+                printers.Enqueue(CourentPrinter);
+                CourentPrinter = printers.Dequeue();
+            }
+        }
+        public void LowOnInk(object sender, EventArgs args)
+        {
+            PrinterEventArgs arg = args as PrinterEventArgs;
+            MessageBox.Show("Message from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is "+((arg.Critical)?"out":"low") + "of Ink!!");
+            if (arg.Critical)
+            {
+                (sender as PrinterUserControl).ChangeInk(50);
+                printers.Enqueue(CourentPrinter);
+                CourentPrinter = printers.Dequeue();
+            }
+
 
         }
-
         private void printButton_Click(object sender, RoutedEventArgs e)
         {
-
+            CourentPrinter.Print();
         }
 
     }
