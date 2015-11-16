@@ -21,8 +21,8 @@ namespace dotNetWPF_03_7897_4726
     public partial class PrinterUserControl : UserControl
     {
         static int amountOfPrinters=0;
-        const int MAX_PAGES = 400, MIN_ADD_PAGES = 10, MAX_PRINT_PAGES = 200;
-        const double MAX_INK = 100, MIN_ADD_INK = 10.0, MAX_PRINT_INK = 90.0;
+        const int MAX_PAGES = 400, MIN_ADD_PAGES = 10, MAX_PRINT_PAGES = 60;
+        const double MAX_INK = 100, MIN_ADD_INK = 10.0, MAX_PRINT_INK = 10;
         string printerName;
         public string PrinterName
         {
@@ -40,10 +40,17 @@ namespace dotNetWPF_03_7897_4726
             get { return inkCount; }
             set
             {
+                inkLabel.Foreground = Brushes.Black;
                 if (value > MAX_INK)
                     inkCount = MAX_INK;
                 else
+                {
                     inkCount = Math.Round(value, 1);
+                    if (value >= 1 && value <= 15)
+                        inkLabel.Foreground = (InkCount > 10) ? Brushes.Yellow : Brushes.Orange;
+                    else if (value < 1)
+                        inkLabel.Foreground = Brushes.Red;
+                }
                 inkCountProgressBar.Value = inkCount;
             }
         }
@@ -53,10 +60,15 @@ namespace dotNetWPF_03_7897_4726
             get { return pageCount; }
             set
             {
+                pageLabel.Foreground = Brushes.Black;
                 if (value > MAX_PAGES)
                     pageCount = MAX_PAGES;
                 else
+                {
+                    if (value == 0)
+                        pageLabel.Foreground = Brushes.Red;
                     pageCount = value;
+                }
                 pageCountSlider.Value = pageCount;
             }
         }
@@ -139,13 +151,11 @@ namespace dotNetWPF_03_7897_4726
                     InkCount = temp;
                     if(InkCount>=1&&InkCount<=15)
                     {
-                        inkCountProgressBar.Foreground =(InkCount>10)?Brushes.Yellow:Brushes.Orange;
                         if (InkEmpty != null)
                             InkEmpty(this, new PrinterEventArgs(false, "Ink is Low! only " + InkCount + "% is left", this.PrinterName));
                     }
                     else if(InkCount<1)
                     {
-                        inkCountProgressBar.Foreground = Brushes.Red;
                         if (InkEmpty != null)
                             InkEmpty(this, new PrinterEventArgs(true, "Ink is Low! only " + InkCount + "% is left", this.PrinterName));
                     }
@@ -155,7 +165,6 @@ namespace dotNetWPF_03_7897_4726
                 {
                     temp = InkCount;
                     InkCount = 0;
-                    inkCountProgressBar.Foreground = Brushes.Red;
                     if (InkEmpty != null)
                         InkEmpty(this, new PrinterEventArgs(true, "Out Of Ink", this.PrinterName));
                     return false;

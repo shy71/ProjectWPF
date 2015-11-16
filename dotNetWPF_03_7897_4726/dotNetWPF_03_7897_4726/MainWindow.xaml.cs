@@ -57,7 +57,7 @@ namespace dotNetWPF_03_7897_4726
         public void LowOnInk(object sender, EventArgs args)
         {
             PrinterEventArgs arg = args as PrinterEventArgs;
-            MessageBox.Show("Message from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is "+((arg.Critical)?"out":"low") + "of Ink!!");
+            MessageBox.Show("Message from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is "+((arg.Critical)?"out":"low") + " of Ink!!");
             if (arg.Critical)
             {
                 (sender as PrinterUserControl).ChangeInk(50);
