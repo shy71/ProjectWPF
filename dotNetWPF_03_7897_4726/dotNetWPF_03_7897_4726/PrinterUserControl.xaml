@@ -14,7 +14,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Image Grid.Row="0" Source="Images/printer.jpg" Width="auto" Height="auto"/>
-        <Label x:Name="printerNameLabel" Content="printer name" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Foreground="RoyalBlue" FontSize="16"/>
+        <Label x:Name="printerNameLabel" Content="printer name" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Foreground="RoyalBlue" FontSize="16" MouseEnter="printerNameLabel_MouseEnter" MouseLeave="printerNameLabel_MouseLeave"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>

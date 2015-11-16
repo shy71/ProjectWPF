@@ -199,6 +199,16 @@ namespace dotNetWPF_03_7897_4726
             InkCount = 50;
             PageCount = 250;
         }
+
+        private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            printerNameLabel.FontSize = 40;
+        }
+
+        private void printerNameLabel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            printerNameLabel.FontSize = 16;
+        }
     }
     public class PrinterEventArgs : EventArgs
     {
