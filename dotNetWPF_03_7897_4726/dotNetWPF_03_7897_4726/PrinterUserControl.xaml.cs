@@ -22,8 +22,10 @@ namespace dotNetWPF_03_7897_4726
     {
         static Random rand=new Random();
         static int amountOfPrinters=0;
-        const int MAX_PAGES = 400, MIN_ADD_PAGES = 10, MAX_PRINT_PAGES = 60;
-        const double MAX_INK = 100, MIN_ADD_INK = 10.0, MAX_PRINT_INK = 10;
+        const int MAX_PAGES = 400;
+        const int MIN_ADD_PAGES = MAX_PAGES/10, MAX_PRINT_PAGES = MAX_PAGES/12;
+        const double MAX_INK = 100;
+        const double MIN_ADD_INK = MAX_INK / 10.0, MAX_PRINT_INK = MAX_INK / 12.0;
         string printerName;
         public string PrinterName
         {
