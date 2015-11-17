@@ -97,7 +97,7 @@ namespace dotNetWPF_03_7897_4726
                     return true;
                 }
             }
-            else if (num < 0)
+            else if (num <= 0)
             {
                 if (num < -MAX_PRINT_PAGES)
                 {
@@ -113,7 +113,6 @@ namespace dotNetWPF_03_7897_4726
                 {
                     temp = PageCount;
                     PageCount = 0;
-                    pageLabel.Foreground = Brushes.Red;
                     if (PageMissing != null)
                         PageMissing(this, new PrinterEventArgs(true, "Out Of Paper(" + System.Math.Abs(temp + num) + ")", this.PrinterName));
                     //מה אמור לעשות פה?
@@ -214,7 +213,10 @@ namespace dotNetWPF_03_7897_4726
         private void pageCountSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             PageCount = (int)(sender as Slider).Value;
+            if (PageCount==0 && PageMissing != null)
+                PageMissing(this, new PrinterEventArgs(true, "Out Of Paper!", this.PrinterName));
         }
+        
 
     }
     public class PrinterEventArgs : EventArgs
