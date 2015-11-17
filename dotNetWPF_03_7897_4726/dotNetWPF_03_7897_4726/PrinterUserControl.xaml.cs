@@ -213,7 +213,7 @@ namespace dotNetWPF_03_7897_4726
         private void pageCountSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             PageCount = (int)(sender as Slider).Value;
-            if (PageCount==0 && PageMissing != null)
+            if (PageCount == 0 && PageMissing != null)
                 PageMissing(this, new PrinterEventArgs(true, "Out Of Paper!", this.PrinterName));
         }
         
