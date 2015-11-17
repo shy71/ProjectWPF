@@ -72,13 +72,10 @@ namespace dotNetWPF_03_7897_4726
         public void OutOfPaper(object sender, EventArgs args)
         {
             PrinterEventArgs arg = args as PrinterEventArgs;
-            MessageBox.Show("At: "+arg.Time+"\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!",MessageBoxButton.OK,MessageBoxImage.Stop);
-            if (arg.Critical)
-            {
-                printers.Enqueue(CourentPrinter);
-                CourentPrinter = BestPrinter();
-            }
-            (sender as PrinterUserControl).ChangePages(100);
+            MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!", MessageBoxButton.OK, MessageBoxImage.Stop);
+            printers.Enqueue(CourentPrinter);
+            CourentPrinter = BestPrinter();
+            (sender as PrinterUserControl).AddPages();
         }
         public void LowOnInk(object sender, EventArgs args)
         {
@@ -88,7 +85,7 @@ namespace dotNetWPF_03_7897_4726
             {
                 printers.Enqueue(CourentPrinter);
                 CourentPrinter = BestPrinter();
-                (sender as PrinterUserControl).ChangeInk(50);
+                (sender as PrinterUserControl).AddInk();
             }
 
 

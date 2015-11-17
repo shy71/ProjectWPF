@@ -179,11 +179,11 @@ namespace dotNetWPF_03_7897_4726
        
         public void AddInk()
         {
-            ChangeInk(rand.NextDouble()*MIN_ADD_INK);
+            ChangeInk(MIN_ADD_INK+rand.NextDouble()*(MAX_INK-MIN_ADD_INK));
         }
         public void AddPages()
         {
-            ChangePages(rand.Next((int)MIN_ADD_PAGES));
+            ChangePages(MIN_ADD_PAGES+rand.Next(MAX_PAGES-MIN_ADD_PAGES));
         }
         public void Print()
         {
