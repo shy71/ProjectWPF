@@ -210,6 +210,12 @@ namespace dotNetWPF_03_7897_4726
             printerNameLabel.FontSize = 16;
         }
 
+
+        private void pageCountSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            PageCount = (int)(sender as Slider).Value;
+        }
+
     }
     public class PrinterEventArgs : EventArgs
     {

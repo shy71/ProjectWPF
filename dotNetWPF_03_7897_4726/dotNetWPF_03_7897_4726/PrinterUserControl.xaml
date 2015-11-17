@@ -38,7 +38,7 @@
                 Grid.Column="1"
                 Grid.Row="1" 
                 Value="200" 
-                Maximum="{x:Static local:PrinterUserControl.MaxPages}"></Slider>
+                Maximum="{x:Static local:PrinterUserControl.MaxPages}" ValueChanged="pageCountSlider_ValueChanged"/>
         </Grid>
     </Grid>
 </UserControl>
