@@ -68,6 +68,7 @@ namespace dotNetWPF_03_7897_4726
                 printers.Enqueue(printer);
             }
             return printers.Dequeue();
+
         }
         public void OutOfPaper(object sender, EventArgs args)
         {
