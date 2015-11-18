@@ -88,8 +88,7 @@ namespace dotNetWPF_03_7897_4726
         /// הפונקציה משנה את מדד הדפים בהתאם למספר שקיבלה ומתמודדת עם כל ההשלכות הנצרכות משינוי הערך
         /// </summary>
         /// <param name="num">המספר אותו רוצים להוסיף/להוריד ממדד הדפים</param>
-        /// <returns>מחזירה האם השתנה מדד הדפים בדיוק כמו הערך שבוקש או שמא השתנה באופן אחר בעקבות הנסיבות</returns>
-        public bool ChangePages(int num)
+        public void ChangePages(int num)
         {
             /*
              * צריך לבדוק מה קורה אם הוא מנסה להדפיס יותר מידי דפים
@@ -103,23 +102,18 @@ namespace dotNetWPF_03_7897_4726
                 {
                     temp = PageCount + num;
                     PageCount = temp;
-                    return false;
                 }
                 else
-                {
                     PageCount = MAX_PAGES;
-                    return true;
-                }
             }
             else if (num <= 0)
             {
                 if (num < -MAX_PRINT_PAGES)
-                    return false;
+                    return;
                 else if (this.PageCount + num > 0)
                 {
                     temp = this.PageCount + num;
                     this.PageCount = temp;
-                    return true;
                 }
                 else
                 {
@@ -128,18 +122,16 @@ namespace dotNetWPF_03_7897_4726
                     if (PageMissing != null)
                         PageMissing(this, new PrinterEventArgs(true, "Out Of Paper(" + System.Math.Abs(temp + num) + ")", this.PrinterName));
                     //מה אמור לעשות פה?
-                    return false;
                 }
             }
             else
-                return false;
+                return;
         }
         /// <summary>
         /// הפונקציה משנה את מדד הדיו בהתאם למספר שקיבלה ומתמודדת עם כל ההשלכות הנצרכות משינוי הערך
         /// </summary>
         /// <param name="num">המספר אותו רוצים להוסיף/להוריד ממדד הדיו</param>
-        /// <returns>מחזירה האם השתנה מדד הדיו בדיוק כמו הערך שבוקש או שמא השתנה באופן אחר בעקבות הנסיבות</returns>
-        public bool ChangeInk(double num)
+        public void ChangeInk(double num)
         {
             /*
              * לבדוק מה אמורים לעשות עם נגמר הדיו וגם האם אפשר להמשיך להדפיס למרות שנשאר רק אחד אחוז
@@ -152,18 +144,14 @@ namespace dotNetWPF_03_7897_4726
                 {
                     temp = InkCount + num;
                     InkCount = temp;
-                    return true;
                 }
                 else
-                {
                     InkCount = MAX_INK;
-                    return false;
-                }
             }
             else if (num < 0)
             {
                 if (num < -MAX_PRINT_INK)
-                    return false;
+                    return;
                 else if (InkCount + num > 0)
                 {
                     temp = InkCount + num;
@@ -178,7 +166,6 @@ namespace dotNetWPF_03_7897_4726
                         if (InkEmpty != null)
                             InkEmpty(this, new PrinterEventArgs(true, "Ink is Low! only " + InkCount + "% is left", this.PrinterName));
                     }
-                    return true;
                 }
                 else
                 {
@@ -186,11 +173,9 @@ namespace dotNetWPF_03_7897_4726
                     InkCount = 0;
                     if (InkEmpty != null)
                         InkEmpty(this, new PrinterEventArgs(true, "Out Of Ink", this.PrinterName));
-                    return false;
                 }
             }
-            else
-                return false;
+            return;
         }
         /// <summary>
         /// הפוקנציה מוסיפה מספר רנדומלי(בהתאם לטווח) של דיו למדפסת
@@ -234,7 +219,7 @@ namespace dotNetWPF_03_7897_4726
             printerNameLabel.FontSize = 40;
         }
         /// <summary>
-        /// פונקציה המופעלת כאשר העכבר יוצא מתחום התווית וומחזירה את גודל הזוית לגודלה המוקרי 
+        /// פונקציה המופעלת כאשר העכבר יוצא מתחום התווית וומחזירה את גודל התווית לגודלה המוקרי 
         /// </summary>
         private void printerNameLabel_MouseLeave(object sender, MouseEventArgs e)
         {
