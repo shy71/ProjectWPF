@@ -27,6 +27,9 @@ namespace dotNetWPF_03_7897_4726
         const double MAX_INK = 100;
         const double MIN_ADD_INK = MAX_INK / 10.0, MAX_PRINT_INK = MAX_INK / 12.0;
         string printerName;
+        /// <summary>
+        /// Return or sets the name of the printer
+        /// </summary>
         public string PrinterName
         {
             get { return printerName; }
@@ -38,6 +41,9 @@ namespace dotNetWPF_03_7897_4726
         }
         public static readonly double MaxPages = MAX_PAGES;
         double inkCount;
+        /// <summary>
+        /// Return or sets how much Ink(%) is in the printer
+        /// </summary>
         public double InkCount
         {
             get { return inkCount; }
@@ -58,6 +64,9 @@ namespace dotNetWPF_03_7897_4726
             }
         }
         int pageCount;
+        /// <summary>
+        /// Return or sets how much pages are in the printer
+        /// </summary>
         public int PageCount
         {
             get { return pageCount; }
@@ -75,7 +84,12 @@ namespace dotNetWPF_03_7897_4726
                 pageCountSlider.Value = pageCount;
             }
         }
-        public bool ChangePages(int num)///מוסיף/מדפיס דפים ודואג לכל העניינים הקשורים(עדכון שדות,אירועים וכו')
+        /// <summary>
+        /// הפונקציה משנה את מדד הדפים בהתאם למספר שקיבלה ומתמודדת עם כל ההשלכות הנצרכות משינוי הערך
+        /// </summary>
+        /// <param name="num">המספר אותו רוצים להוסיף/להוריד ממדד הדפים</param>
+        /// <returns>מחזירה האם השתנה מדד הדפים בדיוק כמו הערך שבוקש או שמא השתנה באופן אחר בעקבות הנסיבות</returns>
+        public bool ChangePages(int num)
         {
             /*
              * צריך לבדוק מה קורה אם הוא מנסה להדפיס יותר מידי דפים
@@ -122,7 +136,12 @@ namespace dotNetWPF_03_7897_4726
             else
                 return false;
         }
-        public bool ChangeInk(double num)///מוסיף/מדפיס דיו ודואג לכל העניינים הקשורים(עדכון שדות,אירועים וכו')
+        /// <summary>
+        /// הפונקציה משנה את מדד הדיו בהתאם למספר שקיבלה ומתמודדת עם כל ההשלכות הנצרכות משינוי הערך
+        /// </summary>
+        /// <param name="num">המספר אותו רוצים להוסיף/להוריד ממדד הדיו</param>
+        /// <returns>מחזירה האם השתנה מדד הדיו בדיוק כמו הערך שבוקש או שמא השתנה באופן אחר בעקבות הנסיבות</returns>
+        public bool ChangeInk(double num)
         {
             /*
              * לבדוק מה אמורים לעשות עם נגמר הדיו וגם האם אפשר להמשיך להדפיס למרות שנשאר רק אחד אחוז
@@ -175,22 +194,33 @@ namespace dotNetWPF_03_7897_4726
             else
                 return false;
         }
-       
+       /// <summary>
+       /// הפוקנציה מוסיפה מספר רנדומלי(בהתאם לטווח) של דיו למדפסת
+       /// </summary>
         public void AddInk()
         {
             ChangeInk(MIN_ADD_INK+rand.NextDouble()*(MAX_INK-MIN_ADD_INK));
         }
+        /// <summary>
+        /// הפוקנציה מוסיפה מספר רנדומלי(בהתאם לטווח) של דפים למדפסת
+        /// </summary>
         public void AddPages()
         {
             ChangePages(MIN_ADD_PAGES+rand.Next(MAX_PAGES-MIN_ADD_PAGES));
         }
+        /// <summary>
+        /// הפונקציה מדמה "הדפסה" של מספר דפים רנדומלי ומשתמש במספר דיו רנדומלי
+        /// </summary>
         public void Print()
         {
             ChangePages(-rand.Next(MAX_PRINT_PAGES));
             ChangeInk(-(rand.NextDouble()*MAX_PRINT_INK));
         }
-        public event EventHandler PageMissing, InkEmpty;
+        public event EventHandler<PrinterEventArgs> PageMissing, InkEmpty;
         
+        /// <summary>
+        /// קונסטרקטור המאפס את הנתונים ההתחלתיים של המדפס ונותן לה את שמה
+        /// </summary>
         public PrinterUserControl()
         {
             InitializeComponent();
@@ -198,27 +228,37 @@ namespace dotNetWPF_03_7897_4726
             InkCount = 50;
             PageCount = 250;
         }
-
+        /// <summary>
+        /// פונקציה המופעלת כאשר העכבר נכנס לתחום התווית ומשנה את גודל התווית
+        /// </summary>
         private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
         {
             printerNameLabel.FontSize = 40;
         }
-
+        /// <summary>
+        /// פונקציה המופעלת כאשר העכבר יוצא מתחום התווית וומחזירה את גודל הזוית לגודלה המוקרי 
+        /// </summary>
         private void printerNameLabel_MouseLeave(object sender, MouseEventArgs e)
         {
             printerNameLabel.FontSize = 16;
         }
 
-
+        /// <summary>
+        /// הפונקציה מעדכנת את מונה הדפים בהתאם לשינויים הנעשים בסליידר
+        /// </summary>
         private void pageCountSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            PageCount = (int)(sender as Slider).Value;
+            PageCount = (int)e.NewValue;
+            pageLabel.Foreground = Brushes.Red;
             if (PageCount == 0 && PageMissing != null)
                 PageMissing(this, new PrinterEventArgs(true, "Out Of Paper!", this.PrinterName));
         }
         
 
     }
+    /// <summary>
+    /// משתני אירוע כלשהו של מדפסת
+    /// </summary>
     public class PrinterEventArgs : EventArgs
     {
         public readonly bool Critical;
