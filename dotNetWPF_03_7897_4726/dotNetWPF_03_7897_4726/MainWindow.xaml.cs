@@ -20,6 +20,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+/*
+ * TODO: need to delete all not necessary comments
+ * TODO: check the threding
+ */
+
+
 namespace dotNetWPF_03_7897_4726
 {
     /// <summary>
