@@ -164,7 +164,7 @@ namespace dotNetWPF_03_7897_4726
                     else if (InkCount < 1)
                     {
                         if (InkEmpty != null)
-                            InkEmpty(this, new PrinterEventArgs(true, "Ink is Low! only " + InkCount + "% is left", this.PrinterName));
+                            InkEmpty(this, new PrinterEventArgs(true, "Out Of Ink! only " + InkCount + "% is left", this.PrinterName));
                     }
                 }
                 else
