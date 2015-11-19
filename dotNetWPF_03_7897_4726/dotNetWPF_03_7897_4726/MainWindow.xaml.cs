@@ -73,7 +73,7 @@ namespace dotNetWPF_03_7897_4726
         public void OutOfPaper(object sender, EventArgs args)
         {
             PrinterEventArgs arg = args as PrinterEventArgs;
-            new Thread(()=> MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!", MessageBoxButton.OK, MessageBoxImage.Stop)).Start();
+            new Thread(() => MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!", MessageBoxButton.OK, MessageBoxImage.Stop)).Start();
             printers.Enqueue(CourentPrinter);
             CourentPrinter = BestPrinter();
             (sender as PrinterUserControl).AddPages();
@@ -81,7 +81,7 @@ namespace dotNetWPF_03_7897_4726
         public void LowOnInk(object sender, EventArgs args)
         {
             PrinterEventArgs arg = args as PrinterEventArgs;
-            new Thread(()=>MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is " + ((arg.Critical) ? "out" : "low") + " of Ink!!", MessageBoxButton.OK, ((arg.Critical) ? MessageBoxImage.Stop : MessageBoxImage.Warning))).Start();
+            new Thread(() => MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is " + ((arg.Critical) ? "out" : "low") + " of Ink!!", MessageBoxButton.OK, ((arg.Critical) ? MessageBoxImage.Stop : MessageBoxImage.Warning))).Start();
             if (arg.Critical)
             {
                 printers.Enqueue(CourentPrinter);
@@ -98,13 +98,4 @@ namespace dotNetWPF_03_7897_4726
 
     }
 }
-
-
-
-/*
-        * שימו לב שבהוספת חומרים אסור לעבור את הכמות המרבית של אותו חומר )דיו או דפים(, והפיזור הרנדומלי של כמות שנוספה
-צריך להיות אחיד, זאת אומרת לא מתאים "לחתוך" את המספר עם הכמות גדולה מידי אלא צריך לדאוג מראש שהכמות שמוסיפים
-יחד עם הכמות שהייתה לא תעבור את המקסימום.
-        * לבדוק האם זה בסדר
-        * */
 
