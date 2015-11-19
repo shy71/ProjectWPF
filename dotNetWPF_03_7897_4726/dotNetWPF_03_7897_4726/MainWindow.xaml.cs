@@ -95,7 +95,7 @@ namespace dotNetWPF_03_7897_4726
         /// <param name="arg">נתנוי השגיאה</param>
         public void LowOnInk(object sender, PrinterEventArgs arg)
         {
-            MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is " + ((arg.Critical) ? "out" : "low") + " of Ink!!", MessageBoxButton.OK, ((arg.Critical) ? MessageBoxImage.Stop : MessageBoxImage.Warning));
+            new Thread(() =>MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is " + ((arg.Critical) ? "out" : "low") + " of Ink!!", MessageBoxButton.OK, ((arg.Critical) ? MessageBoxImage.Stop : MessageBoxImage.Warning))).Start();
             if (arg.Critical)
             {
                 printers.Enqueue(CourentPrinter);
