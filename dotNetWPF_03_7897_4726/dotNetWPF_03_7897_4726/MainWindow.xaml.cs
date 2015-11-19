@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -73,7 +73,7 @@ namespace dotNetWPF_03_7897_4726
         public void OutOfPaper(object sender, EventArgs args)
         {
             PrinterEventArgs arg = args as PrinterEventArgs;
-            MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!", MessageBoxButton.OK, MessageBoxImage.Stop);
+            new Thread(()=> MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!", MessageBoxButton.OK, MessageBoxImage.Stop)).Start();
             printers.Enqueue(CourentPrinter);
             CourentPrinter = BestPrinter();
             (sender as PrinterUserControl).AddPages();
@@ -81,7 +81,7 @@ namespace dotNetWPF_03_7897_4726
         public void LowOnInk(object sender, EventArgs args)
         {
             PrinterEventArgs arg = args as PrinterEventArgs;
-            MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is " + ((arg.Critical) ? "out" : "low") + " of Ink!!", MessageBoxButton.OK, ((arg.Critical) ? MessageBoxImage.Stop : MessageBoxImage.Warning));
+            new Thread(()=>MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is " + ((arg.Critical) ? "out" : "low") + " of Ink!!", MessageBoxButton.OK, ((arg.Critical) ? MessageBoxImage.Stop : MessageBoxImage.Warning))).Start();
             if (arg.Critical)
             {
                 printers.Enqueue(CourentPrinter);
