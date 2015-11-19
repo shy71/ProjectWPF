@@ -243,14 +243,20 @@ namespace dotNetWPF_03_7897_4726
             if (PageCount == 0 && PageMissing != null)
                 PageMissing(this, new PrinterEventArgs(true, "Out Of Paper!", this.PrinterName));
         }
+        /// <summary>
+        /// שליחת "טכנאי" למלא מחדש את הדפים
+        /// </summary>
         public void SendPageTechnician()
         {
-            Thread.Sleep(rand.Next(5000,7000));
+            Thread.Sleep(rand.Next(5000,15000));
             this.AddPages();
         }
+        /// <summary>
+        /// שליחת "טכנאי" למלא מחדש את הדיו
+        /// </summary>
         public void SendInkTechnician()
         {
-            Thread.Sleep(rand.Next(5000, 7000));
+            Thread.Sleep(rand.Next(5000, 15000));
             this.AddInk();
         }
 
