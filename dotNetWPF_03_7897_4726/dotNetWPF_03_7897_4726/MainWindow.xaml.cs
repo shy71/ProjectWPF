@@ -1,4 +1,11 @@
-﻿using System;
+﻿//תרגיל 3 - מיני פרויקט בחלונות
+//עזרא בלוק ושי טננבוים
+// כיתה י"ב - ישיבה תיכונית
+// שי טננבוים - 207447897 - shytennenbaum@gmail.com
+// עזרא בלוק - 324384726 - ezra@anyblock.com
+// עשינו את אתגרים 1 2 ו3
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
