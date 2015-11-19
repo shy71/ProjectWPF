@@ -197,7 +197,7 @@ namespace dotNetWPF_03_7897_4726
             if (CheckAccess())
             ChangePages(num);
             else
-                Dispatcher.BeginInvoke((Action<int>)(x => ChangeInk(x)), num);
+                Dispatcher.BeginInvoke((Action<int>)(x => ChangePages(x)), num);
         }
         /// <summary>
         /// הפונקציה מדמה "הדפסה" של מספר דפים רנדומלי ומשתמש במספר דיו רנדומלי
@@ -245,12 +245,12 @@ namespace dotNetWPF_03_7897_4726
         }
         public void SendPageTechnician()
         {
-            Thread.Sleep(rand.Next(5,15));
+            Thread.Sleep(rand.Next(5000,7000));
             this.AddPages();
         }
-        public void SendPageTechnician()
+        public void SendInkTechnician()
         {
-            Thread.Sleep(rand.Next(5, 15));
+            Thread.Sleep(rand.Next(5000, 7000));
             this.AddInk();
         }
 
