@@ -81,7 +81,7 @@ namespace dotNetWPF_03_7897_4726
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="arg">נתנוי השגיאה</param>
-        public void OutOfPaper(object sender, EventArgs arg)
+        public void OutOfPaper(object sender, PrinterEventArgs arg)
         {
             new Thread(() => MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!", MessageBoxButton.OK, MessageBoxImage.Stop)).Start();
             printers.Enqueue(CourentPrinter);
@@ -93,7 +93,7 @@ namespace dotNetWPF_03_7897_4726
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="arg">נתנוי השגיאה</param>
-        public void LowOnInk(object sender, EventArgs arg)
+        public void LowOnInk(object sender, PrinterEventArgs arg)
         {
             MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is " + ((arg.Critical) ? "out" : "low") + " of Ink!!", MessageBoxButton.OK, ((arg.Critical) ? MessageBoxImage.Stop : MessageBoxImage.Warning));
             if (arg.Critical)
