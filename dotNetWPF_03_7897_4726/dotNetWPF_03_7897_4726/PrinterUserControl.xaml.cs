@@ -20,12 +20,17 @@ namespace dotNetWPF_03_7897_4726
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
-        static Random rand = new Random();
-        static int amountOfPrinters = 0;
+        //Constant values:
         const int MAX_PAGES = 400;
+        public static readonly double MaxPages = MAX_PAGES;//Property for MAX_PAGES
         const int MIN_ADD_PAGES = MAX_PAGES / 10, MAX_PRINT_PAGES = MAX_PAGES / 20;
         const double MAX_INK = 100;
         const double MIN_ADD_INK = MAX_INK / 10.0, MAX_PRINT_INK = MAX_INK / 15.0;
+
+        static Random rand = new Random();//Random
+
+        static int amountOfPrinters = 0;
+
         string printerName;
         /// <summary>
         /// Return or sets the name of the printer
@@ -39,7 +44,30 @@ namespace dotNetWPF_03_7897_4726
                 printerNameLabel.Content = printerName;
             }
         }
-        public static readonly double MaxPages = MAX_PAGES;
+
+        public event EventHandler<PrinterEventArgs> PageMissing, InkEmpty;//Printer Events
+
+        int pageCount;
+        /// <summary>
+        /// Return or sets how much pages are in the printer
+        /// </summary>
+        public int PageCount
+        {
+            get { return pageCount; }
+            set
+            {
+                pageLabel.Foreground = Brushes.Black;
+                if (value > MAX_PAGES)
+                    pageCount = MAX_PAGES;
+                else
+                {
+                    if (value == 0)
+                        pageLabel.Foreground = Brushes.Red;
+                    pageCount = value;
+                }
+                pageCountSlider.Value = pageCount;
+            }
+        }
         double inkCount;
         /// <summary>
         /// Return or sets how much Ink(%) is in the printer
@@ -63,27 +91,20 @@ namespace dotNetWPF_03_7897_4726
                 inkCountProgressBar.Value = inkCount;
             }
         }
-        int pageCount;
+
         /// <summary>
-        /// Return or sets how much pages are in the printer
+        /// קונסטרקטור המאפס את הנתונים ההתחלתיים של המדפס ונותן לה את שמה
         /// </summary>
-        public int PageCount
+        public PrinterUserControl()
         {
-            get { return pageCount; }
-            set
-            {
-                pageLabel.Foreground = Brushes.Black;
-                if (value > MAX_PAGES)
-                    pageCount = MAX_PAGES;
-                else
-                {
-                    if (value == 0)
-                        pageLabel.Foreground = Brushes.Red;
-                    pageCount = value;
-                }
-                pageCountSlider.Value = pageCount;
-            }
+            InitializeComponent();
+            this.PrinterName = ("Printer " + (++amountOfPrinters));
+            InkCount = MAX_INK / 2 + rand.NextDouble() * (MAX_INK / 2);//על מנת להכניס ערכים התחלתיים רנדומליים אבל יחסית גדולים
+            PageCount = MAX_PAGES / 2 + rand.Next(MAX_PAGES / 2);//על מנת להכניס ערכים התחלתיים רנדומליים אבל יחסית גדולים
         }
+
+
+        //Changing Functions:
         /// <summary>
         /// הפונקציה משנה את מדד הדפים בהתאם למספר שקיבלה ומתמודדת עם כל ההשלכות הנצרכות משינוי הערך
         /// </summary>
@@ -177,6 +198,9 @@ namespace dotNetWPF_03_7897_4726
             }
             return;
         }
+
+
+        //Adding Functions:
         /// <summary>
         /// הפוקנציה מוסיפה מספר רנדומלי(בהתאם לטווח) של דיו למדפסת
         /// </summary>
@@ -199,6 +223,27 @@ namespace dotNetWPF_03_7897_4726
             else
                 Dispatcher.BeginInvoke((Action<int>)(x => ChangePages(x)), num);
         }
+
+
+        //Technician Functions:
+
+        /// <summary>
+        /// שליחת "טכנאי" למלא מחדש את הדפים
+        /// </summary>
+        public void SendPageTechnician()
+        {
+            Thread.Sleep(rand.Next(5000, 15000));
+            this.AddPages();
+        }
+        /// <summary>
+        /// שליחת "טכנאי" למלא מחדש את הדיו
+        /// </summary>
+        public void SendInkTechnician()
+        {
+            Thread.Sleep(rand.Next(5000, 15000));
+            this.AddInk();
+        }
+
         /// <summary>
         /// הפונקציה מדמה "הדפסה" של מספר דפים רנדומלי ומשתמש במספר דיו רנדומלי
         /// </summary>
@@ -207,18 +252,9 @@ namespace dotNetWPF_03_7897_4726
             ChangePages(-rand.Next(MAX_PRINT_PAGES));
             ChangeInk(-(rand.NextDouble() * MAX_PRINT_INK));
         }
-        public event EventHandler<PrinterEventArgs> PageMissing, InkEmpty;
 
-        /// <summary>
-        /// קונסטרקטור המאפס את הנתונים ההתחלתיים של המדפס ונותן לה את שמה
-        /// </summary>
-        public PrinterUserControl()
-        {
-            InitializeComponent();
-            this.PrinterName = ("Printer " + (++amountOfPrinters));
-            InkCount = MAX_INK / 2 + rand.NextDouble() * (MAX_INK / 2);//על מנת להכניס ערכים התחלתיים רנדומליים אבל יחסית גדולים
-            PageCount = MAX_PAGES / 2 + rand.Next(MAX_PAGES / 2);//על מנת להכניס ערכים התחלתיים רנדומליים אבל יחסית גדולים
-        }
+        //Controllers(WPF) Functions:
+
         /// <summary>
         /// פונקציה המופעלת כאשר העכבר נכנס לתחום התווית ומשנה את גודל התווית
         /// </summary>
@@ -233,7 +269,6 @@ namespace dotNetWPF_03_7897_4726
         {
             printerNameLabel.FontSize = 16;
         }
-
         /// <summary>
         /// הפונקציה מעדכנת את מונה הדפים בהתאם לשינויים הנעשים בסליידר
         /// </summary>
@@ -243,23 +278,6 @@ namespace dotNetWPF_03_7897_4726
             if (PageCount == 0 && PageMissing != null)
                 PageMissing(this, new PrinterEventArgs(true, "Out Of Paper!", this.PrinterName));
         }
-        /// <summary>
-        /// שליחת "טכנאי" למלא מחדש את הדפים
-        /// </summary>
-        public void SendPageTechnician()
-        {
-            Thread.Sleep(rand.Next(5000,15000));
-            this.AddPages();
-        }
-        /// <summary>
-        /// שליחת "טכנאי" למלא מחדש את הדיו
-        /// </summary>
-        public void SendInkTechnician()
-        {
-            Thread.Sleep(rand.Next(5000, 15000));
-            this.AddInk();
-        }
-
 
     }
     /// <summary>
