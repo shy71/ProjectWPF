@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -234,6 +234,16 @@ namespace dotNetWPF_03_7897_4726
             PageCount = (int)e.NewValue;
             if (PageCount == 0 && PageMissing != null)
                 PageMissing(this, new PrinterEventArgs(true, "Out Of Paper!", this.PrinterName));
+        }
+        public void SendPageTechnician()
+        {
+            Thread.Sleep(rand.Next(5,15));
+            this.AddPages();
+        }
+        public void SendPageTechnician()
+        {
+            Thread.Sleep(rand.Next(5, 15));
+            this.AddInk();
         }
 
 
