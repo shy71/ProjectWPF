@@ -182,14 +182,22 @@ namespace dotNetWPF_03_7897_4726
         /// </summary>
         public void AddInk()
         {
-            ChangeInk(MIN_ADD_INK + rand.NextDouble() * (MAX_INK - MIN_ADD_INK));
+            double num=MIN_ADD_INK + rand.NextDouble() * (MAX_INK - MIN_ADD_INK);
+            if (CheckAccess())
+                ChangeInk(num);
+            else
+                Dispatcher.BeginInvoke((Action<double>)(x=>ChangeInk(x)),num);
         }
         /// <summary>
         /// הפוקנציה מוסיפה מספר רנדומלי(בהתאם לטווח) של דפים למדפסת
         /// </summary>
         public void AddPages()
         {
-            ChangePages(MIN_ADD_PAGES + rand.Next(MAX_PAGES - MIN_ADD_PAGES));
+            int num = MIN_ADD_PAGES + rand.Next(MAX_PAGES - MIN_ADD_PAGES);
+            if (CheckAccess())
+            ChangePages(num);
+            else
+                Dispatcher.BeginInvoke((Action<int>)(x => ChangeInk(x)), num);
         }
         /// <summary>
         /// הפונקציה מדמה "הדפסה" של מספר דפים רנדומלי ומשתמש במספר דיו רנדומלי
