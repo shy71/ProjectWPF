@@ -219,11 +219,11 @@ namespace dotNetWPF_03_7897_4726
         {
             int num = MIN_ADD_PAGES + rand.Next(MAX_PAGES - MIN_ADD_PAGES);
             if (CheckAccess())
-            ChangePages(num);
+                ChangePages(num);
             else
                 Dispatcher.BeginInvoke((Action<int>)(x => ChangePages(x)), num);
         }
-
+        public EventHandler<EventArgs> TechnicianArrived;
 
         //Technician Functions:
 
@@ -234,6 +234,10 @@ namespace dotNetWPF_03_7897_4726
         {
             Thread.Sleep(rand.Next(5000, 15000));
             this.AddPages();
+            if (CheckAccess())
+                TechnicianArrived(this, new EventArgs());
+            else
+                Dispatcher.BeginInvoke((Action)(() => TechnicianArrived(this, new EventArgs())));
         }
         /// <summary>
         /// שליחת "טכנאי" למלא מחדש את הדיו
@@ -241,7 +245,11 @@ namespace dotNetWPF_03_7897_4726
         public void SendInkTechnician()
         {
             Thread.Sleep(rand.Next(5000, 15000));
-            this.AddInk();
+            AddInk();
+            if (CheckAccess())
+                TechnicianArrived(this, new EventArgs());
+            else
+                Dispatcher.BeginInvoke((Action)(() => TechnicianArrived(this, new EventArgs())));
         }
 
 

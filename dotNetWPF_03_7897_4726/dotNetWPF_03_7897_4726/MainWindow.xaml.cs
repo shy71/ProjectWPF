@@ -42,17 +42,18 @@ namespace dotNetWPF_03_7897_4726
         /// </summary>
         public MainWindow()
         {
-
+            PrinterUserControl printer;
             InitializeComponent();
             printers = new Queue<PrinterUserControl>();
             foreach (Control item in printersGrid.Children)
             {
                 if (item is PrinterUserControl)
                 {
-                    PrinterUserControl printer = item as PrinterUserControl;
+                    printer = item as PrinterUserControl;
                     // …
                     printer.PageMissing += OutOfPaper;
                     printer.InkEmpty += LowOnInk;
+                    printer.TechnicianArrived += EnablePrintButton;
                     printers.Enqueue(printer);
 
                 }
@@ -63,7 +64,15 @@ namespace dotNetWPF_03_7897_4726
 
 
         //Event Handlers:
-
+        public void EnablePrintButton(object sender, EventArgs arg)
+        {
+           if (printButton.IsEnabled == false)
+            {
+                printButton.IsEnabled = true;
+                printers.Enqueue(CourentPrinter);
+                CourentPrinter = BestPrinter();
+            }
+        }
         /// <summary>
         /// פונקציה המטפלת בשגיאת חוסר דפים במדפסת
         /// </summary>
@@ -123,8 +132,8 @@ namespace dotNetWPF_03_7897_4726
                     return printer;
                 printers.Enqueue(printer);
             }
+            printButton.IsEnabled = false;
             return printers.Dequeue();
-
         }
 
 
