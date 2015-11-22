@@ -240,11 +240,6 @@ namespace dotNetWPF_03_7897_4726
             Thread.Sleep(rand.Next(5,15));
             this.AddPages();
         }
-        public void SendPageTechnician()
-        {
-            Thread.Sleep(rand.Next(5, 15));
-            this.AddInk();
-        }
 
 
     }
