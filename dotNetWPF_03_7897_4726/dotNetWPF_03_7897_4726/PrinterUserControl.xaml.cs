@@ -111,11 +111,6 @@ namespace dotNetWPF_03_7897_4726
         /// <param name="num">המספר אותו רוצים להוסיף/להוריד ממדד הדפים</param>
         public void ChangePages(int num)
         {
-            /*
-             * צריך לבדוק מה קורה אם הוא מנסה להדפיס יותר מידי דפים
-             * האם זה "ממשיך" אחרי השגיאה להדפיס
-             * לבדוק עם עובד!
-             */
             int temp;
             if (num > MIN_ADD_PAGES)
             {
@@ -142,7 +137,6 @@ namespace dotNetWPF_03_7897_4726
                     PageCount = 0;
                     if (PageMissing != null)
                         PageMissing(this, new PrinterEventArgs(true, "Out Of Paper(" + System.Math.Abs(temp + num) + ")", this.PrinterName));
-                    //מה אמור לעשות פה?
                 }
             }
             else
@@ -154,14 +148,10 @@ namespace dotNetWPF_03_7897_4726
         /// <param name="num">המספר אותו רוצים להוסיף/להוריד ממדד הדיו</param>
         public void ChangeInk(double num)
         {
-            /*
-             * לבדוק מה אמורים לעשות עם נגמר הדיו וגם האם אפשר להמשיך להדפיס למרות שנשאר רק אחד אחוז
-             * לבדוק עם עובד!
-             */
             double temp;
             if (num > MIN_ADD_INK)
             {
-                if (this.InkCount + num < MAX_INK)
+                if (InkCount + num < MAX_INK)
                 {
                     temp = InkCount + num;
                     InkCount = temp;
@@ -196,7 +186,6 @@ namespace dotNetWPF_03_7897_4726
                         InkEmpty(this, new PrinterEventArgs(true, "Out Of Ink", this.PrinterName));
                 }
             }
-            return;
         }
 
 
@@ -219,7 +208,7 @@ namespace dotNetWPF_03_7897_4726
         {
             int num = MIN_ADD_PAGES + rand.Next(MAX_PAGES - MIN_ADD_PAGES);
             if (CheckAccess())
-            ChangePages(num);
+                ChangePages(num);
             else
                 Dispatcher.BeginInvoke((Action<int>)(x => ChangePages(x)), num);
         }
