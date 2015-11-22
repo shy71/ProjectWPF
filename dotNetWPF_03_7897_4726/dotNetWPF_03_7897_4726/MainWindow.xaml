@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:dotNetWPF_03_7897_4726" x:Class="dotNetWPF_03_7897_4726.MainWindow"
         Title="Exercise 3 --- Mini Project in Windows --- By Ezra Block and Shy Tennenbaum --- dotNetWPF_03_7897_4726" Height="400" Width="800">
     <Grid>
-        <Button x:Name="printButton" Content="Print" FontSize="36" Margin="10" Grid.Row="1" Click="printButton_Click"/>
+        <Button x:Name="printButton" Content="Print" FontSize="36" Grid.Row="1" Click="printButton_Click"/>
         <Grid x:Name="printersGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -13,7 +13,7 @@
             </Grid.ColumnDefinitions>
             <local:PrinterUserControl />
             <local:PrinterUserControl Grid.Column="1"/>
-            <local:PrinterUserControl Grid.Column="2" Margin="5,0,-5,0"/>
+            <local:PrinterUserControl Grid.Column="2"/>
         </Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>

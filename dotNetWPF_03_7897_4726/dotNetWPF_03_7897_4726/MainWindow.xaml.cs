@@ -1,4 +1,11 @@
-﻿using System;
+﻿//תרגיל 3 - מיני פרויקט בחלונות
+//עזרא בלוק ושי טננבוים
+// כיתה י"ב - ישיבה תיכונית
+// שי טננבוים - 207447897 - shytennenbaum@gmail.com
+// עזרא בלוק - 324384726 - ezra@anyblock.com
+// עשינו את אתגרים 1 2 ו3
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +20,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+/*
+ * TODO: need to delete all not necessary comments
+ * TODO: check the threding
+ */
+
+
 namespace dotNetWPF_03_7897_4726
 {
     /// <summary>
@@ -20,8 +33,10 @@ namespace dotNetWPF_03_7897_4726
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Integers
         PrinterUserControl CourentPrinter;
         Queue<PrinterUserControl> printers;
+
         /// <summary>
         /// קונסטרקטור שבונה את החלון ומאתחל את משתני המחלקה
         /// </summary>
@@ -45,6 +60,41 @@ namespace dotNetWPF_03_7897_4726
             CourentPrinter = printers.Dequeue();
 
         }
+
+
+        //Event Handlers:
+
+        /// <summary>
+        /// פונקציה המטפלת בשגיאת חוסר דפים במדפסת
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="arg">נתנוי השגיאה</param>
+        public void OutOfPaper(object sender, PrinterEventArgs arg)
+        {
+            new Thread(() => MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!", MessageBoxButton.OK, MessageBoxImage.Stop)).Start();
+            printers.Enqueue(CourentPrinter);
+            CourentPrinter = BestPrinter();
+            new Thread(() => (sender as PrinterUserControl).SendPageTechnician()).Start();
+        }
+        /// <summary>
+        /// פונקציה המטפלת בשגיאת מעט דיו/חוסר דיו במדפסת
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="arg">נתנוי השגיאה</param>
+        public void LowOnInk(object sender, PrinterEventArgs arg)
+        {
+            new Thread(() => MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is " + ((arg.Critical) ? "out" : "low") + " of Ink!!", MessageBoxButton.OK, ((arg.Critical) ? MessageBoxImage.Stop : MessageBoxImage.Warning))).Start();
+            if (arg.Critical)
+            {
+                printers.Enqueue(CourentPrinter);
+                CourentPrinter = BestPrinter();
+                new Thread(() => (sender as PrinterUserControl).SendInkTechnician()).Start();
+            }
+
+
+        }
+
+
         /// <summary>
         /// הפונקציה מחפשת ובוחרת את המדפסת הבאה שנמצאת ב"רמה" הכי גבוהה מבחינת מצב דיו/נייר לפי מה שהוגדר בתרגיל כרמות שונות
         /// </summary>
@@ -76,35 +126,10 @@ namespace dotNetWPF_03_7897_4726
             return printers.Dequeue();
 
         }
-        /// <summary>
-        /// פונקציה המטפלת בשגיאת חוסר דפים במדפסת
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="arg">נתנוי השגיאה</param>
-        public void OutOfPaper(object sender, PrinterEventArgs arg)
-        {
-            new Thread(() => MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is out of paper!!", MessageBoxButton.OK, MessageBoxImage.Stop)).Start();
-            printers.Enqueue(CourentPrinter);
-            CourentPrinter = BestPrinter();
-            (sender as PrinterUserControl).AddPages();
-        }
-        /// <summary>
-        /// פונקציה המטפלת בשגיאת מעט דיו/חוסר דיו במדפסת
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="arg">נתנוי השגיאה</param>
-        public void LowOnInk(object sender, PrinterEventArgs arg)
-        {
-            new Thread(() =>MessageBox.Show("At: " + arg.Time + "\nMessage from " + arg.PrinterName + ": " + arg.ErrorMessage, arg.PrinterName + " is " + ((arg.Critical) ? "out" : "low") + " of Ink!!", MessageBoxButton.OK, ((arg.Critical) ? MessageBoxImage.Stop : MessageBoxImage.Warning))).Start();
-            if (arg.Critical)
-            {
-                printers.Enqueue(CourentPrinter);
-                CourentPrinter = BestPrinter();
-                (sender as PrinterUserControl).AddInk();
-            }
 
 
-        }
+        //Controllers(WPF) Functions:
+
         /// <summary>
         /// פונקציה המדפיסה במדפסת הנוכחית בכל פעם שלוחצים על כפתור הההדפסה
         /// </summary>

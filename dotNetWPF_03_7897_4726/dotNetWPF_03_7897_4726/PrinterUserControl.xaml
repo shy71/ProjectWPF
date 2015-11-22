@@ -24,8 +24,8 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-        <Label x:Name="inkLabel" Grid.Row="0" Content="Ink:"/>
-        <Label x:Name="pageLabel" Content="Pages:"  Grid.Row="1" />
+            <Label x:Name="inkLabel" Grid.Row="0" Content="Ink:"/>
+            <Label x:Name="pageLabel" Content="Pages:"  Grid.Row="1" />
             <ProgressBar  
             x:Name="inkCountProgressBar" 
             Grid.Column="1"
@@ -37,7 +37,7 @@
                 x:Name="pageCountSlider" 
                 Grid.Column="1"
                 Grid.Row="1" 
-                Value="200" 
+                Value="200"
                 Maximum="{x:Static local:PrinterUserControl.MaxPages}" ValueChanged="pageCountSlider_ValueChanged"/>
         </Grid>
     </Grid>
