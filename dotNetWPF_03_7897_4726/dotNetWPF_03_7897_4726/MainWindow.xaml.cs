@@ -62,6 +62,12 @@ namespace dotNetWPF_03_7897_4726
 
 
         //Event Handlers:
+
+        /// <summary>
+        ///פונקציה שמטפלת בהחזרת הלחצן של ההדפסה
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="arg"></param>
         public void EnablePrintButton(object sender, EventArgs arg)
         {
            if (printButton.IsEnabled == false)
