@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace BE
 {
     //הצלחתי!
+    enum Kashrut
+    {
+        LOW, MEDIUM, HIGH
+    }
     public class Class1
     {
-        enum kashrut
-        {
-            low,medium,high
-        }
         /// <summary>
         /// הזמנה
         /// </summary>
@@ -21,7 +21,7 @@ namespace BE
             int orderNum;
             DateTime date;
             int branchNum;
-            kashrut orderKashrut;
+            Kashrut orderKashrut;
             string customerName;
             string address;
         }
