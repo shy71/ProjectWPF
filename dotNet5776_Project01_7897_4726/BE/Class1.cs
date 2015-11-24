@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BE
 {
+    //הצלחתי!
     public class Class1
     {
         enum kashrut
