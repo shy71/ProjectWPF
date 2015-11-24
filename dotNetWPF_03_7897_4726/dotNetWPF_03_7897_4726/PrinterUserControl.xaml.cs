@@ -191,17 +191,6 @@ namespace dotNetWPF_03_7897_4726
 
         //Adding Functions:
         /// <summary>
-        /// הפוקנציה מוסיפה מספר רנדומלי(בהתאם לטווח) של דיו למדפסת
-        /// </summary>
-        public void AddInk()
-        {
-            double num=MIN_ADD_INK + rand.NextDouble() * (MAX_INK - MIN_ADD_INK);
-            if (CheckAccess())
-                ChangeInk(num);
-            else
-                Dispatcher.BeginInvoke((Action<double>)(x=>ChangeInk(x)),num);
-        }
-        /// <summary>
         /// הפוקנציה מוסיפה מספר רנדומלי(בהתאם לטווח) של דפים למדפסת
         /// </summary>
         public void AddPages()
@@ -212,7 +201,21 @@ namespace dotNetWPF_03_7897_4726
             else
                 Dispatcher.BeginInvoke((Action<int>)(x => ChangePages(x)), num);
         }
+        /// <summary>
+        /// הפוקנציה מוסיפה מספר רנדומלי(בהתאם לטווח) של דיו למדפסת
+        /// </summary>
+        public void AddInk()
+        {
+            double num=MIN_ADD_INK + rand.NextDouble() * (MAX_INK - MIN_ADD_INK);
+            if (CheckAccess())
+                ChangeInk(num);
+            else
+                Dispatcher.BeginInvoke((Action<double>)(x=>ChangeInk(x)),num);
+        } 
+
+
         public EventHandler<EventArgs> TechnicianArrived;
+
 
         //Technician Functions:
 
@@ -278,6 +281,7 @@ namespace dotNetWPF_03_7897_4726
         }
 
     }
+
     /// <summary>
     /// משתני אירוע כלשהו של מדפסת
     /// </summary>
