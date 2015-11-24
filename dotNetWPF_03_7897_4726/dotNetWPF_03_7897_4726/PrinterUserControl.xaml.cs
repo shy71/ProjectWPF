@@ -187,15 +187,18 @@ namespace dotNetWPF_03_7897_4726
                 }
             }
         }
-
-
+        
         //Adding Functions:
         /// <summary>
         /// הפוקנציה מוסיפה מספר רנדומלי(בהתאם לטווח) של דפים למדפסת
         /// </summary>
         public void AddPages()
         {
-            int num = MIN_ADD_PAGES + rand.Next(MAX_PAGES - MIN_ADD_PAGES);
+            int num;
+            if (MAX_PAGES - PageCount - MIN_ADD_PAGES >= 0)
+                num = MIN_ADD_PAGES + rand.Next(MAX_PAGES - PageCount - MIN_ADD_PAGES);
+            else
+                return;
             if (CheckAccess())
                 ChangePages(num);
             else
@@ -206,7 +209,11 @@ namespace dotNetWPF_03_7897_4726
         /// </summary>
         public void AddInk()
         {
-            double num=MIN_ADD_INK + rand.NextDouble() * (MAX_INK - MIN_ADD_INK);
+            double num;
+            if (MAX_INK - InkCount - MIN_ADD_INK >= 0)
+                num = MIN_ADD_INK + rand.NextDouble() * (MAX_INK - InkCount - MIN_ADD_INK);
+            else
+                return;
             if (CheckAccess())
                 ChangeInk(num);
             else
