@@ -11,11 +11,15 @@ using System.Threading.Tasks;
  * */
 namespace BE
 {
+    public interface InterID
+    {
+        int ID { get; set; }
+    }
     public enum Kashrut
     {
         LOW, MEDIUM, HIGH
     }
-    public class Client
+    public class Client : InterID
     {
         int id;
         public int ID
@@ -49,7 +53,7 @@ namespace BE
                 +  "\nCredit card number: " + CreditCard;
         }
     }
-    public class Order
+    public class Order : InterID
     {
         int clientID;
         public int ClientID
@@ -104,8 +108,12 @@ namespace BE
     /// <summary>
     /// מנה
     /// </summary>
-    public class Dish
+    public class Dish : InterID
     {
+        public Dish(int id)
+        {
+            this.id = id;
+        }
         int id;
         public int ID
         {
@@ -148,13 +156,13 @@ namespace BE
                  + "\nDish price: " + Price;
         }
     }
-    public class Branch
+    public class Branch : InterID
     {
-        int number;
-        public int Number
+        int id;
+        public int ID
         {
-            get { return number; }
-            set { number = value; }
+            get { return id; }
+            set { id = value; }
         }
         string name;
         public string Name
@@ -204,7 +212,7 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Branch number: " + Number
+            return "Branch number: " + ID
                   + "\nBranch name: " + Name
                   + "\nBranch address: " + Address
                   + "\nPhone number: " + PhoneNumber
@@ -214,8 +222,14 @@ namespace BE
                   + "\nBranch kashrut: " + Kosher;
         }
     }
-    public class DishOrder
+    public class DishOrder : InterID
     {
+        int id;
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
         int orderID;
         public int OrderNum
         {
