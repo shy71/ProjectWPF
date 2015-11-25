@@ -214,7 +214,7 @@ namespace BE
                   + "\nBranch kashrut: " + Kosher;
         }
     }
-    public class OrderDish
+    public class DishOrder
     {
         int orderID;
         public int OrderNum
