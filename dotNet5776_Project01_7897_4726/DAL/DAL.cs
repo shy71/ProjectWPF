@@ -42,19 +42,43 @@ namespace DAL
     class Dal_imp//: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
     {
         Random rand=new Random();
+        /// <summary>
+        /// מוסיפה איבר לרשימה, יחד עם כל הבדיקות הנצרכות
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר</typeparam>
+        /// <param name="newItem">האיבר שהפוקנציה תוסיף</param>
+        /// <param name="list">הרשימה לה היא תוסיף אותה</param>
         void Add<T>(T newItem,List<T> list)where T : BE.InterID
         {
             if (newItem.ID == 0 || ContainID(newItem.ID, list))
                 newItem.ID = NextID(list);
             list.Add(newItem);
         }
+        /// <summary>
+        /// מוחקת איבר מהרשימה באמצעות תעודת הזהות
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר</typeparam>
+        /// <param name="id">תעודת הזהות של האיבר אותו אנו מבקשים למחוק</param>
+        /// <param name="list">הרשימה ממנה נמחוק אותו</param>
         void Delete<T>(int id, List<T> list) where T : BE.InterID
         {
             if (ContainID(id, list) == false)
                 return; //ERROR
             list.RemoveAt(IndexByID(id, list));
         }
+       /// <summary>
+        /// מוחקת איבר מהרשימה באמצעות האיבר עצמו
+       /// </summary>
+       /// <typeparam name="T">סוג האיבר</typeparam>
+       /// <param name="item">האיבר אותו אנו מבקשים למחוק</param>
+       /// <param name="list">הרשימה ממנה נמחק אותו</param>
         void Delete<T>(T item, List<T> list) where T : BE.InterID { Delete(item.ID, list); }
+        /// <summary>
+        /// עדכון איבר מהרשימה באמצעות איבר מעודכן
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר</typeparam>
+        /// <param name="item">האיבר המעודכן שבעזרת תעדות הזהות מסמן על האיבר שנעדכן</param>
+        /// <param name="list">הרשימה בא נמצא האיבר אותו נעדכן</param>
         void Update<T>(T item,List<T> list)where T : BE.InterID
         {
             if (ContainID(item.ID, list) == false)
@@ -63,6 +87,12 @@ namespace DAL
             list.Add(item);
 
         }
+        /// <summary>
+        /// מביאה תעודת זהות פנוייה באופן רנדומלי
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר שצריך תעדות זהות</typeparam>
+        /// <param name="list">הרשימה בה נמצאים שאר האיברים מסוג זה</param>
+        /// <returns>מחזירה את תעדות הזהות הפנוייה</returns>
         int NextID<T>(List<T> list) where T : BE.InterID 
         {
             int id = rand.Next(1, 100000000);
@@ -70,6 +100,13 @@ namespace DAL
                 id = rand.Next(1, 100000000);
             return id;
         }
+        /// <summary>
+        /// בודקת האם קיים איבר ברשימה עם תעודת הזהות הזאת
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר</typeparam>
+        /// <param name="id">תעדות הזהות</param>
+        /// <param name="list">הרשימה בה נמצאים האיברים</param>
+        /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
         bool ContainID<T>(int id, List<T> list) where T : BE.InterID 
         {
             foreach (T item in list)
@@ -77,6 +114,13 @@ namespace DAL
                     return true;
             return false;
         }
+        /// <summary>
+        /// בודקת באזיה אינדקס נמצא האיבר בעל תעודת הזהות הזו
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר</typeparam>
+        /// <param name="id">תעדות הזהות</param>
+        /// <param name="list">הרשימה בה נממצאים האיברים </param>
+        /// <returns>מחזירה אינדקס של מיקום האיבר</returns>
         int IndexByID<T>(int id, List<T> list) where T : BE.InterID 
         {
             int num=0;
