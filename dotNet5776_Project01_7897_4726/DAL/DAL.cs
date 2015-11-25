@@ -28,6 +28,11 @@ namespace DAL
         void DeleteDishOrder(BE.DishOrder d);
         void updateDishOrder(int id, BE.DishOrder d);//האם יקבל ID?
 
+        void AddClient(BE.Client newClient);
+        void DeleteClient(int id);
+        void DeleteClient(BE.Client c);
+        void updateClient(int id, BE.Client c);//האם יקבל ID?
+
         List<BE.Dish> getDishs();
         List<BE.Branch> getBranchs();
         List<BE.Order> getOrders();  
