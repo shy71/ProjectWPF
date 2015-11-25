@@ -17,11 +17,11 @@ namespace BE
     }
     public class Client
     {
-        int clientNumber;
-        public int ClientNumber
+        int clientID;
+        public int ClientID
         {
-            get { return clientNumber; }
-            set { clientNumber = value; }
+            get { return clientID; }
+            set { clientID = value; }
         }
         string clientName;
         public string ClientName
@@ -43,7 +43,7 @@ namespace BE
         }
         public override string ToString()
         {
-            return "Client number: " + ClientNumber
+            return "Client number: " + ClientID
                 +  "\nClient name: " + ClientName
                 +  "\nClient address: " + ClientAddress
                 +  "\nCredit card number: " + CreditCard;
@@ -51,17 +51,17 @@ namespace BE
     }
     public class Order
     {
-        int clientNum;
-        public int ClientNum
+        int clientID;
+        public int ClientID
         {
-            get { return clientNum; }
-            set { clientNum = value; }
+            get { return clientID; }
+            set { clientID = value; }
         }
-        int orderNum;
-        public int OrderNum
+        int orderID;
+        public int OrderID
         {
-            get { return orderNum; }
-            set { orderNum = value; }
+            get { return orderID; }
+            set { orderID = value; }
         }
         DateTime date;
         public DateTime Date
@@ -94,11 +94,11 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Order number: " + OrderAddress
+            return "Order ID: " + OrderID
                     + "\nDate: " + Date
                     + "\nBranch: " + BranchNum
                     + "\nKashrut: " + OrderKashrut
-                    + "\nClient number: " + ClientNum
+                    + "\nClient ID: " + ClientID
                     + "\nOrder address: " + OrderAddress;
         }
     }
@@ -107,11 +107,11 @@ namespace BE
     /// </summary>
     public class Dish
     {
-        int dishNum;
-        public int DishNum
+        int dishID;
+        public int DishID
         {
-            get { return dishNum; }
-            set { dishNum = value; }
+            get { return dishID; }
+            set { dishID = value; }
         }
         string dishName;
         public string DishName
@@ -143,7 +143,7 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Dish number: " + DishNum
+            return "Dish number: " + DishID
                  + "\nDish name: " + DishName
                  + "\nDish size: " + DishSize
                  + "\nDish price: " + DishPrice;
@@ -217,17 +217,17 @@ namespace BE
     }
     public class OrderDish
     {
-        int orderNum;
+        int orderID;
         public int OrderNum
         {
-            get { return orderNum; }
-            set { orderNum = value; }
+            get { return orderID; }
+            set { orderID = value; }
         }
-        int dishNum;
+        int dishID;
         public int DishNum
         {
-            get { return dishNum; }
-            set { dishNum = value; }
+            get { return dishID; }
+            set { dishID = value; }
         }
         int dishAmount;
         public int DishAmount
