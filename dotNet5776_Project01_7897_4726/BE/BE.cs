@@ -17,23 +17,23 @@ namespace BE
     }
     public class Client
     {
-        int clientID;
-        public int ClientID
+        int id;
+        public int ID
         {
-            get { return clientID; }
-            set { clientID = value; }
+            get { return id; }
+            set { id = value; }
         }
-        string clientName;
-        public string ClientName
+        string name;
+        public string Name
         {
-            get { return ClientName; }
-            set { ClientName = value; }
+            get { return Name; }
+            set { Name = value; }
         }
-        string clientAddress;
-        public string ClientAddress
+        string address;
+        public string Address
         {
-            get { return clientAddress; }
-            set { clientAddress = value; }
+            get { return address; }
+            set { address = value; }
         }
         int creditCard;
         public int CreditCard
@@ -43,9 +43,9 @@ namespace BE
         }
         public override string ToString()
         {
-            return "Client number: " + ClientID
-                +  "\nClient name: " + ClientName
-                +  "\nClient address: " + ClientAddress
+            return "Client number: " + ID
+                +  "\nClient name: " + Name
+                +  "\nClient address: " + Address
                 +  "\nCredit card number: " + CreditCard;
         }
     }
@@ -57,11 +57,11 @@ namespace BE
             get { return clientID; }
             set { clientID = value; }
         }
-        int orderID;
-        public int OrderID
+        int id;
+        public int ID
         {
-            get { return orderID; }
-            set { orderID = value; }
+            get { return id; }
+            set { id = value; }
         }
         DateTime date;
         public DateTime Date
@@ -75,18 +75,17 @@ namespace BE
             get { return branchNum; }
             set { branchNum = value; }
         }
-        Kashrut orderKashrut;
-        public Kashrut OrderKashrut
+        Kashrut kosher;
+        public Kashrut Kosher
         {
-            get { return orderKashrut; }
-            set { orderKashrut = value; }
+            get { return kosher; }
+            set { kosher = value; }
         }
-        
-        string orderAddress;
-        public string OrderAddress
+        string address;
+        public string Address
         {
-            get { return orderAddress; }
-            set { orderAddress = value; }
+            get { return address; }
+            set { address = value; }
         }
         /// <summary>
         /// ממיר את ההזמנה למחרוזת
@@ -94,12 +93,12 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Order ID: " + OrderID
+            return "Order ID: " + ID
                     + "\nDate: " + Date
                     + "\nBranch: " + BranchNum
-                    + "\nKashrut: " + OrderKashrut
+                    + "\nKashrut: " + Kosher
                     + "\nClient ID: " + ClientID
-                    + "\nOrder address: " + OrderAddress;
+                    + "\nOrder address: " + Address;
         }
     }
     /// <summary>
@@ -107,35 +106,35 @@ namespace BE
     /// </summary>
     public class Dish
     {
-        int dishID;
-        public int DishID
+        int id;
+        public int ID
         {
-            get { return dishID; }
-            set { dishID = value; }
+            get { return id; }
+            set { id = value; }
         }
-        string dishName;
-        public string DishName
+        string name;
+        public string Name
         {
-            get { return dishName; }
-            set { dishName = value; }
+            get { return name; }
+            set { name = value; }
         }
-        int dishSize;
-        public int DishSize
+        int size;
+        public int Size
         {
-            get { return dishSize; }
-            set { dishSize = value; }
+            get { return size; }
+            set { size = value; }
         }
-        float dishPrice;
-        public float DishPrice
+        float price;
+        public float Price
         {
-            get { return dishPrice; }
-            set { dishPrice = value; }
+            get { return price; }
+            set { price = value; }
         }
-        Kashrut dishKashrut;
-        public Kashrut DishKashrut
+        Kashrut kosher;
+        public Kashrut Kosher
         {
-            get { return dishKashrut; }
-            set { dishKashrut = value; }
+            get { return kosher; }
+            set { kosher = value; }
         }
         /// <summary>
         /// ממיר את המנה למחרוזת
@@ -143,31 +142,31 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Dish number: " + DishID
-                 + "\nDish name: " + DishName
-                 + "\nDish size: " + DishSize
-                 + "\nDish price: " + DishPrice;
+            return "Dish number: " + ID
+                 + "\nDish name: " + Name
+                 + "\nDish size: " + Size
+                 + "\nDish price: " + Price;
         }
     }
     public class Branch
     {
-        int branchNum;
-        public int BranchNum
+        int number;
+        public int Number
         {
-            get { return branchNum; }
-            set { branchNum = value; }
+            get { return number; }
+            set { number = value; }
         }
-        string branchName;
-        public string BranchName
+        string name;
+        public string Name
         {
-            get { return branchName; }
-            set { branchName = value; }
+            get { return name; }
+            set { name = value; }
         }
-        string branchAddress;
-        public string BranchAddress
+        string address;
+        public string Address
         {
-            get { return branchAddress; }
-            set { branchAddress = value; }
+            get { return address; }
+            set { address = value; }
         }
         string phoneNumber;
         public string PhoneNumber
@@ -175,11 +174,11 @@ namespace BE
             get { return phoneNumber; }
             set { phoneNumber = value; }
         }
-        string branchBoss;
-        public string BranchBoss
+        string boss;
+        public string Boss
         {
-            get { return branchBoss; }
-            set { branchBoss = value; }
+            get { return boss; }
+            set { boss = value; }
         }
         int employeeCount;
         public int EmployeeCount
@@ -193,11 +192,11 @@ namespace BE
             get { return availableMessangers; }
             set { availableMessangers = value; }
         }
-        Kashrut branchKashrut;
-        public Kashrut BranchKashrut
+        Kashrut kosher;
+        public Kashrut Kosher
         {
-            get { return branchKashrut; }
-            set { branchKashrut = value; }
+            get { return kosher; }
+            set { kosher = value; }
         }
         /// <summary>
         /// ממיר את הסניף למחרוזת
@@ -205,14 +204,14 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Branch number: " + BranchNum
-                  + "\nBranch name: " + BranchName
-                  + "\nBranch address: " + BranchAddress
+            return "Branch number: " + Number
+                  + "\nBranch name: " + Name
+                  + "\nBranch address: " + Address
                   + "\nPhone number: " + PhoneNumber
-                  + "\nBranch bos: " + BranchBoss
+                  + "\nBranch bos: " + Boss
                   + "\nEmployee Count: " + EmployeeCount
                   + "\nAvilable messanger count: " + AvailableMessangers
-                  + "\nBranch kashrut: " + BranchKashrut;
+                  + "\nBranch kashrut: " + Kosher;
         }
     }
     public class OrderDish
