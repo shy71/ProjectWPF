@@ -10,28 +10,28 @@ namespace DAL
     {
         void AddDish(BE.Dish newDish);
         void DeleteDish(int id);
-        void DeleteDish(BE.Dish d);
-        void UpdateDish(BE.Dish d);//האם יקבל ID?
+        void DeleteDish(BE.Dish item);
+        void UpdateDish(BE.Dish item);//האם יקבל ID?
 
         void AddBranch(BE.Branch newBranch);
         void DeleteBranch(int id);
-        void DeleteBranch(BE.Branch b);
-        void UpdateBranch(BE.Branch b);//האם יקבל ID?
+        void DeleteBranch(BE.Branch item);
+        void UpdateBranch(BE.Branch item);//האם יקבל ID?
 
         void AddOrder(BE.Order newOrder);
         void DeleteOrder(int id);
-        void DeleteOrder(BE.Order o);
-        void UpdateOrder(BE.Order o);//האם יקבל ID?
+        void DeleteOrder(BE.Order item);
+        void UpdateOrder(BE.Order item);//האם יקבל ID?
 
         void AddDishOrder(BE.DishOrder newDishOrder);
         void DeleteDishOrder(int id);
-        void DeleteDishOrder(BE.DishOrder d);
-        void UpdateDishOrder(BE.DishOrder d);//האם יקבל ID?
+        void DeleteDishOrder(BE.DishOrder item);
+        void UpdateDishOrder(BE.DishOrder item);//האם יקבל ID?
 
         void AddClient(BE.Client newClient);
         void DeleteClient(int id);
-        void DeleteClient(BE.Client c);
-        void UpdateClient(BE.Client c);//האם יקבל ID?
+        void DeleteClient(BE.Client item);
+        void UpdateClient(BE.Client item);//האם יקבל ID?
 
         List<BE.Dish> getDishs();
         List<BE.Branch> getBranchs();
@@ -133,9 +133,86 @@ namespace DAL
             return -1;
         }
 
-        void AddDish(BE.Dish newDish)//דוגמא להפניות לפונקציות שצריך לעשות...
+        void AddDish(BE.Dish newDish)
         {
             Add(newDish, getDishs());
+        }
+        void DeleteDish(int id)
+        {
+            Delete(id, getDishs());
+        }
+        void DeleteDish(BE.Dish item)
+        {
+            DeleteDish(item.ID);
+        }
+        void UpdateDish(BE.Dish item)
+        {
+            Update(item, getDishs());
+        }
+
+        void AddBranch(BE.Branch newBranch)
+        {
+            Add(newBranch, getBranchs());
+        }
+        void DeleteBranch(int id)
+        {
+            Delete(id, getBranchs());
+        }
+        void DeleteBranch(BE.Branch item)
+        {
+            DeleteBranch(item.ID);
+        }
+        void UpdateBranch(BE.Branch item)
+        {
+            Update(item, getBranchs());
+        }
+        void AddOrder(BE.Order newOrder)
+        {
+            Add(newOrder, getOrders());
+        }
+        void DeleteOrder(int id)
+        {
+            Delete(id, getOrders());
+        }
+        void DeleteOrder(BE.Order item)
+        {
+            DeleteOrder(item.ID);
+        }
+        void UpdateOrder(BE.Order item)
+        {
+            Update(item, getOrders());
+        }
+        void AddDishOrder(BE.DishOrder newDishOrder)
+        {
+            Add(newDishOrder, getDishOrders());
+        }
+        void DeleteDishOrder(int id)
+        {
+            Delete(id, getDishOrders());
+        }
+        void DeleteDishOrder(BE.DishOrder item)
+        {
+            DeleteDishOrder(item.ID);
+        }
+        void UpdateDishOrder(BE.DishOrder item)
+        {
+            Update(item, getDishOrders());
+        }
+        void AddClient(BE.Client newClient)
+        {
+            Add(newClient, getClients());
+        }
+        void DeleteClient(int id)
+        {
+            Delete(id, getClients());
+        }
+        void DeleteClient(BE.Client item)
+        {
+            DeleteClient(item.ID);
+        }
+        void UpdateClient(BE.Client item)
+        {
+            Update(item, getClients());
         }
 
 
