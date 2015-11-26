@@ -225,11 +225,21 @@ namespace dotNetWPF_03_7897_4726
 
 
         //Technician Functions:
-
+        /// <summary>
+        /// שולח טכנאי מתאים בהתאם למשתנה הובליאני
+        /// </summary>
+        /// <param name="IsPagesEmpty">האם צריך למלא את הדפים, או אחרת למלא את הדיו</param>
+        public void SendTechnician(bool IsPagesEmpty)
+        {
+            if (IsPagesEmpty)
+                new Thread(sendPageTechnician);
+            else
+                new Thread(sendInkTechnician);
+        }
         /// <summary>
         /// שליחת "טכנאי" למלא מחדש את הדפים
         /// </summary>
-        public void SendPageTechnician()
+        void sendPageTechnician()
         {
             Thread.Sleep(rand.Next(5000, 15000));
             this.AddPages();
@@ -241,7 +251,7 @@ namespace dotNetWPF_03_7897_4726
         /// <summary>
         /// שליחת "טכנאי" למלא מחדש את הדיו
         /// </summary>
-        public void SendInkTechnician()
+        void sendInkTechnician()
         {
             Thread.Sleep(rand.Next(5000, 15000));
             AddInk();

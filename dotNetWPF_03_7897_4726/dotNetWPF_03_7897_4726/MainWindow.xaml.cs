@@ -83,7 +83,7 @@ namespace dotNetWPF_03_7897_4726
                                               , arg.PrinterName + " is out of paper!!", MessageBoxButton.OK, MessageBoxImage.Stop)).Start();
             printers.Enqueue(CourentPrinter);
             CourentPrinter = BestPrinter();
-            new Thread(() => (sender as PrinterUserControl).SendPageTechnician()).Start();
+            new Thread(() => (sender as PrinterUserControl).SendTechnician(true)).Start();
         }
         /// <summary>
         /// פונקציה המטפלת בשגיאת מעט דיו/חוסר דיו במדפסת
@@ -99,7 +99,7 @@ namespace dotNetWPF_03_7897_4726
             {
                 printers.Enqueue(CourentPrinter);
                 CourentPrinter = BestPrinter();
-                new Thread(() => (sender as PrinterUserControl).SendInkTechnician()).Start();
+                new Thread(() => (sender as PrinterUserControl).SendTechnician(false)).Start();
             }
 
 
