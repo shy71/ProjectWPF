@@ -46,6 +46,7 @@ namespace dotNetWPF_03_7897_4726
         }
 
         public event EventHandler<PrinterEventArgs> PageMissing, InkEmpty;//Printer Events
+        public EventHandler<EventArgs> TechnicianArrived;
 
         int pageCount;
         /// <summary>
@@ -218,12 +219,7 @@ namespace dotNetWPF_03_7897_4726
                 ChangeInk(num);
             else
                 Dispatcher.BeginInvoke((Action<double>)(x=>ChangeInk(x)),num);
-        } 
-
-
-        public EventHandler<EventArgs> TechnicianArrived;
-
-
+        }
         //Technician Functions:
         /// <summary>
         /// שולח טכנאי מתאים בהתאם למשתנה הובליאני
@@ -232,9 +228,9 @@ namespace dotNetWPF_03_7897_4726
         public void SendTechnician(bool IsPagesEmpty)
         {
             if (IsPagesEmpty)
-                new Thread(sendPageTechnician);
+                new Thread(sendPageTechnician).Start();
             else
-                new Thread(sendInkTechnician);
+                new Thread(sendInkTechnician).Start();
         }
         /// <summary>
         /// שליחת "טכנאי" למלא מחדש את הדפים
@@ -243,9 +239,9 @@ namespace dotNetWPF_03_7897_4726
         {
             Thread.Sleep(rand.Next(5000, 15000));
             this.AddPages();
-            if (CheckAccess())
+            if (CheckAccess()&& TechnicianArrived!=null)
                 TechnicianArrived(this, new EventArgs());
-            else
+            else if(TechnicianArrived!=null)
                 Dispatcher.BeginInvoke((Action)(() => TechnicianArrived(this, new EventArgs())));
         }
         /// <summary>
@@ -255,9 +251,9 @@ namespace dotNetWPF_03_7897_4726
         {
             Thread.Sleep(rand.Next(5000, 15000));
             AddInk();
-            if (CheckAccess())
+            if (CheckAccess() && TechnicianArrived != null)
                 TechnicianArrived(this, new EventArgs());
-            else
+            else if(TechnicianArrived!=null)
                 Dispatcher.BeginInvoke((Action)(() => TechnicianArrived(this, new EventArgs())));
         }
 
@@ -292,9 +288,12 @@ namespace dotNetWPF_03_7897_4726
         /// </summary>
         private void pageCountSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (pageCount!=e.NewValue&&e.OldValue == 0 && e.NewValue != 0 && TechnicianArrived != null)
+                TechnicianArrived(this, new EventArgs());
             PageCount = (int)e.NewValue;
             if (PageCount == 0 && PageMissing != null)
                 PageMissing(this, new PrinterEventArgs(true, "Out Of Paper!", this.PrinterName));
+
         }
 
     }
