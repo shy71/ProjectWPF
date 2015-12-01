@@ -257,9 +257,9 @@ namespace dotNetWPF_03_7897_4726
             Thread.Sleep(rand.Next(50000,60000));
             AddInk();
             if (CheckAccess() && TechnicianArrived != null)
-                TechnicianArrived(this, new EventArgs());
+                TechnicianArrived(this, null);
             else if(TechnicianArrived!=null)
-                Dispatcher.BeginInvoke((Action)(() => TechnicianArrived(this, new EventArgs())));
+                Dispatcher.BeginInvoke((Action)(() => TechnicianArrived(this, null)));
         }
 
 
