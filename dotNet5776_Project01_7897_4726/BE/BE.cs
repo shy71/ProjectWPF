@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
- * מוסכמות לגבי פרופטי
- * שמות המשתנים
- * NUM->ID
+ * להוסיף לפקופטי מגבלה
  * */
 namespace BE
 {

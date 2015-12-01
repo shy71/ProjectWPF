@@ -96,13 +96,21 @@ namespace DAL
         /// <returns>מחזירה את תעדות הזהות הפנוייה</returns>
         int NextID<T>(List<T> list) where T : BE.InterID 
         {
-            int id = (++IDCounter);
+            bool repeated=false;
+            int id = setCounter(typeof(T));
             if (id >= 100000000)
+                id = 1;
+            while (ContainID(id, list) == true && !repeated)
             {
-                id=1;
-                while (ContainID(id, getDishs()) == true)
-                    id++;
+                if (id >= 100000000)
+                {
+                    id = 1;
+                    repeated = true;
+                }
+                id++;
             }
+            if (repeated && id >= 100000000)
+                return -1;//ERROR
             return id;
         }
         /// <summary>
@@ -138,6 +146,34 @@ namespace DAL
             return -1;
         }
 
+        int getCounter(Type obj)
+        {
+            if (obj == typeof(BE.Dish))
+                return DS.DataSource.DishIDCounter;
+            else if (obj == typeof(BE.Branch))
+                return DS.DataSource.BranchIDCounter;
+            else if (obj == typeof(BE.Client))
+                return DS.DataSource.ClientIDCounter;
+            else if (obj == typeof(BE.DishOrder))
+                return DS.DataSource.DishOrderIDCounter;
+            else if (obj == typeof(BE.Order))
+                return DS.DataSource.OrderIDCounter;
+            return -1;
+        }
+        int setCounter(Type obj)
+        {
+            if (obj == typeof(BE.Dish))
+                return ++DS.DataSource.DishIDCounter;
+            else if (obj == typeof(BE.Branch))
+                return ++DS.DataSource.BranchIDCounter;
+            else if (obj == typeof(BE.Client))
+                return ++DS.DataSource.ClientIDCounter;
+            else if (obj == typeof(BE.DishOrder))
+                return ++DS.DataSource.DishOrderIDCounter;
+            else if (obj == typeof(BE.Order))
+                return ++DS.DataSource.OrderIDCounter;
+            return -1;
+        }
         void AddDish(BE.Dish newDish)
         {
             Add(newDish, getDishs());
