@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    interface Idal
+    public interface Idal
     {
         void AddDish(BE.Dish newDish);
         void DeleteDish(int id);
@@ -41,6 +41,7 @@ namespace DAL
     }
     class Dal_imp//: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
     {
+        static int IDCounter = 0;
         Random rand=new Random();
         /// <summary>
         /// מוסיפה איבר לרשימה, יחד עם כל הבדיקות הנצרכות
@@ -95,9 +96,13 @@ namespace DAL
         /// <returns>מחזירה את תעדות הזהות הפנוייה</returns>
         int NextID<T>(List<T> list) where T : BE.InterID 
         {
-            int id = rand.Next(1, 100000000);
-            while (ContainID(id, getDishs()) == true)
-                id = rand.Next(1, 100000000);
+            int id = (++IDCounter);
+            if (id >= 100000000)
+            {
+                id=1;
+                while (ContainID(id, getDishs()) == true)
+                    id++;
+            }
             return id;
         }
         /// <summary>
