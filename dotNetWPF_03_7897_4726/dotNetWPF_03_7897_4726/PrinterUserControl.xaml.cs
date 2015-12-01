@@ -237,7 +237,7 @@ namespace dotNetWPF_03_7897_4726
         /// </summary>
         void sendPageTechnician()
         {
-            Thread.Sleep(rand.Next(5000, 15000));
+            Thread.Sleep(rand.Next(50000, 60000));
             this.AddPages();
             if (CheckAccess()&& TechnicianArrived!=null)
                 TechnicianArrived(this, new EventArgs());
@@ -249,7 +249,7 @@ namespace dotNetWPF_03_7897_4726
         /// </summary>
         void sendInkTechnician()
         {
-            Thread.Sleep(rand.Next(5000, 15000));
+            Thread.Sleep(rand.Next(50000,60000));
             AddInk();
             if (CheckAccess() && TechnicianArrived != null)
                 TechnicianArrived(this, new EventArgs());
@@ -288,9 +288,13 @@ namespace dotNetWPF_03_7897_4726
         /// </summary>
         private void pageCountSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (pageCount!=e.NewValue&&e.OldValue == 0 && e.NewValue != 0 && TechnicianArrived != null)
+            if (PageCount != e.NewValue && e.OldValue == 0 && TechnicianArrived != null)
+            {
+                PageCount = (int)e.NewValue;
                 TechnicianArrived(this, new EventArgs());
-            PageCount = (int)e.NewValue;
+            }
+            else
+                PageCount = (int)e.NewValue;
             if (PageCount == 0 && PageMissing != null)
                 PageMissing(this, new PrinterEventArgs(true, "Out Of Paper!", this.PrinterName));
 
