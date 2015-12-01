@@ -26,18 +26,9 @@
             </Grid.RowDefinitions>
             <Label x:Name="inkLabel" Grid.Row="0" Content="Ink:"/>
             <Label x:Name="pageLabel" Content="Pages:"  Grid.Row="1" />
-            <ProgressBar  
-            x:Name="inkCountProgressBar" 
-            Grid.Column="1"
-            Value="23"
-            ToolTipService.InitialShowDelay="1000"
-            ToolTip="{Binding ElementName=inkCountProgressBar,Path=Value}">
-            </ProgressBar>
-            <Slider 
-                x:Name="pageCountSlider" 
-                Grid.Column="1"
-                Grid.Row="1" 
-                Value="200"
+            <ProgressBar x:Name="inkCountProgressBar" Grid.Column="1" Value="23"
+                          ToolTipService.InitialShowDelay="2000" ToolTip="{Binding ElementName=inkCountProgressBar,Path=Value}"/>
+            <Slider x:Name="pageCountSlider" Grid.Column="1" Grid.Row="1" Value="200"
                 Maximum="{x:Static local:PrinterUserControl.MaxPages}" ValueChanged="pageCountSlider_ValueChanged"/>
         </Grid>
     </Grid>

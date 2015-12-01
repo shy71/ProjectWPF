@@ -44,10 +44,6 @@ namespace dotNetWPF_03_7897_4726
                 printerNameLabel.Content = printerName;
             }
         }
-
-        public event EventHandler<PrinterEventArgs> PageMissing, InkEmpty;//Printer Events
-        public EventHandler<EventArgs> TechnicianArrived;
-
         int pageCount;
         /// <summary>
         /// Return or sets how much pages are in the printer
@@ -92,6 +88,12 @@ namespace dotNetWPF_03_7897_4726
                 inkCountProgressBar.Value = inkCount;
             }
         }
+
+        /// <summary>
+        /// Printer Events
+        /// </summary>
+        public event EventHandler<PrinterEventArgs> PageMissing, InkEmpty;
+        public EventHandler<EventArgs> TechnicianArrived;
 
         /// <summary>
         /// קונסטרקטור המאפס את הנתונים ההתחלתיים של המדפס ונותן לה את שמה
@@ -189,6 +191,7 @@ namespace dotNetWPF_03_7897_4726
             }
         }
         
+
         //Adding Functions:
         /// <summary>
         /// הפוקנציה מוסיפה מספר רנדומלי(בהתאם לטווח) של דפים למדפסת
@@ -220,6 +223,8 @@ namespace dotNetWPF_03_7897_4726
             else
                 Dispatcher.BeginInvoke((Action<double>)(x=>ChangeInk(x)),num);
         }
+
+
         //Technician Functions:
         /// <summary>
         /// שולח טכנאי מתאים בהתאם למשתנה הובליאני
@@ -240,9 +245,9 @@ namespace dotNetWPF_03_7897_4726
             Thread.Sleep(rand.Next(50000, 60000));
             this.AddPages();
             if (CheckAccess()&& TechnicianArrived!=null)
-                TechnicianArrived(this, new EventArgs());
+                TechnicianArrived(this, null);
             else if(TechnicianArrived!=null)
-                Dispatcher.BeginInvoke((Action)(() => TechnicianArrived(this, new EventArgs())));
+                Dispatcher.BeginInvoke((Action)(() => TechnicianArrived(this, null)));
         }
         /// <summary>
         /// שליחת "טכנאי" למלא מחדש את הדיו
@@ -270,28 +275,28 @@ namespace dotNetWPF_03_7897_4726
         //Controllers(WPF) Functions:
 
         /// <summary>
-        /// פונקציה המופעלת כאשר העכבר נכנס לתחום התווית ומשנה את גודל התווית
+        /// פונקציה המופעלת כאשר העכבר נכנס לתחום התווית ומכפיל את גודל התווית
         /// </summary>
         private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
         {
-            printerNameLabel.FontSize = 40;
+            printerNameLabel.FontSize = printerNameLabel.FontSize*2;
         }
         /// <summary>
         /// פונקציה המופעלת כאשר העכבר יוצא מתחום התווית וומחזירה את גודל התווית לגודלה המוקרי 
         /// </summary>
         private void printerNameLabel_MouseLeave(object sender, MouseEventArgs e)
         {
-            printerNameLabel.FontSize = 16;
+            printerNameLabel.FontSize = printerNameLabel.FontSize/2;
         }
         /// <summary>
         /// הפונקציה מעדכנת את מונה הדפים בהתאם לשינויים הנעשים בסליידר
         /// </summary>
         private void pageCountSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (PageCount != e.NewValue && e.OldValue == 0 && TechnicianArrived != null)
+            if (PageCount != e.NewValue && e.OldValue == 0 && TechnicianArrived != null)// דואג לכך שאם אין מדפסות שעובדות ושינו באופן ידני את כמות הדפים הוא יפעיל מחדש את הכפתור
             {
                 PageCount = (int)e.NewValue;
-                TechnicianArrived(this, new EventArgs());
+                TechnicianArrived(this,null);
             }
             else
                 PageCount = (int)e.NewValue;
