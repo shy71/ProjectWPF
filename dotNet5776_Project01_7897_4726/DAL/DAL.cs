@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public interface Idal
+    interface Idal
     {
         void AddDish(BE.Dish newDish);
         void DeleteDish(int id);
@@ -39,7 +39,7 @@ namespace DAL
         List<BE.Client> getClients();
         List<BE.DishOrder> getDishOrders();
     }
-    class Dal_imp//: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
+    class Dal_imp: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
     {
         static int IDCounter = 0;
         Random rand=new Random();
@@ -174,106 +174,106 @@ namespace DAL
                 return ++DS.DataSource.OrderIDCounter;
             return -1;
         }
-        void AddDish(BE.Dish newDish)
+        public void AddDish(BE.Dish newDish)
         {
             Add(newDish, getDishs());
         }
-        void DeleteDish(int id)
+        public void DeleteDish(int id)
         {
             Delete(id, getDishs());
         }
-        void DeleteDish(BE.Dish item)
+        public void DeleteDish(BE.Dish item)
         {
             DeleteDish(item.ID);
         }
-        void UpdateDish(BE.Dish item)
+        public void UpdateDish(BE.Dish item)
         {
             Update(item, getDishs());
         }
 
-        void AddBranch(BE.Branch newBranch)
+        public void AddBranch(BE.Branch newBranch)
         {
             Add(newBranch, getBranchs());
         }
-        void DeleteBranch(int id)
+        public void DeleteBranch(int id)
         {
             Delete(id, getBranchs());
         }
-        void DeleteBranch(BE.Branch item)
+        public void DeleteBranch(BE.Branch item)
         {
             DeleteBranch(item.ID);
         }
-        void UpdateBranch(BE.Branch item)
+        public void UpdateBranch(BE.Branch item)
         {
             Update(item, getBranchs());
         }
-        void AddOrder(BE.Order newOrder)
+        public void AddOrder(BE.Order newOrder)
         {
             Add(newOrder, getOrders());
         }
-        void DeleteOrder(int id)
+        public void DeleteOrder(int id)
         {
             Delete(id, getOrders());
         }
-        void DeleteOrder(BE.Order item)
+        public void DeleteOrder(BE.Order item)
         {
             DeleteOrder(item.ID);
         }
-        void UpdateOrder(BE.Order item)
+        public void UpdateOrder(BE.Order item)
         {
             Update(item, getOrders());
         }
-        void AddDishOrder(BE.DishOrder newDishOrder)
+        public void AddDishOrder(BE.DishOrder newDishOrder)
         {
             Add(newDishOrder, getDishOrders());
         }
-        void DeleteDishOrder(int id)
+        public void DeleteDishOrder(int id)
         {
             Delete(id, getDishOrders());
         }
-        void DeleteDishOrder(BE.DishOrder item)
+        public void DeleteDishOrder(BE.DishOrder item)
         {
             DeleteDishOrder(item.ID);
         }
-        void UpdateDishOrder(BE.DishOrder item)
+        public void UpdateDishOrder(BE.DishOrder item)
         {
             Update(item, getDishOrders());
         }
-        void AddClient(BE.Client newClient)
+        public void AddClient(BE.Client newClient)
         {
             Add(newClient, getClients());
         }
-        void DeleteClient(int id)
+        public void DeleteClient(int id)
         {
             Delete(id, getClients());
         }
-        void DeleteClient(BE.Client item)
+        public void DeleteClient(BE.Client item)
         {
             DeleteClient(item.ID);
         }
-        void UpdateClient(BE.Client item)
+        public void UpdateClient(BE.Client item)
         {
             Update(item, getClients());
         }
 
 
-        List<BE.Dish> getDishs()
+        public List<BE.Dish> getDishs()
         {
             return DS.DataSource.DishList;
         }
-        List<BE.Branch> getBranchs()
+        public List<BE.Branch> getBranchs()
         {
             return DS.DataSource.BranchList;
         }
-        List<BE.Order> getOrders()
+        public List<BE.Order> getOrders()
         {
             return DS.DataSource.OrderList;
         }
-        List<BE.Client> getClients()
+        public List<BE.Client> getClients()
         {
             return DS.DataSource.ClientList;
         }
-        List<BE.DishOrder> getDishOrders()
+        public List<BE.DishOrder> getDishOrders()
         {
             return DS.DataSource.DishOrderList;
         }
