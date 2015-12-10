@@ -3,45 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BE;
 
 namespace DAL
 {
-    interface Idal
+    public interface Idal
     {
-        void AddDish(BE.Dish newDish);
+        void AddDish(Dish newDish);
         void DeleteDish(int id);
-        void DeleteDish(BE.Dish item);
-        void UpdateDish(BE.Dish item);//האם יקבל ID?
+        void DeleteDish(Dish item);
+        void UpdateDish(Dish item);//האם יקבל ID?
 
-        void AddBranch(BE.Branch newBranch);
+        void AddBranch(Branch newBranch);
         void DeleteBranch(int id);
-        void DeleteBranch(BE.Branch item);
-        void UpdateBranch(BE.Branch item);//האם יקבל ID?
+        void DeleteBranch(Branch item);
+        void UpdateBranch(Branch item);//האם יקבל ID?
 
-        void AddOrder(BE.Order newOrder);
+        void AddOrder(Order newOrder);
         void DeleteOrder(int id);
-        void DeleteOrder(BE.Order item);
-        void UpdateOrder(BE.Order item);//האם יקבל ID?
+        void DeleteOrder(Order item);
+        void UpdateOrder(Order item);//האם יקבל ID?
 
-        void AddDishOrder(BE.DishOrder newDishOrder);
+        void AddDishOrder(DishOrder newDishOrder);
         void DeleteDishOrder(int id);
-        void DeleteDishOrder(BE.DishOrder item);
-        void UpdateDishOrder(BE.DishOrder item);//האם יקבל ID?
+        void DeleteDishOrder(DishOrder item);
+        void UpdateDishOrder(DishOrder item);//האם יקבל ID?
 
-        void AddClient(BE.Client newClient);
+        void AddClient(Client newClient);
         void DeleteClient(int id);
-        void DeleteClient(BE.Client item);
-        void UpdateClient(BE.Client item);//האם יקבל ID?
+        void DeleteClient(Client item);
+        void UpdateClient(Client item);//האם יקבל ID?
+        T getByID<T>(int id) where T : InterID
+        public List<DishOrder> getAllDishOrders(Order order)
 
-        List<BE.Dish> getDishs();
-        List<BE.Branch> getBranchs();
-        List<BE.Order> getOrders();
-        List<BE.Client> getClients();
-        List<BE.DishOrder> getDishOrders();
     }
-    class Dal_imp: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
+    public class Dal_imp: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
     {
-        static int IDCounter = 0;
         Random rand=new Random();
         /// <summary>
         /// מוסיפה איבר לרשימה, יחד עם כל הבדיקות הנצרכות
@@ -49,8 +46,9 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="newItem">האיבר שהפוקנציה תוסיף</param>
         /// <param name="list">הרשימה לה היא תוסיף אותה</param>
-        void Add<T>(T newItem,List<T> list)where T : BE.InterID
+        void Add<T>(T newItem)where T : InterID
         {
+            List<T> list = getList<T>() as List<T>;
             if (newItem.ID == 0 || ContainID(newItem.ID, list))
                 newItem.ID = NextID(list);
             list.Add(newItem);
@@ -61,8 +59,9 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="id">תעודת הזהות של האיבר אותו אנו מבקשים למחוק</param>
         /// <param name="list">הרשימה ממנה נמחוק אותו</param>
-        void Delete<T>(int id, List<T> list) where T : BE.InterID
+        void Delete<T>(int id) where T : InterID
         {
+            List<T> list = getList<T>() as List<T>;
             if (ContainID(id, list) == false)
                 return; //ERROR
             list.RemoveAt(IndexByID(id, list));
@@ -73,15 +72,16 @@ namespace DAL
        /// <typeparam name="T">סוג האיבר</typeparam>
        /// <param name="item">האיבר אותו אנו מבקשים למחוק</param>
        /// <param name="list">הרשימה ממנה נמחק אותו</param>
-        void Delete<T>(T item, List<T> list) where T : BE.InterID { Delete(item.ID, list); }
+        void Delete<T>(T item) where T : InterID { Delete<T>(item.ID); }
         /// <summary>
         /// עדכון איבר מהרשימה באמצעות איבר מעודכן
         /// </summary>
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="item">האיבר המעודכן שבעזרת תעדות הזהות מסמן על האיבר שנעדכן</param>
         /// <param name="list">הרשימה בא נמצא האיבר אותו נעדכן</param>
-        void Update<T>(T item,List<T> list)where T : BE.InterID
+        void Update<T>(T item)where T : InterID
         {
+            List<T> list = getList<T>() as List<T>;
             if (ContainID(item.ID, list) == false)
                 return; //ERROR
             list.RemoveAt(IndexByID(item.ID, list));
@@ -94,10 +94,10 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר שצריך תעדות זהות</typeparam>
         /// <param name="list">הרשימה בה נמצאים שאר האיברים מסוג זה</param>
         /// <returns>מחזירה את תעדות הזהות הפנוייה</returns>
-        int NextID<T>(List<T> list) where T : BE.InterID 
+        int NextID<T>(List<T> list) where T : InterID 
         {
             bool repeated=false;
-            int id = setCounter(typeof(T));
+            int id = Add1ToCounter<T>();
             if (id >= 100000000)
                 id = 1;
             while (ContainID(id, list) == true && !repeated)
@@ -120,9 +120,10 @@ namespace DAL
         /// <param name="id">תעדות הזהות</param>
         /// <param name="list">הרשימה בה נמצאים האיברים</param>
         /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
-        bool ContainID<T>(int id, List<T> list) where T : BE.InterID 
+        bool ContainID<T>(int id, List<T> list) where T : InterID 
         {
-            if(list.Find((item)=>(item.ID==id))==null)
+            
+            if(!list.Exists((item)=>(item.ID==id)))
                 return false;
             return true;
         }
@@ -133,141 +134,130 @@ namespace DAL
         /// <param name="id">תעדות הזהות</param>
         /// <param name="list">הרשימה בה נממצאים האיברים </param>
         /// <returns>מחזירה אינדקס של מיקום האיבר</returns>
-        int IndexByID<T>(int id, List<T> list) where T : BE.InterID 
+        int IndexByID<T>(int id, List<T> list) where T : InterID 
         {
             return list.FindIndex((item) => (item.ID == id));
         }
 
-        int getCounter(Type obj)
+        int Add1ToCounter<T>()
         {
-            if (obj == typeof(BE.Dish))
-                return DS.DataSource.DishIDCounter;
-            else if (obj == typeof(BE.Branch))
-                return DS.DataSource.BranchIDCounter;
-            else if (obj == typeof(BE.Client))
-                return DS.DataSource.ClientIDCounter;
-            else if (obj == typeof(BE.DishOrder))
-                return DS.DataSource.DishOrderIDCounter;
-            else if (obj == typeof(BE.Order))
-                return DS.DataSource.OrderIDCounter;
-            return -1;
-        }
-        int setCounter(Type obj)
-        {
-            if (obj == typeof(BE.Dish))
+            if (typeof(T) == typeof(Dish))
                 return ++DS.DataSource.DishIDCounter;
-            else if (obj == typeof(BE.Branch))
+            else if (typeof(T) == typeof(Branch))
                 return ++DS.DataSource.BranchIDCounter;
-            else if (obj == typeof(BE.Client))
+            else if (typeof(T) == typeof(Client))
                 return ++DS.DataSource.ClientIDCounter;
-            else if (obj == typeof(BE.DishOrder))
+            else if (typeof(T) == typeof(DishOrder))
                 return ++DS.DataSource.DishOrderIDCounter;
-            else if (obj == typeof(BE.Order))
+            else if (typeof(T) == typeof(Order))
                 return ++DS.DataSource.OrderIDCounter;
             return -1;
         }
-        public void AddDish(BE.Dish newDish)
+        public void AddDish(Dish newDish)
         {
-            Add(newDish, getDishs());
+            Add(newDish);
         }
         public void DeleteDish(int id)
         {
-            Delete(id, getDishs());
+            Delete<Dish>(id);
         }
-        public void DeleteDish(BE.Dish item)
+        public void DeleteDish(Dish item)
         {
             DeleteDish(item.ID);
         }
-        public void UpdateDish(BE.Dish item)
+        public void UpdateDish(Dish item)
         {
-            Update(item, getDishs());
+            Update(item);
         }
 
-        public void AddBranch(BE.Branch newBranch)
+        public void AddBranch(Branch newBranch)
         {
-            Add(newBranch, getBranchs());
+            Add(newBranch);
         }
         public void DeleteBranch(int id)
         {
-            Delete(id, getBranchs());
+            Delete<Branch>(id);
         }
-        public void DeleteBranch(BE.Branch item)
+        public void DeleteBranch(Branch item)
         {
             DeleteBranch(item.ID);
         }
-        public void UpdateBranch(BE.Branch item)
+        public void UpdateBranch(Branch item)
         {
-            Update(item, getBranchs());
+            Update(item);
         }
-        public void AddOrder(BE.Order newOrder)
+        public void AddOrder(Order newOrder)
         {
-            Add(newOrder, getOrders());
+            Add(newOrder);
         }
         public void DeleteOrder(int id)
         {
-            Delete(id, getOrders());
+            Delete<Order>(id);
         }
-        public void DeleteOrder(BE.Order item)
+        public void DeleteOrder(Order item)
         {
             DeleteOrder(item.ID);
         }
-        public void UpdateOrder(BE.Order item)
+        public void UpdateOrder(Order item)
         {
-            Update(item, getOrders());
+            Update(item);
         }
-        public void AddDishOrder(BE.DishOrder newDishOrder)
+        public void AddDishOrder(DishOrder newDishOrder)
         {
-            Add(newDishOrder, getDishOrders());
+            Add(newDishOrder);
         }
         public void DeleteDishOrder(int id)
         {
-            Delete(id, getDishOrders());
+            Delete<DishOrder>(id);
         }
-        public void DeleteDishOrder(BE.DishOrder item)
+        public void DeleteDishOrder(DishOrder item)
         {
             DeleteDishOrder(item.ID);
         }
-        public void UpdateDishOrder(BE.DishOrder item)
+        public void UpdateDishOrder(DishOrder item)
         {
-            Update(item, getDishOrders());
+            Update(item);
         }
-        public void AddClient(BE.Client newClient)
+        public void AddClient(Client newClient)
         {
-            Add(newClient, getClients());
+            Add(newClient);
         }
         public void DeleteClient(int id)
         {
-            Delete(id, getClients());
+            Delete<Client>(id);
         }
-        public void DeleteClient(BE.Client item)
+        public void DeleteClient(Client item)
         {
             DeleteClient(item.ID);
         }
-        public void UpdateClient(BE.Client item)
+        public void UpdateClient(Client item)
         {
-            Update(item, getClients());
+            Update(item);
         }
 
+        object getList<T>()
+        {
+            if (typeof(T) == typeof(Dish))
+                return DS.DataSource.DishList;
+            if (typeof(T) == typeof(Branch))
+                return DS.DataSource.BranchList;
+            if (typeof(T) == typeof(Client))
+                return DS.DataSource.ClientList;
+            if (typeof(T) == typeof(DishOrder))
+                return DS.DataSource.DishOrderList;
+            if (typeof(T) == typeof(Order))
+                return DS.DataSource.OrderList;
+            return null;
 
-        public List<BE.Dish> getDishs()
-        {
-            return DS.DataSource.DishList;
         }
-        public List<BE.Branch> getBranchs()
+        T getByID<T>(int id)  where T : InterID
         {
-            return DS.DataSource.BranchList;
+            return (getList<T>() as List<T>).Find((item) => (item.ID == id));
         }
-        public List<BE.Order> getOrders()
+        public List<DishOrder> getAllDishOrders(Order order)
         {
-            return DS.DataSource.OrderList;
+            return (getList<DishOrder>() as List<DishOrder>).FindAll((item) => (item.OrderID == order.ID));
         }
-        public List<BE.Client> getClients()
-        {
-            return DS.DataSource.ClientList;
-        }
-        public List<BE.DishOrder> getDishOrders()
-        {
-            return DS.DataSource.DishOrderList;
-        }
+
     }
 }
