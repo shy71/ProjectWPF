@@ -7,6 +7,14 @@ using BE;
 
 namespace DAL
 {
+    public class FactoryDal
+    {
+        public static Idal getDal()
+        {
+            return new Dal_imp();
+        }
+
+    }
     public interface Idal
     {
         void AddDish(Dish newDish);
@@ -33,11 +41,11 @@ namespace DAL
         void DeleteClient(int id);
         void DeleteClient(Client item);
         void UpdateClient(Client item);//האם יקבל ID?
-        T getByID<T>(int id) where T : InterID
-        public List<DishOrder> getAllDishOrders(Order order)
+        T getByID<T>(int id) where T : InterID;
+        List<DishOrder> getAllDishOrders(Order order);
 
     }
-    public class Dal_imp: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
+    class Dal_imp: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
     {
         Random rand=new Random();
         /// <summary>
@@ -250,7 +258,7 @@ namespace DAL
             return null;
 
         }
-        T getByID<T>(int id)  where T : InterID
+        public T getByID<T>(int id)  where T : InterID
         {
             return (getList<T>() as List<T>).Find((item) => (item.ID == id));
         }

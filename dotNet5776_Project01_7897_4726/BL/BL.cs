@@ -78,7 +78,7 @@ namespace BL
     }
     public class BL //: IBL
     {
-        DAL.Idal myDal = new DAL.Dal_imp();
+        DAL.Idal myDal = DAL.FactoryDal.getDal();
         public float PriceOfOrder(Order order)
         {
             float result=0;
