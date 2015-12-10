@@ -122,10 +122,9 @@ namespace DAL
         /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
         bool ContainID<T>(int id, List<T> list) where T : BE.InterID 
         {
-            foreach (T item in list)
-                if (item.ID == id)
-                    return true;
-            return false;
+            if(list.Find((item)=>(item.ID==id))==null)
+                return false;
+            return true;
         }
         /// <summary>
         /// בודקת באזיה אינדקס נמצא האיבר בעל תעודת הזהות הזו
@@ -136,14 +135,7 @@ namespace DAL
         /// <returns>מחזירה אינדקס של מיקום האיבר</returns>
         int IndexByID<T>(int id, List<T> list) where T : BE.InterID 
         {
-            int num=0;
-            foreach (T item in list)
-            {
-                if (item.ID == id)
-                    return num;
-                num++;
-            }
-            return -1;
+            return list.FindIndex((item) => (item.ID == id));
         }
 
         int getCounter(Type obj)
