@@ -229,13 +229,13 @@ namespace BE
             set { id = value; }
         }
         int orderID;
-        public int OrderNum
+        public int OrderID
         {
             get { return orderID; }
             set { orderID = value; }
         }
         int dishID;
-        public int DishNum
+        public int DishID
         {
             get { return dishID; }
             set { dishID = value; }
@@ -252,8 +252,8 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Order number: " + OrderNum
-                 + "\nDish number: " + DishNum
+            return "Order number: " + OrderID
+                 + "\nDish number: " + DishID
                  + "\nAmount of dishes ordered: " + DishAmount;
         }
     }
