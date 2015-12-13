@@ -12,6 +12,7 @@ namespace BE
     public interface InterID
     {
         int ID { get; set; }
+        int MakeID();//צריך להוסיף את המימוש ביורשים!
     }
     public enum Kashrut
     {

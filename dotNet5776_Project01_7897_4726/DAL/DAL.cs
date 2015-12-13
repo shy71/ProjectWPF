@@ -58,7 +58,7 @@ namespace DAL
         {
             List<T> list = getList<T>() as List<T>;
             if (newItem.ID == 0 || ContainID(newItem.ID, list))
-                newItem.ID = NextID(list);
+                newItem.ID = NextID(newItem);
             list.Add(newItem);
         }
         /// <summary>
@@ -102,24 +102,19 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר שצריך תעדות זהות</typeparam>
         /// <param name="list">הרשימה בה נמצאים שאר האיברים מסוג זה</param>
         /// <returns>מחזירה את תעדות הזהות הפנוייה</returns>
-        int NextID<T>(List<T> list) where T : InterID 
+        int NextID<T>(T item) where T : InterID// לבדוק האם יש דרך יותר יעילה לעשות את זה
         {
-            bool repeated=false;
-            int id = Add1ToCounter<T>();
-            if (id >= 100000000)
-                id = 1;
-            while (ContainID(id, list) == true && !repeated)
+            int original = item.MakeID(),result = original;
+           List<T> list = getList<T>() as List<T>;
+            while (ContainID(result,list))
             {
-                if (id >= 100000000)
-                {
-                    id = 1;
-                    repeated = true;
-                }
-                id++;
+                result++;
+                if (result == original)
+                    break; //ERROR
+                else if(result>99999999)
+                    result = 0;
             }
-            if (repeated && id >= 100000000)
-                return -1;//ERROR
-            return id;
+            return result;
         }
         /// <summary>
         /// בודקת האם קיים איבר ברשימה עם תעודת הזהות הזאת
@@ -147,20 +142,6 @@ namespace DAL
             return list.FindIndex((item) => (item.ID == id));
         }
 
-        int Add1ToCounter<T>()
-        {
-            if (typeof(T) == typeof(Dish))
-                return ++DS.DataSource.DishIDCounter;
-            else if (typeof(T) == typeof(Branch))
-                return ++DS.DataSource.BranchIDCounter;
-            else if (typeof(T) == typeof(Client))
-                return ++DS.DataSource.ClientIDCounter;
-            else if (typeof(T) == typeof(DishOrder))
-                return ++DS.DataSource.DishOrderIDCounter;
-            else if (typeof(T) == typeof(Order))
-                return ++DS.DataSource.OrderIDCounter;
-            return -1;
-        }
         public void AddDish(Dish newDish)
         {
             Add(newDish);
