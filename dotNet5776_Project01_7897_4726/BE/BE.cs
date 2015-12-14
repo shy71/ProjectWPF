@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -103,6 +103,10 @@ namespace BE
                     + "\nClient ID: " + ClientID
                     + "\nOrder address: " + Address;
         }
+        public int MakeID()
+        {
+            return clientID;
+        }
     }
     /// <summary>
     /// מנה
@@ -153,6 +157,14 @@ namespace BE
                  + "\nDish name: " + Name
                  + "\nDish size: " + Size
                  + "\nDish price: " + Price;
+        }
+        public int MakeID()
+        {
+            string[]  DishComponents = new string[3];
+            DishComponents[0] = Name;
+            DishComponents[1] = Size;
+            DishComponents[2] = Price;
+            return DishComponents.Sum((string item) => (item.Select(r => (int)r).ToArray()));
         }
     }
     public class Branch : InterID
@@ -220,6 +232,10 @@ namespace BE
                   + "\nAvilable messanger count: " + AvailableMessangers
                   + "\nBranch kashrut: " + Kosher;
         }
+        public int MakeID()
+        {
+            return Name.Sum(r => (int)r);
+        }
     }
     public class DishOrder : InterID
     {
@@ -256,6 +272,10 @@ namespace BE
             return "Order number: " + OrderID
                  + "\nDish number: " + DishID
                  + "\nAmount of dishes ordered: " + DishAmount;
+        }
+        public int MakeID()
+        {
+            return OrderID + DishID;
         }
     }
 }
