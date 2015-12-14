@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -105,7 +105,7 @@ namespace DAL
         int NextID<T>(T item) where T : InterID// לבדוק האם יש דרך יותר יעילה לעשות את זה
         {
             int original = item.MakeID(),result = original;
-           List<T> list = getList<T>() as List<T>;
+            List<T> list = getList<T>() as List<T>;
             while (ContainID(result,list))
             {
                 result++;
