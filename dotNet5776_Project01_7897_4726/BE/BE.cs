@@ -12,7 +12,7 @@ namespace BE
     public interface InterID
     {
         int ID { get; set; }
-        int MakeID();//צריך להוסיף את המימוש ביורשים!
+        public int MakeID();//צריך להוסיף את המימוש ביורשים!
     }
     public enum Kashrut
     {
@@ -50,6 +50,14 @@ namespace BE
                 +  "\nClient name: " + Name
                 +  "\nClient address: " + Address
                 +  "\nCredit card number: " + CreditCard;
+        }
+        public int MakeID()
+        {
+            string[] ClientComponents = new string[3];
+            ClientComponents[0] = Name;
+            ClientComponents[1] = Address;
+            ClientComponents[2] = CreditCard.ToString();
+            return ClientComponents.Sum((string item) => (item.Sum(r => (int)r)));
         }
     }
     public class Order : InterID
@@ -105,7 +113,13 @@ namespace BE
         }
         public int MakeID()
         {
-            return clientID;
+            string[] OrderComponents = new string[5];
+            OrderComponents[0] = Date.ToString();
+            OrderComponents[1] = Address;
+            OrderComponents[2] = BranchNum.ToString();
+            OrderComponents[3] = Kosher.ToString();
+            OrderComponents[4] = ClientID.ToString();
+            return OrderComponents.Sum((string item) => (item.Sum(r => (int)r)));
         }
     }
     /// <summary>
@@ -162,9 +176,9 @@ namespace BE
         {
             string[]  DishComponents = new string[3];
             DishComponents[0] = Name;
-            DishComponents[1] = Size;
-            DishComponents[2] = Price;
-            return DishComponents.Sum((string item) => (item.Select(r => (int)r).ToArray()));
+            DishComponents[1] = Size.ToString();
+            DishComponents[2] = Price.ToString();
+            return DishComponents.Sum((string item) => (item.Sum(r => (int)r)));
         }
     }
     public class Branch : InterID
@@ -234,7 +248,14 @@ namespace BE
         }
         public int MakeID()
         {
-            return Name.Sum(r => (int)r);
+            string[] BranchComponents = new string[6];
+            BranchComponents[0] = Name;
+            BranchComponents[1] = Address;
+            BranchComponents[2] = PhoneNumber;
+            BranchComponents[3] = Boss;
+            BranchComponents[4] = EmployeeCount.ToString();
+            BranchComponents[5] = Kosher.ToString();
+            return BranchComponents.Sum((string item) => (item.Sum(r => (int)r)));
         }
     }
     public class DishOrder : InterID
@@ -275,7 +296,10 @@ namespace BE
         }
         public int MakeID()
         {
-            return OrderID + DishID;
+            string[] DishOrderComponents = new string[6];
+            DishOrderComponents[0] = OrderID.ToString();
+            DishOrderComponents[1] = DishID.ToString();
+            return DishOrderComponents.Sum((string item) => (item.Sum(r => (int)r)));
         }
     }
 }
