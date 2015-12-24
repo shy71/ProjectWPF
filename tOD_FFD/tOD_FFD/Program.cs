@@ -8,25 +8,18 @@ namespace tOD_FFD
 {
     static class MyClass
     {
-        public static int MakeID(string Name, string Address, string PhoneNumber, string Boss, string EmployeeCount, string Kosher)
+        public static void Make(params string[] str)
         {
-            string[] BranchComponents = new string[6];
-            BranchComponents[0] = Name;
-            BranchComponents[1] = Address;
-            BranchComponents[2] = PhoneNumber;
-            BranchComponents[3] = Boss;
-            BranchComponents[4] = EmployeeCount;
-            BranchComponents[5] = Kosher;
-            //return BranchComponents.Sum((item) => (item.Sum(r => (int)r)));
-            var a=BranchComponents.Select((item, index) => (item.Sum(r => (int)r) * Math.Pow(10, index))).Sum();
-            return 0;
-        }
+           Console.WriteLine(str.Select((item, index) => (item.Select((r,index1) => (int)r*(int)Math.Pow(10,index1)).Sum()) * (int)Math.Pow(10, index)).Sum());
+           Console.ReadLine();
+
+       }
     }
     class Program
     {
         static public void Main(params string[] str)
         {
-            MyClass.MakeID("afsdaf", "fdfdf", "dsdsdas", "dftgrht", "hjkuyt", "wwfa");
+            MyClass.Make("h", "f", "qqqrf", "t", "r", "a");
         }
     }
 }

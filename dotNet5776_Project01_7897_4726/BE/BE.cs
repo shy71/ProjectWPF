@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 /*
  * להוסיף לפקופטי מגבלה
- * 
- * BranchComponents.Select((item, index) => (item.Sum(r => (int)r) * (int)Math.Pow(10, index))).Sum();
+
  * */
 namespace BE
 {
     public interface InterID
     {
         int ID { get; set; }
-        public int MakeID();//צריך להוסיף את המימוש ביורשים!
+        int MakeID();//צריך להוסיף את המימוש ביורשים!
     }
     public enum Kashrut
     {
@@ -31,8 +30,8 @@ namespace BE
         string name;
         public string Name
         {
-            get { return Name; }
-            set { Name = value; }
+            get { return name; }
+            set { name = value; }
         }
         string address;
         public string Address
@@ -55,32 +54,17 @@ namespace BE
         }
         public int MakeID()
         {
-            string[] ClientComponents = new string[3];
-            ClientComponents[0] = Name;
-            ClientComponents[1] = Address;
-            ClientComponents[2] = CreditCard.ToString();
-            return ClientComponents.Select((item, index) => (item.Sum(r => (int)r) * (int)Math.Pow(10, index))).Sum();
+            return Extensions.MakeID(Name, Address, CreditCard.ToString());
         }
     }
     public class Order : InterID
     {
-        int clientID;
-        public int ClientID
-        {
-            get { return clientID; }
-            set { clientID = value; }
-        }
+
         int id;
         public int ID
         {
             get { return id; }
             set { id = value; }
-        }
-        DateTime date;
-        public DateTime Date
-        {
-            get { return date; }
-            set { date = value; }
         }
         int branchNum;
         public int BranchNum
@@ -88,17 +72,29 @@ namespace BE
             get { return branchNum; }
             set { branchNum = value; }
         }
+        string address;
+        public string Address
+        {
+            get { return address; }
+            set { address = value; }
+        }
+        DateTime date;
+        public DateTime Date
+        {
+            get { return date; }
+            set { date = value; }
+        }
         Kashrut kosher;
         public Kashrut Kosher
         {
             get { return kosher; }
             set { kosher = value; }
         }
-        string address;
-        public string Address
+        int clientID;
+        public int ClientID
         {
-            get { return address; }
-            set { address = value; }
+            get { return clientID; }
+            set { clientID = value; }
         }
         /// <summary>
         /// ממיר את ההזמנה למחרוזת
@@ -115,18 +111,9 @@ namespace BE
         }
         public int MakeID()
         {
-            string[] OrderComponents = new string[5];
-            OrderComponents[0] = Date.ToString();
-            OrderComponents[1] = Address;
-            OrderComponents[2] = BranchNum.ToString();
-            OrderComponents[3] = Kosher.ToString();
-            OrderComponents[4] = ClientID.ToString();
-            return OrderComponents.Select((item, index) => (item.Sum(r => (int)r) * (int)Math.Pow(10, index))).Sum();
+            return Extensions.MakeID(BranchNum.ToString(),Address,Date.ToString(),Kosher.ToString(),ClientID.ToString());
         }
     }
-    /// <summary>
-    /// מנה
-    /// </summary>
     public class Dish : InterID
     {
         public Dish(int id)
@@ -176,11 +163,7 @@ namespace BE
         }
         public int MakeID()
         {
-            string[] DishComponents = new string[3];
-            DishComponents[0] = Name;
-            DishComponents[1] = Size.ToString();
-            DishComponents[2] = Price.ToString();
-            return DishComponents.Select((item, index) => (item.Sum(r => (int)r) * (int)Math.Pow(10, index))).Sum();
+            return Extensions.MakeID(Name,Size.ToString(),Price.ToString(),Kosher.ToString());
         }
     }
     public class Branch : InterID
@@ -250,14 +233,7 @@ namespace BE
         }
         public int MakeID()
         {
-            string[] BranchComponents = new string[6];
-            BranchComponents[0] = Name;
-            BranchComponents[1] = Address;
-            BranchComponents[2] = PhoneNumber;
-            BranchComponents[3] = Boss;
-            BranchComponents[4] = EmployeeCount.ToString();
-            BranchComponents[5] = Kosher.ToString();
-            return BranchComponents.Select((item, index) => (item.Sum(r => (int)r) * (int)Math.Pow(10, index))).Sum();
+            return Extensions.MakeID(Name, Address, PhoneNumber, Boss, EmployeeCount.ToString(), AvailableMessangers.ToString(), Kosher.ToString());
         }
     }
     public class DishOrder : InterID
@@ -298,10 +274,14 @@ namespace BE
         }
         public int MakeID()
         {
-            string[] DishOrderComponents = new string[2];
-            DishOrderComponents[0] = OrderID.ToString();
-            DishOrderComponents[1] = DishID.ToString();
-            return DishOrderComponents.Select((item, index) => (item.Sum(r => (int)r) * (int)Math.Pow(10, index))).Sum();
+            return Extensions.MakeID(OrderID.ToString(), DishID.ToString(), DishAmount.ToString());
         }
+    }
+}
+class Extensions
+{
+    internal static int MakeID(params string[] str)
+    {
+        return str.Select((item, index) => (item.Sum(r => (int)r)) * (int)Math.Pow(10, index)).Sum() % 100000000;
     }
 }
