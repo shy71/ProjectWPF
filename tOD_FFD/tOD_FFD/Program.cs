@@ -6,16 +6,27 @@ using System.Threading.Tasks;
 
 namespace tOD_FFD
 {
+    static class MyClass
+    {
+        public static int MakeID(string Name, string Address, string PhoneNumber, string Boss, string EmployeeCount, string Kosher)
+        {
+            string[] BranchComponents = new string[6];
+            BranchComponents[0] = Name;
+            BranchComponents[1] = Address;
+            BranchComponents[2] = PhoneNumber;
+            BranchComponents[3] = Boss;
+            BranchComponents[4] = EmployeeCount;
+            BranchComponents[5] = Kosher;
+            //return BranchComponents.Sum((item) => (item.Sum(r => (int)r)));
+            var a=BranchComponents.Select((item, index) => (item.Sum(r => (int)r) * Math.Pow(10, index))).Sum();
+            return 0;
+        }
+    }
     class Program
-    {/*
-         public interface IKey {     int Key { get; } }  
-        public class Name {     public string FirstName { get; set; }     public string LastName { get; set; } } 
-        public enum Gender { male, female } public class Person : IKey{     public int Id { get; set; }     public Name PersonName { get; set; }     public Gender PersonGender { get; set; }     public bool Married { get; set; }      public int Key     {         get         {             return Id;         }     } }
-        public enum Gender { male, female }
-        public class Person : IKey { public int Id { get; set; } public Name PersonName { get; set; } public Gender PersonGender { get; set; } public bool Married { get; set; } public int Key { get { return Id; } } }  
-        public class MyList<T> where T : IKey { List<T> list; public MyList() { T temp; list = new List<T>(); } public bool add(T t) { if (list.Exists(v => v.Key == t.Key))             return false; list.Add(t); return true; } public bool remove(T t) { T temp = list.Find(v => v.Key == t.Key); return list.Remove(temp); } }  
-
-        static void Main(string[] args) { Person p = new Person { Id = 123, Married = true, PersonGender = Gender.male, PersonName = new Name { FirstName = "oshri", LastName = " Cohen" } }; MyList<Person> personList = new MyList<Person>(); Console.WriteLine(personList.add(p)); Person p2 = new Person { Id = 123, Married = false, PersonGender = Gender.female, PersonName = new Name { FirstName = "oshri", LastName = " Cohen" } }; Console.WriteLine(personList.add(p2)); Person p3 = new Person { Id = 1234, Married = false, PersonGender = Gender.female, PersonName = new Name { FirstName = "oshri", LastName = " Cohen" } }; Console.WriteLine(personList.add(p3)); 
-        }  */
+    {
+        static public void Main(params string[] str)
+        {
+            MyClass.MakeID("afsdaf", "fdfdf", "dsdsdas", "dftgrht", "hjkuyt", "wwfa");
+        }
     }
 }
