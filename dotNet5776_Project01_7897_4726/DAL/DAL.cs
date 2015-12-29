@@ -21,26 +21,37 @@ namespace DAL
         void DeleteDish(int id);
         void DeleteDish(Dish item);
         void UpdateDish(Dish item);//האם יקבל ID?
+        Dish GetDish(int id);
+        IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null);
 
         void AddBranch(Branch newBranch);
         void DeleteBranch(int id);
         void DeleteBranch(Branch item);
         void UpdateBranch(Branch item);//האם יקבל ID?
+        Branch GetDish(int id);
+        IEnumerable<Branch> GetAllDishs(Func<Branch, bool> predicate = null);
 
         void AddOrder(Order newOrder);
         void DeleteOrder(int id);
         void DeleteOrder(Order item);
         void UpdateOrder(Order item);//האם יקבל ID?
+        Order GetDish(int id);
+        IEnumerable<Order> GetAllDishs(Func<Order, bool> predicate = null);
 
         void AddDishOrder(DishOrder newDishOrder);
         void DeleteDishOrder(int id);
         void DeleteDishOrder(DishOrder item);
         void UpdateDishOrder(DishOrder item);//האם יקבל ID?
+        DishOrder GetDish(int id);
+        IEnumerable<DishOrder> GetAllDishs(Func<DishOrder, bool> predicate = null);
 
         void AddClient(Client newClient);
         void DeleteClient(int id);
         void DeleteClient(Client item);
         void UpdateClient(Client item);//האם יקבל ID?
+        Client GetDish(int id);
+        IEnumerable<Client> GetAllDishs(Func<Client, bool> predicate = null);
+
         T getByID<T>(int id) where T : InterID;
         List<DishOrder> getAllDishOrders(Order order);
 
@@ -96,6 +107,11 @@ namespace DAL
             list.Add(item);
 
         }
+        T Get<T>(int id)where T: InterID
+        {
+            List<T> list = getList<T>() as List<T>;
+            return list.Find((item)=>item.ID==id);
+        }
         /// <summary>
         /// מביאה תעודת זהות פנוייה באופן רנדומלי
         /// </summary>
@@ -125,10 +141,7 @@ namespace DAL
         /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
         bool ContainID<T>(int id, List<T> list) where T : InterID 
         {
-            
-            if(!list.Exists((item)=>(item.ID==id)))
-                return false;
-            return true;
+            return list.Any(item => item.ID == id); 
         }
         /// <summary>
         /// בודקת באזיה אינדקס נמצא האיבר בעל תעודת הזהות הזו
