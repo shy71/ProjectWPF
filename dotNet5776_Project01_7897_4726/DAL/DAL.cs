@@ -33,6 +33,7 @@ namespace DAL
         void UpdateBranch(Branch item);//האם יקבל ID?
         Branch GetBranch(int id);
         IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null);
+        IEnumerable<Order> GetBranchOrders(int ID);
         #endregion
 
         #region Order Functions
@@ -96,12 +97,12 @@ namespace DAL
             list.RemoveAt(list.FindIndex(item => item.ID == id));
 
         }
-        /// <summary>
+       /// <summary>
         /// מוחקת איבר מהרשימה באמצעות האיבר עצמו
-        /// </summary>
-        /// <typeparam name="T">סוג האיבר</typeparam>
-        /// <param name="item">האיבר אותו אנו מבקשים למחוק</param>
-        /// <param name="list">הרשימה ממנה נמחק אותו</param>
+       /// </summary>
+       /// <typeparam name="T">סוג האיבר</typeparam>
+       /// <param name="item">האיבר אותו אנו מבקשים למחוק</param>
+       /// <param name="list">הרשימה ממנה נמחק אותו</param>
         void Delete<T>(T item) where T : InterID { Delete<T>(item.ID); }
         /// <summary>
         /// עדכון איבר מהרשימה באמצעות איבר מעודכן
@@ -172,7 +173,7 @@ namespace DAL
         /// <param name="id">תעדות הזהות</param>
         /// <param name="list">הרשימה בה נממצאים האיברים </param>
         /// <returns>מחזירה אינדקס של מיקום האיבר</returns>
-        int IndexByID<T>(int id, List<T> list) where T : InterID
+        int IndexByID<T>(int id, List<T> list) where T : InterID 
         {
             return list.FindIndex((item) => (item.ID == id));
         }
@@ -333,6 +334,9 @@ namespace DAL
         {
             return (getList<DishOrder>() as List<DishOrder>).FindAll((item) => (item.OrderID == order.ID));
         }
-
+        public IEnumerable<Order> GetBranchOrders(int ID)
+        {
+            return (getList<Order>() as List<Order>).FindAll((var) => (var.BranchID == ID));
+        }
     }
 }
