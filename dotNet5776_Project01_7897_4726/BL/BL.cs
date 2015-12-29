@@ -139,7 +139,9 @@ namespace BL
         }
         public void DeleteBranch(int id)
         {
-
+            List < Order > orderList= myDal.GetBranchOrders(id) as List<Order>;
+            if (orderList.Count == 0)
+                myDal.DeleteBranch(id);
         }
         #endregion
     }
