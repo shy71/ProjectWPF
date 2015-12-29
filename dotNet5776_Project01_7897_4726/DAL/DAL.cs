@@ -28,29 +28,29 @@ namespace DAL
         void DeleteBranch(int id);
         void DeleteBranch(Branch item);
         void UpdateBranch(Branch item);//האם יקבל ID?
-        Branch GetDish(int id);
-        IEnumerable<Branch> GetAllDishs(Func<Branch, bool> predicate = null);
+        Branch GetBranch(int id);
+        IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null);
 
         void AddOrder(Order newOrder);
         void DeleteOrder(int id);
         void DeleteOrder(Order item);
         void UpdateOrder(Order item);//האם יקבל ID?
-        Order GetDish(int id);
-        IEnumerable<Order> GetAllDishs(Func<Order, bool> predicate = null);
+        Order GetOrder(int id);
+        IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null);
 
         void AddDishOrder(DishOrder newDishOrder);
         void DeleteDishOrder(int id);
         void DeleteDishOrder(DishOrder item);
         void UpdateDishOrder(DishOrder item);//האם יקבל ID?
-        DishOrder GetDish(int id);
-        IEnumerable<DishOrder> GetAllDishs(Func<DishOrder, bool> predicate = null);
+        DishOrder GetDishOrder(int id);
+        IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null);
 
         void AddClient(Client newClient);
         void DeleteClient(int id);
         void DeleteClient(Client item);
         void UpdateClient(Client item);//האם יקבל ID?
-        Client GetDish(int id);
-        IEnumerable<Client> GetAllDishs(Func<Client, bool> predicate = null);
+        Client GetClient(int id);
+        IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
 
         T getByID<T>(int id) where T : InterID;
         List<DishOrder> getAllDishOrders(Order order);
