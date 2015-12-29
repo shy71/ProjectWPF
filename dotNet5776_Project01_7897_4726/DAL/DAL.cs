@@ -30,6 +30,7 @@ namespace DAL
         void UpdateBranch(Branch item);//האם יקבל ID?
         Branch GetBranch(int id);
         IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null);
+        IEnumerable<Order> GetBranchOrders(int ID);
 
         void AddOrder(Order newOrder);
         void DeleteOrder(int id);
@@ -260,6 +261,9 @@ namespace DAL
         {
             return (getList<DishOrder>() as List<DishOrder>).FindAll((item) => (item.OrderID == order.ID));
         }
-
+        public IEnumerable<Order> GetBranchOrders(int ID)
+        {
+            return (getList<Order>() as List<Order>).FindAll((var) => (var.BranchID == ID));
+        }
     }
 }

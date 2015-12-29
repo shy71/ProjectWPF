@@ -19,6 +19,10 @@ namespace BE
     {
         LOW, MEDIUM, HIGH
     }
+    public enum Size
+    {
+        SMALL, MEDIUM, LARGE
+    }
     public class Client : InterID
     {
         int id;
@@ -66,11 +70,11 @@ namespace BE
             get { return id; }
             set { id = value; }
         }
-        int branchNum;
-        public int BranchNum
+        int branchID;
+        public int BranchID
         {
-            get { return branchNum; }
-            set { branchNum = value; }
+            get { return branchID; }
+            set { branchID = value; }
         }
         string address;
         public string Address
@@ -104,14 +108,14 @@ namespace BE
         {
             return "Order ID: " + ID
                     + "\nDate: " + Date
-                    + "\nBranch: " + BranchNum
+                    + "\nBranch: " + BranchID
                     + "\nKashrut: " + Kosher
                     + "\nClient ID: " + ClientID
                     + "\nOrder address: " + Address;
         }
         public int MakeID()
         {
-            return Extensions.MakeID(BranchNum.ToString(),Address,Date.ToString(),Kosher.ToString(),ClientID.ToString());
+            return Extensions.MakeID(BranchID.ToString(),Address,Date.ToString(),Kosher.ToString(),ClientID.ToString());
         }
     }
     public class Dish : InterID
@@ -132,8 +136,8 @@ namespace BE
             get { return name; }
             set { name = value; }
         }
-        int size;
-        public int Size
+        Size size;
+        public Size DishSize
         {
             get { return size; }
             set { size = value; }
@@ -158,12 +162,12 @@ namespace BE
         {
             return "Dish number: " + ID
                  + "\nDish name: " + Name
-                 + "\nDish size: " + Size
+                 + "\nDish size: " + DishSize
                  + "\nDish price: " + Price;
         }
         public int MakeID()
         {
-            return Extensions.MakeID(Name,Size.ToString(),Price.ToString(),Kosher.ToString());
+            return Extensions.MakeID(Name, DishSize.ToString(), Price.ToString(), Kosher.ToString());
         }
     }
     public class Branch : InterID
