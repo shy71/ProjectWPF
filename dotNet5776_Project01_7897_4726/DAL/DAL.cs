@@ -113,7 +113,7 @@ namespace DAL
         {
             List<T> list = getList<T>() as List<T>;
             if (ContainID<T>(item.ID) == false)
-                return; //ERROR
+                throw new Exception("There isnt any item in the list with this id...");
             list.RemoveAt(list.FindIndex(var => var.ID == item.ID));
             list.Add(item);
 
@@ -148,7 +148,7 @@ namespace DAL
             {
                 result++;
                 if (result == original)
-                    break; //ERROR
+                    throw new Exception("there is to many items! we cant assign them an ID");
                 else if (result > 99999999)
                     result = 0;
             }

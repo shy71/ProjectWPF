@@ -82,9 +82,9 @@ namespace BL
         public float PriceOfOrder(Order order)
         {
             float result=0;
-            List<DishOrder> list = myDal.getAllDishOrders(order);
+            List<DishOrder> list = myDal.getAllDishOrdersOfOrder(order);
             foreach (DishOrder item in list)
-                result += item.DishAmount * myDal.getByID<Dish>(item.DishID).Price;
+                result += item.DishAmount * myDal.GetDish(item.DishID).Price;
             return result;
         }
 
