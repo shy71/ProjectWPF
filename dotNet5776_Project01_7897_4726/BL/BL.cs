@@ -113,8 +113,7 @@ namespace BL
         }
         public void DeleteDish(Dish item)
         {
-            CheckIfDishOrder(item.ID);
-            myDal.DeleteDish(item.ID);
+            DeleteDish(item.ID);
         }
         public void UpdateDish(Dish item)
         {
@@ -171,15 +170,32 @@ namespace BL
         #endregion
 
         #region Client Functions
-        internal bool CompatableDish(Client client)
+        internal bool CompatableClient(Client client)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
         {
-            new Client()
-            return 
+            return (client.Address != null && client.CreditCard != null && client.Name != null);
         }
-        void AddClient(Client newClient);
-        void DeleteClient(int id);
-        void DeleteClient(Client item);
-        void UpdateClient(Client item);
+        void AddClient(Client newClient)
+        {
+            if (!CompatableClient(newClient))
+                throw new Exception("The filed of the Client were filed incorrectly");
+            myDal.AddClient(newClient);
+        }
+        void DeleteClient(int id)
+        {
+            if (myDal.GetAllOrders(item => item.ClientID == id).ToList().Count > 0)
+                throw new Exception("You cant delete a Client that has active orders");
+            myDal.DeleteClient(id);
+        }
+        void DeleteClient(Client item)
+        {
+            DeleteClient(item.ID);
+        }
+        void UpdateClient(Client item)
+        {
+            if (!CompatableClient(item))
+                throw new Exception("The filed of the update for the client were filed incorrectly");
+            myDal.UpdateClient(item);
+        }
         #endregion
 
         public void inti()
@@ -190,11 +206,11 @@ namespace BL
             AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH));
             AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM));
             AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW));
-            myDal.AddClient(new Client("Shy", "Sdarot herzl 12", 45326));
-            myDal.AddClient(new Client("ezra", "bait shmes(chor)", 78695));
-            myDal.AddClient(new Client("itai", "zev hill", 1938));
-            myDal.AddClient(new Client("tal", "alon svut", 91731));
-            myDal.AddClient(new Client("gal", "male adomim", 38267));
+           AddClient(new Client("Shy", "Sdarot herzl 12", 45326));
+            AddClient(new Client("ezra", "bait shmes(chor)", 78695));
+            AddClient(new Client("itai", "zev hill", 1938));
+            AddClient(new Client("tal", "alon svut", 91731));
+            AddClient(new Client("gal", "male adomim", 38267));
             AddBranch(new Branch("jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM));
             AddBranch(new Branch("bni brack", "sholm 7", "039872611", "kidron",1, 5, Kashrut.HIGH));
             AddBranch(new Branch("ailte", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW));
