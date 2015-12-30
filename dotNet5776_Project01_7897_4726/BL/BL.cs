@@ -89,10 +89,10 @@ namespace BL
             return result;
         }
 
-        #region Dish Functions
-        internal bool CompatableDish(Dish theDish)
+        #region Dish Functions // להוסיף חריגות
+        internal bool CompatableDish(Dish dish)
         {
-            return !(theDish.ID < 0 || theDish.Price <= 0);
+            return !(dish.Price <= 0 ||dish.Name==null||dish.Kosher==null|dish.Size==null);
         }
         public void AddDish(Dish newDish)
         {
@@ -124,10 +124,10 @@ namespace BL
         }
         #endregion
 
-        #region Branch Functions
-        internal bool CompatableBranch(Branch theBranch)
+        #region Branch Functions // להוסיף חריגות
+        internal bool CompatableBranch(Branch branch)
         {
-            return !(theBranch.Address==null || theBranch.Boss==null || theBranch.EmployeeCount<=0 || theBranch.ID<=0 || theBranch.PhoneNumber==null || theBranch.Name==null);
+            return !(branch.Address==null || branch.Boss==null || branch.EmployeeCount<=0 || branch.PhoneNumber==null || branch.Name==null);
         }
         public void AddBranch(Branch newBranch)
         {
@@ -142,9 +142,7 @@ namespace BL
         }
         public void DeleteBranch(Branch myBranch)
         {
-            List<Order> orderList = myDal.GetAllOrders(item => item.BranchID == myBranch.ID).ToList<Order>();
-            if (orderList.Count == 0)
-                myDal.DeleteBranch(myBranch.ID);
+            DeleteBranch(myBranch.ID);
         }
         public void UpdateBranch(Branch myBranch)
         {
@@ -154,11 +152,11 @@ namespace BL
         }
         #endregion
 
-        #region OrderFunctions
+        #region Order Functions //להוסיף חריגות
         internal bool CompatableOrder(Order myOrder)//now finished
         {
-            return (myOrder.Address != "" && myOrder.BranchID >= 0 && myOrder.ClientID >= 0 
-                && myOrder.ID >= 0 && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID));//kashrut check
+            return (myOrder.Address != "" && myOrder.Date!=null
+                && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID));//kashrut check
         }
         public void AddOrder(Order newOrder)
         {
@@ -172,24 +170,36 @@ namespace BL
         }
         #endregion
 
+        #region Client Functions
+        internal bool CompatableDish(Client client)
+        {
+            new Client()
+            return 
+        }
+        void AddClient(Client newClient);
+        void DeleteClient(int id);
+        void DeleteClient(Client item);
+        void UpdateClient(Client item);
+        #endregion
 
         public void inti()
         {
-            myDal.AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH));
-            myDal.AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW));
-            myDal.AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH));
-            myDal.AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM));
-            myDal.AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW));
+
+           AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH));
+            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW));
+            AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH));
+            AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM));
+            AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW));
             myDal.AddClient(new Client("Shy", "Sdarot herzl 12", 45326));
             myDal.AddClient(new Client("ezra", "bait shmes(chor)", 78695));
             myDal.AddClient(new Client("itai", "zev hill", 1938));
             myDal.AddClient(new Client("tal", "alon svut", 91731));
             myDal.AddClient(new Client("gal", "male adomim", 38267));
-            myDal.AddBranch(new Branch("jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM));
-            myDal.AddBranch(new Branch("bni brack", "sholm 7", "039872611", "kidron",1, 5, Kashrut.HIGH));
-            myDal.AddBranch(new Branch("ailte", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW));
-            myDal.AddBranch(new Branch("tel aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW));
-            myDal.AddBranch(new Branch("bear sheva", "shbub street", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM));
+            AddBranch(new Branch("jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM));
+            AddBranch(new Branch("bni brack", "sholm 7", "039872611", "kidron",1, 5, Kashrut.HIGH));
+            AddBranch(new Branch("ailte", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW));
+            AddBranch(new Branch("tel aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW));
+            AddBranch(new Branch("bear sheva", "shbub street", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM));
             
         }
     }

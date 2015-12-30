@@ -77,7 +77,7 @@ namespace DAL
         void Add<T>(T newItem) where T : InterID
         {
             List<T> list = getList<T>() as List<T>;
-            if (newItem.ID == 0 || ContainID<T>(newItem.ID))
+            if (newItem.ID <= 0 || ContainID<T>(newItem.ID))
                 newItem.ID = NextID(newItem);
             list.Add(newItem);
         }
