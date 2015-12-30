@@ -164,17 +164,6 @@ namespace DAL
         {
             return (getList<T>() as List<T>).Any(item => item.ID == id);
         }
-        /// <summary>
-        /// בודקת באזיה אינדקס נמצא האיבר בעל תעודת הזהות הזו
-        /// </summary>
-        /// <typeparam name="T">סוג האיבר</typeparam>
-        /// <param name="id">תעדות הזהות</param>
-        /// <param name="list">הרשימה בה נממצאים האיברים </param>
-        /// <returns>מחזירה אינדקס של מיקום האיבר</returns>
-        int IndexByID<T>(int id, IEnumerable<T> list) where T : InterID 
-        {
-            return list.ToList<T>().FindIndex((item) => (item.ID == id));
-        }
         object getList<T>()
         {
             if (typeof(T) == typeof(Dish))

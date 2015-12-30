@@ -15,8 +15,16 @@ namespace BE
         int ID { get; set; }
         int MakeID();//צריך להוסיף את המימוש ביורשים!
     }
-    public class Client : InterID
+    public class Dish : InterID
     {
+        public Dish(string name,Size size,float price,Kashrut kosher,int id = 0)
+        {
+            ID = id;
+            Name = name;
+            Size = size;
+            Price = price;
+            Kosher = kosher;
+        }
         int id;
         public int ID
         {
@@ -29,33 +37,51 @@ namespace BE
             get { return name; }
             set { name = value; }
         }
-        string address;
-        public string Address
+        Size size;
+        public Size Size
         {
-            get { return address; }
-            set { address = value; }
+            get { return size; }
+            set { size = value; }
         }
-        int creditCard;
-        public int CreditCard
+        float price;
+        public float Price
         {
-            get { return creditCard; }
-            set { creditCard = value; }
+            get { return price; }
+            set { price = value; }
         }
+        Kashrut kosher;
+        public Kashrut Kosher
+        {
+            get { return kosher; }
+            set { kosher = value; }
+        }
+        /// <summary>
+        /// ממיר את המנה למחרוזת
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            return "Client number: " + ID
-                + "\nClient name: " + Name
-                + "\nClient address: " + Address
-                + "\nCredit card number: " + CreditCard;
+            return "Dish number: " + ID
+                 + "\nDish name: " + Name
+                 + "\nDish size: " + Size
+                 + "\nDish price: " + Price;
         }
         public int MakeID()
         {
-            return Extensions.MakeID(Name, Address, CreditCard.ToString());
+            return Extensions.MakeID(Name, Size.ToString(), Price.ToString(), Kosher.ToString());
         }
     }
     public class Order : InterID
     {
-
+        public Order(int branchID, string address, DateTime date, Kashrut kosher, int clientID, int id = 0)
+        {
+            ID = id;
+            BranchID=branchID;
+            Address=address;
+            Date=date;
+            Kosher = kosher;
+            ClientID=clientID;
+        }
         int id;
         public int ID
         {
@@ -110,11 +136,14 @@ namespace BE
             return Extensions.MakeID(BranchID.ToString(),Address,Date.ToString(),Kosher.ToString(),ClientID.ToString());
         }
     }
-    public class Dish : InterID
+    public class DishOrder : InterID
     {
-        public Dish(int id)
+        public DishOrder(int orderID,int dishID,int dishAmount, int id = 0)
         {
-            this.id = id;
+            ID = id;
+            OrderID = orderID;
+            DishID = dishID;
+            DishAmount = dishAmount;
         }
         int id;
         public int ID
@@ -122,48 +151,52 @@ namespace BE
             get { return id; }
             set { id = value; }
         }
-        string name;
-        public string Name
+        int orderID;
+        public int OrderID
         {
-            get { return name; }
-            set { name = value; }
+            get { return orderID; }
+            set { orderID = value; }
         }
-        Size size;
-        public Size DishSize
+        int dishID;
+        public int DishID
         {
-            get { return size; }
-            set { size = value; }
+            get { return dishID; }
+            set { dishID = value; }
         }
-        float price;
-        public float Price
+        int dishAmount;
+        public int DishAmount
         {
-            get { return price; }
-            set { price = value; }
-        }
-        Kashrut kosher;
-        public Kashrut Kosher
-        {
-            get { return kosher; }
-            set { kosher = value; }
+            get { return dishAmount; }
+            set { dishAmount = value; }
         }
         /// <summary>
-        /// ממיר את המנה למחרוזת
+        /// ממיר את ההזמנת מנה למחרוזת
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return "Dish number: " + ID
-                 + "\nDish name: " + Name
-                 + "\nDish size: " + DishSize
-                 + "\nDish price: " + Price;
+            return "Order number: " + OrderID
+                 + "\nDish number: " + DishID
+                 + "\nAmount of dishes ordered: " + DishAmount;
         }
         public int MakeID()
         {
-            return Extensions.MakeID(Name, DishSize.ToString(), Price.ToString(), Kosher.ToString());
+            return Extensions.MakeID(OrderID.ToString(), DishID.ToString(), DishAmount.ToString());
         }
     }
     public class Branch : InterID
     {
+        public Branch(string name, string address, string phoneNumber,string boss,int employeeCount,int availableMessangers,Kashrut kosher, int id = 0)
+        {
+            ID = id;
+            Name = name;
+            Address = address;
+            PhoneNumber = phoneNumber;
+            Boss = boss;
+            EmployeeCount = employeeCount;
+            AvailableMessangers = availableMessangers;
+            Kosher = kosher;
+        }
         int id;
         public int ID
         {
@@ -232,45 +265,50 @@ namespace BE
             return Extensions.MakeID(Name, Address, PhoneNumber, Boss, EmployeeCount.ToString(), AvailableMessangers.ToString(), Kosher.ToString());
         }
     }
-    public class DishOrder : InterID
+    public class Client : InterID
     {
+        public Client(string name, string address, int creditCard, int id = 0)
+        {
+            ID = id;
+            Name = name;
+            Address = address;
+            CreditCard = creditCard;
+        }
         int id;
         public int ID
         {
             get { return id; }
             set { id = value; }
         }
-        int orderID;
-        public int OrderID
+        string name;
+        public string Name
         {
-            get { return orderID; }
-            set { orderID = value; }
+            get { return name; }
+            set { name = value; }
         }
-        int dishID;
-        public int DishID
+        string address;
+        public string Address
         {
-            get { return dishID; }
-            set { dishID = value; }
+            get { return address; }
+            set { address = value; }
         }
-        int dishAmount;
-        public int DishAmount
+        int creditCard;
+        public int CreditCard
         {
-            get { return dishAmount; }
-            set { dishAmount = value; }
+            get { return creditCard; }
+            set { creditCard = value; }
         }
-        /// <summary>
-        /// ממיר את ההזמנת מנה למחרוזת
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
-            return "Order number: " + OrderID
-                 + "\nDish number: " + DishID
-                 + "\nAmount of dishes ordered: " + DishAmount;
+            return "Client number: " + ID
+                + "\nClient name: " + Name
+                + "\nClient address: " + Address
+                + "\nCredit card number: " + CreditCard;
         }
         public int MakeID()
         {
-            return Extensions.MakeID(OrderID.ToString(), DishID.ToString(), DishAmount.ToString());
+            return Extensions.MakeID(Name, Address, CreditCard.ToString());
         }
     }
+    
 }
