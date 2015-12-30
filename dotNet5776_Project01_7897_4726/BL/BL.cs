@@ -155,18 +155,17 @@ namespace BL
         #endregion
 
         #region OrderFunctions
-        internal bool CompatableOrder(Order myOrder)
+        internal bool CompatableOrder(Order myOrder)//now finished
         {
             return (myOrder.Address != "" && myOrder.BranchID >= 0 && myOrder.ClientID >= 0 
-                && myOrder.ID >= 0 && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID)
-                );
+                && myOrder.ID >= 0 && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID));
         }
         public void AddOrder(Order newOrder)
         {
             if (CompatableOrder(newOrder))
                 myDal.AddOrder(newOrder);
         }
-        public void DeleteOrder(int id)
+        public void DeleteOrder(int id)//not finshed
         {
 
         }
