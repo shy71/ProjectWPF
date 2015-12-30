@@ -83,7 +83,7 @@ namespace BL
         public float PriceOfOrder(Order order)
         {
             float result=0;
-            List<DishOrder> list = myDal.getAllDishOrdersOfOrder(order);
+            List<DishOrder> list = myDal.GetAllDishOrders(item=>item.OrderID==order.ID) as List<DishOrder>;
             foreach (DishOrder item in list)
                 result += item.DishAmount * myDal.GetDish(item.DishID).Price;
             return result;
@@ -137,9 +137,9 @@ namespace BL
             CompatableBranch(newBranch);
             myDal.AddBranch(newBranch);
         }
-        public void DeleteBranch(int id)
+        public void DeleteBranch(int id)//unfinished
         {
-            List < Order > orderList= myDal.GetBranchOrders(id) as List<Order>;
+            List<Order> orderList = myDal.GetAllOrders(item => item.BranchID == id) as List<Order>;
             if (orderList.Count == 0)
                 myDal.DeleteBranch(id);
         }

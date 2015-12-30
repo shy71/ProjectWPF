@@ -13,7 +13,6 @@ namespace DAL
         {
             return new Dal_imp();
         }
-
     }
     public interface Idal
     {
@@ -33,7 +32,6 @@ namespace DAL
         void UpdateBranch(Branch item);//האם יקבל ID?
         Branch GetBranch(int id);
         IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null);
-        IEnumerable<Order> GetBranchOrders(int ID);
         #endregion
 
         #region Order Functions
@@ -62,7 +60,6 @@ namespace DAL
         Client GetClient(int id);
         IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
         #endregion
-        List<DishOrder> getAllDishOrdersOfOrder(Order order);
 
     }
     class Dal_imp: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
@@ -328,15 +325,5 @@ namespace DAL
             return GetAll(predicate);
         }
 #endregion
-
-
-        public List<DishOrder> getAllDishOrdersOfOrder(Order order)//Check
-        {
-            return (getList<DishOrder>() as List<DishOrder>).FindAll((item) => (item.OrderID == order.ID));
-        }
-        public IEnumerable<Order> GetBranchOrders(int ID)
-        {
-            return (getList<Order>() as List<Order>).FindAll((var) => (var.BranchID == ID));
-        }
     }
 }
