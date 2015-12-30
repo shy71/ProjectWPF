@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 /*
  * להוסיף לפקופטי מגבלה
+
  * */
 namespace BE
 {
@@ -18,6 +19,10 @@ namespace BE
     {
         LOW, MEDIUM, HIGH
     }
+    public enum Size
+    {
+        SMALL, MEDIUM, LARGE
+    }
     public class Client : InterID
     {
         int id;
@@ -29,8 +34,8 @@ namespace BE
         string name;
         public string Name
         {
-            get { return Name; }
-            set { Name = value; }
+            get { return name; }
+            set { name = value; }
         }
         string address;
         public string Address
@@ -47,24 +52,35 @@ namespace BE
         public override string ToString()
         {
             return "Client number: " + ID
-                +  "\nClient name: " + Name
-                +  "\nClient address: " + Address
-                +  "\nCredit card number: " + CreditCard;
+                + "\nClient name: " + Name
+                + "\nClient address: " + Address
+                + "\nCredit card number: " + CreditCard;
+        }
+        public int MakeID()
+        {
+            return Extensions.MakeID(Name, Address, CreditCard.ToString());
         }
     }
     public class Order : InterID
     {
-        int clientID;
-        public int ClientID
-        {
-            get { return clientID; }
-            set { clientID = value; }
-        }
+
         int id;
         public int ID
         {
             get { return id; }
             set { id = value; }
+        }
+        int branchID;
+        public int BranchID
+        {
+            get { return branchID; }
+            set { branchID = value; }
+        }
+        string address;
+        public string Address
+        {
+            get { return address; }
+            set { address = value; }
         }
         DateTime date;
         public DateTime Date
@@ -72,23 +88,17 @@ namespace BE
             get { return date; }
             set { date = value; }
         }
-        int branchNum;
-        public int BranchNum
-        {
-            get { return branchNum; }
-            set { branchNum = value; }
-        }
         Kashrut kosher;
         public Kashrut Kosher
         {
             get { return kosher; }
             set { kosher = value; }
         }
-        string address;
-        public string Address
+        int clientID;
+        public int ClientID
         {
-            get { return address; }
-            set { address = value; }
+            get { return clientID; }
+            set { clientID = value; }
         }
         /// <summary>
         /// ממיר את ההזמנה למחרוזת
@@ -98,19 +108,16 @@ namespace BE
         {
             return "Order ID: " + ID
                     + "\nDate: " + Date
-                    + "\nBranch: " + BranchNum
+                    + "\nBranch: " + BranchID
                     + "\nKashrut: " + Kosher
                     + "\nClient ID: " + ClientID
                     + "\nOrder address: " + Address;
         }
         public int MakeID()
         {
-            return clientID;
+            return Extensions.MakeID(BranchID.ToString(),Address,Date.ToString(),Kosher.ToString(),ClientID.ToString());
         }
     }
-    /// <summary>
-    /// מנה
-    /// </summary>
     public class Dish : InterID
     {
         public Dish(int id)
@@ -129,8 +136,8 @@ namespace BE
             get { return name; }
             set { name = value; }
         }
-        int size;
-        public int Size
+        Size size;
+        public Size DishSize
         {
             get { return size; }
             set { size = value; }
@@ -155,16 +162,12 @@ namespace BE
         {
             return "Dish number: " + ID
                  + "\nDish name: " + Name
-                 + "\nDish size: " + Size
+                 + "\nDish size: " + DishSize
                  + "\nDish price: " + Price;
         }
         public int MakeID()
         {
-            string[]  DishComponents = new string[3];
-            DishComponents[0] = Name;
-            DishComponents[1] = Size;
-            DishComponents[2] = Price;
-            return DishComponents.Sum((string item) => (item.Select(r => (int)r).ToArray()));
+            return Extensions.MakeID(Name, DishSize.ToString(), Price.ToString(), Kosher.ToString());
         }
     }
     public class Branch : InterID
@@ -234,7 +237,7 @@ namespace BE
         }
         public int MakeID()
         {
-            return Name.Sum(r => (int)r);
+            return Extensions.MakeID(Name, Address, PhoneNumber, Boss, EmployeeCount.ToString(), AvailableMessangers.ToString(), Kosher.ToString());
         }
     }
     public class DishOrder : InterID
@@ -275,7 +278,14 @@ namespace BE
         }
         public int MakeID()
         {
-            return OrderID + DishID;
+            return Extensions.MakeID(OrderID.ToString(), DishID.ToString(), DishAmount.ToString());
         }
+    }
+}
+class Extensions
+{
+    internal static int MakeID(params string[] str)
+    {
+        return str.Select((item, index) => (item.Sum(r => (int)r)) * (int)Math.Pow(10, index)).Sum() % 100000000;
     }
 }

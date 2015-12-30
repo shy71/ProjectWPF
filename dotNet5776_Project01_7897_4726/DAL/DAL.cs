@@ -17,47 +17,69 @@ namespace DAL
     }
     public interface Idal
     {
+        #region Dish Functions
         void AddDish(Dish newDish);
         void DeleteDish(int id);
         void DeleteDish(Dish item);
         void UpdateDish(Dish item);//האם יקבל ID?
+        Dish GetDish(int id);
+        IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null);
+        #endregion
 
+        #region Branch Functions
         void AddBranch(Branch newBranch);
         void DeleteBranch(int id);
         void DeleteBranch(Branch item);
         void UpdateBranch(Branch item);//האם יקבל ID?
+        Branch GetBranch(int id);
+        IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null);
+        IEnumerable<Order> GetBranchOrders(int ID);
+        #endregion
 
+        #region Order Functions
         void AddOrder(Order newOrder);
         void DeleteOrder(int id);
         void DeleteOrder(Order item);
         void UpdateOrder(Order item);//האם יקבל ID?
+        Order GetOrder(int id);
+        IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null);
+        #endregion
 
+        #region DishOrder Functions
         void AddDishOrder(DishOrder newDishOrder);
         void DeleteDishOrder(int id);
         void DeleteDishOrder(DishOrder item);
         void UpdateDishOrder(DishOrder item);//האם יקבל ID?
+        DishOrder GetDishOrder(int id);
+        IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null);
+        #endregion
 
+        #region Client Functions
         void AddClient(Client newClient);
         void DeleteClient(int id);
         void DeleteClient(Client item);
         void UpdateClient(Client item);//האם יקבל ID?
-        T getByID<T>(int id) where T : InterID;
-        List<DishOrder> getAllDishOrders(Order order);
+        Client GetClient(int id);
+        IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
+        #endregion
+        List<DishOrder> getAllDishOrdersOfOrder(Order order);
 
     }
     class Dal_imp: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
     {
         Random rand=new Random();
+
+        #region Generic Functions
         /// <summary>
         /// מוסיפה איבר לרשימה, יחד עם כל הבדיקות הנצרכות
         /// </summary>
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="newItem">האיבר שהפוקנציה תוסיף</param>
         /// <param name="list">הרשימה לה היא תוסיף אותה</param>
-        void Add<T>(T newItem)where T : InterID
+        void Add<T>(T newItem) where T : InterID
         {
             List<T> list = getList<T>() as List<T>;
-            if (newItem.ID == 0 || ContainID(newItem.ID, list))
+            if (newItem.ID == 0 || ContainID<T>(newItem.ID))
                 newItem.ID = NextID(newItem);
             list.Add(newItem);
         }
@@ -70,9 +92,10 @@ namespace DAL
         void Delete<T>(int id) where T : InterID
         {
             List<T> list = getList<T>() as List<T>;
-            if (ContainID(id, list) == false)
-                return; //ERROR
-            list.RemoveAt(IndexByID(id, list));
+            if (ContainID<T>(id) == false)
+                throw new Exception("There isnt any item in the list with this id...");
+            list.RemoveAt(list.FindIndex(item => item.ID == id));
+
         }
        /// <summary>
         /// מוחקת איבר מהרשימה באמצעות האיבר עצמו
@@ -87,14 +110,30 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="item">האיבר המעודכן שבעזרת תעדות הזהות מסמן על האיבר שנעדכן</param>
         /// <param name="list">הרשימה בא נמצא האיבר אותו נעדכן</param>
-        void Update<T>(T item)where T : InterID
+        void Update<T>(T item) where T : InterID
         {
             List<T> list = getList<T>() as List<T>;
-            if (ContainID(item.ID, list) == false)
-                return; //ERROR
-            list.RemoveAt(IndexByID(item.ID, list));
+            if (ContainID<T>(item.ID) == false)
+                throw new Exception("There isnt any item in the list with this id...");
+            list.RemoveAt(list.FindIndex(var => var.ID == item.ID));
             list.Add(item);
 
+        }
+        T Get<T>(int id) where T : InterID
+        {
+            T res = (getList<T>() as List<T>).Find((item) => item.ID == id);
+            if (res == null)
+                throw new Exception("There isnt any item in the list with this id...");
+            return res;
+
+        }
+        IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID
+        {
+            if (predicate == null)
+                return (getList<T>() as List<T>).AsEnumerable();
+            return from T item in getList<T>() as List<T>
+                   where predicate(item)
+                   select item;
         }
         /// <summary>
         /// מביאה תעודת זהות פנוייה באופן רנדומלי
@@ -104,14 +143,14 @@ namespace DAL
         /// <returns>מחזירה את תעדות הזהות הפנוייה</returns>
         int NextID<T>(T item) where T : InterID// לבדוק האם יש דרך יותר יעילה לעשות את זה
         {
-            int original = item.MakeID(),result = original;
+            int original = item.MakeID(), result = original;
             List<T> list = getList<T>() as List<T>;
-            while (ContainID(result,list))
+            while (ContainID<T>(result))
             {
                 result++;
                 if (result == original)
-                    break; //ERROR
-                else if(result>99999999)
+                    throw new Exception("there is to many items! we cant assign them an ID");
+                else if (result > 99999999)
                     result = 0;
             }
             return result;
@@ -123,12 +162,9 @@ namespace DAL
         /// <param name="id">תעדות הזהות</param>
         /// <param name="list">הרשימה בה נמצאים האיברים</param>
         /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
-        bool ContainID<T>(int id, List<T> list) where T : InterID 
+        bool ContainID<T>(int id) where T : InterID
         {
-            
-            if(!list.Exists((item)=>(item.ID==id)))
-                return false;
-            return true;
+            return (getList<T>() as List<T>).Any(item => item.ID == id);
         }
         /// <summary>
         /// בודקת באזיה אינדקס נמצא האיבר בעל תעודת הזהות הזו
@@ -141,7 +177,24 @@ namespace DAL
         {
             return list.FindIndex((item) => (item.ID == id));
         }
+        object getList<T>()
+        {
+            if (typeof(T) == typeof(Dish))
+                return DS.DataSource.DishList;
+            if (typeof(T) == typeof(Branch))
+                return DS.DataSource.BranchList;
+            if (typeof(T) == typeof(Client))
+                return DS.DataSource.ClientList;
+            if (typeof(T) == typeof(DishOrder))
+                return DS.DataSource.DishOrderList;
+            if (typeof(T) == typeof(Order))
+                return DS.DataSource.OrderList;
+            return null;
 
+        }
+        #endregion
+
+        #region Dish Functions
         public void AddDish(Dish newDish)
         {
             Add(newDish);
@@ -158,7 +211,17 @@ namespace DAL
         {
             Update(item);
         }
+        public Dish GetDish(int id)
+        {
+            return Get<Dish>(id);
+        }
+        public IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null)
+        {
+            return GetAll(predicate);
+        }
+#endregion
 
+        #region Branch Functions
         public void AddBranch(Branch newBranch)
         {
             Add(newBranch);
@@ -175,6 +238,17 @@ namespace DAL
         {
             Update(item);
         }
+        public Branch GetBranch(int id)
+        {
+            return Get<Branch>(id);
+        }
+        public IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null)
+        {
+            return GetAll(predicate);
+        }
+#endregion
+
+        #region Order Functions
         public void AddOrder(Order newOrder)
         {
             Add(newOrder);
@@ -191,6 +265,17 @@ namespace DAL
         {
             Update(item);
         }
+        public Order GetOrder(int id)
+        {
+            return Get<Order>(id);
+        }
+        public IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)
+        {
+            return GetAll(predicate);
+        }
+#endregion
+
+        #region DishOrder Functions
         public void AddDishOrder(DishOrder newDishOrder)
         {
             Add(newDishOrder);
@@ -207,6 +292,17 @@ namespace DAL
         {
             Update(item);
         }
+        public DishOrder GetDishOrder(int id)
+        {
+            return Get<DishOrder>(id);
+        }
+        public IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null)
+        {
+            return GetAll(predicate);
+        }
+#endregion
+
+        #region Client Functions
         public void AddClient(Client newClient)
         {
             Add(newClient);
@@ -223,30 +319,24 @@ namespace DAL
         {
             Update(item);
         }
-
-        object getList<T>()
+        public Client GetClient(int id)
         {
-            if (typeof(T) == typeof(Dish))
-                return DS.DataSource.DishList;
-            if (typeof(T) == typeof(Branch))
-                return DS.DataSource.BranchList;
-            if (typeof(T) == typeof(Client))
-                return DS.DataSource.ClientList;
-            if (typeof(T) == typeof(DishOrder))
-                return DS.DataSource.DishOrderList;
-            if (typeof(T) == typeof(Order))
-                return DS.DataSource.OrderList;
-            return null;
-
+            return Get<Client>(id);
         }
-        public T getByID<T>(int id)  where T : InterID
+        public IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null)
         {
-            return (getList<T>() as List<T>).Find((item) => (item.ID == id));
+            return GetAll(predicate);
         }
-        public List<DishOrder> getAllDishOrders(Order order)
+#endregion
+
+
+        public List<DishOrder> getAllDishOrdersOfOrder(Order order)//Check
         {
             return (getList<DishOrder>() as List<DishOrder>).FindAll((item) => (item.OrderID == order.ID));
         }
-
+        public IEnumerable<Order> GetBranchOrders(int ID)
+        {
+            return (getList<Order>() as List<Order>).FindAll((var) => (var.BranchID == ID));
+        }
     }
 }
