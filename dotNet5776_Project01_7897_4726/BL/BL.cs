@@ -158,12 +158,13 @@ namespace BL
         internal bool CompatableOrder(Order myOrder)//now finished
         {
             return (myOrder.Address != "" && myOrder.BranchID >= 0 && myOrder.ClientID >= 0 
-                && myOrder.ID >= 0 && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID));
+                && myOrder.ID >= 0 && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID));//kashrut check
         }
         public void AddOrder(Order newOrder)
         {
             if (CompatableOrder(newOrder))
                 myDal.AddOrder(newOrder);
+            //change kashrut
         }
         public void DeleteOrder(int id)//not finshed
         {
