@@ -77,7 +77,7 @@ namespace BL
         //Add grouping functions 
 
     }
-    public class BL : IBL
+    public class BL //: IBL
     {
         DAL.Idal myDal = DAL.FactoryDal.getDal();
         public float PriceOfOrder(Order order)

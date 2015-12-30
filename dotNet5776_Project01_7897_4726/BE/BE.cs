@@ -15,14 +15,6 @@ namespace BE
         int ID { get; set; }
         int MakeID();//צריך להוסיף את המימוש ביורשים!
     }
-    public enum Kashrut
-    {
-        LOW, MEDIUM, HIGH
-    }
-    public enum Size
-    {
-        SMALL, MEDIUM, LARGE
-    }
     public class Client : InterID
     {
         int id;
@@ -280,12 +272,5 @@ namespace BE
         {
             return Extensions.MakeID(OrderID.ToString(), DishID.ToString(), DishAmount.ToString());
         }
-    }
-}
-class Extensions
-{
-    internal static int MakeID(params string[] str)
-    {
-        return str.Select((item, index) => (item.Sum(r => (int)r)) * (int)Math.Pow(10, index)).Sum() % 100000000;
     }
 }
