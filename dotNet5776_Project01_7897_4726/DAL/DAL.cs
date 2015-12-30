@@ -170,9 +170,9 @@ namespace DAL
         /// <param name="id">תעדות הזהות</param>
         /// <param name="list">הרשימה בה נממצאים האיברים </param>
         /// <returns>מחזירה אינדקס של מיקום האיבר</returns>
-        int IndexByID<T>(int id, List<T> list) where T : InterID 
+        int IndexByID<T>(int id, IEnumerable<T> list) where T : InterID 
         {
-            return list.FindIndex((item) => (item.ID == id));
+            return list.ToList<T>().FindIndex((item) => (item.ID == id));
         }
         object getList<T>()
         {
