@@ -83,7 +83,7 @@ namespace BL
         public float PriceOfOrder(Order order)
         {
             float result=0;
-            List<DishOrder> list = myDal.GetAllDishOrders(item=>item.OrderID==order.ID) as List<DishOrder>;
+            List<DishOrder> list = myDal.GetAllDishOrders(item=>item.OrderID==order.ID).ToList<DishOrder>();
             foreach (DishOrder item in list)
                 result += item.DishAmount * myDal.GetDish(item.DishID).Price;
             return result;
@@ -101,13 +101,10 @@ namespace BL
         }
         internal void CheckIfDishOrder(int id)
         {
-            IEnumerable<int> DishIDList = from item in myDal.GetAllDishOrders()
+            IEnumerable<int> DishIDList = from item in myDal.GetAllDishOrders(var => (var.DishID==id))
                                           select item.DishID;
-            foreach (int item in DishIDList)
-            {
-                if (item == id)
-                    throw new Exception("You can't delete a dish which is being ordered");
-            }
+            if (DishIDList.ToList<int>().Count != 0)
+                throw new Exception("You can't delete a dish which is being ordered");
         }
         public void DeleteDish(int id)
         {
@@ -139,7 +136,7 @@ namespace BL
         }
         public void DeleteBranch(int id)//unfinished
         {
-            List<Order> orderList = myDal.GetAllOrders(item => item.BranchID == id) as List<Order>;
+            List<Order> orderList = myDal.GetAllOrders(item => item.BranchID == id).ToList<Order>();
             if (orderList.Count == 0)
                 myDal.DeleteBranch(id);
         }
