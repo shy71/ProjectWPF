@@ -141,5 +141,26 @@ namespace BL
                 myDal.DeleteBranch(id);
         }
         #endregion
+
+
+        public void inti()
+        {
+            myDal.AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH));
+            myDal.AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW));
+            myDal.AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH));
+            myDal.AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM));
+            myDal.AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW));
+            myDal.AddClient(new Client("Shy", "Sdarot herzl 12", 45326));
+            myDal.AddClient(new Client("ezra", "bait shmes(chor)", 78695));
+            myDal.AddClient(new Client("itai", "zev hill", 1938));
+            myDal.AddClient(new Client("tal", "alon svut", 91731));
+            myDal.AddClient(new Client("gal", "male adomim", 38267));
+            myDal.AddBranch(new Branch("jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM));
+            myDal.AddBranch(new Branch("bni brack", "sholm 7", "039872611", "kidron",1, 5, Kashrut.HIGH));
+            myDal.AddBranch(new Branch("ailte", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW));
+            myDal.AddBranch(new Branch("tel aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW));
+            myDal.AddBranch(new Branch("bear sheva", "shbub street", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM));
+            
+        }
     }
 }
