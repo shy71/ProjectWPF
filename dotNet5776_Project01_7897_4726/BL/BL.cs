@@ -131,14 +131,44 @@ namespace BL
         }
         public void AddBranch(Branch newBranch)
         {
-            CompatableBranch(newBranch);
-            myDal.AddBranch(newBranch);
+            if(CompatableBranch(newBranch))
+                myDal.AddBranch(newBranch);
         }
-        public void DeleteBranch(int id)//unfinished
+        public void DeleteBranch(int id)
         {
             List<Order> orderList = myDal.GetAllOrders(item => item.BranchID == id).ToList<Order>();
             if (orderList.Count == 0)
                 myDal.DeleteBranch(id);
+        }
+        public void DeleteBranch(Branch myBranch)
+        {
+            List<Order> orderList = myDal.GetAllOrders(item => item.BranchID == myBranch.ID).ToList<Order>();
+            if (orderList.Count == 0)
+                myDal.DeleteBranch(myBranch.ID);
+        }
+        public void UpdateBranch(Branch myBranch)
+        {
+            List<Order> orderList = myDal.GetAllOrders(item => item.BranchID == myBranch.ID).ToList<Order>();
+            if (orderList.Count == 0)
+                myDal.UpdateBranch(myBranch);
+        }
+        #endregion
+
+        #region OrderFunctions
+        internal bool CompatableOrder(Order myOrder)
+        {
+            return (myOrder.Address != "" && myOrder.BranchID >= 0 && myOrder.ClientID >= 0 
+                && myOrder.ID >= 0 && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID)
+                );
+        }
+        public void AddOrder(Order newOrder)
+        {
+            if (CompatableOrder(newOrder))
+                myDal.AddOrder(newOrder);
+        }
+        public void DeleteOrder(int id)
+        {
+
         }
         #endregion
     }

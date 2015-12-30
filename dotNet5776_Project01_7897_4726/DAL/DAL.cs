@@ -58,6 +58,7 @@ namespace DAL
         void DeleteClient(Client item);
         void UpdateClient(Client item);//האם יקבל ID?
         Client GetClient(int id);
+        bool ContainID<T>(int id) where T : InterID;
         IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
         #endregion
 
@@ -159,7 +160,7 @@ namespace DAL
         /// <param name="id">תעדות הזהות</param>
         /// <param name="list">הרשימה בה נמצאים האיברים</param>
         /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
-        bool ContainID<T>(int id) where T : InterID
+        public bool ContainID<T>(int id) where T : InterID
         {
             return (getList<T>() as List<T>).Any(item => item.ID == id);
         }
