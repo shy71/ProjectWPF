@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BE;
 
-namespace BL 
+namespace BL
 {
     public delegate bool SortOutOrdersFunc(Order order);
     public interface IBL
@@ -65,7 +65,7 @@ namespace BL
         /// <param name="hechsher">kashrut it has to be</param>
         /// <returns>False if the order isn't the right hechsher
         ///          True if it is</returns>
-        bool CheckForHechsher(Order order, Kashrut hechsher); 
+        bool CheckForHechsher(Order order, Kashrut hechsher);
         /// <summary>
         /// Sorts out spicific orders from the list that is true in the condition
         /// from the condition fuction
@@ -82,26 +82,47 @@ namespace BL
         DAL.Idal myDal = DAL.FactoryDal.getDal();
         public float PriceOfOrder(Order order)
         {
-            float result=0;
-            List<DishOrder> list = myDal.GetAllDishOrders(item=>item.OrderID==order.ID).ToList<DishOrder>();
+            float result = 0;
+            List<DishOrder> list = myDal.GetAllDishOrders(item => item.OrderID == order.ID).ToList<DishOrder>();
             foreach (DishOrder item in list)
                 result += item.DishAmount * myDal.GetDish(item.DishID).Price;
             return result;
         }
+        public void Inti()
+        {
+
+            AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH));
+            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW));
+            AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH));
+            AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM));
+            AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW));
+            AddClient(new Client("Shy", "Sderot Hertzel 12", 45326));
+            AddClient(new Client("Ezra", "Beit Shemesh", 78695));
+            AddClient(new Client("Itai", "Giv'at Ze'ev", 1938));
+            AddClient(new Client("Tal", "Alon Shvut", 91731));
+            AddClient(new Client("Gal", "Ma'ale Adumim", 38267));
+            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM));
+            AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "kidron", 1, 5, Kashrut.HIGH));
+            AddBranch(new Branch("Eilat", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW));
+            AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW));
+            AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM));
+        }
 
         #region Dish Functions // להוסיף חריגות
-        internal bool CompatableDish(Dish dish)
+        internal bool CompatibleDish(Dish dish)
         {
-            return !(dish.Price <= 0 ||dish.Name==null||dish.Kosher==null|dish.Size==null);
+            return !(dish.Price <= 0 || dish.Name == null || dish.Kosher == null | dish.Size == null);
         }
         public void AddDish(Dish newDish)
         {
-            if(CompatableDish(newDish))
+            if (CompatibleDish(newDish))
                 myDal.AddDish(newDish);
+            else
+                throw new Exception("The dish is incompatible");
         }
         internal void CheckIfDishOrder(int id)
         {
-            IEnumerable<int> DishIDList = from item in myDal.GetAllDishOrders(var => (var.DishID==id))
+            IEnumerable<int> DishIDList = from item in myDal.GetAllDishOrders(var => (var.DishID == id))
                                           select item.DishID;
             if (DishIDList.ToList<int>().Count != 0)
                 throw new Exception("You can't delete a dish which is being ordered");
@@ -124,19 +145,20 @@ namespace BL
         #endregion
 
         #region Branch Functions // להוסיף חריגות
-        internal bool CompatableBranch(Branch branch)
+        internal bool CompatibleBranch(Branch branch)
         {
-            return !(branch.Address==null || branch.Boss==null || branch.EmployeeCount<=0 || branch.PhoneNumber==null || branch.Name==null);
+            return !(branch.Address == null || branch.Boss == null || branch.EmployeeCount <= 0 || branch.PhoneNumber == null || branch.Name == null);
         }
         public void AddBranch(Branch newBranch)
         {
-            if(CompatableBranch(newBranch))
+            if (CompatibleBranch(newBranch))
                 myDal.AddBranch(newBranch);
+            else
+                throw new Exception("The branch is incompatible");
         }
         public void DeleteBranch(int id)
         {
-            List<Order> orderList = myDal.GetAllOrders(item => item.BranchID == id).ToList<Order>();
-            if (orderList.Count == 0)
+            if (myDal.GetAllOrders(item => item.BranchID == id).ToList<Order>().Count == 0)
                 myDal.DeleteBranch(id);
         }
         public void DeleteBranch(Branch myBranch)
@@ -145,78 +167,108 @@ namespace BL
         }
         public void UpdateBranch(Branch myBranch)
         {
-            List<Order> orderList = myDal.GetAllOrders(item => item.BranchID == myBranch.ID).ToList<Order>();
-            if (orderList.Count == 0)
+            if (myDal.GetAllOrders(item => item.BranchID == myBranch.ID).ToList<Order>().Count == 0)
                 myDal.UpdateBranch(myBranch);
         }
         #endregion
 
-        #region Order Functions //להוסיף חריגות
-        internal bool CompatableOrder(Order myOrder)//now finished
+        #region Order Functions
+        internal bool CompatibleOrder(Order myOrder)
         {
-            return (myOrder.Address != "" && myOrder.Date!=null
-                && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID));//kashrut check
+            return (myOrder.Address != "" && myOrder.Date != null
+                && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID)
+                && myOrder.Kosher == myDal.GetBranch(myOrder.BranchID).Kosher);
         }
         public void AddOrder(Order newOrder)
         {
-            if (CompatableOrder(newOrder))
+            if (CompatibleOrder(newOrder))
                 myDal.AddOrder(newOrder);
-            //change kashrut
+            else
+                throw new Exception("The order is incompatible");
         }
-        public void DeleteOrder(int id)//not finshed
+        public void DeleteOrder(int id)
         {
-
+            IEnumerable<DishOrder> ordersDishes = from item in myDal.GetAllDishOrders()
+                                                  where item.OrderID == id
+                                                  select item;
+            foreach (DishOrder item in ordersDishes)
+                DeleteDishOrder(item);
+            myDal.DeleteOrder(id);
+        }
+        public void DeleteOrder(Order myOrder)
+        {
+            IEnumerable<DishOrder> ordersDishes = from item in myDal.GetAllDishOrders()
+                                                  where item.OrderID == myOrder.ID
+                                                  select item;
+            foreach (DishOrder item in ordersDishes)
+                DeleteDishOrder(item);
+            myDal.DeleteOrder(myOrder);
+        }
+        public void UpdateOrder(Order newOrder)
+        {
+            //make sure that kashrut doesn't contradict kashrut of branch pr dishes
+            Order oldOrder = myDal.GetOrder(newOrder.ID);
+            if(newOrder.Kosher != oldOrder.Kosher)//בהנחה שהם היו ברמת הכשר שלו עד אז
+                if (myDal.ContainID<DishOrder>(newOrder.ID) || myDal.ContainID<Dish>(newOrder.ID))
+                    throw new Exception("You can't change the order's kashrut level because it has dishes which aren't the same kahrut level");
+            myDal.UpdateOrder(newOrder);
         }
         #endregion
 
+        #region DishOrder Functions
+        internal bool CompatibleDishOrder(DishOrder theDishOrder)
+        {
+            return (theDishOrder.DishAmount > 0 
+                && myDal.ContainID<Dish>(theDishOrder.DishID) 
+                && myDal.ContainID<Order>(theDishOrder.OrderID)) ;
+        }
+        public void AddDishOrder(DishOrder newDishOrder)
+        {
+            if (CompatibleDishOrder(newDishOrder))
+                myDal.AddDishOrder(newDishOrder);
+            else
+                throw new Exception("The DishOrder is incompatible");
+        }
+        public void DeleteDishOrder(DishOrder item)//not finished
+        {
+            myDal.DeleteDishOrder(item);
+        }
+        public void DeleteDishOrder(int id)
+        {
+            myDal.DeleteDishOrder(id);
+        }
+        public void UpdateDishOrder(DishOrder item)
+        {
+            myDal.UpdateDishOrder(item);
+        }
+        #endregion
         #region Client Functions
-        internal bool CompatableClient(Client client)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
+        internal bool CompatibleClient(Client client)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
         {
             return (client.Address != null && client.CreditCard != null && client.Name != null);
         }
-        void AddClient(Client newClient)
+        public void AddClient(Client newClient)
         {
-            if (!CompatableClient(newClient))
+            if (!CompatibleClient(newClient))
                 throw new Exception("The filed of the Client were filed incorrectly");
             myDal.AddClient(newClient);
         }
-        void DeleteClient(int id)
+        public void DeleteClient(int id)
         {
             if (myDal.GetAllOrders(item => item.ClientID == id).ToList().Count > 0)
                 throw new Exception("You cant delete a Client that has active orders");
             myDal.DeleteClient(id);
         }
-        void DeleteClient(Client item)
+        public void DeleteClient(Client item)
         {
             DeleteClient(item.ID);
         }
-        void UpdateClient(Client item)
+        public void UpdateClient(Client item)
         {
             if (!CompatableClient(item))
                 throw new Exception("The filed of the update for the client were filed incorrectly");
             myDal.UpdateClient(item);
         }
         #endregion
-
-        public void inti()
-        {
-
-           AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH));
-            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW));
-            AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH));
-            AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM));
-            AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW));
-           AddClient(new Client("Shy", "Sdarot herzl 12", 45326));
-            AddClient(new Client("ezra", "bait shmes(chor)", 78695));
-            AddClient(new Client("itai", "zev hill", 1938));
-            AddClient(new Client("tal", "alon svut", 91731));
-            AddClient(new Client("gal", "male adomim", 38267));
-            AddBranch(new Branch("jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM));
-            AddBranch(new Branch("bni brack", "sholm 7", "039872611", "kidron",1, 5, Kashrut.HIGH));
-            AddBranch(new Branch("ailte", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW));
-            AddBranch(new Branch("tel aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW));
-            AddBranch(new Branch("bear sheva", "shbub street", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM));
-            
-        }
     }
 }

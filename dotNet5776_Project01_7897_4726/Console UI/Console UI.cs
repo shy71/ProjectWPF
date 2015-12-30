@@ -12,7 +12,8 @@ namespace Console_UI
         static void Main(string[] args)
         {
             BL.BL myBL = new BL.BL();
-            
+            myBL.Inti();
+            //finish UI and check all of the functions
         }
     }
 }
