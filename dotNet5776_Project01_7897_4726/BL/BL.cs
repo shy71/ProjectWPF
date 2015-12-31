@@ -97,7 +97,12 @@ namespace BL
         {
             return myDal.GetAllOrders(predicate);
         }
-
+        IGrouping<Dish,int> GetProfitByDishs()
+        {
+            var v=from item in myDal.GetAllDishOrders()
+                  select  item.DishID
+            return null;
+        }
         public void Inti()
         {
 
@@ -255,10 +260,12 @@ namespace BL
         #region Client Functions
         internal bool CompatibleClient(Client client)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
         {
-            return (client.Address != null && client.CreditCard != null && client.Name != null);
+            return (client.Address != null && client.CreditCard != null && client.Name != null&&client.Age!=null);
         }
         public void AddClient(Client newClient)
         {
+            if(newClient.Age<18)
+                throw new Exception("the services is offerd to 18+ age client");
             if (!CompatibleClient(newClient))
                 throw new Exception("The filed of the Client were filed incorrectly");
             myDal.AddClient(newClient);

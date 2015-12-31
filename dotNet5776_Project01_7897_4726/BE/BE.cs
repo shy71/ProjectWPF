@@ -298,16 +298,23 @@ namespace BE
             get { return creditCard; }
             set { creditCard = value; }
         }
+        int age;
+        public int Age
+        {
+            get { return age; }
+            set { age = value; }
+        }
         public override string ToString()
         {
             return "Client number: " + ID
                 + "\nClient name: " + Name
                 + "\nClient address: " + Address
-                + "\nCredit card number: " + CreditCard;
+                + "\nCredit card number: " + CreditCard
+                + "\nClient Age: " + Age;
         }
         public int MakeID()
         {
-            return Extensions.MakeID(Name, Address, CreditCard.ToString());
+            return Extensions.MakeID(Name, Address, CreditCard.ToString(),Age.ToString());
         }
     }
     
