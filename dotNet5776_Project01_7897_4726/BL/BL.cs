@@ -7,7 +7,7 @@ using BE;
 
 namespace BL
 {
-    public delegate bool SortOutOrdersFunc(Order order);
+    //public delegate bool SortOutOrdersFunc(Order order);
     public interface IBL
     {
         #region Dish Functions
@@ -72,14 +72,19 @@ namespace BL
         /// </summary>
         /// <param name="condition">Condition function</param>
         /// <returns>List of all the orders that the condition returns True</returns>
-        List<Order> GetSpicificOrders(SortOutOrdersFunc condition);
+        IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null);//לבדוק שזה בסדר שלא דילגיט
 
         //Add grouping functions 
 
     }
-    public class BL //: IBL
+    public class BL : IBL
     {
+        public readonly int  MAX_PRICE;
         DAL.Idal myDal = DAL.FactoryDal.getDal();
+        public BL(int maxPrice=1000)
+        {
+            MAX_PRICE = maxPrice;
+        }
         public float PriceOfOrder(Order order)
         {
             float result = 0;
@@ -88,6 +93,11 @@ namespace BL
                 result += item.DishAmount * myDal.GetDish(item.DishID).Price;
             return result;
         }
+        IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)
+        {
+            return myDal.GetAllOrders(predicate);
+        }
+
         public void Inti()
         {
 
@@ -107,8 +117,8 @@ namespace BL
             AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW));
             AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM));
         }
-
-        #region Dish Functions // להוסיף חריגות
+//לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
+        #region Dish Functions
         internal bool CompatibleDish(Dish dish)
         {
             return !(dish.Price <= 0 || dish.Name == null || dish.Kosher == null | dish.Size == null);
@@ -120,17 +130,12 @@ namespace BL
             else
                 throw new Exception("The dish is incompatible");
         }
-        internal void CheckIfDishOrder(int id)
-        {
-            IEnumerable<int> DishIDList = from item in myDal.GetAllDishOrders(var => (var.DishID == id))
-                                          select item.DishID;
-            if (DishIDList.ToList<int>().Count != 0)
-                throw new Exception("You can't delete a dish which is being ordered");
-        }
         public void DeleteDish(int id)
         {
-            CheckIfDishOrder(id);
-            myDal.DeleteDish(id);
+            if (myDal.GetAllDishOrders(item => item.DishID == id).ToList().Count == 0)
+                myDal.DeleteDish(id);
+            else
+                throw new Exception("You can't delete a dish which is being ordered");
         }
         public void DeleteDish(Dish item)
         {
@@ -139,12 +144,14 @@ namespace BL
         public void UpdateDish(Dish item)
         {
             //There isn't an option to change the ID;
-            CheckIfDishOrder(item.ID);
-            myDal.UpdateDish(item);
+            if (myDal.GetAllDishOrders(var => var.DishID == item.ID).ToList().Count == 0)
+                myDal.UpdateDish(item);
+            else
+                throw new Exception("You can't update a dish which is being ordered");
         }
         #endregion
 
-        #region Branch Functions // להוסיף חריגות
+        #region Branch Functions 
         internal bool CompatibleBranch(Branch branch)
         {
             return !(branch.Address == null || branch.Boss == null || branch.EmployeeCount <= 0 || branch.PhoneNumber == null || branch.Name == null);
@@ -160,6 +167,8 @@ namespace BL
         {
             if (myDal.GetAllOrders(item => item.BranchID == id).ToList<Order>().Count == 0)
                 myDal.DeleteBranch(id);
+            else
+                throw new Exception("you cant delete a bracnh that has an active orders from!");
         }
         public void DeleteBranch(Branch myBranch)
         {
@@ -169,6 +178,8 @@ namespace BL
         {
             if (myDal.GetAllOrders(item => item.BranchID == myBranch.ID).ToList<Order>().Count == 0)
                 myDal.UpdateBranch(myBranch);
+            else
+                throw new Exception("you cant update a bracnh that has an active orders from!");
         }
         #endregion
 
@@ -176,11 +187,12 @@ namespace BL
         internal bool CompatibleOrder(Order myOrder)
         {
             return (myOrder.Address != "" && myOrder.Date != null
-                && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID)
-                && myOrder.Kosher == myDal.GetBranch(myOrder.BranchID).Kosher);
+                && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID);                
         }
         public void AddOrder(Order newOrder)
         {
+            if (newOrder.Kosher > myDal.GetBranch(newOrder.BranchID).Kosher)
+                throw new Exception("The Kashrut in the branch is not sufficient for the order")
             if (CompatibleOrder(newOrder))
                 myDal.AddOrder(newOrder);
             else
@@ -188,25 +200,18 @@ namespace BL
         }
         public void DeleteOrder(int id)
         {
-            IEnumerable<DishOrder> ordersDishes = from item in myDal.GetAllDishOrders()
-                                                  where item.OrderID == id
-                                                  select item;
+            IEnumerable<DishOrder> ordersDishes = myDal.GetAllDishOrders(item => item.OrderID == id);
             foreach (DishOrder item in ordersDishes)
                 DeleteDishOrder(item);
             myDal.DeleteOrder(id);
         }
         public void DeleteOrder(Order myOrder)
         {
-            IEnumerable<DishOrder> ordersDishes = from item in myDal.GetAllDishOrders()
-                                                  where item.OrderID == myOrder.ID
-                                                  select item;
-            foreach (DishOrder item in ordersDishes)
-                DeleteDishOrder(item);
-            myDal.DeleteOrder(myOrder);
+            DeleteOrder(myOrder.ID);
         }
-        public void UpdateOrder(Order newOrder)
+        public void UpdateOrder(Order newOrder)//need fixing
         {
-            //make sure that kashrut doesn't contradict kashrut of branch pr dishes
+            //make sure that kashrut doesn't contradict kashrut of branch or dishes
             Order oldOrder = myDal.GetOrder(newOrder.ID);
             if(newOrder.Kosher != oldOrder.Kosher)//בהנחה שהם היו ברמת הכשר שלו עד אז
                 if (myDal.ContainID<DishOrder>(newOrder.ID) || myDal.ContainID<Dish>(newOrder.ID))
@@ -218,30 +223,35 @@ namespace BL
         #region DishOrder Functions
         internal bool CompatibleDishOrder(DishOrder theDishOrder)
         {
-            return (theDishOrder.DishAmount > 0 
-                && myDal.ContainID<Dish>(theDishOrder.DishID) 
-                && myDal.ContainID<Order>(theDishOrder.OrderID)) ;
+            return (theDishOrder.DishAmount > 0
+                && myDal.ContainID<Dish>(theDishOrder.DishID)
+                && myDal.ContainID<Order>(theDishOrder.OrderID));
         }
         public void AddDishOrder(DishOrder newDishOrder)
         {
-            if (CompatibleDishOrder(newDishOrder))
+            if((PriceOfOrder(myDal.GetOrder(newDishOrder.OrderID))+newDishOrder.DishAmount*myDal.GetDish(newDishOrder.DishID).Price)>MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
+            throw new Exception("The order price is above the approved limit");
+            if (myDal.GetDish(newDishOrder.ID).Kosher < myDal.GetOrder(newDishOrder.OrderID).Kosher)
+                throw new Exception("you cant add a dish without the sufficient Kashrut for the order")
+                if (CompatibleDishOrder(newDishOrder))
                 myDal.AddDishOrder(newDishOrder);
             else
                 throw new Exception("The DishOrder is incompatible");
         }
-        public void DeleteDishOrder(DishOrder item)//not finished
-        {
-            myDal.DeleteDishOrder(item);
-        }
         public void DeleteDishOrder(int id)
         {
             myDal.DeleteDishOrder(id);
+        }
+        public void DeleteDishOrder(DishOrder item)//not finished
+        {
+            DeleteDishOrder(item.ID);
         }
         public void UpdateDishOrder(DishOrder item)
         {
             myDal.UpdateDishOrder(item);
         }
         #endregion
+
         #region Client Functions
         internal bool CompatibleClient(Client client)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
         {
@@ -265,7 +275,7 @@ namespace BL
         }
         public void UpdateClient(Client item)
         {
-            if (!CompatableClient(item))
+            if (!CompatibleClient(item))
                 throw new Exception("The filed of the update for the client were filed incorrectly");
             myDal.UpdateClient(item);
         }
