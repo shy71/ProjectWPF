@@ -76,12 +76,12 @@ namespace DAL
         /// <param name="list">הרשימה לה היא תוסיף אותה</param>
         void Add<T>(T newItem) where T : InterID
         {
-            if (newItem.ID <= 0 || newItem.ID >= 100000000)
+            if (newItem.ID < 0 || newItem.ID >= 100000000)
                 throw new Exception("The ID must be a positive number with at most 8 digits");
-            List<T> list = getList<T>() as List<T>;
-            if (ContainID<T>(newItem.ID))
+            
+            if (ContainID<T>(newItem.ID)||newItem.ID==0)
                 newItem.ID = NextID(newItem);
-            list.Add(newItem);
+            (getList<T>() as List<T>).Add(newItem);
         }
         /// <summary>
         /// מוחקת איבר מהרשימה באמצעות תעודת הזהות
