@@ -79,9 +79,9 @@ namespace BL
     }
     public class BL : IBL
     {
-        public readonly int  MAX_PRICE;
+        public readonly int MAX_PRICE;
         DAL.Idal myDal = DAL.FactoryDal.getDal();
-        public BL(int maxPrice=1000)
+        public BL(int maxPrice = 1000)
         {
             MAX_PRICE = maxPrice;
         }
@@ -97,12 +97,16 @@ namespace BL
         {
             return myDal.GetAllOrders(predicate);
         }
-        IGrouping<Dish,int> GetProfitByDishs()
-        {
-            var v=from item in myDal.GetAllDishOrders()
-                  select  item.DishID
-            return null;
-        }
+        //IEnumerable<IGrouping<int,Gain>> GetProfitByDishs()
+        //{
+        //    List<Gain> list= new List<Gain>();
+        //    return (from item in myDal.GetAllDishOrders()
+        //            select new Gain(item, myDal.GetOrder(item.OrderID), myDal.GetDish(item.DishID)))
+        //            .GroupBy(item=> item.DishID);
+
+
+
+        //}
         public void Inti()
         {
 
@@ -122,7 +126,7 @@ namespace BL
             AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW));
             AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM));
         }
-//לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
+        //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
         #region Dish Functions
         internal bool CompatibleDish(Dish dish)
         {
@@ -156,7 +160,7 @@ namespace BL
         }
         #endregion
 
-        #region Branch Functions 
+        #region Branch Functions
         internal bool CompatibleBranch(Branch branch)
         {
             return !(branch.Address == null || branch.Boss == null || branch.EmployeeCount <= 0 || branch.PhoneNumber == null || branch.Name == null);
@@ -197,7 +201,9 @@ namespace BL
         public void AddOrder(Order newOrder)
         {
             if (newOrder.Kosher > myDal.GetBranch(newOrder.BranchID).Kosher)
-                throw new Exception("The Kashrut in the branch is not sufficient for the order")
+                throw new Exception("The Kashrut in the branch is not sufficient for the order");
+            if (myDal.GetBranch(newOrder.BranchID).AvailableMessangers == 0)
+                throw new Exception("There isnt any available messangers to deliver the order");
             if (CompatibleOrder(newOrder))
                 myDal.AddOrder(newOrder);
             else
@@ -218,7 +224,7 @@ namespace BL
         {
             //make sure that kashrut doesn't contradict kashrut of branch or dishes
             Order oldOrder = myDal.GetOrder(newOrder.ID);
-            if(newOrder.Kosher != oldOrder.Kosher)//בהנחה שהם היו ברמת הכשר שלו עד אז
+            if (newOrder.Kosher != oldOrder.Kosher)//בהנחה שהם היו ברמת הכשר שלו עד אז
                 if (myDal.ContainID<DishOrder>(newOrder.ID) || myDal.ContainID<Dish>(newOrder.ID))
                     throw new Exception("You can't change the order's kashrut level because it has dishes which aren't the same kahrut level");
             myDal.UpdateOrder(newOrder);
@@ -234,11 +240,11 @@ namespace BL
         }
         public void AddDishOrder(DishOrder newDishOrder)
         {
-            if((PriceOfOrder(myDal.GetOrder(newDishOrder.OrderID))+newDishOrder.DishAmount*myDal.GetDish(newDishOrder.DishID).Price)>MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
-            throw new Exception("The order price is above the approved limit");
+            if ((PriceOfOrder(myDal.GetOrder(newDishOrder.OrderID)) + newDishOrder.DishAmount * myDal.GetDish(newDishOrder.DishID).Price) > MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
+                throw new Exception("The order price is above the approved limit");
             if (myDal.GetDish(newDishOrder.ID).Kosher < myDal.GetOrder(newDishOrder.OrderID).Kosher)
-                throw new Exception("you cant add a dish without the sufficient Kashrut for the order")
-                if (CompatibleDishOrder(newDishOrder))
+                throw new Exception("you cant add a dish without the sufficient Kashrut for the order");
+            if (CompatibleDishOrder(newDishOrder))
                 myDal.AddDishOrder(newDishOrder);
             else
                 throw new Exception("The DishOrder is incompatible");
@@ -260,11 +266,11 @@ namespace BL
         #region Client Functions
         internal bool CompatibleClient(Client client)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
         {
-            return (client.Address != null && client.CreditCard != null && client.Name != null&&client.Age!=null);
+            return (client.Address != null && client.CreditCard != null && client.Name != null && client.Age != null);
         }
         public void AddClient(Client newClient)
         {
-            if(newClient.Age<18)
+            if (newClient.Age < 18)
                 throw new Exception("the services is offerd to 18+ age client");
             if (!CompatibleClient(newClient))
                 throw new Exception("The filed of the Client were filed incorrectly");
