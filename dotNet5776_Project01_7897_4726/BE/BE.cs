@@ -72,7 +72,7 @@ namespace BE
         }
     }
     public class Order : InterID
-    {
+    {//לבדוק שהכתובת עובדת טוב
         public Order(int branchID, string address, DateTime date, Kashrut kosher, int clientID, int id = 0)
         {
             ID = id;
@@ -267,12 +267,13 @@ namespace BE
     }
     public class Client : InterID
     {
-        public Client(string name, string address, int creditCard, int id = 0)
+        public Client(string name, string address, int creditCard,int age, int id = 0)
         {
             ID = id;
             Name = name;
             Address = address;
             CreditCard = creditCard;
+            Age = age;
         }
         int id;
         public int ID
