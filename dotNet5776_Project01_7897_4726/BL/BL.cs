@@ -57,15 +57,6 @@ namespace BL
         /// <param name="order">Order being checked</param>
         /// <returns>False if it exceeds the maximum price,
         ///          True if it doesn't exceed the maximum price</returns>
-        bool CheckMaximumPrice(Order order);
-        /// <summary>
-        /// Checks if the order has a curtain hechshe
-        /// </summary>
-        /// <param name="order">order being checked</param>
-        /// <param name="hechsher">kashrut it has to be</param>
-        /// <returns>False if the order isn't the right hechsher
-        ///          True if it is</returns>
-        bool CheckForHechsher(Order order, Kashrut hechsher);
         /// <summary>
         /// Sorts out spicific orders from the list that is true in the condition
         /// from the condition fuction
@@ -93,7 +84,7 @@ namespace BL
                 result += item.DishAmount * myDal.GetDish(item.DishID).Price;
             return result;
         }
-        IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)
+        public IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)
         {
             return myDal.GetAllOrders(predicate);
         }
@@ -110,21 +101,23 @@ namespace BL
         public void Inti()
         {
 
-            AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH));
-            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW));
-            AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH));
-            AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM));
-            AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW));
-            AddClient(new Client("Shy", "Sderot Hertzel 12", 45326));
-            AddClient(new Client("Ezra", "Beit Shemesh", 78695));
-            AddClient(new Client("Itai", "Giv'at Ze'ev", 1938));
-            AddClient(new Client("Tal", "Alon Shvut", 91731));
-            AddClient(new Client("Gal", "Ma'ale Adumim", 38267));
-            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM));
-            AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "kidron", 1, 5, Kashrut.HIGH));
-            AddBranch(new Branch("Eilat", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW));
-            AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW));
-            AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM));
+            AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH,957473));
+            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW,19273));
+            AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH,1243));
+            AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM,95840));
+            AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW,21));
+            AddClient(new Client("Shy", "Sderot Hertzel 12", 45326,23));
+            AddClient(new Client("Ezra", "Beit Shemesh", 78695,65));
+            AddClient(new Client("Itai", "Giv'at Ze'ev", 1938,18));
+            AddClient(new Client("Tal", "Alon Shvut", 91731,20));
+            AddClient(new Client("Gal", "Ma'ale Adumim", 38267,19));
+            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM,87465));
+            AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "kidron", 1, 5, Kashrut.HIGH,18932));
+            AddBranch(new Branch("Eilat", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW,2));
+            AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW,0));
+            AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM,9873));
+            AddOrder(new Order(2, "Beit Shemesh", DateTime.Now, Kashrut.LOW, 78695, 192334));
+            AddDishOrder(new DishOrder(192334, 957473, 3));
         }
         //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
         #region Dish Functions
@@ -196,7 +189,7 @@ namespace BL
         internal bool CompatibleOrder(Order myOrder)
         {
             return (myOrder.Address != "" && myOrder.Date != null
-                && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID);                
+                && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID));                
         }
         public void AddOrder(Order newOrder)
         {
