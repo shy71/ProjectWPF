@@ -7,14 +7,19 @@ using System.Diagnostics;
 
 namespace tOD_FFD
 {
+    enum MyEnum
+    {
+        LOW,MED,HIGH
+    }
     class Program
     {
         public static void Main()
         {
-            int[] arr ={1,2,3,4,5,6,7,8,9,10};
-            var v =( from item in arr
-                    where item == 5
-                    select item).ToList<int>();
+
+        MyEnum var=MyEnum.HIGH,low=MyEnum.MED;
+            if(var<low)
+                Console.WriteLine("high!");
+
 
 
             Console.ReadKey();
