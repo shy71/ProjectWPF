@@ -65,6 +65,8 @@ namespace BL
         /// <returns>List of all the orders that the condition returns True</returns>
         IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null);//לבדוק שזה בסדר שלא דילגיט
 
+        void PrintAll();
+
         //Add grouping functions 
 
     }
@@ -98,6 +100,19 @@ namespace BL
 
 
         //}
+        public void PrintAll()
+        {
+           foreach(Dish item in myDal.GetAllDishs())
+               Console.WriteLine(item);
+           foreach (Branch item in myDal.GetAllBranchs())
+               Console.WriteLine(item);
+           foreach (Client item in myDal.GetAllClients())
+               Console.WriteLine(item);
+           foreach (Order item in myDal.GetAllOrders())
+               Console.WriteLine(item);
+           foreach (DishOrder item in myDal.GetAllDishOrders())
+               Console.WriteLine(item);
+        }
         public void Inti()
         {
 
@@ -106,17 +121,17 @@ namespace BL
             AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH,1243));
             AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM,95840));
             AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW,21));
-            AddClient(new Client("Shy", "Sderot Hertzel 12", 45326,23));
-            AddClient(new Client("Ezra", "Beit Shemesh", 78695,65));
-            AddClient(new Client("Itai", "Giv'at Ze'ev", 1938,18));
-            AddClient(new Client("Tal", "Alon Shvut", 91731,20));
-            AddClient(new Client("Gal", "Ma'ale Adumim", 38267,19));
+            AddClient(new Client("Shy", "Sderot Hertzel 12", 45326,23,1921));
+            AddClient(new Client("Ezra", "Beit Shemesh", 78695,65,10934));
+            AddClient(new Client("Itai", "Giv'at Ze'ev", 1938,18,493));
+            AddClient(new Client("Tal", "Alon Shvut", 91731,20,1313));
+            AddClient(new Client("Gal", "Ma'ale Adumim", 38267,19,20744));
             AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM,87465));
             AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "kidron", 1, 5, Kashrut.HIGH,18932));
             AddBranch(new Branch("Eilat", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW,2));
             AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW,0));
             AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM,9873));
-            AddOrder(new Order(2, "Beit Shemesh", DateTime.Now, Kashrut.LOW, 78695, 192334));
+            AddOrder(new Order(2, "Beit Shemesh", DateTime.Now, Kashrut.LOW, 10934, 192334));
             AddDishOrder(new DishOrder(192334, 957473, 3));
         }
         //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
@@ -261,7 +276,7 @@ namespace BL
                 throw new Exception(str + " The order you are trying to add dishs to does not exists!");
             else if ((PriceOfOrder(myDal.GetOrder(theDishOrder.OrderID)) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price)> MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
                 throw new Exception(str+" with those dishes the order price will be above the approved limit!");
-            else if (myDal.GetDish(theDishOrder.ID).Kosher < myDal.GetOrder(theDishOrder.OrderID).Kosher)
+            else if (myDal.GetDish(theDishOrder.DishID).Kosher < myDal.GetOrder(theDishOrder.OrderID).Kosher)
                 throw new Exception(str+" you cant add a dish without the sufficient Kashrut for the order");
         }
         public void AddDishOrder(DishOrder newDishOrder)
