@@ -147,6 +147,14 @@ namespace BE
             DishID = dishID;
             DishAmount = dishAmount;
         }
+        public DishOrder(Dish dish,Order order,int amout=1,int id=0)
+        {
+            OrderID = order.ID;
+            DishID = dish.ID;
+            DishAmount = amout;
+            ID = id;
+
+        }
         int id;
         public int ID
         {

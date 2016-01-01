@@ -74,7 +74,7 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="newItem">האיבר שהפוקנציה תוסיף</param>
         /// <param name="list">הרשימה לה היא תוסיף אותה</param>
-        void Add<T>(T newItem) where T : InterID
+        void Add<T>(T newItem) where T : InterID//need checking
         {
             if (newItem.ID < 0 || newItem.ID >= 100000000)
                 throw new Exception("The ID must be a positive number with at most 8 digits");
@@ -89,7 +89,7 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="id">תעודת הזהות של האיבר אותו אנו מבקשים למחוק</param>
         /// <param name="list">הרשימה ממנה נמחוק אותו</param>
-        void Delete<T>(int id) where T : InterID
+        void Delete<T>(int id) where T : InterID//need checking
         {
             List<T> list = getList<T>() as List<T>;
             if (ContainID<T>(id) == false)
@@ -103,14 +103,14 @@ namespace DAL
        /// <typeparam name="T">סוג האיבר</typeparam>
        /// <param name="item">האיבר אותו אנו מבקשים למחוק</param>
        /// <param name="list">הרשימה ממנה נמחק אותו</param>
-        void Delete<T>(T item) where T : InterID { Delete<T>(item.ID); }
+        void Delete<T>(T item) where T : InterID { Delete<T>(item.ID); }//need checking
         /// <summary>
         /// עדכון איבר מהרשימה באמצעות איבר מעודכן
         /// </summary>
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="item">האיבר המעודכן שבעזרת תעדות הזהות מסמן על האיבר שנעדכן</param>
         /// <param name="list">הרשימה בא נמצא האיבר אותו נעדכן</param>
-        void Update<T>(T item) where T : InterID
+        void Update<T>(T item) where T : InterID//need checking
         {
             List<T> list = getList<T>() as List<T>;
             if (ContainID<T>(item.ID) == false)
@@ -119,7 +119,7 @@ namespace DAL
             list.Add(item);
 
         }
-        T Get<T>(int id) where T : InterID
+        T Get<T>(int id) where T : InterID//need checking
         {
             T res = (getList<T>() as List<T>).Find((item) => item.ID == id);
             if (res == null)
@@ -127,7 +127,7 @@ namespace DAL
             return res;
 
         }
-        IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID
+        IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID//need checking
         {
             if (predicate == null)
                 return (getList<T>() as List<T>).AsEnumerable();
@@ -153,7 +153,7 @@ namespace DAL
                 result %= 100000000;
             }
             return result;
-        }
+        }//need checking
         /// <summary>
         /// בודקת האם קיים איבר ברשימה עם תעודת הזהות הזאת
         /// </summary>
@@ -161,11 +161,11 @@ namespace DAL
         /// <param name="id">תעדות הזהות</param>
         /// <param name="list">הרשימה בה נמצאים האיברים</param>
         /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
-        public bool ContainID<T>(int id) where T : InterID
+        public bool ContainID<T>(int id) where T : InterID//need checking
         {
             return (getList<T>() as List<T>).Any(item => item.ID == id);
         }
-        object getList<T>()
+        object getList<T>()//need checking
         {
             if (typeof(T) == typeof(Dish))
                 return DS.DataSource.DishList;
@@ -181,6 +181,8 @@ namespace DAL
 
         }
         #endregion
+
+        //check the functions below
 
         #region Dish Functions
         public void AddDish(Dish newDish)
