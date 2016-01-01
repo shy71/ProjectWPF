@@ -121,16 +121,21 @@ namespace BL
         }
         //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
         #region Dish Functions
-        internal bool CompatibleDish(Dish dish)
+        internal void CompatibleDish(Dish dish,string str=null)
         {
-            return !(dish.Price <= 0 || dish.Name == null || dish.Kosher == null | dish.Size == null);
+            if (dish.Price <= 0)
+                throw new Exception(str + " The price of a dish have to be highr then zero!");
+            else if (dish.Name == null)
+                throw new Exception(str + " A dish has to have a name!");
+            //else if (dish.Kosher == null)
+            //    throw new Exception(str+" A dish has to have a kosher level!");
+            //else if (dish.Size == null)
+            //    throw new Exception(str+" A dish has to have a Size level");
         }
         public void AddDish(Dish newDish)
         {
-            if (CompatibleDish(newDish))
-                myDal.AddDish(newDish);
-            else
-                throw new Exception("The dish is incompatible");
+            CompatibleDish(newDish, "The Dish you are trying to add is incompatible:");
+            myDal.AddDish(newDish);
         }
         public void DeleteDish(int id)
         {
@@ -147,23 +152,33 @@ namespace BL
         {
             //There isn't an option to change the ID;
             if (myDal.GetAllDishOrders(var => var.DishID == item.ID).ToList().Count == 0)
+            {
+                CompatibleDish(item, "The Updated Dish you sended to upadte the old one is incompatible:");
                 myDal.UpdateDish(item);
+            }
             else
                 throw new Exception("You can't update a dish which is being ordered");
         }
         #endregion
 
         #region Branch Functions
-        internal bool CompatibleBranch(Branch branch)
+        internal void CompatibleBranch(Branch branch,string str=null)
         {
-            return !(branch.Address == null || branch.Boss == null || branch.EmployeeCount <= 0 || branch.PhoneNumber == null || branch.Name == null);
+            if (branch.Address == null)
+                throw new Exception(str + " The Address filed cant be empty!");
+            else if (branch.Boss == null)
+                throw new Exception(str + " every branch must have a boss!");
+            else if (branch.EmployeeCount <= 0)
+                throw new Exception(str + " A branch must have at least one worker!");
+            else if (branch.PhoneNumber == null)
+                throw new Exception(str + " every branch must have a phone number!");
+            else if (branch.Name == null)
+                throw new Exception(str + " The Name filed cant be empty!");
         }
         public void AddBranch(Branch newBranch)
         {
-            if (CompatibleBranch(newBranch))
-                myDal.AddBranch(newBranch);
-            else
-                throw new Exception("The branch is incompatible");
+            CompatibleBranch(newBranch, "The Branch you are trying to add is incompatible:");
+            myDal.AddBranch(newBranch);
         }
         public void DeleteBranch(int id)
         {
@@ -179,28 +194,38 @@ namespace BL
         public void UpdateBranch(Branch myBranch)
         {
             if (myDal.GetAllOrders(item => item.BranchID == myBranch.ID).ToList<Order>().Count == 0)
+            {
+                CompatibleBranch(myBranch, "The Updated Branch you sended to upadte the old one is incompatible:");
                 myDal.UpdateBranch(myBranch);
+            }
             else
                 throw new Exception("you cant update a bracnh that has an active orders from!");
         }
         #endregion
 
         #region Order Functions
-        internal bool CompatibleOrder(Order myOrder)
+        internal void CompatibleOrder(Order myOrder,string str)
         {
-            return (myOrder.Address != "" && myOrder.Date != null
-                && myDal.ContainID<Client>(myOrder.ClientID) && myDal.ContainID<Branch>(myOrder.BranchID));                
+            if (myOrder.Address == null)
+                throw new Exception(str+" The Address filed cant be empty!");
+            else if (!myDal.ContainID<Client>(myOrder.ClientID))
+                throw new Exception(str + " the client in the order does not exists!");
+            else if (!myDal.ContainID<Branch>(myOrder.BranchID))
+                throw new Exception(str + " the branch in the order does not exists!");
+            else if (myOrder.Date == null)
+                throw new Exception(str + " The Date filed cant be empty!");
+            //else if (myOrder.Kosher == null)
+            //    throw new Exception(str+" The kashrut filed cant be empty");
+            else if (myOrder.Kosher > myDal.GetBranch(myOrder.BranchID).Kosher)//need checking
+                throw new Exception(str + " The Kashrut in the branch is not sufficient for the order");
+            else if (myDal.GetBranch(myOrder.BranchID).AvailableMessangers == 0)
+                throw new Exception(str + " There isnt any available messangers to deliver the order");
         }
         public void AddOrder(Order newOrder)
         {
-            if (newOrder.Kosher > myDal.GetBranch(newOrder.BranchID).Kosher)
-                throw new Exception("The Kashrut in the branch is not sufficient for the order");
-            if (myDal.GetBranch(newOrder.BranchID).AvailableMessangers == 0)
-                throw new Exception("There isnt any available messangers to deliver the order");
-            if (CompatibleOrder(newOrder))
+
+            CompatibleOrder(newOrder, "The Order you are trying to add is incompatible:");
                 myDal.AddOrder(newOrder);
-            else
-                throw new Exception("The order is incompatible");
         }
         public void DeleteOrder(int id)
         {
@@ -220,27 +245,29 @@ namespace BL
             if (newOrder.Kosher != oldOrder.Kosher)//בהנחה שהם היו ברמת הכשר שלו עד אז
                 if (myDal.ContainID<DishOrder>(newOrder.ID) || myDal.ContainID<Dish>(newOrder.ID))
                     throw new Exception("You can't change the order's kashrut level because it has dishes which aren't the same kahrut level");
+            CompatibleOrder(newOrder, "The Updated order you sended to upadte the old one is incompatible:");
             myDal.UpdateOrder(newOrder);
         }
         #endregion
 
         #region DishOrder Functions
-        internal bool CompatibleDishOrder(DishOrder theDishOrder)
+        internal void CompatibleDishOrder(DishOrder theDishOrder,string str=null)
         {
-            return (theDishOrder.DishAmount > 0
-                && myDal.ContainID<Dish>(theDishOrder.DishID)
-                && myDal.ContainID<Order>(theDishOrder.OrderID));
+            if (theDishOrder.DishAmount <=0)
+                throw new Exception(str + " you cant order less the one from a Dish");
+            else if (!myDal.ContainID<Dish>(theDishOrder.DishID))
+                throw new Exception(str + " the Dish you are trying to order does not exists!");
+            else if (!myDal.ContainID<Order>(theDishOrder.OrderID))
+                throw new Exception(str + " The order you are trying to add dishs to does not exists!");
+            else if ((PriceOfOrder(myDal.GetOrder(theDishOrder.OrderID)) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price)> MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
+                throw new Exception(str+" with those dishes the order price will be above the approved limit!");
+            else if (myDal.GetDish(theDishOrder.ID).Kosher < myDal.GetOrder(theDishOrder.OrderID).Kosher)
+                throw new Exception(str+" you cant add a dish without the sufficient Kashrut for the order");
         }
         public void AddDishOrder(DishOrder newDishOrder)
         {
-            if ((PriceOfOrder(myDal.GetOrder(newDishOrder.OrderID)) + newDishOrder.DishAmount * myDal.GetDish(newDishOrder.DishID).Price) > MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
-                throw new Exception("The order price is above the approved limit");
-            if (myDal.GetDish(newDishOrder.ID).Kosher < myDal.GetOrder(newDishOrder.OrderID).Kosher)
-                throw new Exception("you cant add a dish without the sufficient Kashrut for the order");
-            if (CompatibleDishOrder(newDishOrder))
-                myDal.AddDishOrder(newDishOrder);
-            else
-                throw new Exception("The DishOrder is incompatible");
+            CompatibleDishOrder(newDishOrder, "The Dish you are trying to add to the order is incompatible:");
+            myDal.AddDishOrder(newDishOrder);
         }
         public void DeleteDishOrder(int id)
         {
@@ -252,21 +279,27 @@ namespace BL
         }
         public void UpdateDishOrder(DishOrder item)
         {
+            CompatibleDishOrder(item, "The Updated Client you sended to upadte the old one is incompatible:");//bug - כאשר ההמחיר קרוב למקסימום וזה מחשב גם את ערך המנה הזו וגם את הערך של הזו הישנה שאנו מעדכנים
             myDal.UpdateDishOrder(item);
         }
         #endregion
 
         #region Client Functions
-        internal bool CompatibleClient(Client client)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
+        internal void CompatibleClient(Client client,string str=null)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
         {
-            return (client.Address != null && client.CreditCard != null && client.Name != null && client.Age != null);
+            if (client.Address == null)
+                throw new Exception(str+" The Address filed cant be empty!");
+            else if (client.CreditCard <= 0)
+                throw new Exception(str+" the client credit card is invalid");
+            else if (client.Name == null)
+                throw new Exception(str+" The Name filed cant be empty!");
+            if (client.Age < 18)
+                throw new Exception(str+" the services is offerd only to age 18+ client");
         }
         public void AddClient(Client newClient)
         {
-            if (newClient.Age < 18)
-                throw new Exception("the services is offerd to 18+ age client");
-            if (!CompatibleClient(newClient))
-                throw new Exception("The filed of the Client were filed incorrectly");
+
+            CompatibleClient(newClient,"The Client you are trying to add is incompatible:");
             myDal.AddClient(newClient);
         }
         public void DeleteClient(int id)
@@ -281,8 +314,7 @@ namespace BL
         }
         public void UpdateClient(Client item)
         {
-            if (!CompatibleClient(item))
-                throw new Exception("The filed of the update for the client were filed incorrectly");
+            CompatibleClient(item, "The Updated Client you sended to upadte the old one is incompatible:");
             myDal.UpdateClient(item);
         }
         #endregion
