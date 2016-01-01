@@ -11,9 +11,17 @@ namespace Console_UI
        
         static void Main(string[] args)
         {
-            BL.BL myBL = new BL.BL();
-            myBL.Inti();
-            //finish UI and check all of the functions
+            try
+            {
+                BL.BL myBL = new BL.BL();
+                myBL.Inti();
+                myBL.PrintAll();
+                //finish UI and check all of the functions
+            }
+            catch(Exception exp)
+            {
+                Console.WriteLine(exp.Message);
+            }
         }
     }
 }
