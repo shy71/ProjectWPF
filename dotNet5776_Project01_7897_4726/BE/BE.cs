@@ -61,10 +61,11 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Dish number: " + ID
-                 + "\nDish name: " + Name
-                 + "\nDish size: " + Size
-                 + "\nDish price: " + Price;
+            return "Dish " + Name + ":"
+                 + "\n\tID: " + ID
+                 + "\n\tName: " + Name
+                 + "\n\tSize: " + Size
+                 + "\n\tPrice: " + Price;
         }
         public int MakeID()
         {
@@ -124,12 +125,13 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
+           
             return "Order ID: " + ID
-                    + "\nDate: " + Date
-                    + "\nBranch: " + BranchID
-                    + "\nKashrut: " + Kosher
-                    + "\nClient ID: " + ClientID
-                    + "\nOrder address: " + Address;
+                    + "\n\tDate: " + Date
+                    + "\n\tBranch: " + BranchID
+                    + "\n\tKashrut: " + Kosher
+                    + "\n\tClient ID: " + ClientID
+                    + "\n\tOrder address: " + Address;
         }
         public int MakeID()
         {
@@ -175,9 +177,10 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Order number: " + OrderID
-                 + "\nDish number: " + DishID
-                 + "\nAmount of dishes ordered: " + DishAmount;
+            return "Dish In Order "+ "ID: "+ID 
+                 +"\n\tOrder number: " + OrderID
+                 + "\n\tDish number: " + DishID
+                 + "\n\tAmount of dishes ordered: " + DishAmount;
         }
         public int MakeID()
         {
@@ -251,14 +254,15 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Branch number: " + ID
-                  + "\nBranch name: " + Name
-                  + "\nBranch address: " + Address
-                  + "\nPhone number: " + PhoneNumber
-                  + "\nBranch bos: " + Boss
-                  + "\nEmployee Count: " + EmployeeCount
-                  + "\nAvilable messanger count: " + AvailableMessangers
-                  + "\nBranch kashrut: " + Kosher;
+            return "Branch "+Name+":"
+                  +"\n\tID: " + ID
+                  + "\n\tName: " + Name
+                  + "\n\tAddress: " + Address
+                  + "\n\tPhone number: " + PhoneNumber
+                  + "\n\tBoss: " + Boss
+                  + "\n\tEmployee Count: " + EmployeeCount
+                  + "\n\tAvilable messanger count: " + AvailableMessangers
+                  + "\n\tKashrut: " + Kosher;
         }
         public int MakeID()
         {
@@ -307,11 +311,12 @@ namespace BE
         }
         public override string ToString()
         {
-            return "Client number: " + ID
-                + "\nClient name: " + Name
-                + "\nClient address: " + Address
-                + "\nCredit card number: " + CreditCard
-                + "\nClient Age: " + Age;
+            return "Client "+Name+":"
+                + "\n\tID: " + ID
+                + "\n\tName: " + Name
+                + "\n\tAddress: " + Address
+                + "\n\tCredit card number: " + CreditCard
+                + "\n\tAge: " + Age;
         }
         public int MakeID()
         {
