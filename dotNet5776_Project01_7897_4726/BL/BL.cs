@@ -8,7 +8,7 @@ using BE;
 namespace BL
 {
     //public delegate bool SortOutOrdersFunc(Order order);
-    public class FactoryBL
+    public static class FactoryBL
     {
         public static IBL getBL()
         {
@@ -97,6 +97,8 @@ namespace BL
         {
             return myDal.GetAllOrders(predicate);
         }
+
+        #region Profits Functions
         IEnumerable<IGrouping<int,float>> GetProfitByDishs()
         {
             return from item in myDal.GetAllDishOrders()
@@ -112,10 +114,10 @@ namespace BL
             return from item in myDal.GetAllDishOrders()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Date.ToShortDateString();
         }
+        #endregion
 
 
-
-        public void PrintAll()//need checking
+        public void PrintAll()//need checking // פונקציה זמנית
         {
            foreach(Dish item in myDal.GetAllDishs())
                Console.WriteLine(item);
