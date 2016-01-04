@@ -100,7 +100,7 @@ namespace BL
             return from item in myDal.GetAllDishOrders()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).ClientID;
         }
-        IEnumerable<IGrouping<string, float>> GetProfitByClients()
+        IEnumerable<IGrouping<string, float>> GetProfitByDates()
         {
             return from item in myDal.GetAllDishOrders()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Date.ToShortDateString();
