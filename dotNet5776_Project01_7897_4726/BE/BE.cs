@@ -83,6 +83,13 @@ namespace BE
             Kosher = kosher;
             ClientID=clientID;
         }
+        //אפשרות שליחה ב-5 דקות
+        bool fastOrder;
+        public bool FastOrder
+        {
+            get { return fastOrder; }
+            set { fastOrder = value; }
+        }
         int id;
         public int ID
         {
