@@ -8,6 +8,13 @@ using BE;
 namespace BL
 {
     //public delegate bool SortOutOrdersFunc(Order order);
+    public class FactoryBL
+    {
+        public static IBL getBL()
+        {
+            return new BL();
+        }
+    }
     public interface IBL
     {
         #region Dish Functions
@@ -90,16 +97,6 @@ namespace BL
         {
             return myDal.GetAllOrders(predicate);
         }
-        //IEnumerable<IGrouping<int,Gain>> GetProfitByDishs()
-        //{
-        //    List<Gain> list= new List<Gain>();
-        //    return (from item in myDal.GetAllDishOrders()
-        //            select new Gain(item, myDal.GetOrder(item.OrderID), myDal.GetDish(item.DishID)))
-        //            .GroupBy(item=> item.DishID);
-
-
-
-        //}
         public void PrintAll()//need checking
         {
            foreach(Dish item in myDal.GetAllDishs())
@@ -134,6 +131,7 @@ namespace BL
             AddOrder(new Order(2, "Beit Shemesh", DateTime.Now, Kashrut.LOW, 10934, 192334));
             AddDishOrder(new DishOrder(192334, 957473, 3));
         }
+        
         //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
         #region Dish Functions
         internal void CompatibleDish(Dish dish, string str = null)//need checking
@@ -200,7 +198,7 @@ namespace BL
             if (myDal.GetAllOrders(item => item.BranchID == id).ToList<Order>().Count == 0)
                 myDal.DeleteBranch(id);
             else
-                throw new Exception("you cant delete a bracnh that has an active orders from!");
+                throw new Exception("you cant delete a branch that has active orders from!");
         }
         public void DeleteBranch(Branch myBranch)//need checking
         {
@@ -210,15 +208,16 @@ namespace BL
         {
             if (myDal.GetAllOrders(item => item.BranchID == myBranch.ID).ToList<Order>().Count == 0)
             {
-                CompatibleBranch(myBranch, "The Updated Branch you sended to upadte the old one is incompatible:");
+                CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible:");
                 myDal.UpdateBranch(myBranch);
             }
             else
-                throw new Exception("you cant update a bracnh that has an active orders from!");
+                throw new Exception("you can't update a bracnh that has active orders from!");
         }
         #endregion
 
         #region Order Functions
+        
         internal void CompatibleOrder(Order myOrder, string str)//need checking
         {
             if (myOrder.Address == null)
@@ -245,6 +244,7 @@ namespace BL
         public void DeleteOrder(int id)//need checking
         {
             IEnumerable<DishOrder> ordersDishes = myDal.GetAllDishOrders(item => item.OrderID == id);
+            List<DishOrder> li = ordersDishes.ToList<DishOrder>();
             foreach (DishOrder item in ordersDishes)
                 DeleteDishOrder(item);
             myDal.DeleteOrder(id);
