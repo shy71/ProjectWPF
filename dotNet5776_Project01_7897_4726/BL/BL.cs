@@ -90,16 +90,24 @@ namespace BL
         {
             return myDal.GetAllOrders(predicate);
         }
-        //IEnumerable<IGrouping<int,Gain>> GetProfitByDishs()
-        //{
-        //    List<Gain> list= new List<Gain>();
-        //    return (from item in myDal.GetAllDishOrders()
-        //            select new Gain(item, myDal.GetOrder(item.OrderID), myDal.GetDish(item.DishID)))
-        //            .GroupBy(item=> item.DishID);
+        IEnumerable<IGrouping<int,float>> GetProfitByDishs()
+        {
+            return from item in myDal.GetAllDishOrders()
+                   group item.DishAmount*myDal.GetDish(item.DishID).Price by item.DishID;
+        }
+        IEnumerable<IGrouping<int, float>> GetProfitByClients()
+        {
+            return from item in myDal.GetAllDishOrders()
+                   group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).ClientID;
+        }
+        IEnumerable<IGrouping<string, float>> GetProfitByClients()
+        {
+            return from item in myDal.GetAllDishOrders()
+                   group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Date.ToShortDateString();
+        }
 
 
 
-        //}
         public void PrintAll()//need checking
         {
            foreach(Dish item in myDal.GetAllDishs())
