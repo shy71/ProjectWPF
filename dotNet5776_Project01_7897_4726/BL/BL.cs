@@ -22,6 +22,7 @@ namespace BL
         void DeleteDish(int id);
         void DeleteDish(Dish item);
         void UpdateDish(Dish item);
+        IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null);
         #endregion
 
         #region Branch Functions
@@ -29,6 +30,7 @@ namespace BL
         void DeleteBranch(int id);
         void DeleteBranch(Branch item);
         void UpdateBranch(Branch item);
+        IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null);
         #endregion
 
         #region Order Functions
@@ -36,6 +38,7 @@ namespace BL
         void DeleteOrder(int id);
         void DeleteOrder(Order item);
         void UpdateOrder(Order item);
+        IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null);
         #endregion
 
         #region DishOrder Functions
@@ -43,6 +46,7 @@ namespace BL
         void DeleteDishOrder(int id);
         void DeleteDishOrder(DishOrder item);
         void UpdateDishOrder(DishOrder item);
+        IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null);
         #endregion
 
         #region Client Functions
@@ -50,6 +54,7 @@ namespace BL
         void DeleteClient(int id);
         void DeleteClient(Client item);
         void UpdateClient(Client item);
+        IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
         #endregion
 
         /// <summary>
@@ -70,8 +75,6 @@ namespace BL
         /// </summary>
         /// <param name="condition">Condition function</param>
         /// <returns>List of all the orders that the condition returns True</returns>
-        IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null);//לבדוק שזה בסדר שלא דילגיט
-
         void PrintAll();
 
         //Add grouping functions 
@@ -92,10 +95,6 @@ namespace BL
             foreach (DishOrder item in list)
                 result += item.DishAmount * myDal.GetDish(item.DishID).Price;
             return result;
-        }
-        public IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)//need checking
-        {
-            return myDal.GetAllOrders(predicate);
         }
 
         #region Profits Functions
@@ -192,6 +191,10 @@ namespace BL
             else
                 throw new Exception("You can't update a dish which is being ordered");
         }
+        public IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null)
+        {
+            return myDal.GetAllDishs(predicate);
+        }
         #endregion
 
         #region Branch Functions
@@ -233,6 +236,10 @@ namespace BL
             }
             else
                 throw new Exception("you can't update a bracnh that has active orders from!");
+        }
+        public IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null)
+        {
+            return myDal.GetAllBranchs(predicate);
         }
         #endregion
 
@@ -283,6 +290,10 @@ namespace BL
             CompatibleOrder(newOrder, "The Updated order you sended to upadte the old one is incompatible:");
             myDal.UpdateOrder(newOrder);
         }
+        public IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)
+        {
+            return myDal.GetAllOrders(predicate);
+        }
         #endregion
 
         #region DishOrder Functions
@@ -316,6 +327,10 @@ namespace BL
         {
             CompatibleDishOrder(item, "The Updated Client you sended to upadte the old one is incompatible:");//bug - כאשר ההמחיר קרוב למקסימום וזה מחשב גם את ערך המנה הזו וגם את הערך של הזו הישנה שאנו מעדכנים
             myDal.UpdateDishOrder(item);
+        }
+        public IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null)
+        {
+            return myDal.GetAllDishOrders(predicate);
         }
         #endregion
 
@@ -352,6 +367,10 @@ namespace BL
         {
             CompatibleClient(item, "The Updated Client you sended to upadte the old one is incompatible:");
             myDal.UpdateClient(item);
+        }
+        public IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null)
+        {
+            return myDal.GetAllClients(predicate);
         }
         #endregion
     }
