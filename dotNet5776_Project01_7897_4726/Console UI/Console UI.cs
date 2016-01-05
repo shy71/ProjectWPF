@@ -26,8 +26,6 @@ namespace Console_UI
      * 
      * לסיים switch
      * 
-     * להוסיף פונקציות get & getall
-     * לBL
      * 
      * להוסיף הערות להכול
      * */
@@ -141,8 +139,12 @@ namespace Console_UI
             {
                 Console.WriteLine(str);
                 if (int.TryParse(Console.ReadLine(), out temp))
-                    return temp;
-                Console.WriteLine("the number you've entered is invalid! please try again\n\n");
+                    if (temp < 99999999 && temp > 0)
+                        return temp;
+                    else
+                        Console.WriteLine("The ID is invalid! please try again\n\n");
+                else
+                    Console.WriteLine("the number you've entered is invalid! please try again\n\n");
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
