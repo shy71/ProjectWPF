@@ -25,7 +25,6 @@ namespace BL
         void UpdateDish(Dish item);
         IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null);
         IEnumerable<Dish> SearchDishs(object str);
-
         #endregion
 
         #region Branch Functions
@@ -224,7 +223,7 @@ namespace BL
         }
         public void DeleteDish(int id)//need checking
         {
-            if (myDal.GetAllDishOrders(item => item.DishID == id).ToList().Count == 0)
+            if (!myDal.GetAllDishOrders(item => item.DishID == id).Any(item => myDal.GetOrder(item.OrderID).Active==true))
                 myDal.DeleteDish(id);
             else
                 throw new Exception("You can't delete a dish which is being ordered");
@@ -235,8 +234,10 @@ namespace BL
         }
         public void UpdateDish(Dish item)//need checking
         {
+            if (myDal.GetDish(item.ID).Kosher == item.Kosher)
+                myDal.UpdateDish(item);
             //There isn't an option to change the ID;
-            if (myDal.GetAllDishOrders(var => var.DishID == item.ID).ToList().Count == 0)
+            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => myDal.GetOrder(var.OrderID).Active == true))
             {
                 CompatibleDish(item, "The Updated Dish you sended to upadte the old one is incompatible:");
                 myDal.UpdateDish(item);
@@ -275,7 +276,7 @@ namespace BL
         }
         public void DeleteBranch(int id)//need checking
         {
-            if (myDal.GetAllOrders(item => item.BranchID == id).ToList<Order>().Count == 0)
+            if (!myDal.GetAllOrders(item => item.BranchID == id).Any(item => item.Active==true))
                 myDal.DeleteBranch(id);
             else
                 throw new Exception("you cant delete a branch that has active orders from!");
@@ -286,9 +287,14 @@ namespace BL
         }
         public void UpdateBranch(Branch myBranch)//need checking
         {
-            if (myDal.GetAllOrders(item => item.BranchID == myBranch.ID).ToList<Order>().Count == 0)
+            if (myDal.GetBranch(myBranch.ID).Kosher == myBranch.Kosher)
             {
-                CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible:");
+                myDal.UpdateBranch(myBranch);
+                return;
+            }
+            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Active == true))
+            {
+                CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible. Anything that could be updated was updated.");
                 myDal.UpdateBranch(myBranch);
             }
             else
@@ -315,13 +321,21 @@ namespace BL
             else if (!myDal.ContainID<Branch>(myOrder.BranchID))
                 throw new Exception(str + " the branch in the order does not exists!");
             else if (myOrder.Date == null)
-                throw new Exception(str + " The Date filed cant be empty!");
+                throw new Exception(str + " The Date field can't be empty!");
             //else if (myOrder.Kosher == null)
             //    throw new Exception(str+" The kashrut filed cant be empty");
             else if (myOrder.Kosher > myDal.GetBranch(myOrder.BranchID).Kosher)//need checking
                 throw new Exception(str + " The Kashrut in the branch is not sufficient for the order");
             else if (myDal.GetBranch(myOrder.BranchID).AvailableMessangers == 0)
                 throw new Exception(str + " There isnt any available messangers to deliver the order");
+        }
+        public void DeliveredOrder(Order item)
+        {
+            DeliveredOrder(item.ID);
+        }
+        public void DeliveredOrder(int id)
+        {
+            myDal.DeliveredOrder(id);
         }
         public void AddOrder(Order newOrder)//need checking
         {
@@ -418,7 +432,7 @@ namespace BL
         }
         public void DeleteClient(int id)//need checking
         {
-            if (myDal.GetAllOrders(item => item.ClientID == id).ToList().Count > 0)
+            if (myDal.GetAllOrders(item => item.ClientID == id).Any(item => item.Active==true))
                 throw new Exception("You cant delete a Client that has active orders");
             myDal.DeleteClient(id);
         }

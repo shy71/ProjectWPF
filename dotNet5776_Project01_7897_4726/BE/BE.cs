@@ -12,7 +12,6 @@ namespace BE
 {
     public interface InterID
     {
-        bool active;
         int ID { get; set; }
         int MakeID();//צריך להוסיף את המימוש ביורשים!
     }
@@ -25,13 +24,6 @@ namespace BE
             Size = size;
             Price = price;
             Kosher = kosher;
-            active = false;
-        }
-        bool active;
-        public bool Active
-        {
-            get { return active; }
-            set { active = value; }
         }
         int id;
         public int ID
