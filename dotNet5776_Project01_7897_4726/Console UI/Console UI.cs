@@ -26,12 +26,15 @@ namespace Console_UI
      * 
      * לסיים switch
      * 
+     * לוודא שהגעה של הזמנה לא צריכה עוד שינויים
+     * 
+     * 
      * 
      * להוסיף הערות להכול
      * */
     class Program
     {
-        
+
         static void Main(string[] args)
         {
             new PL().Run();
@@ -59,6 +62,7 @@ namespace Console_UI
                     switch (Menu())
                     {
                         case 1:
+                            #region Code
                             Console.WriteLine("Enter the name of the dish:");
                             str = Console.ReadLine();
                             Console.WriteLine("Enter the number of the size of the dish:");
@@ -67,7 +71,7 @@ namespace Console_UI
                             Console.WriteLine("3) Small");
                             if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 3)
                                 throw new Exception("Invaid input.");
-                            switch(choice)
+                            switch (choice)
                             {
                                 case 1:
                                     size = Size.LARGE;
@@ -84,10 +88,10 @@ namespace Console_UI
                             }
                             Console.WriteLine("Enter the price of the dish:");
                             strPrice = Console.ReadLine();
-                            while(!float.TryParse(strPrice,out price) || price<=0)
+                            while (!float.TryParse(strPrice, out price) || price <= 0)
                             {
                                 Console.WriteLine("Invalid price. Please enter the price again:");
-                                strPrice=Console.ReadLine();
+                                strPrice = Console.ReadLine();
                             }
                             Console.WriteLine("Enter the number of the level of kashrut of the dish:");
                             Console.WriteLine("1) High");
@@ -95,9 +99,9 @@ namespace Console_UI
                             Console.WriteLine("3) Low");
                             if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 3)
                                 throw new Exception("Invaid input.");
-                            switch(choice)
+                            switch (choice)
                             {
-                        case 1:
+                                case 1:
                                     kosher = Kashrut.HIGH;
                                     break;
                                 case 2:
@@ -111,12 +115,14 @@ namespace Console_UI
                                     break;
                             }
                             Console.WriteLine("Enter an ID for your dish, or if you don't want to enter 0");
-                            strID=Console.ReadLine();
-                            if(!int.TryParse(strID,out ID))
-                                myBL.AddDish(new Dish(str,size,price,kosher));
-                            myBL.AddDish(new Dish(str, size, price, kosher,ID));
-                            break;
+                            strID = Console.ReadLine();
+                            if (!int.TryParse(strID, out ID))
+                                myBL.AddDish(new Dish(str, size, price, kosher));
+                            myBL.AddDish(new Dish(str, size, price, kosher, ID));
+                            #endregion
+                            break;                            
                         case 2:
+                            #region  Code
                             Console.WriteLine("Enter the name of the client:");
                             str = Console.ReadLine();
                             Console.WriteLine("Enter the address of the client:");
@@ -126,24 +132,26 @@ namespace Console_UI
                             while (!int.TryParse(creditCardstr, out creditCard))
                             {
                                 Console.WriteLine("Invalid credit card number. Please enter the credit card number again:");
-                                strPrice=Console.ReadLine();
+                                strPrice = Console.ReadLine();
                             }
                             Console.WriteLine("Enter the age of the client:");
                             ageStr = Console.ReadLine();
                             while (!int.TryParse(ageStr, out age))
                             {
                                 Console.WriteLine("Invalid age. Please enter the age again:");
-                                strPrice=Console.ReadLine();
+                                strPrice = Console.ReadLine();
                             }
-                            if(age<18)
+                            if (age < 18)
                                 throw new Exception("The client has to be at least 18 years old.");
                             Console.WriteLine("Enter an ID for your client, or if you don't want to enter 0");
-                            strID=Console.ReadLine();
-                            if(!int.TryParse(strID,out ID))
-                                myBL.AddClient(new Client(str,address,creditCard,age,ID));
-                            myBL.AddClient(new Client(str,address,creditCard,age));
-                            break;
+                            strID = Console.ReadLine();
+                            if (!int.TryParse(strID, out ID))
+                                myBL.AddClient(new Client(str, address, creditCard, age, ID));
+                            myBL.AddClient(new Client(str, address, creditCard, age));
+                            #endregion
+                            break;         
                         case 3:
+                            #region  Code
                             Console.WriteLine("Enter the name of the branch:");
                             str = Console.ReadLine();
                             Console.WriteLine("Enter the address of the branch:");
@@ -157,14 +165,14 @@ namespace Console_UI
                             while (!int.TryParse(ageStr, out age))
                             {
                                 Console.WriteLine("Invalid amount. Please enter the age again:");
-                                strPrice=Console.ReadLine();
+                                strPrice = Console.ReadLine();
                             }
                             Console.WriteLine("Enter the available messangers of the branch:");
                             ageStr = Console.ReadLine();
                             while (!int.TryParse(ageStr, out creditCard))
                             {
                                 Console.WriteLine("Invalid amount. Please enter the age again:");
-                                strPrice=Console.ReadLine();
+                                strPrice = Console.ReadLine();
                             }
                             Console.WriteLine("Enter the number of the level of kashrut of the dish:");
                             Console.WriteLine("1) High");
@@ -172,15 +180,15 @@ namespace Console_UI
                             Console.WriteLine("3) Low");
                             if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 3)
                                 throw new Exception("Invaid input.");
-                            switch(choice)
+                            switch (choice)
                             {
                                 case 1:
                                     kosher = Kashrut.HIGH;
                                     break;
-                        case 2:
+                                case 2:
                                     kosher = Kashrut.MEDIUM;
-                            break;
-                        case 3:
+                                    break;
+                                case 3:
                                     kosher = Kashrut.LOW;
                                     break;
                                 default:
@@ -188,34 +196,48 @@ namespace Console_UI
                                     break;
                             }
                             Console.WriteLine("Enter an ID for your branch, or if you don't want to enter 0");
-                            strID=Console.ReadLine();
-                            if(!int.TryParse(strID,out ID))
-                                myBL.AddBranch(new Branch(str,address,phoneNumber,creditCardstr,age,creditCard,kosher,ID));
-                            myBL.AddBranch(new Branch(str,address,phoneNumber,creditCardstr,age,creditCard,kosher));
-                            break;
+                            strID = Console.ReadLine();
+                            if (!int.TryParse(strID, out ID))
+                                myBL.AddBranch(new Branch(str, address, phoneNumber, creditCardstr, age, creditCard, kosher, ID));
+                            myBL.AddBranch(new Branch(str, address, phoneNumber, creditCardstr, age, creditCard, kosher));
+                            #endregion
+                            break;     
                         case 4:
+                            #region Code
+                            #endregion
                             //myBL.AddOrder(new Order());
                             break;
                         case 5:
+                            #region Code
+                            #endregion
                             //myBL.AddDishOrder(new DishOrder());
                             break;
                         case 6:
+                            #region Code
                             myBL.DeleteDish(GetID("Enter the ID of the dish you wish to delete"));
+                            #endregion
                             break;
                         case 7:
+                            #region Code
                             myBL.DeleteClient(GetID("Enter the ID of the client you wish to delete"));
+                            #endregion
                             break;
                         case 8:
+                            #region Code
                             myBL.DeleteBranch(GetID("Enter the ID of the branch you wish to delete"));
+                            #endregion
                             break;
                         case 9:
+                            #region Code
                             myBL.DeleteOrder(GetID("Enter the ID of the order you wish to delete"));
+                            #endregion
                             break;
                         case 10:
+                            #region Code
                             temp = GetID("Enter the ID of the order you wish to delete dishes from");
-                            IEnumerable<Dish> dishList = from item in myBL.GetAllDishOrders((item) => item.OrderID == temp).ToList()
-                                                         select myBL.GetAllDishs(var => var.ID == item.DishID).ToList()[0];
-                            myBL.DeleteDish(Choose<Dish>(dishList));
+                            myBL.DeleteDish(Choose(from item in myBL.GetAllDishOrders((item) => item.OrderID == temp).ToList()
+                                                         select myBL.GetAllDishs(var => var.ID == item.DishID).First()));
+                            #endregion
                             break;
                         case 11:
                             break;
@@ -234,13 +256,23 @@ namespace Console_UI
                         case 18:
                             break;
                         case 19:
+
                             break;
                         case 20:
+                            #region Code
                             myBL.PrintAll();
+#endregion
+                            break;
+                        case 21:
+                            #region
+                            var s=Bing();
+                            #endregion
                             break;
                         default:
+                            #region Code
                             Console.WriteLine("\n\nGood By! Hope to see you again at our restaurants");
                             exit = true;
+#endregion
                             break;
                     }
                 }
@@ -249,6 +281,15 @@ namespace Console_UI
                     Console.WriteLine(exp.Message);
                 }
             }
+        }
+        InterID Bing()
+        {
+            string str;
+            Console.WriteLine("You can search for address/name/ID/phone number or even a date! whatever you want! just enter it and the system will know what to do");
+            Console.WriteLine("Bing!: ");
+            str = Console.ReadLine();
+           return ChooseSearch<InterID>(myBL.Search(str),str);
+
         }
         int GetID(string str = null)
         {
@@ -267,28 +308,60 @@ namespace Console_UI
                 Console.ReadKey();
             }
         }
-        T Choose<T>(IEnumerable<T> list)
+        T Choose<T>(IEnumerable<T> list)where T:class
         {
-            if(list.Count<T>()==0)
+            if (list.Count<T>() == 0)
                 throw new Exception("There are no choices to choose from.");
-            int i=1,choice;
+            int i = 1, choice;
             Console.WriteLine("Choose from the following options: ");
-            foreach(T item in list)
+            foreach (T item in list)
             {
-                Console.WriteLine(i+":");
+                Console.WriteLine(i + ":");
                 Console.WriteLine(item);
                 i++;
             }
-            while(!int.TryParse(Console.ReadLine(),out choice) || choice<1 || choice>=i)
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice >= i)
                 Console.WriteLine("Invalid Choice. Choose again.");
             i = 0;
-            foreach(T item in list)
+            foreach (T item in list)
             {
                 i++;
                 if (i == choice)
                     return item;
             }
-            throw new Exception("Invalid choice.");
+            return null;
+        }
+        T ChooseSearch<T>(List<IEnumerable<T>> list, string str) where T : class
+        {
+            if (list.Sum(item => item.Count()) == 0)
+            {
+                Console.WriteLine("Your search - " + str + " - did not match any documents."
+                    + "\n\tSuggestions:\n\t*Make sure that all words are spelled correctly.\n\t*Try different keywords. \n\t*Try fewer keywords. \n Press any key to continue...");
+                Console.ReadKey();
+            }
+            int i = 1, choice;
+            Console.WriteLine("Choose from the following options: ");
+            foreach (IEnumerable<T> item in list)
+            {
+                foreach (T item2 in item)
+                {
+                    Console.WriteLine(i + ": " + item2);
+                    i++;
+                }
+            }
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice >= i)
+                Console.WriteLine("Invalid Choice. Choose again.");
+            i = 0;
+            foreach (IEnumerable<T> item in list)
+            {
+                foreach (T item2 in item)
+                {
+                    i++;
+                    if (i == choice)
+                        return item2;
+                }
+            }
+            return null;
         }
         int Menu()
         {
@@ -318,9 +391,10 @@ namespace Console_UI
                 Console.WriteLine("18. Search and print all of the orders of a certain dish");
                 Console.WriteLine("19. Caclute an order price(by the order ID)");//להוסיף אפשרות לפי שם הלקוח
                 Console.WriteLine("20. Print the entire DataBase");
-                Console.WriteLine("21. Exit\n");
+                Console.WriteLine("21. Open Bing!(Search Engine)");
+                Console.WriteLine("22. Exit\n");
                 input = Console.ReadLine();
-                if ((!int.TryParse(input, out num)) || num < 1 || num > 22)
+                if ((!int.TryParse(input, out num)) || num < 1 || num > 23)
                 {
                     Console.WriteLine("the number you've entered is invalid! please try again\n\n");
                     Console.WriteLine("Press any key to continue...");
