@@ -12,7 +12,7 @@ namespace Console_UI
      * ואז שתהיה אפשרות בחירה להזמנה שהתכוונו אליה
      * 
      * לשנות את ה tostring 
-     * לפנוקציה שעוברת על כל הפרופטי פשוט
+     * לפונקציה שעוברת על כל הפרופטי פשוט
      * 
      * לשנות כמו שדיברנו את כל פנוקציות העדכון
      * 
@@ -55,12 +55,12 @@ namespace Console_UI
 
             ////finish UI and check all of the functions
             int temp;
+            bool check;
             bool exit = false;
             while (!exit)
             {
                 try
                 {
-                    int temp;
                     string str;
                     switch (Menu())
                     {
@@ -83,20 +83,16 @@ namespace Console_UI
                             myBL.DeleteDish(GetID("Enter the ID of the dish you wish to delete"));
                             break;
                         case 7:
+                            myBL.DeleteClient(GetID("Enter the ID of the client you wish to delete"));
                             break;
                         case 8:
-                            Console.WriteLine("Enter the ID of the Branch you want to delete:");
-                            str = Console.ReadLine();
-                            int.TryParse(str, out temp);
-                            myBL.DeleteBranch(temp);
+                            myBL.DeleteBranch(GetID("Enter the ID of the branch you wish to delete"));
                             break;
                         case 9:
-                            Console.WriteLine("Enter the ID of the order you want to delete:");
-                            str=Console.ReadLine();
-                            int.TryParse(str,out temp);
-                            myBL.DeleteOrder(temp);
+                            myBL.DeleteOrder(GetID("Enter the ID of the order you wish to delete"));
                             break;
                         case 10:
+                            
                             break;
                         case 11:
                             break;
