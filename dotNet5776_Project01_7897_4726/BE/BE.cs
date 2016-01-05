@@ -285,7 +285,7 @@ namespace BE
                   + "\n\tBoss: " + Boss
                   + "\n\tEmployee Count: " + EmployeeCount
                   + "\n\tAvilable messanger count: " + AvailableMessangers
-                  + "\n\tKashrut: " + Kosher;
+                  + "\n\tKashrut: " + Kosher; 
         }
         public int MakeID()
         {
