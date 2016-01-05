@@ -27,6 +27,8 @@ namespace Console_UI
      * 
      * להוסיף פונקציות get & getall
      * לBL
+     * 
+     * להוסיף הערות להכול
      * */
     class Program
     {
@@ -54,6 +56,7 @@ namespace Console_UI
             //myBL.PrintAll();
 
             ////finish UI and check all of the functions
+            int temp;
             bool exit = false;
             while (!exit)
             {
@@ -77,6 +80,7 @@ namespace Console_UI
                             myBL.AddDishOrder(new DishOrder());
                             break;
                         case 6:
+                            myBL.DeleteDish(GetID("Enter the ID of the dish you wish to delete"));
                             break;
                         case 7:
                             break;
@@ -117,6 +121,19 @@ namespace Console_UI
                 {
                     Console.WriteLine(exp.Message);
                 }
+            }
+        }
+        int GetID(string str = null)
+        {
+            int temp;
+            while (true)
+            {
+                Console.WriteLine(str);
+                if (int.TryParse(Console.ReadLine(), out temp))
+                    return temp;
+                Console.WriteLine("the number you've entered is invalid! please try again\n\n");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
             }
         }
         int Menu()
