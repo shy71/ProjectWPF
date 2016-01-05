@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
- * להוסיף לפקופטי מגבלה
+ * להוסיף לפרופרטי מגבלה
 
  * */
 namespace BE
@@ -17,8 +17,6 @@ namespace BE
     }
     public class Dish : InterID
     {
-        public Dish()
-        { }
         public Dish(string name,Size size,float price,Kashrut kosher,int id = 0)
         {
             ID = id;
@@ -76,8 +74,6 @@ namespace BE
     }
     public class Order : InterID
     {//לבדוק שהכתובת עובדת טוב
-        public Order()
-        { }
         public Order(int branchID, string address, DateTime date, Kashrut kosher, int clientID, int id = 0)
         {
             ID = id;
@@ -151,8 +147,6 @@ namespace BE
     }
     public class DishOrder : InterID
     {
-        public DishOrder()
-        { }
         public DishOrder(int orderID,int dishID,int dishAmount, int id = 0)
         {
             ID = id;
@@ -210,8 +204,6 @@ namespace BE
     }
     public class Branch : InterID
     {
-        public Branch()
-        { }
         public Branch(string name, string address, string phoneNumber,string boss,int employeeCount,int availableMessangers,Kashrut kosher, int id = 0)
         {
             ID = id;
@@ -294,8 +286,6 @@ namespace BE
     }
     public class Client : InterID
     {
-        public Client()
-        { }
         public Client(string name, string address, int creditCard,int age, int id = 0)
         {
             ID = id;
@@ -348,5 +338,4 @@ namespace BE
             return Extensions.MakeID(Name, Address, CreditCard.ToString(),Age.ToString());
         }
     }
-    
 }
