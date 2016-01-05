@@ -73,7 +73,7 @@ namespace BL
         IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null);//לבדוק שזה בסדר שלא דילגיט
 
         void PrintAll();
-
+        void Inti();
         //Add grouping functions 
 
     }
@@ -263,9 +263,7 @@ namespace BL
         }
         public void DeleteOrder(int id)//need checking
         {
-            IEnumerable<DishOrder> ordersDishes = myDal.GetAllDishOrders(item => item.OrderID == id);
-            List<DishOrder> li = ordersDishes.ToList<DishOrder>();
-            foreach (DishOrder item in ordersDishes)
+            foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == id).ToList())
                 DeleteDishOrder(item);
             myDal.DeleteOrder(id);
         }

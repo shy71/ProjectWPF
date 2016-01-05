@@ -41,7 +41,7 @@ namespace Console_UI
         BL.IBL myBL = BL.FactoryBL.getBL();
         public void Run()
         {
-            //myBL.Inti();
+            myBL.Inti();
             //myBL.PrintAll();
             //myBL.AddBranch(new Branch("beer sheva", "rechov a 1/2", "0585205020", "bob", 4, 0, Kashrut.MEDIUM));
             //myBL.AddClient(new Client("yair", "jerusalem 3/4", 7812873, 1899));
@@ -59,6 +59,8 @@ namespace Console_UI
             {
                 try
                 {
+                    int temp;
+                    string str;
                     switch (Menu())
                     {
                         case 1:
@@ -81,8 +83,16 @@ namespace Console_UI
                         case 7:
                             break;
                         case 8:
+                            Console.WriteLine("Enter the ID of the Branch you want to delete:");
+                            str = Console.ReadLine();
+                            int.TryParse(str, out temp);
+                            myBL.DeleteBranch(temp);
                             break;
                         case 9:
+                            Console.WriteLine("Enter the ID of the order you want to delete:");
+                            str=Console.ReadLine();
+                            int.TryParse(str,out temp);
+                            myBL.DeleteOrder(temp);
                             break;
                         case 10:
                             break;
