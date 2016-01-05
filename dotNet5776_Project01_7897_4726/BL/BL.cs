@@ -40,6 +40,8 @@ namespace BL
 
         #region Order Functions
         void AddOrder(Order newOrder);
+        void DeliveredOrder(Order item);
+        void DeliveredOrder(int id);
         void DeleteOrder(int id);
         void DeleteOrder(Order item);
         void UpdateOrder(Order item);
@@ -146,7 +148,7 @@ namespace BL
             }
             return false;
         }
-        bool compere(object obj,bool IsString,bool IsInt,object subObj)
+        bool compare(object obj,bool IsString,bool IsInt,object subObj)
         {
             if (IsString&&subObj.GetType().Name=="Int32")
                 return (obj as string).ToLower().Contains((subObj as string).ToLower());
