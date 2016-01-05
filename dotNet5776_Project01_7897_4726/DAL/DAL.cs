@@ -37,6 +37,7 @@ namespace DAL
         #region Order Functions
         void AddOrder(Order newOrder);
         void DeleteOrder(int id);
+        void DeliveredOrder(int id);
         void DeleteOrder(Order item);
         void UpdateOrder(Order item);//האם יקבל ID?
         Order GetOrder(int id);
@@ -239,6 +240,13 @@ namespace DAL
 #endregion
 
         #region Order Functions
+        public void DeliveredOrder(int id)
+        {
+            List<Order> list = getList<Order>() as List<Order>;
+            if (ContainID<Order>(id) == false)
+                throw new Exception("There isnt any item in the list with this id...");
+            list.Find(item => item.ID == id).Active = false;
+        }
         public void AddOrder(Order newOrder)
         {
             Add(newOrder);
