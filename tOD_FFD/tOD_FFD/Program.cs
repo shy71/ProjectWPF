@@ -28,7 +28,9 @@ namespace tOD_FFD
         }
         public static void Main()
         {
-            Console.WriteLine(DateTime.Now.ToShortDateString());
+            int str=99999999;
+
+            var v= str.GetType().Name;
 
 
         }

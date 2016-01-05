@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 using BE;
 
 namespace BL
@@ -55,6 +56,7 @@ namespace BL
         void DeleteClient(Client item);
         void UpdateClient(Client item);
         IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
+        IEnumerable<Client> SearchClients(string str);
         #endregion
 
         /// <summary>
@@ -77,10 +79,11 @@ namespace BL
         /// <returns>List of all the orders that the condition returns True</returns>
         void PrintAll();
         void Inti();
-        //Add grouping functions 
+        //Add grouping functions
 
-
-        void DeleteDishOrder();
+        IEnumerable<IGrouping<int, float>> GetProfitByDishs();
+        IEnumerable<IGrouping<int, float>> GetProfitByClients();
+        IEnumerable<IGrouping<string, float>> GetProfitByDates();
     }
     public class BL : IBL
     {
@@ -98,19 +101,27 @@ namespace BL
                 result += item.DishAmount * myDal.GetDish(item.DishID).Price;
             return result;
         }
-
+        public List<IEnumerable<InterID>> Search(object obj)
+        {
+            List<IEnumerable<InterID>> list = new List<IEnumerable<InterID>>();
+            list.Add(SearchDish(obj));
+            list.Add(SearchClients(obj));
+            list.Add(SearchBranchs(obj));
+            list.Add(SearchOrders(obj));
+            return list;
+        }
         #region Profits Functions
-        IEnumerable<IGrouping<int,float>> GetProfitByDishs()
+        public IEnumerable<IGrouping<int, float>> GetProfitByDishs()
         {
             return from item in myDal.GetAllDishOrders()
-                   group item.DishAmount*myDal.GetDish(item.DishID).Price by item.DishID;
+                   group item.DishAmount * myDal.GetDish(item.DishID).Price by item.DishID;
         }
-        IEnumerable<IGrouping<int, float>> GetProfitByClients()
+        public IEnumerable<IGrouping<int, float>> GetProfitByClients()
         {
             return from item in myDal.GetAllDishOrders()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).ClientID;
         }
-        IEnumerable<IGrouping<string, float>> GetProfitByDates()
+        public IEnumerable<IGrouping<string, float>> GetProfitByDates()
         {
             return from item in myDal.GetAllDishOrders()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Date.ToShortDateString();
@@ -118,41 +129,71 @@ namespace BL
         #endregion
 
 
+        bool Include<T>(T item, object obj)//צריך לבדוק אם אפשר להעביר לLinq
+        {
+            foreach (PropertyInfo p in item.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            {
+                if (compere(p.GetValue(item), (p.PropertyType.Name == "String"), (p.PropertyType.Name == "Int32"), obj))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        bool compere(object obj,bool IsString,bool IsInt,object subObj)
+        {
+            if (IsString&&subObj.)
+                return (obj as string).ToLower().Contains((subObj as string).ToLower());
+            else if (IsInt)
+                return obj == subObj;
+            return false;
+
+        }
+
+        public IEnumerable<T> Search<T>(object str, IEnumerable<T> list)
+        {
+            return from item in list
+                    where Include(item, str)
+                    select item;
+        }
+
         public void PrintAll()//need checking // פונקציה זמנית
         {
-           foreach(Dish item in myDal.GetAllDishs())
-               Console.WriteLine(item);
-           foreach (Branch item in myDal.GetAllBranchs())
-               Console.WriteLine(item);
-           foreach (Client item in myDal.GetAllClients())
-               Console.WriteLine(item);
-           foreach (Order item in myDal.GetAllOrders())
-               Console.WriteLine(item);
-           foreach (DishOrder item in myDal.GetAllDishOrders())
-               Console.WriteLine(item);
+            foreach (Dish item in myDal.GetAllDishs())
+                Console.WriteLine(item);
+            foreach (Branch item in myDal.GetAllBranchs())
+                Console.WriteLine(item);
+            foreach (Client item in myDal.GetAllClients())
+                Console.WriteLine(item);
+            foreach (Order item in myDal.GetAllOrders())
+                Console.WriteLine(item);
+            foreach (DishOrder item in myDal.GetAllDishOrders())
+                Console.WriteLine(item);
         }
         public void Inti()//need checking
         {
 
-            AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH,957473));
-            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW,19273));
-            AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH,1243));
-            AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM,95840));
-            AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW,21));
-            AddClient(new Client("Shy", "Sderot Hertzel 12", 45326,23,1921));
-            AddClient(new Client("Ezra", "Beit Shemesh", 78695,65,10934));
-            AddClient(new Client("Itai", "Giv'at Ze'ev", 1938,18,493));
-            AddClient(new Client("Tal", "Alon Shvut", 91731,20,1313));
-            AddClient(new Client("Gal", "Ma'ale Adumim", 38267,19,20744));
-            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM,87465));
-            AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "kidron", 1, 5, Kashrut.HIGH,18932));
-            AddBranch(new Branch("Eilat", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW,2));
-            AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW,0));
-            AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM,9873));
+            AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH, 957473));
+            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW, 19273));
+            AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH, 1243));
+            AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM, 95840));
+            AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW, 21));
+            AddClient(new Client("Shy", "Sderot Hertzel 12", 45326, 23, 1921));
+            AddClient(new Client("Ezra", "Beit Shemesh", 78695, 65, 10934));
+            AddClient(new Client("Itai", "Giv'at Ze'ev", 1938, 18, 493));
+            AddClient(new Client("Tal", "Alon Shvut", 91731, 20, 1313));
+            AddClient(new Client("Gal", "Ma'ale Adumim", 38267, 19, 20744));
+            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM, 87465));
+            AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "kidron", 1, 5, Kashrut.HIGH, 18932));
+            AddBranch(new Branch("Eilat", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW, 2));
+            AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW, 0));
+            AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM, 9873));
             AddOrder(new Order(2, "Beit Shemesh", DateTime.Now, Kashrut.LOW, 10934, 192334));
             AddDishOrder(new DishOrder(192334, 957473, 3));
+            AddDishOrder(new DishOrder(192334, 957473, 2));
+            AddDishOrder(new DishOrder(192334, 19273, 2));
         }
-        
+
         //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
         #region Dish Functions
         internal void CompatibleDish(Dish dish, string str = null)//need checking
@@ -196,6 +237,10 @@ namespace BL
         public IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null)
         {
             return myDal.GetAllDishs(predicate);
+        }
+        public IEnumerable<Dish> SearchDish(object str)
+        {
+            return Search(str, myDal.GetAllDishs());
         }
         #endregion
 
@@ -243,10 +288,14 @@ namespace BL
         {
             return myDal.GetAllBranchs(predicate);
         }
+        public IEnumerable<Branch> SearchBranchs(object obj)
+        {
+            return Search(obj, myDal.GetAllBranchs());
+        }
         #endregion
 
         #region Order Functions
-        
+
         internal void CompatibleOrder(Order myOrder, string str)//need checking
         {
             if (myOrder.Address == null)
@@ -268,7 +317,7 @@ namespace BL
         {
 
             CompatibleOrder(newOrder, "The Order you are trying to add is incompatible:");
-                myDal.AddOrder(newOrder);
+            myDal.AddOrder(newOrder);
         }
         public void DeleteOrder(int id)//need checking
         {
@@ -294,21 +343,25 @@ namespace BL
         {
             return myDal.GetAllOrders(predicate);
         }
+        public IEnumerable<Order> SearchOrders(object obj)
+        {
+            return Search(obj, myDal.GetAllOrders());
+        }
         #endregion
 
         #region DishOrder Functions
         internal void CompatibleDishOrder(DishOrder theDishOrder, string str = null)//need checking
         {
-            if (theDishOrder.DishAmount <=0)
+            if (theDishOrder.DishAmount <= 0)
                 throw new Exception(str + " you cant order less the one from a Dish");
             else if (!myDal.ContainID<Dish>(theDishOrder.DishID))
                 throw new Exception(str + " the Dish you are trying to order does not exists!");
             else if (!myDal.ContainID<Order>(theDishOrder.OrderID))
                 throw new Exception(str + " The order you are trying to add dishs to does not exists!");
-            else if ((PriceOfOrder(myDal.GetOrder(theDishOrder.OrderID)) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price)> MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
-                throw new Exception(str+" with those dishes the order price will be above the approved limit!");
+            else if ((PriceOfOrder(myDal.GetOrder(theDishOrder.OrderID)) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price) > MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
+                throw new Exception(str + " with those dishes the order price will be above the approved limit!");
             else if (myDal.GetDish(theDishOrder.DishID).Kosher < myDal.GetOrder(theDishOrder.OrderID).Kosher)
-                throw new Exception(str+" you cant add a dish without the sufficient Kashrut for the order");
+                throw new Exception(str + " you cant add a dish without the sufficient Kashrut for the order");
         }
         public void AddDishOrder(DishOrder newDishOrder)//need checking
         {
@@ -336,21 +389,21 @@ namespace BL
 
         #region Client Functions
         //need checking
-        internal void CompatibleClient(Client client,string str=null)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
+        internal void CompatibleClient(Client client, string str = null)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
         {
             if (client.Address == null)
-                throw new Exception(str+" The Address filed cant be empty!");
+                throw new Exception(str + " The Address filed cant be empty!");
             else if (client.CreditCard <= 0)
-                throw new Exception(str+" the client credit card is invalid");
+                throw new Exception(str + " the client credit card is invalid");
             else if (client.Name == null)
-                throw new Exception(str+" The Name filed cant be empty!");
+                throw new Exception(str + " The Name filed cant be empty!");
             if (client.Age < 18)
-                throw new Exception(str+" the services is offerd only to age 18+ client");
+                throw new Exception(str + " the services is offerd only to age 18+ client");
         }
         public void AddClient(Client newClient)//need checking
         {
 
-            CompatibleClient(newClient,"The Client you are trying to add is incompatible:");
+            CompatibleClient(newClient, "The Client you are trying to add is incompatible:");
             myDal.AddClient(newClient);
         }
         public void DeleteClient(int id)//need checking
@@ -371,6 +424,10 @@ namespace BL
         public IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null)
         {
             return myDal.GetAllClients(predicate);
+        }
+        public IEnumerable<Client> SearchClients(object obj)
+        {
+            return Search(obj, myDal.GetAllClients());
         }
         #endregion
     }
