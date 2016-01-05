@@ -89,6 +89,7 @@ namespace BL
         void Inti();
         //Add grouping functions 
 
+        List<IEnumerable<InterID>> Search(object obj);
         IEnumerable<IGrouping<int, float>> GetProfitByDishs();
         IEnumerable<IGrouping<int, float>> GetProfitByClients();
         IEnumerable<IGrouping<string, float>> GetProfitByDates();
@@ -141,29 +142,33 @@ namespace BL
         {
             foreach (PropertyInfo p in item.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
-                if (Compares(p.GetValue(item), (p.PropertyType.Name == "String"), (p.PropertyType.Name == "Int32"),(p.PropertyType.Name=="DateTime"), obj))
+                if (Compares(p.GetValue(item), (p.PropertyType.Name == "String"), (p.PropertyType.Name == "Int32"),(p.PropertyType.Name=="Single"),(p.PropertyType.Name=="DateTime"), obj))
                 {
                     return true;
                 }
             }
             return false;
         }
-        bool Compares(object obj,bool IsString,bool IsInt,bool IsDate,object subObj)
+        bool Compares(object obj,bool IsString,bool IsInt,bool IsFloat,bool IsDate,object subObj)
         {
+            int temp;
+            float temp2;
             if (IsString && subObj.GetType().Name == "String")
                 return (obj as string).ToLower().Contains((subObj as string).ToLower());
-            else if (IsInt)
-                return obj == subObj;
+            else if (IsInt && int.TryParse(subObj as string, out temp))
+                return (int)obj == temp;
             else if (IsDate && subObj.GetType().Name == "String")
                 return ((DateTime)obj).ToShortDateString() == (obj as string);
+            else if (IsFloat && float.TryParse(subObj as string, out temp2))
+                return ((float)obj) == (temp2);
             return false;
 
         }
 
-        public IEnumerable<T> Search<T>(object str, IEnumerable<T> list)
+        public IEnumerable<T> Search<T>(object obj, IEnumerable<T> list)
         {
             return from item in list
-                    where Include(item, str)
+                    where Include(item, obj)
                     select item;
         }
 
@@ -183,7 +188,7 @@ namespace BL
         public void Inti()//need checking
         {
 
-            AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH, 957473));
+            AddDish(new Dish("Soup shy", Size.LARGE, 13, Kashrut.HIGH, 957473));
             AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW, 19273));
             AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH, 1243));
             AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM, 95840));
@@ -192,13 +197,13 @@ namespace BL
             AddClient(new Client("Ezra", "Beit Shemesh", 78695, 65, 10934));
             AddClient(new Client("Itai", "Giv'at Ze'ev", 1938, 18, 493));
             AddClient(new Client("Tal", "Alon Shvut", 91731, 20, 1313));
-            AddClient(new Client("Gal", "Ma'ale Adumim", 38267, 19, 20744));
-            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM, 87465));
+            AddClient(new Client("Gal", "Ma'ale Adumim shy", 38267, 19, 20744));
+            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli shy", 3, 4, Kashrut.MEDIUM, 87465));
             AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "kidron", 1, 5, Kashrut.HIGH, 18932));
             AddBranch(new Branch("Eilat", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW, 2));
             AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW, 0));
             AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM, 9873));
-            AddOrder(new Order(2, "Beit Shemesh", DateTime.Now, Kashrut.LOW, 10934, 192334));
+            AddOrder(new Order(2, "Beit Shemesh shy", DateTime.Now, Kashrut.LOW, 10934, 192334));
             AddDishOrder(new DishOrder(192334, 957473, 3));
             AddDishOrder(new DishOrder(192334, 957473, 2));
             AddDishOrder(new DishOrder(192334, 19273, 2));
