@@ -43,20 +43,7 @@ namespace Console_UI
         public void Run()
         {
             myBL.Inti();
-            //myBL.PrintAll();
-            //myBL.AddBranch(new Branch("beer sheva", "rechov a 1/2", "0585205020", "bob", 4, 0, Kashrut.MEDIUM));
-            //myBL.AddClient(new Client("yair", "jerusalem 3/4", 7812873, 1899));
-            ////myBL.DeleteBranch(new Branch("Eilat", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW, 2));
-            //myBL.DeleteOrder(192334);
-
-            //Console.WriteLine("************************************************\n\n\n");
-            //Console.WriteLine(myBL.PriceOfOrder(new Order(2, "Beit Shemesh", DateTime.Now, Kashrut.LOW, 10934, 192334)));
-            //Console.WriteLine("************************************************\n\n\n");
-            //myBL.PrintAll();
-
-            ////finish UI and check all of the functions
             int temp;
-            bool check;
             bool exit = false;
             while (!exit)
             {
@@ -93,11 +80,10 @@ namespace Console_UI
                             myBL.DeleteOrder(GetID("Enter the ID of the order you wish to delete"));
                             break;
                         case 10:
-                            IEnumerable<DishOrder> dishOrderList = myBL.GetAllDishOrders((item) => item.OrderID == GetID("Enter the ID of the order you wish to delete dishes from")).ToList();
-                            foreach(DishOrder item in dishOrderList)
-                            {
-                                Console.WriteLine();
-                            }
+                            temp = GetID("Enter the ID of the order you wish to delete dishes from");
+                            IEnumerable<Dish> dishList = from item in myBL.GetAllDishOrders((item) => item.OrderID == temp).ToList()
+                                                         select myBL.GetAllDishs(var => var.ID == item.DishID).ToList()[0];
+                            myBL.DeleteDish(Choose<Dish>(dishList));
                             break;
                         case 11:
                             break;
@@ -148,6 +134,29 @@ namespace Console_UI
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
+        }
+        T Choose<T>(IEnumerable<T> list)
+        {
+            if(list.Count<T>()==0)
+                throw new Exception("There are no choices to choose from.");
+            int i=1,choice;
+            Console.WriteLine("Choose from the following options: ");
+            foreach(T item in list)
+            {
+                Console.WriteLine(i+":");
+                Console.WriteLine(item);
+                i++;
+            }
+            while(!int.TryParse(Console.ReadLine(),out choice) || choice<1 || choice>=i)
+                Console.WriteLine("Invalid Choice. Choose again.");
+            i = 0;
+            foreach(T item in list)
+            {
+                i++;
+                if (i == choice)
+                    return item;
+            }
+            throw new Exception("Invalid choice.");
         }
         int Menu()
         {
