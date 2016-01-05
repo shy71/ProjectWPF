@@ -76,6 +76,8 @@ namespace BL
         void Inti();
         //Add grouping functions 
 
+
+        void DeleteDishOrder();
     }
     public class BL : IBL
     {
