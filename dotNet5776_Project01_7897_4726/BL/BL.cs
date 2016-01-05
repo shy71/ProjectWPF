@@ -24,6 +24,8 @@ namespace BL
         void DeleteDish(Dish item);
         void UpdateDish(Dish item);
         IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null);
+        IEnumerable<Dish> SearchDishs(object str);
+
         #endregion
 
         #region Branch Functions
@@ -32,6 +34,8 @@ namespace BL
         void DeleteBranch(Branch item);
         void UpdateBranch(Branch item);
         IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null);
+        IEnumerable<Branch> SearchBranchs(object str);
+
         #endregion
 
         #region Order Functions
@@ -40,6 +44,8 @@ namespace BL
         void DeleteOrder(Order item);
         void UpdateOrder(Order item);
         IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null);
+        IEnumerable<Order> SearchOrders(object str);
+
         #endregion
 
         #region DishOrder Functions
@@ -56,7 +62,7 @@ namespace BL
         void DeleteClient(Client item);
         void UpdateClient(Client item);
         IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
-        IEnumerable<Client> SearchClients(string str);
+        IEnumerable<Client> SearchClients(object str);
         #endregion
 
         /// <summary>
@@ -104,7 +110,7 @@ namespace BL
         public List<IEnumerable<InterID>> Search(object obj)
         {
             List<IEnumerable<InterID>> list = new List<IEnumerable<InterID>>();
-            list.Add(SearchDish(obj));
+            list.Add(SearchDishs(obj));
             list.Add(SearchClients(obj));
             list.Add(SearchBranchs(obj));
             list.Add(SearchOrders(obj));
@@ -142,7 +148,7 @@ namespace BL
         }
         bool compere(object obj,bool IsString,bool IsInt,object subObj)
         {
-            if (IsString&&subObj.)
+            if (IsString&&subObj.GetType().Name=="Int32")
                 return (obj as string).ToLower().Contains((subObj as string).ToLower());
             else if (IsInt)
                 return obj == subObj;
@@ -238,7 +244,7 @@ namespace BL
         {
             return myDal.GetAllDishs(predicate);
         }
-        public IEnumerable<Dish> SearchDish(object str)
+        public IEnumerable<Dish> SearchDishs(object str)
         {
             return Search(str, myDal.GetAllDishs());
         }

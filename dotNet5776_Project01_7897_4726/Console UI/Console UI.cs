@@ -49,6 +49,8 @@ namespace Console_UI
                             Size size;
                             float price;
                             Kashrut kosher;
+                            string str;
+                            int temp;
             while (!exit)
             {
                 try
