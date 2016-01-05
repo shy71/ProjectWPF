@@ -139,19 +139,21 @@ namespace BL
         {
             foreach (PropertyInfo p in item.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
-                if (compere(p.GetValue(item), (p.PropertyType.Name == "String"), (p.PropertyType.Name == "Int32"), obj))
+                if (Compares(p.GetValue(item), (p.PropertyType.Name == "String"), (p.PropertyType.Name == "Int32"),(p.PropertyType.Name=="DateTime"), obj))
                 {
                     return true;
                 }
             }
             return false;
         }
-        bool compere(object obj,bool IsString,bool IsInt,object subObj)
+        bool Compares(object obj,bool IsString,bool IsInt,bool IsDate,object subObj)
         {
-            if (IsString&&subObj.GetType().Name=="Int32")
+            if (IsString && subObj.GetType().Name == "String")
                 return (obj as string).ToLower().Contains((subObj as string).ToLower());
             else if (IsInt)
                 return obj == subObj;
+            else if (IsDate && subObj.GetType().Name == "String")
+                return ((DateTime)obj).ToShortDateString() == (obj as string);
             return false;
 
         }

@@ -39,18 +39,19 @@ namespace Console_UI
     }
     class PL
     {
+
         BL.IBL myBL = BL.FactoryBL.getBL();
         public void Run()
         {
             myBL.Inti();
             bool exit = false;
-                            string address, creditCardstr, ageStr, strPrice, strID, phoneNumber;
-                            int creditCard,age, choice, ID;
-                            Size size;
-                            float price;
-                            Kashrut kosher;
-                            string str;
-                            int temp;
+            string address, creditCardstr, ageStr, strPrice, strID, phoneNumber;
+            int creditCard, age, choice, ID;
+            Size size;
+            float price;
+            Kashrut kosher;
+            string str;
+            int temp;
             while (!exit)
             {
                 try

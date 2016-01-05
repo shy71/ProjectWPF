@@ -28,9 +28,8 @@ namespace tOD_FFD
         }
         public static void Main()
         {
-            int str=99999999;
-
-            var v= str.GetType().Name;
+            DateTime df = new DateTime();
+            Console.WriteLine(df.GetType().Name); ;
 
 
         }
