@@ -17,6 +17,7 @@ namespace Console_UI
      * לשנות כמו שדיברנו את כל פנוקציות העדכון
      * 
      * קונסטרקרטורים
+     * היה שגיאה שאם משנים את מה ששאילתה מצביעה אליה זה גורם בעיות
      * 
      * 
      * פונקציה גנרית שמחפשת את המחרוזת בכל אחד מהשדות
@@ -94,7 +95,11 @@ namespace Console_UI
                             myBL.DeleteOrder(GetID("Enter the ID of the order you wish to delete"));
                             break;
                         case 10:
-                            
+                            IEnumerable<DishOrder> dishOrderList = myBL.GetAllDishOrders((item) => item.OrderID == GetID("Enter the ID of the order you wish to delete dishes from")).ToList();
+                            foreach(DishOrder item in dishOrderList)
+                            {
+                                Console.WriteLine();
+                            }
                             break;
                         case 11:
                             break;
