@@ -12,6 +12,7 @@ namespace BE
 {
     public interface InterID
     {
+        bool active;
         int ID { get; set; }
         int MakeID();//צריך להוסיף את המימוש ביורשים!
     }
@@ -24,6 +25,13 @@ namespace BE
             Size = size;
             Price = price;
             Kosher = kosher;
+            active = false;
+        }
+        bool active;
+        public bool Active
+        {
+            get { return active; }
+            set { active = value; }
         }
         int id;
         public int ID
@@ -76,12 +84,19 @@ namespace BE
     {//לבדוק שהכתובת עובדת טוב
         public Order(int branchID, string address, DateTime date, Kashrut kosher, int clientID, int id = 0)
         {
+            active = true;
             ID = id;
             BranchID=branchID;
             Address=address;
             Date=date;
             Kosher = kosher;
             ClientID=clientID;
+        }
+        bool active;
+        public bool Active
+        {
+            get { return active; }
+            set { active = value; }
         }
         //אפשרות שליחה ב-5 דקות
         bool fastOrder;
