@@ -79,7 +79,7 @@ namespace BL
         /// <returns>List of all the orders that the condition returns True</returns>
         void PrintAll();
         void Inti();
-        //Add grouping functions
+        //Add grouping functions 
 
         IEnumerable<IGrouping<int, float>> GetProfitByDishs();
         IEnumerable<IGrouping<int, float>> GetProfitByClients();
@@ -160,15 +160,15 @@ namespace BL
         public void PrintAll()//need checking // פונקציה זמנית
         {
             foreach (Dish item in myDal.GetAllDishs())
-                Console.WriteLine(item);
-            foreach (Branch item in myDal.GetAllBranchs())
-                Console.WriteLine(item);
-            foreach (Client item in myDal.GetAllClients())
-                Console.WriteLine(item);
-            foreach (Order item in myDal.GetAllOrders())
-                Console.WriteLine(item);
-            foreach (DishOrder item in myDal.GetAllDishOrders())
-                Console.WriteLine(item);
+               Console.WriteLine(item);
+           foreach (Branch item in myDal.GetAllBranchs())
+               Console.WriteLine(item);
+           foreach (Client item in myDal.GetAllClients())
+               Console.WriteLine(item);
+           foreach (Order item in myDal.GetAllOrders())
+               Console.WriteLine(item);
+           foreach (DishOrder item in myDal.GetAllDishOrders())
+               Console.WriteLine(item);
         }
         public void Inti()//need checking
         {
@@ -193,7 +193,7 @@ namespace BL
             AddDishOrder(new DishOrder(192334, 957473, 2));
             AddDishOrder(new DishOrder(192334, 19273, 2));
         }
-
+        
         //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
         #region Dish Functions
         internal void CompatibleDish(Dish dish, string str = null)//need checking
@@ -295,7 +295,7 @@ namespace BL
         #endregion
 
         #region Order Functions
-
+        
         internal void CompatibleOrder(Order myOrder, string str)//need checking
         {
             if (myOrder.Address == null)
@@ -317,7 +317,7 @@ namespace BL
         {
 
             CompatibleOrder(newOrder, "The Order you are trying to add is incompatible:");
-            myDal.AddOrder(newOrder);
+                myDal.AddOrder(newOrder);
         }
         public void DeleteOrder(int id)//need checking
         {
