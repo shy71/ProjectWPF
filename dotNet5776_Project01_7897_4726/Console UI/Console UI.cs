@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 namespace Console_UI
 {
     /*
+     * הוספת אפשרות חיפוש על ידי יותר ממילה אחת
+     * 
      * לעדכן שימוש בבינג בכל פונקציות שמבקשות קלט
      * 
      * לשנות את ה tostring 
@@ -28,7 +30,7 @@ namespace Console_UI
      * 
      * לוודא שהגעה של הזמנה לא צריכה עוד שינויים
      * 
-     * 
+     * להוסיף תנאים של מיימום 2 תווים לBL בשמות
      * 
      * להוסיף הערות להכול
      * */
@@ -48,12 +50,8 @@ namespace Console_UI
         {
             myBL.Inti();
             bool exit = false;
-            string address, creditCardstr, ageStr, strPrice, strID, phoneNumber;
-            int creditCard, age, choice, ID=0;
-            Size size;
+            int creditCard, age, ID=0;
             float price=0;
-            Kashrut kosher;
-            string str;
             int temp;
             while (!exit)
             {
@@ -62,167 +60,160 @@ namespace Console_UI
                     switch (Menu())
                     {
                         case 1:
-                            #region Code
-                           // str=GetString("Enter the name of the dish:",item=>item.Length>3,"The dish name must be at least 3 characters");
-                           // switch (int.Parse(GetString("Enter the number of the size of the dish:\n1) Large\n2) Medium\n3) Small",item=>(item=="1")||(item=="2")||(item=="3"),"Invaid input.")))
-                           // {
-                           //     case 1:
-                           //         size = Size.LARGE;
-                           //         break;
-                           //     case 2:
-                           //         size = Size.MEDIUM;
-                           //         break;
-                           //     case 3:
-                           //         size = Size.SMALL;
-                           //         break;
-                           //     default:
-                           //         size = Size.MEDIUM;
-                           //         break;
-                           // }
-                           // GetString("Enter the price of the dish:",item=>float.TryParse(item, out price)&&price>0,"Invalid price. price cant be negative or contain letters.");
-                           // switch (int.Parse(GetString("Enter the number of the level of kashrut of the dish:\n1) High\n2) Medium\n3) Low",item=>(item=="1")||(item=="2")||(item=="3"),"Invaid input.")))
-                           //{
-                           //     case 1:
-                           //         kosher = Kashrut.HIGH;
-                           //         break;
-                           //     case 2:
-                           //         kosher = Kashrut.MEDIUM;
-                           //         break;
-                           //     case 3:
-                           //         kosher = Kashrut.LOW;
-                           //         break;
-                           //     default:
-                           //         kosher = Kashrut.MEDIUM;
-                           //         break;
-                           // }
-                           // strID= GetString("Enter an ID for your dish, or if you don't want to enter 0(recommended) and the system will generate a unique id:",item=>int.TryParse(item,out ID)&&ID>=0&&ID<100000000,"The ID must be 8 or less numbers, only numbers and positive");
-                            // myBL.AddDish(new Dish(str,size,price,kosher,ID));
-
-                            myBL.AddDish(
-                                new Dish(GetString("Enter the name of the dish:", item => item.Length > 2, "The dish name must be at least 3 characters")
-                                , SwtichCase(int.Parse(GetString("Enter the number of the size of the dish:\n1) Large\n2) Medium\n3) Small", item => (item == "1") || (item == "2") || (item == "3"), "Invaid input.")), Size.LARGE, Size.MEDIUM, Size.SMALL)
+                            #region Code     
+                            myBL.AddDish(new Dish(
+                                GetString("Enter the name of the dish:", item => item.Length > 2, "The dish name must be at least 3 characters")
+                                , SwtichCase(int.Parse(GetString("Enter the number of the size of the dish:\n1) Large\n2) Medium\n3) Small", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Size.LARGE, Size.MEDIUM, Size.SMALL)
                                 , float.Parse(GetString("Enter the price of the dish:", item => float.TryParse(item, out price) && price > 0, "Invalid price. price cant be negative or contain letters."))
-                                , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the dish:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invaid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW)
+                                , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the dish:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW)
                                 , int.Parse(GetString("Enter an ID for your dish, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive"))));
                             #endregion
                             break;
                         case 2:
                             #region  Code
-                            Console.WriteLine("Enter the name of the client:");
-                            str = Console.ReadLine();
-                            Console.WriteLine("Enter the address of the client:");
-                            address = Console.ReadLine();
-                            Console.WriteLine("Enter the credit card of the client:");
-                            creditCardstr = Console.ReadLine();
-                            while (!int.TryParse(creditCardstr, out creditCard))
-                            {
-                                Console.WriteLine("Invalid credit card number. Please enter the credit card number again:");
-                                strPrice = Console.ReadLine();
-                            }
-                            Console.WriteLine("Enter the age of the client:");
-                            ageStr = Console.ReadLine();
-                            while (!int.TryParse(ageStr, out age))
-                            {
-                                Console.WriteLine("Invalid age. Please enter the age again:");
-                                strPrice = Console.ReadLine();
-                            }
-                            if (age < 18)
-                                throw new Exception("The client has to be at least 18 years old.");
-                            Console.WriteLine("Enter an ID for your client, or if you don't want to enter 0");
-                            strID = Console.ReadLine();
-                            if (!int.TryParse(strID, out ID))
-                                myBL.AddClient(new Client(str, address, creditCard, age, ID));
-                            myBL.AddClient(new Client(str, address, creditCard, age));
+                            myBL.AddClient(new Client(
+                                GetString("Enter the name of the client:", item => item.Length > 2, "Client name must be at least 3 characters")
+                                , GetString("Enter the address of the client:", item => item.Length > 2, "Client address must be at least 3 characters")
+                                , int.Parse(GetString("Enter the credit card of the client:", item => int.TryParse(item, out creditCard) && creditCard > 0, "The creditCard can contain only numbers and must be positive"))
+                                , int.Parse(GetString("Enter the age of the client:", item => int.TryParse(item, out age) && age >= 18, "Client age must be above 18 years old"))
+                                , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive"))));
                             #endregion
-                            break;         
+                            break;
                         case 3:
                             #region  Code
-                            Console.WriteLine("Enter the name of the branch:");
-                            str = Console.ReadLine();
-                            Console.WriteLine("Enter the address of the branch:");
-                            address = Console.ReadLine();
-                            Console.WriteLine("Enter the phone number of the branch:");
-                            phoneNumber = Console.ReadLine();
-                            Console.WriteLine("Enter the boss of the branch:");
-                            creditCardstr = Console.ReadLine();
-                            Console.WriteLine("Enter the amount of employees of the branch:");
-                            ageStr = Console.ReadLine();
-                            while (!int.TryParse(ageStr, out age))
-                            {
-                                Console.WriteLine("Invalid amount. Please enter the age again:");
-                                strPrice = Console.ReadLine();
-                            }
-                            Console.WriteLine("Enter the available messangers of the branch:");
-                            ageStr = Console.ReadLine();
-                            while (!int.TryParse(ageStr, out creditCard))
-                            {
-                                Console.WriteLine("Invalid amount. Please enter the age again:");
-                                strPrice = Console.ReadLine();
-                            }
-                            Console.WriteLine("Enter the number of the level of kashrut of the dish:");
-                            Console.WriteLine("1) High");
-                            Console.WriteLine("2) Medium");
-                            Console.WriteLine("3) Low");
-                            if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 3)
-                                throw new Exception("Invaid input.");
-                            switch (choice)
-                            {
-                                case 1:
-                                    kosher = Kashrut.HIGH;
-                                    break;
-                                case 2:
-                                    kosher = Kashrut.MEDIUM;
-                                    break;
-                                case 3:
-                                    kosher = Kashrut.LOW;
-                                    break;
-                                default:
-                                    kosher = Kashrut.MEDIUM;
-                                    break;
-                            }
-                            Console.WriteLine("Enter an ID for your branch, or if you don't want to enter 0");
-                            strID = Console.ReadLine();
-                            if (!int.TryParse(strID, out ID))
-                                myBL.AddBranch(new Branch(str, address, phoneNumber, creditCardstr, age, creditCard, kosher, ID));
-                            myBL.AddBranch(new Branch(str, address, phoneNumber, creditCardstr, age, creditCard, kosher));
+                            myBL.AddBranch(new Branch(
+                             GetString("Enter the name of the branch:", item => item.Length > 2, "branch name must be at least 3 characters")
+                             , GetString("Enter the branch of the client:", item => item.Length > 2, "branch address must be at least 3 characters")
+                             , GetString("Enter the phone number of the branch:", item => item.Length >= 7 && int.TryParse(item, out temp), "The min lenght of a phone number is 7 numbers, and it must contain only numbers")
+                             , GetString("Enter the name of the boss of the branch:", item => item.Length > 2, "the boss of the branch name must be at least 3 characters")
+                             , int.Parse(GetString("Enter the amount of employees of the branch:", item => int.TryParse(item, out temp) && temp > 0, "The amount of employees in the branch must be above zero, or youve entered Invalid input"))
+                             , int.Parse(GetString("Enter the available messangers of the branch:", item => int.TryParse(item, out temp), "Invalid Input"))
+                             , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the branch:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW)
+                             , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive"))));
                             #endregion
-                            break;     
+                            break;
                         case 4:
                             #region Code
+                            Order tempOrder = new Order(
+                                ManageBing<Branch>("Search for The Branch that you are going to order from(just search it using Bing!)")
+                                , ManageBing<Client>("Search for The Client that is making the order(just search it using Bing!)")
+                                , DateTime.Now.AddHours(-int.Parse(GetString("Enter the number of hours that past since this order was created(or 0 if its just created now)", item => int.TryParse(item, out temp) && temp >= 0, "The number of hours needs to be a positive number")))
+                                , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the Order:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW) //התנאי של הכשרות פה ייבדק ב BL
+                                , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive")));
+                            if (SwtichCase(int.Parse(GetString("Does the client is ordering the Dish home?(enter 1) or to someplace else(2)", item => int.TryParse(item, out temp) && item == "1" && item == "2", "Invalid Input.")), false, true))
+                                tempOrder.Address = GetString("Enter the address for the order:", item => item.Length > 2, "order address must be at least 3 characters");
+                            myBL.AddOrder(tempOrder);
                             #endregion
-                            //myBL.AddOrder(new Order());
                             break;
                         case 5:
                             #region Code
+                            myBL.AddDishOrder(new DishOrder(
+                                ManageBing<Order>("Search for The Order you want to add dish to(just search it using Bing)")
+                                , ManageBing<Dish>("Search for The Dish you want to add to the order(just search it using Bing!)")
+                                ,int.Parse(GetString("How many dishs of that dish do you want to add to the order?)",item=>int.TryParse(item, out temp),"The number of dishs to add has to be a positive number."))));
                             #endregion
-                            //myBL.AddDishOrder(new DishOrder());
                             break;
                         case 6:
                             #region Code
-                            myBL.DeleteDish(GetID("Enter the ID of the dish you wish to delete"));
+                            InterID res = Bing("Search for The Item you wish to delete from the database of the restaurant");
+                            switch (res.GetType().Name)
+                            {
+                                case "Dish":
+                                    myBL.DeleteDish(res as Dish);
+                                    break;
+                                case "Branch":
+                                    myBL.DeleteBranch(res as Branch);
+                                    break;
+                                case "Client":
+                                    myBL.DeleteClient(res as Client);
+                                    break;
+                                case "Order":
+                                    myBL.DeleteOrder(res as Order);
+                                    break;
+                                default:
+                                    break;
+                            }
                             #endregion
                             break;
                         case 7:
                             #region Code
-                            myBL.DeleteClient(GetID("Enter the ID of the client you wish to delete"));
+                            Order order = ManageBing<Order>("Search for the Order you wish to delete orders from");
+                            List<DishOrder> list = myBL.GetAllDishOrders(item => item.OrderID == order.ID).ToList();
+                            temp = 0;
+                            int temp2;
+                            foreach (DishOrder item in list)
+                            {
+                                temp++;
+                                Console.WriteLine(temp + ") " + "Name: " + myBL.GetAllDishs(var => var.ID == item.DishID).First().Name + " , Amount: " + item.DishAmount);
+                            }
+                            Console.WriteLine(temp + ") Cancel");
+                            temp2 = int.Parse(GetString("Enter the number near the dishs you wish to remove from the order", item => int.TryParse(item, out temp2) && temp2 > 0 && temp2 <= temp + 1, "Invalid Input."));
+                            if (temp2 == temp + 1)
+                                break;
+                            myBL.DeleteDishOrder(list[temp - 1]);
                             #endregion
                             break;
                         case 8:
-                            #region Code
-                            myBL.DeleteBranch(GetID("Enter the ID of the branch you wish to delete"));
-                            #endregion
+                            switch (GetString("do you want profits by Dishs(1), Dates(2) or Clients(3)?", item => (item == "1") || (item == "2") || (item == "3"), "Invalid Input."))
+                            {
+                                case "1":
+                                    #region By Dishs
+                                    temp = 0;
+                                    var grouping = myBL.GetProfitByDishs();
+                                    foreach (IGrouping<int, float> item in grouping)
+                                    {
+                                        Console.WriteLine("Details for profit from Dish" + myBL.GetAllDishs(item2 => item2.ID == item.Key).First().Name + " (" + item.Key + "):");
+                                        foreach (float item2 in item)
+                                        {
+                                            temp++;
+                                            Console.WriteLine("\t(" + temp + ") " + item2);
+                                        }
+                                        Console.WriteLine("\tTotal of: " + item.Sum() + " Profit from " + item.Count() + " orders for this dish.");
+                                    }
+                                    Console.WriteLine("\nTotal of:" + grouping.Sum(item => item.Sum()) + " Profit from " + grouping.Sum(item => item.Count()) + " orders of " + grouping.Count() + " diffrent dishs");
+                                    #endregion
+                                    break;
+                                case "2":
+                                    #region By Dates
+                                    temp = 0;
+                                    var grouping2 = myBL.GetProfitByDates();
+                                    foreach (IGrouping<string, float> item in grouping2)
+                                    {
+                                        Console.WriteLine("Details for profit from Date " + item.Key+":");
+                                        foreach (float item2 in item)
+                                        {
+                                            temp++;
+                                            Console.WriteLine("\t(" + temp + ") " + item2);
+                                        }
+                                        Console.WriteLine("\tTotal of: " + item.Sum() + " Profit from " + item.Count() + " orders for this date.");
+                                    }
+                                    Console.WriteLine("\nTotal of:" + grouping2.Sum(item => item.Sum()) + " Profit from " + grouping2.Sum(item => item.Count()) + " orders of " + grouping2.Count() + " diffrent dates");
+                                    #endregion
+                                    break;
+                                case "3":
+                                    #region By Clients
+                                    temp = 0;
+                                    var grouping3 = myBL.GetProfitByClients();
+                                    foreach (IGrouping<int, float> item in grouping3)
+                                    {
+                                        Console.WriteLine("Details for profit from Client" + myBL.GetAllClients(item2 => item2.ID == item.Key).First().Name + " (" + item.Key + "):");
+                                        foreach (float item2 in item)
+                                        {
+                                            temp++;
+                                            Console.WriteLine("\t(" + temp + ") " + item2);
+                                        }
+                                        Console.WriteLine("\tTotal of: " + item.Sum() + " Profit from " + item.Count() + " orders form this client.");
+                                    }
+                                    Console.WriteLine("\nTotal of:" + grouping3.Sum(item => item.Sum()) + " Profit from " + grouping3.Sum(item => item.Count()) + " orders of " + grouping3.Count() + " diffrent clients");
+                                    #endregion
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case 9:
-                            #region Code
-                            myBL.DeleteOrder(GetID("Enter the ID of the order you wish to delete"));
-                            #endregion
                             break;
                         case 10:
-                            #region Code
-                            temp = GetID("Enter the ID of the order you wish to delete dishes from");
-                            myBL.DeleteDish(Choose(from item in myBL.GetAllDishOrders((item) => item.OrderID == temp).ToList()
-                                                         select myBL.GetAllDishs(var => var.ID == item.DishID).First()));
-                            #endregion
                             break;
                         case 11:
                             break;
@@ -278,21 +269,34 @@ namespace Console_UI
                 res=Console.ReadLine();
                 if (pred(res))
                     return res;
-                Console.WriteLine("The input youve entered is invalid: "+errorMsg+" - please try again");
+                Console.WriteLine("The input youve entered is Invalid: "+errorMsg+" - please check your input and try again");
             }
         }
         T SwtichCase<T>(int choise,params T[] arr)
         {
           if(choise<arr.Length&&choise>=0)
             return arr[choise];
-          throw new Exception("Inviled Choise.");
+          throw new Exception("Invalid Choise.");
         }
-        InterID Bing()
+        T ManageBing<T>(string str)where T:class,InterID
         {
-            string str;
-            Console.WriteLine("You can search for address/name/ID/phone number or even a date! whatever you want! just enter it and the system will know what to do");
-            Console.WriteLine("Bing!: ");
-            str = Console.ReadLine();
+            InterID res = Bing(str);
+            while (true)
+            {
+                if (res.GetType().Name == typeof(T).Name)
+                    return res as T;
+                else if (res == null)
+                    return null;
+                else
+                    Console.WriteLine("You were asked ToString choose a " + typeof(T).Name + " but you have chosen " + res.GetType().Name + ", please try again(if you want to exit the search choose the Exit option on Bing!");
+            }
+        }
+        InterID Bing(string str=null)
+        {
+            string input;
+            Console.WriteLine("\n"+str);
+            Console.WriteLine("Bing!(enter one keyword(number/string) and we will Bing! it: ");
+            input = Console.ReadLine();
            return ChooseSearch<InterID>(myBL.Search(str),str);
 
         }
@@ -306,9 +310,9 @@ namespace Console_UI
                     if (temp < 99999999 && temp > 0)
                         return temp;
                     else
-                        Console.WriteLine("The ID is invalid! please try again\n\n");
+                        Console.WriteLine("The ID is Invalid! please try again\n\n");
                 else
-                    Console.WriteLine("the number you've entered is invalid! please try again\n\n");
+                    Console.WriteLine("the number you've entered is Invalid! please try again\n\n");
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
@@ -354,7 +358,8 @@ namespace Console_UI
                     i++;
                 }
             }
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice >= i)
+            Console.WriteLine(i+": Exit From Bing!");
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice >= i+1)
                 Console.WriteLine("Invalid Choice. Choose again.");
             i = 0;
             foreach (IEnumerable<T> item in list)
@@ -381,11 +386,9 @@ namespace Console_UI
                 Console.WriteLine("3. Create new Branch");
                 Console.WriteLine("4. Create new Order");
                 Console.WriteLine("5. Add dishs to an order");
-                Console.WriteLine("6. Delete a dish from the menu of the restaurant");
-                Console.WriteLine("7. Delete a Client");
-                Console.WriteLine("8. Delete a Branch");
-                Console.WriteLine("9. Delete an Order");
-                Console.WriteLine("10. Delete dishs from an order");
+                Console.WriteLine("6. Delete an item from the database of the restaurant");
+                Console.WriteLine("7. Delete a dish from an order");
+                Console.WriteLine("8. Get profits detlies");
                 Console.WriteLine("11. Update a dish in the menu of the restaurant");
                 Console.WriteLine("12. Update Client's details");
                 Console.WriteLine("13. Update Branch's details");
@@ -401,7 +404,7 @@ namespace Console_UI
                 input = Console.ReadLine();
                 if ((!int.TryParse(input, out num)) || num < 1 || num > 23)
                 {
-                    Console.WriteLine("the number you've entered is invalid! please try again\n\n");
+                    Console.WriteLine("the number you've entered is Invalid! please try again\n\n");
                     Console.WriteLine("Press any key to continue...");
                     Console.ReadKey();
                 }

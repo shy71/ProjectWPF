@@ -9,11 +9,14 @@ namespace tOD_FFD
 {
     enum MyEnum
     {
-        LOW,MED,HIGH
+        LOW, MED, HIGH
     }
-    class Dish
+    interface Inta
+    { }
+    class Dish : Inta
     {
-        Random r=new Random();
+        Random r = new Random();
+
         public Dish()
         {
             DishID = r.Next(1000);
@@ -30,13 +33,12 @@ namespace tOD_FFD
         {
             DateTime df = new DateTime();
             Console.WriteLine(df.GetType().Name); ;
-
-            ParamsChekc(5, 6, 3, 2, 3);
+            Inta a = new Dish();
+           Console.WriteLine(a.GetType().Name);
+           Console.WriteLine(   typeof(Dish).Name);
         }
-        public static void ParamsChekc(params int arr)
-        {
 
-        }
+
         public static IEnumerable<IGrouping<int, int>> GetProfitByDishs()
         {
             List<Dish> list = new List<Dish>();

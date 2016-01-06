@@ -84,6 +84,15 @@ namespace BE
             Kosher = kosher;
             ClientID=clientID;
         }
+        public Order(Branch branch, Client client, DateTime date, Kashrut kosher, int id = 0)
+        {
+            ID = id;
+            BranchID = branch.ID;
+            Address = client.Address;
+            Date = date;
+            Kosher = kosher;
+            ClientID = client.ID;
+        }
         bool active;
         public bool Active
         {
@@ -154,14 +163,14 @@ namespace BE
     }
     public class DishOrder : InterID
     {
-        public DishOrder(int orderID,int dishID,int dishAmount, int id = 0)
+        public DishOrder(int orderID,int dishID,int dishAmount=1, int id = 0)
         {
             ID = id;
             OrderID = orderID;
             DishID = dishID;
             DishAmount = dishAmount;
         }
-        public DishOrder(Dish dish,Order order,int amout=1,int id=0)
+        public DishOrder(Order order,Dish dish,int amout=1,int id=0)
         {
             OrderID = order.ID;
             DishID = dish.ID;
