@@ -53,6 +53,7 @@ namespace Console_UI
             int creditCard, age, ID=0;
             float price=0;
             int temp;
+            Order order;
             while (!exit)
             {
                 try
@@ -60,7 +61,7 @@ namespace Console_UI
                     switch (Menu())
                     {
                         case 1:
-                            #region Code     
+                            #region Add Dish
                             myBL.AddDish(new Dish(
                                 GetString("Enter the name of the dish:", item => item.Length > 2, "The dish name must be at least 3 characters")
                                 , SwtichCase(int.Parse(GetString("Enter the number of the size of the dish:\n1) Large\n2) Medium\n3) Small", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Size.LARGE, Size.MEDIUM, Size.SMALL)
@@ -70,7 +71,7 @@ namespace Console_UI
                             #endregion
                             break;
                         case 2:
-                            #region  Code
+                            #region  Add Client
                             myBL.AddClient(new Client(
                                 GetString("Enter the name of the client:", item => item.Length > 2, "Client name must be at least 3 characters")
                                 , GetString("Enter the address of the client:", item => item.Length > 2, "Client address must be at least 3 characters")
@@ -80,7 +81,7 @@ namespace Console_UI
                             #endregion
                             break;
                         case 3:
-                            #region  Code
+                            #region  Add Branch
                             myBL.AddBranch(new Branch(
                              GetString("Enter the name of the branch:", item => item.Length > 2, "branch name must be at least 3 characters")
                              , GetString("Enter the branch of the client:", item => item.Length > 2, "branch address must be at least 3 characters")
@@ -93,7 +94,7 @@ namespace Console_UI
                             #endregion
                             break;
                         case 4:
-                            #region Code
+                            #region Add Order
                             Order tempOrder = new Order(
                                 ManageBing<Branch>("Search for The Branch that you are going to order from(just search it using Bing!)")
                                 , ManageBing<Client>("Search for The Client that is making the order(just search it using Bing!)")
@@ -106,7 +107,7 @@ namespace Console_UI
                             #endregion
                             break;
                         case 5:
-                            #region Code
+                            #region Add DishOrder
                             myBL.AddDishOrder(new DishOrder(
                                 ManageBing<Order>("Search for The Order you want to add dish to(just search it using Bing)")
                                 , ManageBing<Dish>("Search for The Dish you want to add to the order(just search it using Bing!)")
@@ -114,7 +115,7 @@ namespace Console_UI
                             #endregion
                             break;
                         case 6:
-                            #region Code
+                            #region Delete Item
                             InterID res = Bing("Search for The Item you wish to delete from the database of the restaurant");
                             switch (res.GetType().Name)
                             {
@@ -136,8 +137,8 @@ namespace Console_UI
                             #endregion
                             break;
                         case 7:
-                            #region Code
-                            Order order = ManageBing<Order>("Search for the Order you wish to delete orders from");
+                            #region  delete DishOrders
+                            order = ManageBing<Order>("Search for the Order you wish to delete orders from");
                             List<DishOrder> list = myBL.GetAllDishOrders(item => item.OrderID == order.ID).ToList();
                             temp = 0;
                             int temp2;
@@ -154,6 +155,7 @@ namespace Console_UI
                             #endregion
                             break;
                         case 8:
+                            #region Profits Grouping
                             switch (GetString("do you want profits by Dishs(1), Dates(2) or Clients(3)?", item => (item == "1") || (item == "2") || (item == "3"), "Invalid Input."))
                             {
                                 case "1":
@@ -210,12 +212,39 @@ namespace Console_UI
                                 default:
                                     break;
                             }
+                            #endregion
                             break;
                         case 9:
+                            #region Calculate Order Price
+                            order = ManageBing<Order>("Search for the order you want to Calculate it's total price");
+                            if (order != null)
+                                Console.WriteLine("The Price of the order is: " + myBL.PriceOfOrder(order));
+                            #endregion
                             break;
                         case 10:
+                            #region Mark as Delivered
+                            order = ManageBing<Order>("Search for the order you want to makr as delivered");
+                            if (order != null)
+                                order.Delivered = true;
+                            #endregion
                             break;
                         case 11:
+                            #region Print all Undelivered orders
+                            temp = 0;
+                            temp2 = 0;
+                            foreach (Order item in myBL.GetAllOrders(item => item.Delivered == false))
+                            {
+                                Console.WriteLine(item);
+                                Console.WriteLine("Dishs in the Order:");
+                                foreach (DishOrder item2 in myBL.GetAllDishOrders(var=>var.OrderID==item.ID))
+                                {
+                                    temp++;
+                                    Console.WriteLine("("+temp + ") " + "Name: " + myBL.GetAllDishs(var => var.ID == item2.DishID).First().Name + " , Amount: " + item2.DishAmount);
+                                }
+                                temp2++;
+                            }
+                            Console.WriteLine("Total of "+temp2+" Undelivered Orders are in the restaurant database(this number may change as time goes on)");
+                            #endregion
                             break;
                         case 12:
                             break;
@@ -235,12 +264,12 @@ namespace Console_UI
 
                             break;
                         case 20:
-                            #region Code
+                            #region Print All
                             myBL.PrintAll();
 #endregion
                             break;
                         case 21:
-                            #region
+                            #region Search Bing!
                             var s=Bing();
                             #endregion
                             break;
@@ -295,9 +324,9 @@ namespace Console_UI
         {
             string input;
             Console.WriteLine("\n"+str);
-            Console.WriteLine("Bing!(enter one keyword(number/string) and we will Bing! it: ");
+            Console.WriteLine("Bing!(enter one keyword(number/string) and we will Bing! it(or press enter for the full list): ");
             input = Console.ReadLine();
-           return ChooseSearch<InterID>(myBL.Search(str),str);
+            return ChooseSearch<InterID>(myBL.Search(input), input);
 
         }
         int GetID(string str = null)
@@ -389,6 +418,9 @@ namespace Console_UI
                 Console.WriteLine("6. Delete an item from the database of the restaurant");
                 Console.WriteLine("7. Delete a dish from an order");
                 Console.WriteLine("8. Get profits detlies");
+                Console.WriteLine("9. Calculate Order Total Price");
+                Console.WriteLine("10. Mark Order as delivered");
+                Console.WriteLine("11. Print All undelivered Orders");
                 Console.WriteLine("11. Update a dish in the menu of the restaurant");
                 Console.WriteLine("12. Update Client's details");
                 Console.WriteLine("13. Update Branch's details");
@@ -397,9 +429,9 @@ namespace Console_UI
                 Console.WriteLine("16. Search and print all of the orders of a client");
                 Console.WriteLine("17. Search and print all of the orders from a certain branch");
                 Console.WriteLine("18. Search and print all of the orders of a certain dish");
-                Console.WriteLine("19. Caclute an order price(by the order ID)");//להוסיף אפשרות לפי שם הלקוח
+                Console.WriteLine("19. Caclute an order price(by the order ID)");
                 Console.WriteLine("20. Print the entire DataBase");
-                Console.WriteLine("21. Open Bing!(Search Engine)");
+                Console.WriteLine("21. Use Bing!(Search Engine)");
                 Console.WriteLine("22. Exit\n");
                 input = Console.ReadLine();
                 if ((!int.TryParse(input, out num)) || num < 1 || num > 23)

@@ -245,7 +245,7 @@ namespace DAL
             List<Order> list = getList<Order>() as List<Order>;
             if (ContainID<Order>(id) == false)
                 throw new Exception("There isnt any item in the list with this id...");
-            list.Find(item => item.ID == id).Active = false;
+            list.Find(item => item.ID == id).Delivered = true;
         }
         public void AddOrder(Order newOrder)
         {

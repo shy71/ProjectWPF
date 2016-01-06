@@ -76,7 +76,7 @@ namespace BE
     {//לבדוק שהכתובת עובדת טוב
         public Order(int branchID, string address, DateTime date, Kashrut kosher, int clientID, int id = 0)
         {
-            active = true;
+            Delivered = false;
             ID = id;
             BranchID=branchID;
             Address=address;
@@ -93,18 +93,11 @@ namespace BE
             Kosher = kosher;
             ClientID = client.ID;
         }
-        bool active;
-        public bool Active
+        bool delivered;
+        public bool Delivered
         {
-            get { return active; }
-            set { active = value; }
-        }
-        //אפשרות שליחה ב-5 דקות
-        bool fastOrder;
-        public bool FastOrder
-        {
-            get { return fastOrder; }
-            set { fastOrder = value; }
+            get { return delivered; }
+            set { delivered = value; }
         }
         int id;
         public int ID
@@ -154,7 +147,8 @@ namespace BE
                     + "\n\tBranch: " + BranchID
                     + "\n\tKashrut: " + Kosher
                     + "\n\tClient ID: " + ClientID
-                    + "\n\tOrder address: " + Address;
+                    + "\n\tOrder address: " + Address
+                    + "\n\tDelivered Already?: " + Delivered;
         }
         public int MakeID()
         {
