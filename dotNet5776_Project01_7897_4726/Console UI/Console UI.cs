@@ -49,9 +49,9 @@ namespace Console_UI
             myBL.Inti();
             bool exit = false;
             string address, creditCardstr, ageStr, strPrice, strID, phoneNumber;
-            int creditCard, age, choice, ID;
+            int creditCard, age, choice, ID=0;
             Size size;
-            float price;
+            float price=0;
             Kashrut kosher;
             string str;
             int temp;
@@ -63,64 +63,49 @@ namespace Console_UI
                     {
                         case 1:
                             #region Code
-                            Console.WriteLine("Enter the name of the dish:");
-                            str = Console.ReadLine();
-                            Console.WriteLine("Enter the number of the size of the dish:");
-                            Console.WriteLine("1) Large");
-                            Console.WriteLine("2) Medium");
-                            Console.WriteLine("3) Small");
-                            if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 3)
-                                throw new Exception("Invaid input.");
-                            switch (choice)
-                            {
-                                case 1:
-                                    size = Size.LARGE;
-                                    break;
-                                case 2:
-                                    size = Size.MEDIUM;
-                                    break;
-                                case 3:
-                                    size = Size.SMALL;
-                                    break;
-                                default:
-                                    size = Size.MEDIUM;
-                                    break;
-                            }
-                            Console.WriteLine("Enter the price of the dish:");
-                            strPrice = Console.ReadLine();
-                            while (!float.TryParse(strPrice, out price) || price <= 0)
-                            {
-                                Console.WriteLine("Invalid price. Please enter the price again:");
-                                strPrice = Console.ReadLine();
-                            }
-                            Console.WriteLine("Enter the number of the level of kashrut of the dish:");
-                            Console.WriteLine("1) High");
-                            Console.WriteLine("2) Medium");
-                            Console.WriteLine("3) Low");
-                            if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 3)
-                                throw new Exception("Invaid input.");
-                            switch (choice)
-                            {
-                                case 1:
-                                    kosher = Kashrut.HIGH;
-                                    break;
-                                case 2:
-                                    kosher = Kashrut.MEDIUM;
-                                    break;
-                                case 3:
-                                    kosher = Kashrut.LOW;
-                                    break;
-                                default:
-                                    kosher = Kashrut.MEDIUM;
-                                    break;
-                            }
-                            Console.WriteLine("Enter an ID for your dish, or if you don't want to enter 0");
-                            strID = Console.ReadLine();
-                            if (!int.TryParse(strID, out ID))
-                                myBL.AddDish(new Dish(str, size, price, kosher));
-                            myBL.AddDish(new Dish(str, size, price, kosher, ID));
+                           // str=GetString("Enter the name of the dish:",item=>item.Length>3,"The dish name must be at least 3 characters");
+                           // switch (int.Parse(GetString("Enter the number of the size of the dish:\n1) Large\n2) Medium\n3) Small",item=>(item=="1")||(item=="2")||(item=="3"),"Invaid input.")))
+                           // {
+                           //     case 1:
+                           //         size = Size.LARGE;
+                           //         break;
+                           //     case 2:
+                           //         size = Size.MEDIUM;
+                           //         break;
+                           //     case 3:
+                           //         size = Size.SMALL;
+                           //         break;
+                           //     default:
+                           //         size = Size.MEDIUM;
+                           //         break;
+                           // }
+                           // GetString("Enter the price of the dish:",item=>float.TryParse(item, out price)&&price>0,"Invalid price. price cant be negative or contain letters.");
+                           // switch (int.Parse(GetString("Enter the number of the level of kashrut of the dish:\n1) High\n2) Medium\n3) Low",item=>(item=="1")||(item=="2")||(item=="3"),"Invaid input.")))
+                           //{
+                           //     case 1:
+                           //         kosher = Kashrut.HIGH;
+                           //         break;
+                           //     case 2:
+                           //         kosher = Kashrut.MEDIUM;
+                           //         break;
+                           //     case 3:
+                           //         kosher = Kashrut.LOW;
+                           //         break;
+                           //     default:
+                           //         kosher = Kashrut.MEDIUM;
+                           //         break;
+                           // }
+                           // strID= GetString("Enter an ID for your dish, or if you don't want to enter 0(recommended) and the system will generate a unique id:",item=>int.TryParse(item,out ID)&&ID>=0&&ID<100000000,"The ID must be 8 or less numbers, only numbers and positive");
+                            // myBL.AddDish(new Dish(str,size,price,kosher,ID));
+
+                            myBL.AddDish(
+                                new Dish(GetString("Enter the name of the dish:", item => item.Length > 2, "The dish name must be at least 3 characters")
+                                , SwtichCase(int.Parse(GetString("Enter the number of the size of the dish:\n1) Large\n2) Medium\n3) Small", item => (item == "1") || (item == "2") || (item == "3"), "Invaid input.")), Size.LARGE, Size.MEDIUM, Size.SMALL)
+                                , float.Parse(GetString("Enter the price of the dish:", item => float.TryParse(item, out price) && price > 0, "Invalid price. price cant be negative or contain letters."))
+                                , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the dish:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invaid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW)
+                                , int.Parse(GetString("Enter an ID for your dish, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive"))));
                             #endregion
-                            break;                            
+                            break;
                         case 2:
                             #region  Code
                             Console.WriteLine("Enter the name of the client:");
@@ -275,12 +260,32 @@ namespace Console_UI
 #endregion
                             break;
                     }
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
                 }
                 catch (Exception exp)
                 {
                     Console.WriteLine(exp.Message);
                 }
             }
+        }
+        string GetString(string str, Func<string, bool> pred, string errorMsg=null)
+        {
+            string res;
+            while (true)
+            {
+                Console.WriteLine("\n"+str);
+                res=Console.ReadLine();
+                if (pred(res))
+                    return res;
+                Console.WriteLine("The input youve entered is invalid: "+errorMsg+" - please try again");
+            }
+        }
+        T SwtichCase<T>(int choise,params T[] arr)
+        {
+          if(choise<arr.Length&&choise>=0)
+            return arr[choise];
+          throw new Exception("Inviled Choise.");
         }
         InterID Bing()
         {

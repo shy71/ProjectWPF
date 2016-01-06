@@ -31,6 +31,10 @@ namespace tOD_FFD
             DateTime df = new DateTime();
             Console.WriteLine(df.GetType().Name); ;
 
+            ParamsChekc(5, 6, 3, 2, 3);
+        }
+        public static void ParamsChekc(params int arr)
+        {
 
         }
         public static IEnumerable<IGrouping<int, int>> GetProfitByDishs()
