@@ -8,29 +8,13 @@ using System.Threading.Tasks;
 namespace Console_UI
 {
     /*
-     * הוספת אפשרות חיפוש על ידי יותר ממילה אחת
      * 
-     * לעדכן שימוש בבינג בכל פונקציות שמבקשות קלט
-     * 
-     * לשנות את ה tostring 
-     * לפונקציה שעוברת על כל הפרופטי פשוט
-     * 
-     * לשנות כמו שדיברנו את כל פנוקציות העדכון
-     * חוץ מclient ,branch
-     * 
-     * קונסטרקרטורים
-     * היה שגיאה שאם משנים את מה ששאילתה מצביעה אליה זה גורם בעיות
-     * 
-     * 
-     * פונקציה גנרית שמחפשת את המחרוזת בכל אחד מהשדות
-     * תחפש בשם ובהכול
-     * ותחזיר אם אפשרות בחירה במקרה שיש יותר מאחד
      * 
      * לסיים switch
      * 
-     * לוודא שהגעה של הזמנה לא צריכה עוד שינויים
+     * לבדוק איך כל מערך השגיאות עובד ולנהול אותו
      * 
-     * להוסיף תנאים של מיימום 2 תווים לBL בשמות
+     * להריץ כמה עשרות ניסיונות
      * 
      * להוסיף הערות להכול
      * */
@@ -368,7 +352,7 @@ namespace Console_UI
                             #region Code
                             Console.WriteLine("\n\nGood By! Hope to see you again at our restaurants");
                             exit = true;
-#endregion
+                            #endregion
                             break;
                     }
                     Console.WriteLine("Press any key to continue...");
@@ -490,16 +474,13 @@ namespace Console_UI
                 Console.WriteLine("13. Update Branch's details");
                 Console.WriteLine("14. Update Order's details");
                 Console.WriteLine("15. Update the amount of dishs order from one kind from an order");
-                Console.WriteLine("16. Search and print all of the orders of a client");
-                Console.WriteLine("17. Search and print all of the orders from a certain branch");
-                Console.WriteLine("18. Search and print all of the orders of a certain dish");
-                Console.WriteLine("19. Caclute an order price(by the order ID)");
                 Console.WriteLine("20. Print the entire DataBase");
                 Console.WriteLine("21. Use Bing!(Search Engine)");
                 Console.WriteLine("22. Print the best customer");
                 Console.WriteLine("23. Print the most ordered dish");
                 Console.WriteLine("24. Print best dish from a specific branch");
                 Console.WriteLine("25. Exit\n");
+                #endregion
                 input = Console.ReadLine();
                 if ((!int.TryParse(input, out num)) || num < 1 || num > 25)
                 {
