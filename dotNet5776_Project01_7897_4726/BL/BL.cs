@@ -299,18 +299,16 @@ namespace BL
         {
             DeleteDish(item.ID);
         }
-        public void UpdateDish(Dish item)//need checking
+        public void UpdateDish(Dish item)//Done
         {
-            if (myDal.GetDish(item.ID).Kosher == item.Kosher)
-                myDal.UpdateDish(item);
-            //There isn't an option to change the ID;
-            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => myDal.GetOrder(var.OrderID).Delivered == false))
+            Dish temp = myDal.GetDish(item.ID);
+            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => (myDal.GetOrder(var.OrderID).Kosher>item.Kosher|| temp.Price!=item.Price||temp.Size!=item.Size) &&myDal.GetOrder(var.OrderID).Delivered == false))
             {
                 CompatibleDish(item, "The Updated Dish you sended to upadte the old one is incompatible:");
                 myDal.UpdateDish(item);
             }
             else
-                throw new Exception("You can't update a dish which is being ordered");
+                throw new Exception("You can't update a dish(Price,Size or lower her kasrut) when the dish is already inside an active order");
         }
         public IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null)
         {
@@ -352,20 +350,15 @@ namespace BL
         {
             DeleteBranch(myBranch.ID);
         }
-        public void UpdateBranch(Branch myBranch)//need checking
+        public void UpdateBranch(Branch myBranch)//Done
         {
-            if (myDal.GetBranch(myBranch.ID).Kosher == myBranch.Kosher)
-            {
-                myDal.UpdateBranch(myBranch);
-                return;
-            }
-            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Delivered == false))
+            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher&&item.Delivered == false))
             {
                 CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible. Anything that could be updated was updated.");
                 myDal.UpdateBranch(myBranch);
             }
             else
-                throw new Exception("you can't update a bracnh that has active orders from!");
+                throw new Exception("you can't lower a bracnh kashrut when he has an active orders from a higher kashrutstandardstandard!");
         }
         public IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null)
         {
@@ -519,8 +512,10 @@ namespace BL
         {
             Client temp = myDal.GetClient(item.ID);
             if (temp.Address != item.Address)
-                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.Delivered==false).Count() > 0)
+            {
+                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.Delivered == false).Count() > 0)
                     throw new Exception("You cant upadte a client address when he has an order to that address!");
+            }
             CompatibleClient(item, "The Updated Client you sended to upadte the old one is incompatible:");
             myDal.UpdateClient(item);
         }
