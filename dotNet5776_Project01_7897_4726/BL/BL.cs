@@ -19,15 +19,45 @@ namespace BL
     public interface IBL
     {
         #region Dish Functions
+        /// <summary>
+        /// Adds a dish
+        /// </summary>
+        /// <param name="newDish"></param>
         void AddDish(Dish newDish);
+        /// <summary>
+        /// Deletes a dish by id
+        /// </summary>
+        /// <param name="id"></param>
         void DeleteDish(int id);
+        /// <summary>
+        /// Deletes a dish by item
+        /// </summary>
+        /// <param name="item"></param>
         void DeleteDish(Dish item);
+        /// <summary>
+        /// Upsates a specific dish
+        /// </summary>
+        /// <param name="item"></param>
         void UpdateDish(Dish item);
+        /// <summary>
+        /// Returns all of the dishes. 
+        /// </summary>
+        /// <param name="predicate">You can limit it so it only returns the dishes that pass the predicate test</param>
+        /// <returns></returns>
         IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null);
+        /// <summary>
+        /// Searches for a dish by a string. 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         IEnumerable<Dish> SearchDishs(object str);
         #endregion
 
         #region Branch Functions
+        /// <summary>
+        /// Adds a branch
+        /// </summary>
+        /// <param name="newBranch"></param>
         void AddBranch(Branch newBranch);
         void DeleteBranch(int id);
         void DeleteBranch(Branch item);
@@ -98,10 +128,19 @@ namespace BL
     {
         public readonly int MAX_PRICE;
         DAL.Idal myDal = DAL.FactoryDal.getDal();
-        public BL(int maxPrice = 1000)//need checking
+        /// <summary>
+        /// Constructor which starts up the maximu price
+        /// </summary>
+        /// <param name="maxPrice"></param>
+        public BL(int maxPrice = 1000)
         {
             MAX_PRICE = maxPrice;
         }
+        /// <summary>
+        /// Checks the price of a specific order
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public float PriceOfOrder(Order order)//need checking
         {
             float result = 0;
@@ -137,8 +176,14 @@ namespace BL
         }
         #endregion
 
-
-        bool Include<T>(T item, object obj)//צריך לבדוק אם אפשר להעביר לLinq
+        /// <summary>
+        /// Checks if the object (usualy a list of T's) includes the item
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item">The item being searched for</param>
+        /// <param name="obj">The list</param>
+        /// <returns></returns>
+        bool Include<T>(T item, object obj)
         {
             foreach (PropertyInfo p in item.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
