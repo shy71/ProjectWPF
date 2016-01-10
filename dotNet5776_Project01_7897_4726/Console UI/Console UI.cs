@@ -286,7 +286,7 @@ namespace Console_UI
                                         , int.Parse(GetString("Enter the age of the client:", item => int.TryParse(item, out temp) && temp >= 18, "Client age must be above 18 years old"))
                                         , (res as Client).ID));
                                     #endregion
-                                    break;
+                            break;
                                 case "Order":
                                     if (GetString("Do you want to edit the order(1)? or the dishs in the order(2)?", item => item == "1" || item == "2", "Invalid Input.") == "1")
                                     {
@@ -349,6 +349,21 @@ namespace Console_UI
                             var s=Bing();
                             #endregion
                             break;
+                        case 22:
+                            #region Best Customer
+                            Console.WriteLine(myBL.BestCustomer());
+                            #endregion
+                            break;
+                        case 23:
+                            #region Most Ordered Dish
+                            Console.WriteLine(myBL.MostOrderedDish());
+                            #endregion
+                            break;
+                        case 24:
+                            #region Most Ordered Dish In Branch
+                            Console.WriteLine(myBL.BestDishInBranch(ManageBing<Branch>("Search for The Branch that you are going to order from(just search it using Bing!)")));
+                            #endregion
+                            break;
                         default:
                             #region Code
                             Console.WriteLine("\n\nGood By! Hope to see you again at our restaurants");
@@ -377,11 +392,11 @@ namespace Console_UI
                 Console.WriteLine("The input youve entered is Invalid: "+errorMsg+" - please check your input and try again");
             }
         }
-        T SwtichCase<T>(int choise,params T[] arr)
+        T SwtichCase<T>(int choice,params T[] arr)
         {
-          if(choise<arr.Length&&choise>=0)
-            return arr[choise-1];
-          throw new Exception("Invalid Choise.");
+          if(choice<arr.Length&&choice>=0)
+            return arr[choice-1];
+          throw new Exception("Invalid choice.");
         }
         T ManageBing<T>(string str)where T:class,InterID
         {
@@ -481,11 +496,12 @@ namespace Console_UI
                 Console.WriteLine("19. Caclute an order price(by the order ID)");
                 Console.WriteLine("20. Print the entire DataBase");
                 Console.WriteLine("21. Use Bing!(Search Engine)");
-                Console.WriteLine("22. Exit\n");
-                #endregion
-
+                Console.WriteLine("22. Print the best customer");
+                Console.WriteLine("23. Print the most ordered dish");
+                Console.WriteLine("24. Print best dish from a specific branch");
+                Console.WriteLine("25. Exit\n");
                 input = Console.ReadLine();
-                if ((!int.TryParse(input, out num)) || num < 1 || num > 23)
+                if ((!int.TryParse(input, out num)) || num < 1 || num > 25)
                 {
                     Console.WriteLine("the number you've entered is Invalid! please try again\n\n");
                     Console.WriteLine("Press any key to continue...");
