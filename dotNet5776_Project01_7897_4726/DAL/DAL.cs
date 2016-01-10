@@ -63,6 +63,7 @@ namespace DAL
         IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
         #endregion
 
+
     }
     class Dal_imp: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
     {

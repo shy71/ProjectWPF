@@ -123,6 +123,31 @@ namespace BL
         IEnumerable<IGrouping<int, float>> GetProfitByClients();
         IEnumerable<IGrouping<string, float>> GetProfitByDates();
         void PrintOrder(Order order);
+        
+        #region Statistics Functions
+
+        /// <summary>
+        /// client statistics
+        /// </summary>
+        /// <returns>returns client with most orders</returns>
+        Client BestCustomer();
+        /// <summary>
+        /// Branch statistics
+        /// </summary>
+        /// <returns>the branch that made the most profit</returns>
+        Branch BestBranch();
+        /// <summary>
+        /// dish statistics
+        /// </summary>
+        /// <returns>returns the most ordered dish</returns>
+        Dish MostOrderedDish();
+        /// <summary>
+        /// best dish in specific branch
+        /// </summary>
+        /// <param name="myBranch">the branch being checked</param>
+        /// <returns>the dish most frequintly used in the specific branch</returns>
+        Dish BestDishInBranch(Branch myBranch);
+        #endregion
     }
     public class BL : IBL
     {
@@ -177,6 +202,93 @@ namespace BL
         #endregion
 
         #region Statistics Functions
+        public Client BestCustomer()
+        {
+            Client bestClient = null;
+            int maxTimes = 0;
+            foreach (Client curClient in myDal.GetAllClients())
+            {
+                int count = 0;
+                foreach (Order item in myDal.GetAllOrders())
+                    if (item.ClientID == curClient.ID)
+                        count ++;
+                if (count > maxTimes)
+                {
+                    maxTimes = count;
+                    bestClient = curClient;
+                }
+            }
+            if (bestClient == null)
+                throw new Exception("No Clients to choose the best client from");
+            return bestClient;
+        }
+        public Branch BestBranch()
+        {
+            Branch bestBranch = null;
+            int maxTimes = 0;
+            foreach (Branch curBranch in myDal.GetAllBranchs())
+            {
+                int count = 0;
+                foreach (Order item in myDal.GetAllOrders())
+                    if (item.BranchID == curBranch.ID)
+                        count++;
+                if (count > maxTimes)
+                {
+                    maxTimes = count;
+                    bestBranch = curBranch;
+                }
+            }
+            if (bestBranch == null)
+                throw new Exception("No Clients to choose the best client from");
+            return bestBranch;
+        }
+        public Dish MostOrderedDish()
+        {
+            Dish maxDish = null;
+            int maxTimes=0;
+            foreach (Dish curDish in myDal.GetAllDishs())
+            {
+                int count=0;
+                foreach (DishOrder item in myDal.GetAllDishOrders())
+                    if (item.DishID == curDish.ID)
+                        count += item.DishAmount;
+                if (count > maxTimes)
+                {
+                    maxTimes = count;
+                    maxDish = curDish;
+                }
+            }
+            if (maxDish == null)
+                throw new Exception("No dishes to choose the most ordered dish from");
+            return maxDish;
+        }
+        public Dish BestDishInBranch(Branch myBranch)
+        {
+            Branch inList = myDal.GetBranch(myBranch.ID);
+            Dish bestDish = null;
+            int maxAmount = 0;
+            if (inList == null)
+                throw new Exception("There is no branch like that");
+            foreach(Dish curDish in myDal.GetAllDishs())
+            {
+                int count=0;
+                foreach(DishOrder item in myDal.GetAllDishOrders())
+                {
+                    if(myDal.GetOrder(item.OrderID).BranchID==myBranch.ID && myDal.GetDish(item.DishID) == curDish)
+                    {
+                        count+=item.DishAmount;
+                    }
+                }
+                if(count>maxAmount)
+                {
+                    bestDish = curDish;
+                    maxAmount = count;
+                }
+            }
+            if (bestDish == null)
+                throw new Exception("There are no dishes to choose from");
+            return bestDish;
+        }
 
         #endregion
 

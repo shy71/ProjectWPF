@@ -101,7 +101,7 @@ namespace Console_UI
                                 , DateTime.Now.AddHours(-int.Parse(GetString("Enter the number of hours that past since this order was created(or 0 if its just created now)", item => int.TryParse(item, out temp) && temp >= 0, "The number of hours needs to be a positive number")))
                                 , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the Order:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW) //התנאי של הכשרות פה ייבדק ב BL
                                 , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive")));
-                            if (SwtichCase(int.Parse(GetString("Does the client is ordering the Dish home?(enter 1) or to someplace else(2)", item => int.TryParse(item, out temp) && item == "1" && item == "2", "Invalid Input.")), false, true))
+                            if (SwtichCase(int.Parse(GetString("Does the client is ordering the Dish home?(enter 1) or to someplace else(2)", item => (int.TryParse(item, out temp) && item == "1") || (int.TryParse(item, out temp) && item == "2"), "Invalid Input.")), false , true))
                                 tempOrder.Address = GetString("Enter the address for the order:", item => item.Length > 2, "order address must be at least 3 characters");
                             myBL.AddOrder(tempOrder);
                             #endregion
@@ -276,6 +276,16 @@ namespace Console_UI
                             var s=Bing();
                             #endregion
                             break;
+                        case 22:
+                            #region Best Customer
+                            Console.WriteLine(myBL.BestCustomer());
+                            #endregion
+                            break;
+                        case 23:
+                            #region Most Ordered Dish
+                            Console.WriteLine(myBL.MostOrderedDish());
+                            #endregion
+                            break;
                         default:
                             #region Code
                             Console.WriteLine("\n\nGood By! Hope to see you again at our restaurants");
@@ -304,11 +314,11 @@ namespace Console_UI
                 Console.WriteLine("The input youve entered is Invalid: "+errorMsg+" - please check your input and try again");
             }
         }
-        T SwtichCase<T>(int choise,params T[] arr)
+        T SwtichCase<T>(int choice,params T[] arr)
         {
-          if(choise<arr.Length&&choise>=0)
-            return arr[choise];
-          throw new Exception("Invalid Choise.");
+          if(choice<arr.Length && choice>=0)
+            return arr[choice];
+          throw new Exception("Invalid choice.");
         }
         T ManageBing<T>(string str)where T:class,InterID
         {
@@ -437,7 +447,9 @@ namespace Console_UI
                 Console.WriteLine("19. Caclute an order price(by the order ID)");
                 Console.WriteLine("20. Print the entire DataBase");
                 Console.WriteLine("21. Use Bing!(Search Engine)");
-                Console.WriteLine("22. Exit\n");
+                Console.WriteLine("22. Print the best customer");
+                Console.WriteLine("23. Print the most ordered dish");
+                Console.WriteLine("24. Exit\n");
                 input = Console.ReadLine();
                 if ((!int.TryParse(input, out num)) || num < 1 || num > 23)
                 {
