@@ -70,7 +70,6 @@ namespace BL
         #region Order Functions
         void AddOrder(Order newOrder);
         void DeliveredOrder(Order item);
-        void DeliveredOrder(int id);
         void DeleteOrder(int id);
         void DeleteOrder(Order item);
         void UpdateOrder(Order item);
@@ -127,7 +126,6 @@ namespace BL
         IEnumerable<IGrouping<int, float>> GetProfitByClients();
         IEnumerable<IGrouping<string, float>> GetProfitByDates();
         void PrintOrder(Order order);
-        
         #region Statistics Functions
 
         /// <summary>
@@ -215,7 +213,7 @@ namespace BL
                 int count = 0;
                 foreach (Order item in myDal.GetAllOrders())
                     if (item.ClientID == curClient.ID)
-                        count ++;
+                        count++;
                 if (count > maxTimes)
                 {
                     maxTimes = count;
@@ -249,10 +247,10 @@ namespace BL
         public Dish MostOrderedDish()
         {
             Dish maxDish = null;
-            int maxTimes=0;
+            int maxTimes = 0;
             foreach (Dish curDish in myDal.GetAllDishs())
             {
-                int count=0;
+                int count = 0;
                 foreach (DishOrder item in myDal.GetAllDishOrders())
                     if (item.DishID == curDish.ID)
                         count += item.DishAmount;
@@ -273,17 +271,17 @@ namespace BL
             int maxAmount = 0;
             if (inList == null)
                 throw new Exception("There is no branch like that");
-            foreach(Dish curDish in myDal.GetAllDishs())
+            foreach (Dish curDish in myDal.GetAllDishs())
             {
-                int count=0;
-                foreach(DishOrder item in myDal.GetAllDishOrders())
+                int count = 0;
+                foreach (DishOrder item in myDal.GetAllDishOrders())
                 {
-                    if(myDal.GetOrder(item.OrderID).BranchID==myBranch.ID && myDal.GetDish(item.DishID) == curDish)
+                    if (myDal.GetOrder(item.OrderID).BranchID == myBranch.ID && myDal.GetDish(item.DishID) == curDish)
                     {
-                        count+=item.DishAmount;
+                        count += item.DishAmount;
                     }
                 }
-                if(count>maxAmount)
+                if (count > maxAmount)
                 {
                     bestDish = curDish;
                     maxAmount = count;
