@@ -101,7 +101,7 @@ namespace Console_UI
                                 , DateTime.Now.AddHours(-int.Parse(GetString("Enter the number of hours that past since this order was created(or 0 if its just created now)", item => int.TryParse(item, out temp) && temp >= 0, "The number of hours needs to be a positive number")))
                                 , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the Order:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW) //התנאי של הכשרות פה ייבדק ב BL
                                 , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive")));
-                            if (SwtichCase(int.Parse(GetString("Does the client is ordering the Dish home?(enter 1) or to someplace else(2)", item => int.TryParse(item, out temp) && item == "1" && item == "2", "Invalid Input.")), false, true))
+                            if (SwtichCase(int.Parse(GetString("Does the client is ordering the Dish home?(enter 1) or to someplace else(2)", item => item == "1" || item == "2", "Invalid Input.")), false, true))
                                 tempOrder.Address = GetString("Enter the address for the order:", item => item.Length > 2, "order address must be at least 3 characters");
                             myBL.AddOrder(tempOrder);
                             #endregion
@@ -307,7 +307,7 @@ namespace Console_UI
         T SwtichCase<T>(int choise,params T[] arr)
         {
           if(choise<arr.Length&&choise>=0)
-            return arr[choise];
+            return arr[choise-1];
           throw new Exception("Invalid Choise.");
         }
         T ManageBing<T>(string str)where T:class,InterID
@@ -324,13 +324,20 @@ namespace Console_UI
                     Console.WriteLine("You were asked to choose a " + typeof(T).Name + " but you have chosen a " + res.GetType().Name + ", please try again(if you want to exit the search choose the Exit option on Bing!");
             }
         }
-        InterID Bing(string str=null)
+        InterID Bing(string str = null)
         {
             string input;
-            Console.WriteLine("\n"+str);
-            Console.WriteLine("Bing!(enter one keyword(number/string) and we will Bing! it(or press enter for the full list): ");
-            input = Console.ReadLine();
-            return ChooseSearch<InterID>(myBL.Search(input), input);
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("\n" + str);
+                    Console.WriteLine("Bing!(enter one keyword(number/string) and we will Bing! it(or press enter for the full list): ");
+                    input = Console.ReadLine();
+                    return ChooseSearch<InterID>(myBL.Search(input), input);
+                }
+                catch (Exception){}
+            }
 
         }
         int GetID(string str = null)
@@ -378,8 +385,10 @@ namespace Console_UI
             if (list.Sum(item => item.Count()) == 0)
             {
                 Console.WriteLine("Your search - " + str + " - did not match any documents."
-                    + "\n\tSuggestions:\n\t*Make sure that all words are spelled correctly.\n\t*Try different keywords. \n\t*Try fewer keywords. \n Press any key to continue...");
-                Console.ReadKey();
+                    + "\n\tSuggestions:\n\t*Make sure that all words are spelled correctly.\n\t*Try different keywords. \n\t*Try fewer keywords. \n Press any key to continue...(or 0 to get out)");
+                if (Console.ReadKey().Key == ConsoleKey.D0)
+                    return null;
+                throw new Exception("Didnt find anything!");
             }
             int i = 1, choice;
             Console.WriteLine("Choose from the following options: ");
