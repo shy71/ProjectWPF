@@ -202,7 +202,7 @@ namespace BE
         /// <returns></returns>
         public override string ToString()
         {
-            return "Dish In Order "+ "ID: "+ID 
+            return "Dish In Order"
                  +"\n\tOrder number: " + OrderID
                  + "\n\tDish number: " + DishID
                  + "\n\tAmount of dishes ordered: " + DishAmount;

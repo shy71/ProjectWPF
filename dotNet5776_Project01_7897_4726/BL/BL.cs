@@ -122,6 +122,7 @@ namespace BL
         IEnumerable<IGrouping<int, float>> GetProfitByDishs();
         IEnumerable<IGrouping<int, float>> GetProfitByClients();
         IEnumerable<IGrouping<string, float>> GetProfitByDates();
+        void PrintOrder(Order order);
     }
     public class BL : IBL
     {
@@ -258,7 +259,13 @@ namespace BL
             AddDishOrder(new DishOrder(192334, 957473, 2));
             AddDishOrder(new DishOrder(192334, 19273, 2));
         }
-        
+        public void PrintOrder(Order order)
+        {
+            int temp=0;
+            Console.WriteLine(order);
+            foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == order.ID))
+                Console.WriteLine("\t("+(temp++)+") Name: "+myDal.GetDish(item.DishID).Name+" Amount: "+item.DishAmount);
+        }
         //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
         #region Dish Functions
         internal void CompatibleDish(Dish dish, string str = null)//need checking

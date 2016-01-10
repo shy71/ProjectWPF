@@ -156,7 +156,7 @@ namespace Console_UI
                             break;
                         case 8:
                             #region Profits Grouping
-                            switch (GetString("do you want profits by Dishs(1), Dates(2) or Clients(3)?", item => (item == "1") || (item == "2") || (item == "3"), "Invalid Input."))
+                            switch (GetString("Do you want profits by Dishs(1), Dates(2) or Clients(3)?", item => (item == "1") || (item == "2") || (item == "3"), "Invalid Input."))
                             {
                                 case "1":
                                     #region By Dishs
@@ -247,6 +247,9 @@ namespace Console_UI
                             #endregion
                             break;
                         case 12:
+                            #region
+                            myBL.PrintOrder(ManageBing<Order>("Search for The Order you wish to print"));
+                            #endregion
                             break;
                         case 13:
                             break;
@@ -309,15 +312,16 @@ namespace Console_UI
         }
         T ManageBing<T>(string str)where T:class,InterID
         {
-            InterID res = Bing(str);
+            InterID res;
             while (true)
             {
+                res = Bing(str);
                 if (res.GetType().Name == typeof(T).Name)
                     return res as T;
                 else if (res == null)
                     return null;
                 else
-                    Console.WriteLine("You were asked ToString choose a " + typeof(T).Name + " but you have chosen " + res.GetType().Name + ", please try again(if you want to exit the search choose the Exit option on Bing!");
+                    Console.WriteLine("You were asked to choose a " + typeof(T).Name + " but you have chosen a " + res.GetType().Name + ", please try again(if you want to exit the search choose the Exit option on Bing!");
             }
         }
         InterID Bing(string str=null)
@@ -421,6 +425,7 @@ namespace Console_UI
                 Console.WriteLine("9. Calculate Order Total Price");
                 Console.WriteLine("10. Mark Order as delivered");
                 Console.WriteLine("11. Print All undelivered Orders");
+                Console.WriteLine("12. Print an Order");
                 Console.WriteLine("11. Update a dish in the menu of the restaurant");
                 Console.WriteLine("12. Update Client's details");
                 Console.WriteLine("13. Update Branch's details");
