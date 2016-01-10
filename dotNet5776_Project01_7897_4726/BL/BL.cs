@@ -267,7 +267,7 @@ namespace BL
         {
             int temp=0;
             Console.WriteLine(order);
-            foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == order.ID))
+            foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == order.ID).OrderBy(item=>item.ID))//מסודר כדי שנוכל להשתמש בזה לבחירת קלט
                 Console.WriteLine("\t("+(temp++)+") Name: "+myDal.GetDish(item.DishID).Name+" Amount: "+item.DishAmount);
         }
         //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
@@ -391,23 +391,23 @@ namespace BL
         }
         public void DeliveredOrder(Order item)
         {
-            DeliveredOrder(item.ID);
-        }
-        public void DeliveredOrder(int id)
-        {
-            myDal.DeliveredOrder(id);
+            myDal.GetBranch(item.BranchID).AvailableMessangers++;
+            myDal.DeliveredOrder(item.ID);
         }
         public void AddOrder(Order newOrder)//need checking
         {
 
             CompatibleOrder(newOrder, "The Order you are trying to add is incompatible:");
+
                 myDal.AddOrder(newOrder);
+                myDal.GetBranch(newOrder.BranchID).AvailableMessangers--;
         }
         public void DeleteOrder(int id)//need checking
         {
             foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == id).ToList())
                 DeleteDishOrder(item);
             myDal.DeleteOrder(id);
+            myDal.GetBranch((myDal.GetOrder(id).BranchID)).AvailableMessangers++;
         }
         public void DeleteOrder(Order myOrder)//need checking
         {
@@ -417,9 +417,8 @@ namespace BL
         {
             //make sure that kashrut doesn't contradict kashrut of branch or dishes
             Order oldOrder = myDal.GetOrder(newOrder.ID);
-            if (newOrder.Kosher > oldOrder.Kosher)//בהנחה שהם היו ברמת הכשר שלו עד אז
-                if (myDal.GetAllDishOrders(item => item.OrderID == newOrder.ID).Any(item => myDal.GetDish(item.DishID).Kosher < newOrder.Kosher))
-                    throw new Exception("You can't change the order's kashrut level because it has dishes which aren't in the new sufficient kashrout level");
+            if (oldOrder.BranchID != newOrder.BranchID || oldOrder.ClientID != newOrder.ClientID || oldOrder.Delivered != newOrder.Delivered || myDal.GetAllDishOrders(item => item.OrderID == newOrder.ID).Any(item => myDal.GetDish(item.DishID).Kosher < newOrder.Kosher))
+                    throw new Exception("You can't update the order's kashrut level because it has dishes which aren't in the new sufficient kashrout level, also you cant update The client ID , branch ID, or if it was delivered or not(use the proper function to do it)");
             CompatibleOrder(newOrder, "The Updated order you sended to upadte the old one is incompatible:");
             myDal.UpdateOrder(newOrder);
         }
