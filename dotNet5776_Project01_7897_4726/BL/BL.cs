@@ -91,6 +91,10 @@ namespace BL
         void AddClient(Client newClient);
         void DeleteClient(int id);
         void DeleteClient(Client item);
+        /// <summary>
+        /// update a client datd, can update anything but you cant update an address while it has an ongoing order for the old address
+        /// </summary>
+        /// <param name="item">The new upadted client</param>
         void UpdateClient(Client item);
         IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
         IEnumerable<Client> SearchClients(object str);
@@ -575,9 +579,17 @@ namespace BL
         {
             DeleteDishOrder(item.ID);
         }
-        public void UpdateDishOrder(DishOrder item)//need checking
+        public void UpdateDishOrder(DishOrder item)//Done
         {
-            CompatibleDishOrder(item, "The Updated Client you sended to upadte the old one is incompatible:");//bug - כאשר ההמחיר קרוב למקסימום וזה מחשב גם את ערך המנה הזו וגם את הערך של הזו הישנה שאנו מעדכנים
+            DishOrder temp =myDal.GetDishOrder(item.ID);
+            if (item.DishAmount > temp.DishAmount)
+            {
+                if (PriceOfOrder(myDal.GetOrder(item.OrderID)) + (item.DishAmount - temp.DishAmount) * myDal.GetDish(item.ID).Price > MAX_PRICE)
+                    throw new Exception("you cant upadte the order because with the extra dishs your ordered your order price will be above the approved limit!");
+            }
+            else if (item.DishID != temp.DishID || item.OrderID != temp.OrderID)
+                throw new Exception("You cant update those components!");
+                CompatibleDishOrder(item, "The Updated Client you sended to upadte the old one is incompatible:");//bug - כאשר ההמחיר קרוב למקסימום וזה מחשב גם את ערך המנה הזו וגם את הערך של הזו הישנה שאנו מעדכנים
             myDal.UpdateDishOrder(item);
         }
         public IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null)
@@ -615,8 +627,12 @@ namespace BL
         {
             DeleteClient(item.ID);
         }
-        public void UpdateClient(Client item)//need checking
+        public void UpdateClient(Client item)//Done!
         {
+            Client temp = myDal.GetClient(item.ID);
+            if (temp.Address != item.Address)
+                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.Delivered==false).Count() > 0)
+                    throw new Exception("You cant upadte a client address when he has an order to that address!");
             CompatibleClient(item, "The Updated Client you sended to upadte the old one is incompatible:");
             myDal.UpdateClient(item);
         }
