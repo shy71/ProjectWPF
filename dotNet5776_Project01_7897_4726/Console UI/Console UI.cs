@@ -314,11 +314,11 @@ namespace Console_UI
                 Console.WriteLine("The input youve entered is Invalid: "+errorMsg+" - please check your input and try again");
             }
         }
-        T SwtichCase<T>(int choise,params T[] arr)
+        T SwtichCase<T>(int choice,params T[] arr)
         {
-          if(choise<arr.Length&&choise>=0)
-            return arr[choise-1];
-          throw new Exception("Invalid Choise.");
+          if(choice<arr.Length&&choice>=0)
+            return arr[choice-1];
+          throw new Exception("Invalid choice.");
         }
         T ManageBing<T>(string str)where T:class,InterID
         {
