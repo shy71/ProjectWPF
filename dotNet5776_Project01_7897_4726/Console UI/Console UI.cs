@@ -286,6 +286,11 @@ namespace Console_UI
                             Console.WriteLine(myBL.MostOrderedDish());
                             #endregion
                             break;
+                        case 24:
+                            #region Most Ordered Dish In Branch
+                            Console.WriteLine(myBL.BestDishInBranch(ManageBing<Branch>("Search for The Branch that you are going to order from(just search it using Bing!)")));
+                            #endregion
+                            break;
                         default:
                             #region Code
                             Console.WriteLine("\n\nGood By! Hope to see you again at our restaurants");
@@ -458,9 +463,10 @@ namespace Console_UI
                 Console.WriteLine("21. Use Bing!(Search Engine)");
                 Console.WriteLine("22. Print the best customer");
                 Console.WriteLine("23. Print the most ordered dish");
-                Console.WriteLine("24. Exit\n");
+                Console.WriteLine("24. Print best dish from a specific branch");
+                Console.WriteLine("25. Exit\n");
                 input = Console.ReadLine();
-                if ((!int.TryParse(input, out num)) || num < 1 || num > 23)
+                if ((!int.TryParse(input, out num)) || num < 1 || num > 25)
                 {
                     Console.WriteLine("the number you've entered is Invalid! please try again\n\n");
                     Console.WriteLine("Press any key to continue...");
