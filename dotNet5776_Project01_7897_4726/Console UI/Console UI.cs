@@ -50,9 +50,8 @@ namespace Console_UI
         {
             myBL.Inti();
             bool exit = false;
-            int creditCard, age, ID=0;
-            float price=0;
-            int temp;
+            int tempID,temp,num;
+            float price;
             Order order;
             while (!exit)
             {
@@ -67,7 +66,7 @@ namespace Console_UI
                                 , SwtichCase(int.Parse(GetString("Enter the number of the size of the dish:\n1) Large\n2) Medium\n3) Small", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Size.LARGE, Size.MEDIUM, Size.SMALL)
                                 , float.Parse(GetString("Enter the price of the dish:", item => float.TryParse(item, out price) && price > 0, "Invalid price. price cant be negative or contain letters."))
                                 , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the dish:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW)
-                                , int.Parse(GetString("Enter an ID for your dish, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive"))));
+                                , int.Parse(GetString("Enter an ID for your dish, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out tempID) && tempID >= 0 && tempID < 100000000, "The ID must be 8 or less numbers, only numbers and positive"))));
                             #endregion
                             break;
                         case 2:
@@ -75,9 +74,9 @@ namespace Console_UI
                             myBL.AddClient(new Client(
                                 GetString("Enter the name of the client:", item => item.Length > 2, "Client name must be at least 3 characters")
                                 , GetString("Enter the address of the client:", item => item.Length > 2, "Client address must be at least 3 characters")
-                                , int.Parse(GetString("Enter the credit card of the client:", item => int.TryParse(item, out creditCard) && creditCard > 0, "The creditCard can contain only numbers and must be positive"))
-                                , int.Parse(GetString("Enter the age of the client:", item => int.TryParse(item, out age) && age >= 18, "Client age must be above 18 years old"))
-                                , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive"))));
+                                , int.Parse(GetString("Enter the credit card of the client:", item => int.TryParse(item, out temp) && temp > 0, "The creditCard can contain only numbers and must be positive"))
+                                , int.Parse(GetString("Enter the age of the client:", item => int.TryParse(item, out temp) && temp >= 18, "Client age must be above 18 years old"))
+                                , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out tempID) && tempID >= 0 && tempID < 100000000, "The ID must be 8 or less numbers, only numbers and positive"))));
                             #endregion
                             break;
                         case 3:
@@ -90,20 +89,20 @@ namespace Console_UI
                              , int.Parse(GetString("Enter the amount of employees of the branch:", item => int.TryParse(item, out temp) && temp > 0, "The amount of employees in the branch must be above zero, or youve entered Invalid input"))
                              , int.Parse(GetString("Enter the available messangers of the branch:", item => int.TryParse(item, out temp), "Invalid Input"))
                              , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the branch:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW)
-                             , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive"))));
+                             , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out tempID) && tempID >= 0 && tempID < 100000000, "The ID must be 8 or less numbers, only numbers and positive"))));
                             #endregion
                             break;
                         case 4:
                             #region Add Order
-                            Order tempOrder = new Order(
+                            order = new Order(
                                 ManageBing<Branch>("Search for The Branch that you are going to order from(just search it using Bing!)")
                                 , ManageBing<Client>("Search for The Client that is making the order(just search it using Bing!)")
                                 , DateTime.Now.AddHours(-int.Parse(GetString("Enter the number of hours that past since this order was created(or 0 if its just created now)", item => int.TryParse(item, out temp) && temp >= 0, "The number of hours needs to be a positive number")))
                                 , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the Order:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW) //התנאי של הכשרות פה ייבדק ב BL
-                                , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out ID) && ID >= 0 && ID < 100000000, "The ID must be 8 or less numbers, only numbers and positive")));
+                                , int.Parse(GetString("Enter an ID for your Client, or if you don't want to enter 0(recommended) and the system will generate a unique id:", item => int.TryParse(item, out tempID) && tempID >= 0 && tempID < 100000000, "The ID must be 8 or less numbers, only numbers and positive")));
                             if (SwtichCase(int.Parse(GetString("Does the client is ordering the Dish home?(enter 1) or to someplace else(2)", item => item == "1" || item == "2", "Invalid Input.")), false, true))
-                                tempOrder.Address = GetString("Enter the address for the order:", item => item.Length > 2, "order address must be at least 3 characters");
-                            myBL.AddOrder(tempOrder);
+                                order.Address = GetString("Enter the address for the order:", item => item.Length > 2, "order address must be at least 3 characters");
+                            myBL.AddOrder(order);
                             #endregion
                             break;
                         case 5:
@@ -247,13 +246,87 @@ namespace Console_UI
                             #endregion
                             break;
                         case 12:
-                            #region
+                            #region Search and Print Order
                             myBL.PrintOrder(ManageBing<Order>("Search for The Order you wish to print"));
                             #endregion
                             break;
                         case 13:
+                            #region Update Item
+                            res = Bing("Search for The Item you wish to Update ");
+                            switch (res.GetType().Name)
+                            {
+                                case "Dish":
+                                    #region Update Dish
+                                    myBL.UpdateDish(new Dish(
+                                GetString("Enter the updated name of the dish:", item => item.Length > 2, "The dish name must be at least 3 characters")
+                                , (res as Dish).Size, (res as Dish).Price
+                              , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the dish:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW)
+                              , (res as Dish).ID));
+                                    #endregion
+                                    break;
+                                case "Branch":
+                                    #region Update Branch
+                                    myBL.UpdateBranch(new Branch(
+                             GetString("Enter the name of the branch:", item => item.Length > 2, "branch name must be at least 3 characters")
+                             , GetString("Enter the branch of the client:", item => item.Length > 2, "branch address must be at least 3 characters")
+                             , GetString("Enter the phone number of the branch:", item => item.Length >= 7 && int.TryParse(item, out temp), "The min lenght of a phone number is 7 numbers, and it must contain only numbers")
+                             , GetString("Enter the name of the boss of the branch:", item => item.Length > 2, "the boss of the branch name must be at least 3 characters")
+                             , int.Parse(GetString("Enter the amount of employees of the branch:", item => int.TryParse(item, out temp) && temp > 0, "The amount of employees in the branch must be above zero, or youve entered Invalid input"))
+                             , int.Parse(GetString("Enter the available messangers of the branch:", item => int.TryParse(item, out temp), "Invalid Input"))
+                             , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the branch:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW)
+                             , (res as Branch).ID));
+                                    #endregion
+                                    break;
+                                case "Client":
+                                    #region  Update Client
+                                    myBL.UpdateClient(new Client(
+                                        GetString("Enter the name of the client:", item => item.Length > 2, "Client name must be at least 3 characters")
+                                        , GetString("Enter the address of the client:", item => item.Length > 2, "Client address must be at least 3 characters")
+                                        , int.Parse(GetString("Enter the credit card of the client:", item => int.TryParse(item, out temp) && temp > 0, "The creditCard can contain only numbers and must be positive"))
+                                        , int.Parse(GetString("Enter the age of the client:", item => int.TryParse(item, out temp) && temp >= 18, "Client age must be above 18 years old"))
+                                        , (res as Client).ID));
+                                    #endregion
+                                    break;
+                                case "Order":
+                                    if (GetString("Do you want to edit the order(1)? or the dishs in the order(2)?", item => item == "1" || item == "2", "Invalid Input.") == "1")
+                                    {
+                                        #region Update Order
+                                        order = new Order(
+                                            (res as Order).BranchID
+                                            , null
+                                            , DateTime.Now.AddHours(-int.Parse(GetString("Enter the number of hours that past since this order was created(or 0 if its just created now)", item => int.TryParse(item, out temp) && temp >= 0, "The number of hours needs to be a positive number")))
+                                            , SwtichCase(int.Parse(GetString("Enter the number of the level of kashrut of the Order:\n1) High\n2) Medium\n3) Low", item => (item == "1") || (item == "2") || (item == "3"), "Invalid input.")), Kashrut.HIGH, Kashrut.MEDIUM, Kashrut.LOW) //התנאי של הכשרות פה ייבדק ב BL
+                                            , (res as Order).ClientID);
+                                        if (SwtichCase(int.Parse(GetString("Does the client is ordering the Dish home?(enter 1) or to someplace else(2)", item => item == "1" || item == "2", "Invalid Input.")), false, true))
+                                            order.Address = GetString("Enter the address for the order:", item => item.Length > 2, "order address must be at least 3 characters");
+                                        else
+                                            order.Address = myBL.GetAllClients(item => item.ID == (res as Order).ClientID).First().Address;
+                                        myBL.UpdateOrder(order);
+                                        #endregion
+                                    }
+                                    else
+                                    {
+                                        #region Update DishOrder
+                                        list =myBL.GetAllDishOrders(item=>item.OrderID==(res as Order).ID).OrderBy(item=>item.ID).ToList();
+                                        int length=myBL.GetAllDishOrders(item=>item.OrderID==(res as Order).ID).Count();
+                                        Console.WriteLine("Which dish order do you want to edit?");
+                                        myBL.PrintOrder(res as Order);
+                                        temp =int.Parse(GetString("Enter her number: ", item => int.TryParse(item, out temp) && temp > length && temp > 0, "Invalid Input."));
+                                        num = int.Parse(GetString("How much dishes do you want from this dish?", item => int.TryParse(item, out num) && num > 0, "Invalid Input.(must be positive)"));
+                                        myBL.UpdateDishOrder(new DishOrder((res as Order).ID, list[temp - 1].DishID, num, (res as Order).ID));
+                                        #endregion
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            #endregion
                             break;
                         case 14:
+                            #region Report on delivered Order
+                            order = ManageBing<Order>("Search for the order you want to Report for a successful delivery");
+                            myBL.DeliveredOrder(order);
+                            #endregion
                             break;
                         case 15:
                             break;
@@ -340,46 +413,6 @@ namespace Console_UI
             }
 
         }
-        int GetID(string str = null)
-        {
-            int temp;
-            while (true)
-            {
-                Console.WriteLine(str);
-                if (int.TryParse(Console.ReadLine(), out temp))
-                    if (temp < 99999999 && temp > 0)
-                        return temp;
-                    else
-                        Console.WriteLine("The ID is Invalid! please try again\n\n");
-                else
-                    Console.WriteLine("the number you've entered is Invalid! please try again\n\n");
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
-            }
-        }
-        T Choose<T>(IEnumerable<T> list)where T:class
-        {
-            if (list.Count<T>() == 0)
-                throw new Exception("There are no choices to choose from.");
-            int i = 1, choice;
-            Console.WriteLine("Choose from the following options: ");
-            foreach (T item in list)
-            {
-                Console.WriteLine(i + ":");
-                Console.WriteLine(item);
-                i++;
-            }
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice >= i)
-                Console.WriteLine("Invalid Choice. Choose again.");
-            i = 0;
-            foreach (T item in list)
-            {
-                i++;
-                if (i == choice)
-                    return item;
-            }
-            return null;
-        }
         T ChooseSearch<T>(List<IEnumerable<T>> list, string str) where T : class
         {
             if (list.Sum(item => item.Count()) == 0)
@@ -421,6 +454,7 @@ namespace Console_UI
             string input;
             while (true)
             {
+                #region Output
                 Console.WriteLine("Menu: Project 1 - Ezra Block - Shy Tennenbaum\n");
                 Console.WriteLine("Press the number of the operation you wish to do:");
                 Console.WriteLine("1. Create new dish in the menu of the restaurant");
@@ -435,7 +469,8 @@ namespace Console_UI
                 Console.WriteLine("10. Mark Order as delivered");
                 Console.WriteLine("11. Print All undelivered Orders");
                 Console.WriteLine("12. Print an Order");
-                Console.WriteLine("11. Update a dish in the menu of the restaurant");
+                Console.WriteLine("13. Update one of the items in the datdbase");
+                Console.WriteLine("14. Report on a finished delivery");
                 Console.WriteLine("12. Update Client's details");
                 Console.WriteLine("13. Update Branch's details");
                 Console.WriteLine("14. Update Order's details");
@@ -447,6 +482,8 @@ namespace Console_UI
                 Console.WriteLine("20. Print the entire DataBase");
                 Console.WriteLine("21. Use Bing!(Search Engine)");
                 Console.WriteLine("22. Exit\n");
+                #endregion
+
                 input = Console.ReadLine();
                 if ((!int.TryParse(input, out num)) || num < 1 || num > 23)
                 {
