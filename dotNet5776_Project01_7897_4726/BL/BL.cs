@@ -175,6 +175,10 @@ namespace BL
         }
         #endregion
 
+        #region Statistics Functions
+
+        #endregion
+
         /// <summary>
         /// Checks if the object (usualy a list of T's) includes the item
         /// </summary>
