@@ -9,6 +9,10 @@ namespace DAL
 {
     public class FactoryDal
     {
+        /// <summary>
+        /// function to start up a dal
+        /// </summary>
+        /// <returns></returns>
         public static Idal getDal()
         {
             return new Dal_imp();
@@ -17,52 +21,192 @@ namespace DAL
     public interface Idal
     {
         #region Dish Functions
+        /// <summary>
+        /// Adds a dish
+        /// </summary>
+        /// <param name="newDish"></param>
         void AddDish(Dish newDish);
+        /// <summary>
+        /// Deletes a dish
+        /// </summary>
+        /// <param name="id">the id of the dish</param>
         void DeleteDish(int id);
+        /// <summary>
+        /// deletes a dish
+        /// </summary>
+        /// <param name="item">the dish item</param>
         void DeleteDish(Dish item);
-        void UpdateDish(Dish item);//האם יקבל ID?
+        /// <summary>
+        /// updates a certain dish
+        /// </summary>
+        /// <param name="item"></param>
+        void UpdateDish(Dish item);
+        /// <summary>
+        /// Finds a dish from the DataBase by its ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Dish GetDish(int id);
+        /// <summary>
+        /// Gets all dishes that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate">a test for the dishes</param>
+        /// <returns></returns>
         IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null);
         #endregion
 
         #region Branch Functions
+        /// <summary>
+        /// adds a branch to the system
+        /// </summary>
+        /// <param name="newBranch"></param>
         void AddBranch(Branch newBranch);
+        /// <summary>
+        /// deletes a branch
+        /// </summary>
+        /// <param name="id">the branch ID</param>
         void DeleteBranch(int id);
+        /// <summary>
+        /// deletes a branch
+        /// </summary>
+        /// <param name="item"></param>
         void DeleteBranch(Branch item);
-        void UpdateBranch(Branch item);//האם יקבל ID?
+        /// <summary>
+        /// updates a branch
+        /// </summary>
+        /// <param name="item"></param>
+        void UpdateBranch(Branch item);
+        /// <summary>
+        /// gets a specific branch by its ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Branch GetBranch(int id);
+        /// <summary>
+        /// gets all branches that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate">the predicate test</param>
+        /// <returns></returns>
         IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null);
         #endregion
 
         #region Order Functions
+        /// <summary>
+        /// adds an order
+        /// </summary>
+        /// <param name="newOrder"></param>
         void AddOrder(Order newOrder);
+        /// <summary>
+        /// deletes an order by it's id
+        /// </summary>
+        /// <param name="id"></param>
         void DeleteOrder(int id);
+        /// <summary>
+        /// Changes status of the order to delivered
+        /// </summary>
+        /// <param name="id"></param>
         void DeliveredOrder(int id);
+        /// <summary>
+        /// deletes an order
+        /// </summary>
+        /// <param name="item"></param>
         void DeleteOrder(Order item);
-        void UpdateOrder(Order item);//האם יקבל ID?
+        /// <summary>
+        /// updates an order
+        /// </summary>
+        /// <param name="item"></param>
+        void UpdateOrder(Order item);
+        /// <summary>
+        /// Finds an order in the DataBase by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Order GetOrder(int id);
+        /// <summary>
+        /// Gets all orders that pass the predicate test (if there is one).
+        /// </summary>
+        /// <param name="predicate">the predicate test</param>
+        /// <returns></returns>
         IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null);
         #endregion
 
         #region DishOrder Functions
+        /// <summary>
+        /// adds a dish-order (as a link)
+        /// </summary>
+        /// <param name="newDishOrder"></param>
         void AddDishOrder(DishOrder newDishOrder);
+        /// <summary>
+        /// deletes a dish-order by ID
+        /// </summary>
+        /// <param name="id"></param>
         void DeleteDishOrder(int id);
+        /// <summary>
+        /// deletes a dish-order
+        /// </summary>
+        /// <param name="item"></param>
         void DeleteDishOrder(DishOrder item);
-        void UpdateDishOrder(DishOrder item);//האם יקבל ID?
+        /// <summary>
+        /// updates a dish-order
+        /// </summary>
+        /// <param name="item"></param>
+        void UpdateDishOrder(DishOrder item);
+        /// <summary>
+        /// gets a dish-order by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         DishOrder GetDishOrder(int id);
+        /// <summary>
+        /// gets all dish-orders that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate">the predicate test</param>
+        /// <returns></returns>
         IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null);
         #endregion
 
         #region Client Functions
+        /// <summary>
+        /// adds a client
+        /// </summary>
+        /// <param name="newClient"></param>
         void AddClient(Client newClient);
+        /// <summary>
+        /// deletes a client by ID
+        /// </summary>
+        /// <param name="id"></param>
         void DeleteClient(int id);
+        /// <summary>
+        /// deletes a client
+        /// </summary>
+        /// <param name="item"></param>
         void DeleteClient(Client item);
-        void UpdateClient(Client item);//האם יקבל ID?
+        /// <summary>
+        /// updates a client
+        /// </summary>
+        /// <param name="item"></param>
+        void UpdateClient(Client item);
+        /// <summary>
+        /// gets a client from the DataBase by its ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Client GetClient(int id);
-        bool ContainID<T>(int id) where T : InterID;
+        /// <summary>
+        /// gets  all clients that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate">the predicate test</param>
+        /// <returns></returns>
         IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
-        #endregion
 
+        #endregion
+        /// <summary>
+        /// checks if there is a specific ID in the T list in the DataBase
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        bool ContainID<T>(int id) where T : InterID;
 
     }
     class Dal_imp: Idal //להוסיף כשנגמור לממש את הכול שהיא יורשת מהאינטרפייס
@@ -112,7 +256,7 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="item">האיבר המעודכן שבעזרת תעדות הזהות מסמן על האיבר שנעדכן</param>
         /// <param name="list">הרשימה בא נמצא האיבר אותו נעדכן</param>
-        void Update<T>(T item) where T : InterID//need checking
+        void Update<T>(T item) where T : InterID
         {
             List<T> list = getList<T>() as List<T>;
             if (ContainID<T>(item.ID) == false)
@@ -121,7 +265,7 @@ namespace DAL
             list.Add(item);
 
         }
-        T Get<T>(int id) where T : InterID//need checking
+        T Get<T>(int id) where T : InterID
         {
             T res = (getList<T>() as List<T>).Find((item) => item.ID == id);
             if (res == null)
@@ -129,7 +273,7 @@ namespace DAL
             return res;
 
         }
-        IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID//need checking
+        IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID
         {
             if (predicate == null)
                 return (getList<T>() as List<T>).AsEnumerable();
@@ -143,7 +287,7 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר שצריך תעדות זהות</typeparam>
         /// <param name="list">הרשימה בה נמצאים שאר האיברים מסוג זה</param>
         /// <returns>מחזירה את תעדות הזהות הפנוייה</returns>
-        int NextID<T>(T item) where T : InterID// לבדוק האם יש דרך יותר יעילה לעשות את זה
+        int NextID<T>(T item) where T : InterID
         {
             int original = item.MakeID(), result = original;
             List<T> list = getList<T>() as List<T>;
