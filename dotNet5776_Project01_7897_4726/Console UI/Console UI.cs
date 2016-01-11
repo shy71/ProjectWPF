@@ -229,7 +229,7 @@ namespace Console_UI
                             break;
                         case 12:
                             #region Search and Print Order
-                            myBL.PrintOrder(ManageBing<Order>("Search for The Order you wish to print"));
+                            Console.WriteLine(myBL.ToStringOrder(ManageBing<Order>("Search for The Order you wish to print")));
                             #endregion
                             break;
                         case 13:
@@ -292,7 +292,7 @@ namespace Console_UI
                                         list =myBL.GetAllDishOrders(item=>item.OrderID==(res as Order).ID).OrderBy(item=>item.ID).ToList();
                                         int length=myBL.GetAllDishOrders(item=>item.OrderID==(res as Order).ID).Count();
                                         Console.WriteLine("Which dish order do you want to edit?");
-                                        myBL.PrintOrder(res as Order);
+                                        Console.WriteLine(myBL.ToStringOrder(res as Order));
                                         temp =int.Parse(GetString("Enter her number: ", item => int.TryParse(item, out temp) && temp > length && temp > 0, "Invalid Input."));
                                         num = int.Parse(GetString("How much dishes do you want from this dish?", item => int.TryParse(item, out num) && num > 0, "Invalid Input.(must be positive)"));
                                         myBL.UpdateDishOrder(new DishOrder((res as Order).ID, list[temp - 1].DishID, num, (res as Order).ID));
@@ -326,12 +326,12 @@ namespace Console_UI
                             break;
                         case 20:
                             #region Print All
-                            myBL.PrintAll();
-#endregion
+                            Console.WriteLine(myBL.ToString());
+                            #endregion
                             break;
                         case 21:
                             #region Search Bing!
-                            var s=Bing();
+                            var s = Bing();
                             #endregion
                             break;
                         case 22:

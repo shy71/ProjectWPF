@@ -218,6 +218,7 @@ namespace DAL
     {
         Random rand = new Random();
 
+
         #region Generic Functions
         /// <summary>
         /// מוסיפה איבר לרשימה, יחד עם כל הבדיקות הנצרכות
@@ -344,7 +345,6 @@ namespace DAL
         }
         #endregion
 
-        //check the functions below
 
         #region Dish Functions
         public void AddDish(Dish newDish)
