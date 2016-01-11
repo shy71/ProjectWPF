@@ -59,42 +59,132 @@ namespace BL
         /// </summary>
         /// <param name="newBranch"></param>
         void AddBranch(Branch newBranch);
+        /// <summary>
+        /// Adds a branch by ID
+        /// </summary>
+        /// <param name="id"></param>
         void DeleteBranch(int id);
+        /// <summary>
+        /// Adds a branch
+        /// </summary>
+        /// <param name="item"></param>
         void DeleteBranch(Branch item);
+        /// <summary>
+        /// Updates a branch
+        /// </summary>
+        /// <param name="item"></param>
         void UpdateBranch(Branch item);
+        /// <summary>
+        /// Gets all Branches that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null);
+        /// <summary>
+        /// searches for branchs by a string included in it
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         IEnumerable<Branch> SearchBranchs(object str);
 
         #endregion
 
         #region Order Functions
+        /// <summary>
+        /// adds an order
+        /// </summary>
+        /// <param name="newOrder"></param>
         void AddOrder(Order newOrder);
+        /// <summary>
+        /// delivers an order
+        /// </summary>
+        /// <param name="item"></param>
         void DeliveredOrder(Order item);
+        /// <summary>
+        /// deletes an order by ID
+        /// </summary>
+        /// <param name="id"></param>
         void DeleteOrder(int id);
+        /// <summary>
+        /// deletes an order
+        /// </summary>
+        /// <param name="item"></param>
         void DeleteOrder(Order item);
+        /// <summary>
+        /// updates an order
+        /// </summary>
+        /// <param name="item"></param>
         void UpdateOrder(Order item);
+        /// <summary>
+        /// Gets all orders that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null);
+        /// <summary>
+        /// searches for orders by a string included in it
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         IEnumerable<Order> SearchOrders(object str);
 
         #endregion
 
         #region DishOrder Functions
+        /// <summary>
+        /// adds a dish-order
+        /// </summary>
+        /// <param name="newDishOrder"></param>
         void AddDishOrder(DishOrder newDishOrder);
+        /// <summary>
+        /// deletes a dish-order by ID
+        /// </summary>
+        /// <param name="id"></param>
         void DeleteDishOrder(int id);
+        /// <summary>
+        /// deletes a dish-order
+        /// </summary>
+        /// <param name="item"></param>
         void DeleteDishOrder(DishOrder item);
+        /// <summary>
+        /// updates a dish-order
+        /// </summary>
+        /// <param name="item"></param>
         void UpdateDishOrder(DishOrder item);
+        /// <summary>
+        /// gets all the dish-orders that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null);
         #endregion
 
         #region Client Functions
+        /// <summary>
+        /// adds a client
+        /// </summary>
+        /// <param name="newClient"></param>
         void AddClient(Client newClient);
+        /// <summary>
+        /// deletes a client by ID
+        /// </summary>
+        /// <param name="id"></param>
         void DeleteClient(int id);
+        /// <summary>
+        /// deletes a client
+        /// </summary>
+        /// <param name="item"></param>
         void DeleteClient(Client item);
         /// <summary>
         /// update a client datd, can update anything but you cant update an address while it has an ongoing order for the old address
         /// </summary>
         /// <param name="item">The new upadted client</param>
         void UpdateClient(Client item);
+        /// <summary>
+        /// gets all clients that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
         /// <summary>
         /// Suggests a dish by similarity to other similar clients
@@ -102,6 +192,11 @@ namespace BL
         /// <param name="ID">id of the client</param>
         /// <returns></returns>
         Dish SuggestedDish(int ID);
+        /// <summary>
+        /// searches for clients by a string included in it
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         IEnumerable<Client> SearchClients(object str);
         #endregion
 
@@ -129,7 +224,11 @@ namespace BL
         /// </summary>
         void Inti();
         //Add grouping functions 
-
+        /// <summary>
+        /// searchs for something by something
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         List<IEnumerable<InterID>> Search(object obj);
         /// <summary>
         /// Get Profits grouped by the Dish id
