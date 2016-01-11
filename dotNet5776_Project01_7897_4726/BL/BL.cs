@@ -118,13 +118,32 @@ namespace BL
         /// <param name="condition">Condition function</param>
         /// <returns>List of all the orders that the condition returns True</returns>
         void PrintAll();
+        /// <summary>
+        /// To create some raw data to do some checks
+        /// </summary>
         void Inti();
         //Add grouping functions 
 
         List<IEnumerable<InterID>> Search(object obj);
+        /// <summary>
+        /// Get Profits grouped by the Dish id
+        /// </summary>
+        /// <returns>The Profits grouped by the Dish ID(Key for the grouping is the Dish ID)</returns>
         IEnumerable<IGrouping<int, float>> GetProfitByDishs();
+        /// <summary>
+        /// Get Profits grouped by the Address order
+        /// </summary>
+        /// <returns>The Profits grouped by the Address order(Key for the grouping is the Address)</returns>
         IEnumerable<IGrouping<int, float>> GetProfitByAddress();
+        /// <summary>
+        /// Get Profits grouped by the date of the order
+        /// </summary>
+        /// <returns>The Profits grouped by the date of the order(Key for the grouping is the date(dd/mm/yy) </returns>
         IEnumerable<IGrouping<string, float>> GetProfitByDates();
+        /// <summary>
+        /// Print an order, and its dishs 
+        /// </summary>
+        /// <param name="order">The order you want to print</param>
         void PrintOrder(Order order);
         #region Statistics Functions
 

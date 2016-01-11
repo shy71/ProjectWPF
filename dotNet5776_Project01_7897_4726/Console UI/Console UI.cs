@@ -178,7 +178,7 @@ namespace Console_UI
                                 case "3":
                                     #region By Clients
                                     temp = 0;
-                                    var grouping3 = myBL.GetProfitByClients();
+                                    var grouping3 = myBL.GetProfitByAddress();
                                     foreach (IGrouping<int, float> item in grouping3)
                                     {
                                         Console.WriteLine("Details for profit from Client" + myBL.GetAllClients(item2 => item2.ID == item.Key).First().Name + " (" + item.Key + "):");
