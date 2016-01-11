@@ -265,6 +265,12 @@ namespace DAL
             list.Add(item);
 
         }
+        /// <summary>
+        /// Get an item by his ID
+        /// </summary>
+        /// <typeparam name="T">The type of the item you want to get</typeparam>
+        /// <param name="id">The ID of the item</param>
+        /// <returns>The item that matchs this ID</returns>
         T Get<T>(int id) where T : InterID
         {
             T res = (getList<T>() as List<T>).Find((item) => item.ID == id);
@@ -273,6 +279,12 @@ namespace DAL
             return res;
 
         }
+        /// <summary>
+        /// Get all the item that matches the predicate function
+        /// </summary>
+        /// <typeparam name="T">The type of items you want to get</typeparam>
+        /// <param name="predicate">The function that will chekc if you want them or not</param>
+        /// <returns>The list of all of the item that matches the predicate function</returns>
         IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID
         {
             if (predicate == null)
