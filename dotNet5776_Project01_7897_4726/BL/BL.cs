@@ -96,6 +96,12 @@ namespace BL
         /// <param name="item">The new upadted client</param>
         void UpdateClient(Client item);
         IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
+        /// <summary>
+        /// Suggests a dish by similarity to other similar clients
+        /// </summary>
+        /// <param name="ID">id of the client</param>
+        /// <returns></returns>
+        Dish SuggestedDish(int ID);
         IEnumerable<Client> SearchClients(object str);
         #endregion
 
@@ -652,6 +658,51 @@ namespace BL
         public IEnumerable<Client> SearchClients(object obj)
         {
             return Search(obj, myDal.GetAllClients());
+        }
+        public Dish SuggestedDish(int ID)
+        {
+            Dish suggestion = null;
+            Client theClient = GetAllClients(item => item.ID == ID).First();
+            List<Client> mostSimilarClients=null;
+            int maxSimilarities = 0;
+            foreach(Client var in GetAllClients())
+            {
+                int similarityCount = 0;
+                foreach(DishOrder item1 in  GetAllDishOrders(item=> myDal.GetOrder(item.OrderID).ClientID==var.ID))//all the DishOrders of this Client
+                    foreach(DishOrder item2 in GetAllDishOrders(item=> (myDal.GetOrder(item.OrderID).ClientID==theClient.ID) && (myDal.GetDish(item1.DishID) == myDal.GetDish(item.ID))))//checks for all DishOrders of this client that are similar to the input client
+                        similarityCount += ((item1.DishAmount < item2.DishAmount) ? item1.DishAmount : item2.DishAmount);//adds the mimimum of the similarities (between the amounts of each one)
+                if(similarityCount > maxSimilarities)
+                {
+                    maxSimilarities = similarityCount;
+                    mostSimilarClients.Clear();
+                    mostSimilarClients.Add(var);
+                }
+                if(similarityCount==maxSimilarities)
+                {
+                    mostSimilarClients.Add(var);
+                }
+            }
+            if(mostSimilarClients.Count > 0)
+            {
+                //finding the most common dish from all the similar clients
+                int maxUsedDish = 0;
+                foreach(Dish curDish in GetAllDishs())
+                {
+                    int amount = 0;
+                    foreach(Client curClient in mostSimilarClients)//goes over all the clients that are most similar
+                        foreach (DishOrder curDO in GetAllDishOrders(item => (myDal.GetClient(myDal.GetOrder(item.OrderID).ClientID) == curClient) && (item.DishID == curDish.ID)))//gets all DishOrders that are from the current dish in this client
+                            amount += curDO.DishAmount;
+                    if(amount > maxUsedDish)
+                    {
+                        suggestion = curDish;
+                        maxUsedDish = amount;
+                    }
+                }
+                if (suggestion != null)
+                    return suggestion;
+            }
+            Random rand = new Random();
+            return GetAllDishs().ToList()[rand.Next(0, GetAllDishs().ToList().Count - 1)];
         }
         #endregion
     }
