@@ -123,7 +123,7 @@ namespace BL
 
         List<IEnumerable<InterID>> Search(object obj);
         IEnumerable<IGrouping<int, float>> GetProfitByDishs();
-        IEnumerable<IGrouping<int, float>> GetProfitByClients();
+        IEnumerable<IGrouping<int, float>> GetProfitByAddress();
         IEnumerable<IGrouping<string, float>> GetProfitByDates();
         void PrintOrder(Order order);
         #region Statistics Functions
@@ -191,10 +191,10 @@ namespace BL
             return from item in myDal.GetAllDishOrders()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by item.DishID;
         }
-        public IEnumerable<IGrouping<int, float>> GetProfitByClients()
+        public IEnumerable<IGrouping<string, float>> GetProfitByAddress()
         {
             return from item in myDal.GetAllDishOrders()
-                   group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).ClientID;
+                   group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Address;
         }
         public IEnumerable<IGrouping<string, float>> GetProfitByDates()
         {
