@@ -8,16 +8,21 @@ using BE;
 
 namespace BL
 {
-    //public delegate bool SortOutOrdersFunc(Order order);
     public static class FactoryBL
-    {
+    {        
+        /// <summary>
+        /// Function to start up a new BL
+        /// </summary>
+        /// <returns></returns>
         public static IBL getBL()
         {
             return new BL();
         }
     }
+
     public interface IBL
     {
+
         #region Dish Functions
         /// <summary>
         /// Adds a dish
@@ -200,36 +205,24 @@ namespace BL
         IEnumerable<Client> SearchClients(object str);
         #endregion
 
+
+
+        #region ToString Functions
         /// <summary>
-        /// Returns Price of the order
+        /// Return A string of the Entire DataBase ready to be print
         /// </summary>
-        /// <param name="order">Order being priced</param>
-        /// <returns>Price</returns>
-        float PriceOfOrder(Order order);
+        /// <returns>The string to print</returns>
+        string ToStringAll();
         /// <summary>
-        /// Checks if the price exceeds maximum price for an order
+        /// return the string of an order, and its dishs. ready to be print
         /// </summary>
-        /// <param name="order">Order being checked</param>
-        /// <returns>False if it exceeds the maximum price,
-        ///          True if it doesn't exceed the maximum price</returns>
-        /// <summary>
-        /// Sorts out spicific orders from the list that is true in the condition
-        /// from the condition fuction
-        /// </summary>
-        /// <param name="condition">Condition function</param>
-        /// <returns>List of all the orders that the condition returns True</returns>
-        void PrintAll();
-        /// <summary>
-        /// To create some raw data to do some checks
-        /// </summary>
-        void Inti();
-        //Add grouping functions 
-        /// <summary>
-        /// searchs for something by something
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        List<IEnumerable<InterID>> Search(object obj);
+        /// <param name="order">The order you want to print</param>
+        /// <returns>The string to print</returns>
+        string ToStringOrder(Order order);
+        #endregion
+
+        #region Profits Functions
+
         /// <summary>
         /// Get Profits grouped by the Dish id
         /// </summary>
@@ -245,11 +238,9 @@ namespace BL
         /// </summary>
         /// <returns>The Profits grouped by the date of the order(Key for the grouping is the date(dd/mm/yy) </returns>
         IEnumerable<IGrouping<string, float>> GetProfitByDates();
-        /// <summary>
-        /// Print an order, and its dishs 
-        /// </summary>
-        /// <param name="order">The order you want to print</param>
-        void PrintOrder(Order order);
+
+        #endregion
+
         #region Statistics Functions
 
         /// <summary>
@@ -274,41 +265,394 @@ namespace BL
         /// <returns>the dish most frequintly used in the specific branch</returns>
         Dish BestDishInBranch(Branch myBranch);
         #endregion
+
+
+
+        /// <summary>
+        /// searchs for something by something
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        List<IEnumerable<InterID>> Search(object obj);
+        /// <summary>
+        /// Returns Price of the order
+        /// </summary>
+        /// <param name="order">Order being priced</param>
+        /// <returns>Price</returns>
+        float PriceOfOrder(Order order);
+
+
+        /// <summary>
+        /// To create some raw data to do some checks
+        /// </summary>
+        void Inti();
+
+
+        
     }
+
     public class BL : IBL
     {
-        public readonly int MAX_PRICE;
-        DAL.Idal myDal = DAL.FactoryDal.getDal();
         /// <summary>
-        /// Constructor which starts up the maximu price
+        /// Max Price for an order
+        /// </summary>
+        public readonly int MAX_PRICE;
+
+        DAL.Idal myDal;
+
+        /// <summary>
+        /// Constructor which starts up the max price and initialize the DAL layer
         /// </summary>
         /// <param name="maxPrice"></param>
         public BL(int maxPrice = 1000)
         {
             MAX_PRICE = maxPrice;
+            myDal = DAL.FactoryDal.getDal();
         }
+
+        
+        #region Dish Functions
         /// <summary>
-        /// Checks the price of a specific order
+        /// checks if a dish is compatible for adding
         /// </summary>
-        /// <param name="order"></param>
-        /// <returns></returns>
-        public float PriceOfOrder(Order order)//need checking
+        /// <param name="dish"></param>
+        /// <param name="str"></param>
+        internal void CompatibleDish(Dish dish, string str = null)//need checking
         {
-            float result = 0;
-            List<DishOrder> list = myDal.GetAllDishOrders(item => item.OrderID == order.ID).ToList<DishOrder>();
-            foreach (DishOrder item in list)
-                result += item.DishAmount * myDal.GetDish(item.DishID).Price;
-            return result;
+            if (dish.Price <= 0)
+                throw new Exception(str + " The price of a dish have to be highr then zero!");
+            else if (dish.Name == null)
+                throw new Exception(str + " A dish has to have a name!");
+            else if (dish.ID > 99999999)
+                throw new Exception(str + "The ID must be a positive number with at the most 8 digits");
         }
-        public List<IEnumerable<InterID>> Search(object obj)
+        public void AddDish(Dish newDish)//need checking
         {
-            List<IEnumerable<InterID>> list = new List<IEnumerable<InterID>>();
-            list.Add(SearchDishs(obj));
-            list.Add(SearchClients(obj));
-            list.Add(SearchBranchs(obj));
-            list.Add(SearchOrders(obj));
-            return list;
+            CompatibleDish(newDish, "The Dish you are trying to add is incompatible:");
+            myDal.AddDish(newDish);
         }
+        public void DeleteDish(int id)//need checking
+        {
+            if (!myDal.GetAllDishOrders(item => item.DishID == id).Any(item => myDal.GetOrder(item.OrderID).Delivered == false))
+                myDal.DeleteDish(id);
+            else
+                throw new Exception("You can't delete a dish which is being ordered");
+        }
+        public void DeleteDish(Dish item)//need checking
+        {
+            DeleteDish(item.ID);
+        }
+        public void UpdateDish(Dish item)//Done
+        {
+            Dish temp = myDal.GetDish(item.ID);
+            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => (myDal.GetOrder(var.OrderID).Kosher > item.Kosher || temp.Price != item.Price || temp.Size != item.Size) && myDal.GetOrder(var.OrderID).Delivered == false))
+            {
+                CompatibleDish(item, "The Updated Dish you sended to upadte the old one is incompatible:");
+                myDal.UpdateDish(item);
+            }
+            else
+                throw new Exception("You can't update a dish(Price,Size or lower her kasrut) when the dish is already inside an active order");
+        }
+        public IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null)
+        {
+            return myDal.GetAllDishs(predicate);
+        }
+        public IEnumerable<Dish> SearchDishs(string str)
+        {
+            return Search(str, myDal.GetAllDishs());
+        }
+        #endregion
+
+        #region Branch Functions
+        /// <summary>
+        /// checks if branch is compatible for adding
+        /// </summary>
+        /// <param name="branch"></param>
+        /// <param name="str"></param>
+        internal void CompatibleBranch(Branch branch, string str = null)//need checking
+        {
+            if (branch.Address == null)
+                throw new Exception(str + " The Address filed cant be empty!");
+            else if (branch.Boss == null)
+                throw new Exception(str + " every branch must have a boss!");
+            else if (branch.EmployeeCount <= 0)
+                throw new Exception(str + " A branch must have at least one worker!");
+            else if (branch.PhoneNumber == null)
+                throw new Exception(str + " every branch must have a phone number!");
+            else if (branch.Name == null)
+                throw new Exception(str + " The Name filed cant be empty!");
+        }
+        public void AddBranch(Branch newBranch)//need checking
+        {
+            CompatibleBranch(newBranch, "The Branch you are trying to add is incompatible:");
+            myDal.AddBranch(newBranch);
+        }
+        public void DeleteBranch(int id)//need checking
+        {
+            if (!myDal.GetAllOrders(item => item.BranchID == id).Any(item => item.Delivered == false))
+                myDal.DeleteBranch(id);
+            else
+                throw new Exception("you cant delete a branch that has active orders from!");
+        }
+        public void DeleteBranch(Branch myBranch)//need checking
+        {
+            DeleteBranch(myBranch.ID);
+        }
+        public void UpdateBranch(Branch myBranch)//Done
+        {
+            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher && item.Delivered == false))
+            {
+                CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible. Anything that could be updated was updated.");
+                myDal.UpdateBranch(myBranch);
+            }
+            else
+                throw new Exception("you can't lower a bracnh kashrut when he has an active orders from a higher kashrutstandardstandard!");
+        }
+        public IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null)
+        {
+            return myDal.GetAllBranchs(predicate);
+        }
+        public IEnumerable<Branch> SearchBranchs(string str)
+        {
+            return Search(str, myDal.GetAllBranchs());
+        }
+        #endregion
+
+        #region Order Functions
+
+        internal void CompatibleOrder(Order myOrder, string str)//need checking
+        {
+            if (myOrder.Address == null)
+                throw new Exception(str + " The Address filed cant be empty!");
+            else if (!myDal.ContainID<Client>(myOrder.ClientID))
+                throw new Exception(str + " the client in the order does not exists!");
+            else if (!myDal.ContainID<Branch>(myOrder.BranchID))
+                throw new Exception(str + " the branch in the order does not exists!");
+            else if (myOrder.Date == null)
+                throw new Exception(str + " The Date field can't be empty!");
+            //else if (myOrder.Kosher == null)
+            //    throw new Exception(str+" The kashrut filed cant be empty");
+            else if (myOrder.Kosher > myDal.GetBranch(myOrder.BranchID).Kosher)//need checking
+                throw new Exception(str + " The Kashrut in the branch is not sufficient for the order");
+            else if (myDal.GetBranch(myOrder.BranchID).AvailableMessangers == 0)
+                throw new Exception(str + " There isnt any available messangers to deliver the order");
+        }
+        public void DeliveredOrder(Order item)
+        {
+            myDal.GetBranch(item.BranchID).AvailableMessangers++;
+            myDal.DeliveredOrder(item.ID);
+        }
+        public void AddOrder(Order newOrder)//need checking
+        {
+
+            CompatibleOrder(newOrder, "The Order you are trying to add is incompatible:");
+
+            myDal.AddOrder(newOrder);
+            myDal.GetBranch(newOrder.BranchID).AvailableMessangers--;
+        }
+        public void DeleteOrder(int id)//need checking
+        {
+            foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == id).ToList())
+                DeleteDishOrder(item);
+            myDal.DeleteOrder(id);
+            myDal.GetBranch((myDal.GetOrder(id).BranchID)).AvailableMessangers++;
+        }
+        public void DeleteOrder(Order myOrder)//need checking
+        {
+            DeleteOrder(myOrder.ID);
+        }
+        public void UpdateOrder(Order newOrder)//fixed! need checking
+        {
+            //make sure that kashrut doesn't contradict kashrut of branch or dishes
+            Order oldOrder = myDal.GetOrder(newOrder.ID);
+            if (oldOrder.BranchID != newOrder.BranchID || oldOrder.ClientID != newOrder.ClientID || oldOrder.Delivered != newOrder.Delivered || myDal.GetAllDishOrders(item => item.OrderID == newOrder.ID).Any(item => myDal.GetDish(item.DishID).Kosher < newOrder.Kosher))
+                throw new Exception("You can't update the order's kashrut level because it has dishes which aren't in the new sufficient kashrout level, also you cant update The client ID , branch ID, or if it was delivered or not(use the proper function to do it)");
+            CompatibleOrder(newOrder, "The Updated order you sended to upadte the old one is incompatible:");
+            myDal.UpdateOrder(newOrder);
+        }
+        public IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)
+        {
+            return myDal.GetAllOrders(predicate);
+        }
+        public IEnumerable<Order> SearchOrders(string str)
+        {
+            return Search(str, myDal.GetAllOrders());
+        }
+        #endregion
+
+        #region DishOrder Functions
+        internal void CompatibleDishOrder(DishOrder theDishOrder, string str = null)//need checking
+        {
+            if (theDishOrder.DishAmount <= 0)
+                throw new Exception(str + " you cant order less the one from a Dish");
+            else if (!myDal.ContainID<Dish>(theDishOrder.DishID))
+                throw new Exception(str + " the Dish you are trying to order does not exists!");
+            else if (!myDal.ContainID<Order>(theDishOrder.OrderID))
+                throw new Exception(str + " The order you are trying to add dishs to does not exists!");
+            else if ((PriceOfOrder(myDal.GetOrder(theDishOrder.OrderID)) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price) > MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
+                throw new Exception(str + " with those dishes the order price will be above the approved limit!");
+            else if (myDal.GetDish(theDishOrder.DishID).Kosher < myDal.GetOrder(theDishOrder.OrderID).Kosher)
+                throw new Exception(str + " you cant add a dish without the sufficient Kashrut for the order");
+        }
+        public void AddDishOrder(DishOrder newDishOrder)//need checking
+        {
+            CompatibleDishOrder(newDishOrder, "The Dish you are trying to add to the order is incompatible:");
+            myDal.AddDishOrder(newDishOrder);
+        }
+        public void DeleteDishOrder(int id)//need checking
+        {
+            myDal.DeleteDishOrder(id);
+        }
+        public void DeleteDishOrder(DishOrder item) //need checking
+        {
+            DeleteDishOrder(item.ID);
+        }
+        public void UpdateDishOrder(DishOrder item)//Done
+        {
+            DishOrder temp = myDal.GetDishOrder(item.ID);
+            if (item.DishAmount > temp.DishAmount)
+            {
+                if (PriceOfOrder(myDal.GetOrder(item.OrderID)) + (item.DishAmount - temp.DishAmount) * myDal.GetDish(item.ID).Price > MAX_PRICE)
+                    throw new Exception("you cant upadte the order because with the extra dishs your ordered your order price will be above the approved limit!");
+            }
+            else if (item.DishID != temp.DishID || item.OrderID != temp.OrderID)
+                throw new Exception("You cant update those components!");
+            CompatibleDishOrder(item, "The Updated Client you sended to upadte the old one is incompatible:");//bug - כאשר ההמחיר קרוב למקסימום וזה מחשב גם את ערך המנה הזו וגם את הערך של הזו הישנה שאנו מעדכנים
+            myDal.UpdateDishOrder(item);
+        }
+        public IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null)
+        {
+            return myDal.GetAllDishOrders(predicate);
+        }
+        #endregion
+
+        #region Client Functions
+        //need checking
+        internal void CompatibleClient(Client client, string str = null)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
+        {
+            if (client.Address == null)
+                throw new Exception(str + " The Address filed cant be empty!");
+            else if (client.CreditCard <= 0)
+                throw new Exception(str + " the client credit card is invalid");
+            else if (client.Name == null)
+                throw new Exception(str + " The Name filed cant be empty!");
+            if (client.Age < 18)
+                throw new Exception(str + " the services is offerd only to age 18+ client");
+        }
+        public void AddClient(Client newClient)//need checking
+        {
+
+            CompatibleClient(newClient, "The Client you are trying to add is incompatible:");
+            myDal.AddClient(newClient);
+        }
+        public void DeleteClient(int id)//need checking
+        {
+            if (myDal.GetAllOrders(item => item.ClientID == id).Any(item => item.Delivered == false))
+                throw new Exception("You cant delete a Client that has active orders");
+            myDal.DeleteClient(id);
+        }
+        public void DeleteClient(Client item)//need checking
+        {
+            DeleteClient(item.ID);
+        }
+        public void UpdateClient(Client item)//Done!
+        {
+            Client temp = myDal.GetClient(item.ID);
+            if (temp.Address != item.Address)
+            {
+                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.Delivered == false).Count() > 0)
+                    throw new Exception("You cant upadte a client address when he has an order to that address!");
+            }
+            CompatibleClient(item, "The Updated Client you sended to upadte the old one is incompatible:");
+            myDal.UpdateClient(item);
+        }
+        public IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null)
+        {
+            return myDal.GetAllClients(predicate);
+        }
+        public IEnumerable<Client> SearchClients(string str)
+        {
+            return Search(str, myDal.GetAllClients());
+        }
+        public Dish SuggestedDish(int ID)
+        {
+            Dish suggestion = null;
+            Client theClient = GetAllClients(item => item.ID == ID).First();
+            List<Client> mostSimilarClients = null;
+            int maxSimilarities = 0;
+            foreach (Client var in GetAllClients())
+            {
+                int similarityCount = 0;
+                foreach (DishOrder item1 in GetAllDishOrders(item => myDal.GetOrder(item.OrderID).ClientID == var.ID))//all the DishOrders of this Client
+                    foreach (DishOrder item2 in GetAllDishOrders(item => (myDal.GetOrder(item.OrderID).ClientID == theClient.ID) && (myDal.GetDish(item1.DishID) == myDal.GetDish(item.ID))))//checks for all DishOrders of this client that are similar to the input client
+                        similarityCount += ((item1.DishAmount < item2.DishAmount) ? item1.DishAmount : item2.DishAmount);//adds the mimimum of the similarities (between the amounts of each one)
+                if (similarityCount > maxSimilarities)
+                {
+                    maxSimilarities = similarityCount;
+                    mostSimilarClients.Clear();
+                    mostSimilarClients.Add(var);
+                }
+                if (similarityCount == maxSimilarities)
+                {
+                    mostSimilarClients.Add(var);
+                }
+            }
+            if (mostSimilarClients.Count > 0)
+            {
+                //finding the most common dish from all the similar clients
+                int maxUsedDish = 0;
+                foreach (Dish curDish in GetAllDishs())
+                {
+                    int amount = 0;
+                    foreach (Client curClient in mostSimilarClients)//goes over all the clients that are most similar
+                        foreach (DishOrder curDO in GetAllDishOrders(item => (myDal.GetClient(myDal.GetOrder(item.OrderID).ClientID) == curClient) && (item.DishID == curDish.ID)))//gets all DishOrders that are from the current dish in this client
+                            amount += curDO.DishAmount;
+                    if (amount > maxUsedDish)
+                    {
+                        suggestion = curDish;
+                        maxUsedDish = amount;
+                    }
+                }
+                if (suggestion != null)
+                    return suggestion;
+            }
+            Random rand = new Random();
+            return GetAllDishs().ToList()[rand.Next(0, GetAllDishs().ToList().Count - 1)];
+        }
+        #endregion
+
+
+
+        #region ToString functions
+
+        public string ToStringAll()
+        {
+            string res = "\n The DataBase:\n" + "Dishs:\n\t";
+            foreach (Dish item in myDal.GetAllDishs())
+                res += item + "\n\t";
+            res += "Branchs:\n\t";
+            foreach (Branch item in myDal.GetAllBranchs())
+                res += item + "\n\t";
+            res += "Clients:\n\t";
+            foreach (Client item in myDal.GetAllClients())
+                res += item + "\n\t";
+            res += "Orders:\n\t";
+            foreach (Order item in myDal.GetAllOrders())
+                res += item + "\n" + ToStringOrder(item) + "\n\t";
+            return res;
+        }
+        public string ToStringOrder(Order order)
+        {
+            string res = "";
+            int temp = 0;
+            res += order + "\n";
+            foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == order.ID).OrderBy(item => item.ID))//מסודר כדי שנוכל להשתמש בזה לבחירת קלט
+                res += "\t(" + (temp++) + ") Name: " + myDal.GetDish(item.DishID).Name + " Amount: " + item.DishAmount + "\n";
+            return res;
+        }
+
+        #endregion
+
         #region Profits Functions
         public IEnumerable<IGrouping<int, float>> GetProfitByDishs()
         {
@@ -418,6 +762,26 @@ namespace BL
 
         #endregion
 
+
+
+        #region Search Functions
+        public List<IEnumerable<InterID>> Search(string str)
+        {
+            List<IEnumerable<InterID>> list = new List<IEnumerable<InterID>>();
+            list.Add(SearchDishs(str));
+            list.Add(SearchClients(str));
+            list.Add(SearchBranchs(str));
+            list.Add(SearchOrders(str));
+            return list;
+        }
+        IEnumerable<T> Search<T>(string str, IEnumerable<T> list)
+        {
+            if (str=="")
+                return list;
+            return from item in list
+                   where Include(item, str)
+                   select item;
+        }
         /// <summary>
         /// Checks if the object (usualy a list of T's) includes the item
         /// </summary>
@@ -425,59 +789,62 @@ namespace BL
         /// <param name="item">The item being searched for</param>
         /// <param name="obj">The list</param>
         /// <returns></returns>
-        bool Include<T>(T item, object obj)
+        bool Include<T>(T item, string str)
         {
             foreach (PropertyInfo p in item.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
-                if (Compares(p.GetValue(item), (p.PropertyType.Name == "String"), (p.PropertyType.Name == "Int32"),(p.PropertyType.Name=="Single"),(p.PropertyType.Name=="DateTime"), obj))
+                if (Compares(p.GetValue(item), (p.PropertyType.Name == "String"), (p.PropertyType.Name == "Int32"), (p.PropertyType.Name == "Single"), (p.PropertyType.Name == "DateTime"), str))
                 {
                     return true;
                 }
             }
             return false;
         }
-        bool Compares(object obj,bool IsString,bool IsInt,bool IsFloat,bool IsDate,object subObj)
+        /// <summary>
+        /// Compares between an object and a string and see return whether the object equal or contain the string
+        /// </summary>
+        /// <param name="obj">The object</param>
+        /// <param name="IsString">Does the object is string</param>
+        /// <param name="IsInt">Does the object is int</param>
+        /// <param name="IsFloat">Does the object is float</param>
+        /// <param name="IsDate">Does the object is Date</param>
+        /// <param name="subStr">The string</param>
+        /// <returns>a bool that says whether the object equal or contain the string</returns>
+        bool Compares(object obj, bool IsString, bool IsInt, bool IsFloat, bool IsDate, string subStr)
         {
             int temp;
             float temp2;
-            if (IsString && subObj.GetType().Name == "String")
-                return (obj as string).ToLower().Contains((subObj as string).ToLower());
-            else if (IsInt && int.TryParse(subObj as string, out temp))
+            if (IsString)
+                return (obj as string).ToLower().Contains(subStr.ToLower());
+            else if (IsInt && int.TryParse(subStr, out temp))
                 return (int)obj == temp;
-            else if (IsDate && subObj.GetType().Name == "String")
+            else if (IsDate)
                 return ((DateTime)obj).ToShortDateString() == (obj as string);
-            else if (IsFloat && float.TryParse(subObj as string, out temp2))
+            else if (IsFloat && float.TryParse(subStr, out temp2))
                 return ((float)obj) == (temp2);
             return false;
 
         }
+        #endregion
 
-        public IEnumerable<T> Search<T>(object obj, IEnumerable<T> list)
+        /// <summary>
+        /// Checks the price of a specific order
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        public float PriceOfOrder(Order order)//need checking
         {
-            if (obj == null)
-                return list;
-            return from item in list
-                    where Include(item, obj)
-                    select item;
+            float result = 0;
+            List<DishOrder> list = myDal.GetAllDishOrders(item => item.OrderID == order.ID).ToList<DishOrder>();
+            foreach (DishOrder item in list)
+                result += item.DishAmount * myDal.GetDish(item.DishID).Price;
+            return result;
         }
 
-        public void PrintAll()//need checking // פונקציה זמנית
-        {
-            foreach (Dish item in myDal.GetAllDishs())
-               Console.WriteLine(item);
-           foreach (Branch item in myDal.GetAllBranchs())
-               Console.WriteLine(item);
-           foreach (Client item in myDal.GetAllClients())
-               Console.WriteLine(item);
-           foreach (Order item in myDal.GetAllOrders())
-               Console.WriteLine(item);
-           foreach (DishOrder item in myDal.GetAllDishOrders())
-               Console.WriteLine(item);
-        }
-        public void Inti()//need checking
+        public void Inti()
         {
 
-            AddDish(new Dish("Soup shy", Size.LARGE, 13, Kashrut.HIGH, 957473));
+            AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH, 957473));
             AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW, 19273));
             AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH, 1243));
             AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM, 95840));
@@ -486,8 +853,8 @@ namespace BL
             AddClient(new Client("Ezra", "Beit Shemesh", 78695, 65, 10934));
             AddClient(new Client("Itai", "Giv'at Ze'ev", 1938, 18, 493));
             AddClient(new Client("Tal", "Alon Shvut", 91731, 20, 1313));
-            AddClient(new Client("Gal", "Ma'ale Adumim shy", 38267, 19, 20744));
-            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli shy", 3, 4, Kashrut.MEDIUM, 87465));
+            AddClient(new Client("Gal", "Ma'ale Adumim", 38267, 19, 20744));
+            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM, 87465));
             AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "kidron", 1, 5, Kashrut.HIGH, 18932));
             AddBranch(new Branch("Eilat", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW, 2));
             AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW, 0));
@@ -497,322 +864,5 @@ namespace BL
             AddDishOrder(new DishOrder(192334, 957473, 2));
             AddDishOrder(new DishOrder(192334, 19273, 2));
         }
-        public void PrintOrder(Order order)
-        {
-            int temp=0;
-            Console.WriteLine(order);
-            foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == order.ID).OrderBy(item=>item.ID))//מסודר כדי שנוכל להשתמש בזה לבחירת קלט
-                Console.WriteLine("\t("+(temp++)+") Name: "+myDal.GetDish(item.DishID).Name+" Amount: "+item.DishAmount);
-        }
-        //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
-        #region Dish Functions
-        /// <summary>
-        /// checks if a dish is compatible for adding
-        /// </summary>
-        /// <param name="dish"></param>
-        /// <param name="str"></param>
-        internal void CompatibleDish(Dish dish, string str = null)//need checking
-        {
-            if (dish.Price <= 0)
-                throw new Exception(str + " The price of a dish have to be highr then zero!");
-            else if (dish.Name == null)
-                throw new Exception(str + " A dish has to have a name!");
-            else if (dish.ID > 99999999)
-                throw new Exception(str + "The ID must be a positive number with at the most 8 digits");
-        }
-        public void AddDish(Dish newDish)//need checking
-        {
-                CompatibleDish(newDish, "The Dish you are trying to add is incompatible:");
-                myDal.AddDish(newDish);
-        }
-        public void DeleteDish(int id)//need checking
-        {
-            if (!myDal.GetAllDishOrders(item => item.DishID == id).Any(item => myDal.GetOrder(item.OrderID).Delivered==false))
-                myDal.DeleteDish(id);
-            else
-                throw new Exception("You can't delete a dish which is being ordered");
-        }
-        public void DeleteDish(Dish item)//need checking
-        {
-            DeleteDish(item.ID);
-        }
-        public void UpdateDish(Dish item)//Done
-        {
-            Dish temp = myDal.GetDish(item.ID);
-            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => (myDal.GetOrder(var.OrderID).Kosher>item.Kosher|| temp.Price!=item.Price||temp.Size!=item.Size) &&myDal.GetOrder(var.OrderID).Delivered == false))
-            {
-                CompatibleDish(item, "The Updated Dish you sended to upadte the old one is incompatible:");
-                myDal.UpdateDish(item);
-            }
-            else
-                throw new Exception("You can't update a dish(Price,Size or lower her kasrut) when the dish is already inside an active order");
-        }
-        public IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null)
-        {
-            return myDal.GetAllDishs(predicate);
-        }
-        public IEnumerable<Dish> SearchDishs(object str)
-        {
-            return Search(str, myDal.GetAllDishs());
-        }
-        #endregion
-
-        #region Branch Functions
-        /// <summary>
-        /// checks if branch is compatible for adding
-        /// </summary>
-        /// <param name="branch"></param>
-        /// <param name="str"></param>
-        internal void CompatibleBranch(Branch branch, string str = null)//need checking
-        {
-            if (branch.Address == null)
-                throw new Exception(str + " The Address filed cant be empty!");
-            else if (branch.Boss == null)
-                throw new Exception(str + " every branch must have a boss!");
-            else if (branch.EmployeeCount <= 0)
-                throw new Exception(str + " A branch must have at least one worker!");
-            else if (branch.PhoneNumber == null)
-                throw new Exception(str + " every branch must have a phone number!");
-            else if (branch.Name == null)
-                throw new Exception(str + " The Name filed cant be empty!");
-        }
-        public void AddBranch(Branch newBranch)//need checking
-        {
-            CompatibleBranch(newBranch, "The Branch you are trying to add is incompatible:");
-            myDal.AddBranch(newBranch);
-        }
-        public void DeleteBranch(int id)//need checking
-        {
-            if (!myDal.GetAllOrders(item => item.BranchID == id).Any(item => item.Delivered==false))
-                myDal.DeleteBranch(id);
-            else
-                throw new Exception("you cant delete a branch that has active orders from!");
-        }
-        public void DeleteBranch(Branch myBranch)//need checking
-        {
-            DeleteBranch(myBranch.ID);
-        }
-        public void UpdateBranch(Branch myBranch)//Done
-        {
-            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher&&item.Delivered == false))
-            {
-                CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible. Anything that could be updated was updated.");
-                myDal.UpdateBranch(myBranch);
-            }
-            else
-                throw new Exception("you can't lower a bracnh kashrut when he has an active orders from a higher kashrutstandardstandard!");
-        }
-        public IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null)
-        {
-            return myDal.GetAllBranchs(predicate);
-        }
-        public IEnumerable<Branch> SearchBranchs(object obj)
-        {
-            return Search(obj, myDal.GetAllBranchs());
-        }
-        #endregion
-
-        #region Order Functions
-        
-        internal void CompatibleOrder(Order myOrder, string str)//need checking
-        {
-            if (myOrder.Address == null)
-                throw new Exception(str + " The Address filed cant be empty!");
-            else if (!myDal.ContainID<Client>(myOrder.ClientID))
-                throw new Exception(str + " the client in the order does not exists!");
-            else if (!myDal.ContainID<Branch>(myOrder.BranchID))
-                throw new Exception(str + " the branch in the order does not exists!");
-            else if (myOrder.Date == null)
-                throw new Exception(str + " The Date field can't be empty!");
-            //else if (myOrder.Kosher == null)
-            //    throw new Exception(str+" The kashrut filed cant be empty");
-            else if (myOrder.Kosher > myDal.GetBranch(myOrder.BranchID).Kosher)//need checking
-                throw new Exception(str + " The Kashrut in the branch is not sufficient for the order");
-            else if (myDal.GetBranch(myOrder.BranchID).AvailableMessangers == 0)
-                throw new Exception(str + " There isnt any available messangers to deliver the order");
-        }
-        public void DeliveredOrder(Order item)
-        {
-            myDal.GetBranch(item.BranchID).AvailableMessangers++;
-            myDal.DeliveredOrder(item.ID);
-        }
-        public void AddOrder(Order newOrder)//need checking
-        {
-
-            CompatibleOrder(newOrder, "The Order you are trying to add is incompatible:");
-
-                myDal.AddOrder(newOrder);
-                myDal.GetBranch(newOrder.BranchID).AvailableMessangers--;
-        }
-        public void DeleteOrder(int id)//need checking
-        {
-            foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == id).ToList())
-                DeleteDishOrder(item);
-            myDal.DeleteOrder(id);
-            myDal.GetBranch((myDal.GetOrder(id).BranchID)).AvailableMessangers++;
-        }
-        public void DeleteOrder(Order myOrder)//need checking
-        {
-            DeleteOrder(myOrder.ID);
-        }
-        public void UpdateOrder(Order newOrder)//fixed! need checking
-        {
-            //make sure that kashrut doesn't contradict kashrut of branch or dishes
-            Order oldOrder = myDal.GetOrder(newOrder.ID);
-            if (oldOrder.BranchID != newOrder.BranchID || oldOrder.ClientID != newOrder.ClientID || oldOrder.Delivered != newOrder.Delivered || myDal.GetAllDishOrders(item => item.OrderID == newOrder.ID).Any(item => myDal.GetDish(item.DishID).Kosher < newOrder.Kosher))
-                    throw new Exception("You can't update the order's kashrut level because it has dishes which aren't in the new sufficient kashrout level, also you cant update The client ID , branch ID, or if it was delivered or not(use the proper function to do it)");
-            CompatibleOrder(newOrder, "The Updated order you sended to upadte the old one is incompatible:");
-            myDal.UpdateOrder(newOrder);
-        }
-        public IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)
-        {
-            return myDal.GetAllOrders(predicate);
-        }
-        public IEnumerable<Order> SearchOrders(object obj)
-        {
-            return Search(obj, myDal.GetAllOrders());
-        }
-        #endregion
-
-        #region DishOrder Functions
-        internal void CompatibleDishOrder(DishOrder theDishOrder, string str = null)//need checking
-        {
-            if (theDishOrder.DishAmount <= 0)
-                throw new Exception(str + " you cant order less the one from a Dish");
-            else if (!myDal.ContainID<Dish>(theDishOrder.DishID))
-                throw new Exception(str + " the Dish you are trying to order does not exists!");
-            else if (!myDal.ContainID<Order>(theDishOrder.OrderID))
-                throw new Exception(str + " The order you are trying to add dishs to does not exists!");
-            else if ((PriceOfOrder(myDal.GetOrder(theDishOrder.OrderID)) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price) > MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
-                throw new Exception(str + " with those dishes the order price will be above the approved limit!");
-            else if (myDal.GetDish(theDishOrder.DishID).Kosher < myDal.GetOrder(theDishOrder.OrderID).Kosher)
-                throw new Exception(str + " you cant add a dish without the sufficient Kashrut for the order");
-        }
-        public void AddDishOrder(DishOrder newDishOrder)//need checking
-        {
-            CompatibleDishOrder(newDishOrder, "The Dish you are trying to add to the order is incompatible:");
-            myDal.AddDishOrder(newDishOrder);
-        }
-        public void DeleteDishOrder(int id)//need checking
-        {
-            myDal.DeleteDishOrder(id);
-        }
-        public void DeleteDishOrder(DishOrder item) //need checking
-        {
-            DeleteDishOrder(item.ID);
-        }
-        public void UpdateDishOrder(DishOrder item)//Done
-        {
-            DishOrder temp =myDal.GetDishOrder(item.ID);
-            if (item.DishAmount > temp.DishAmount)
-            {
-                if (PriceOfOrder(myDal.GetOrder(item.OrderID)) + (item.DishAmount - temp.DishAmount) * myDal.GetDish(item.ID).Price > MAX_PRICE)
-                    throw new Exception("you cant upadte the order because with the extra dishs your ordered your order price will be above the approved limit!");
-            }
-            else if (item.DishID != temp.DishID || item.OrderID != temp.OrderID)
-                throw new Exception("You cant update those components!");
-                CompatibleDishOrder(item, "The Updated Client you sended to upadte the old one is incompatible:");//bug - כאשר ההמחיר קרוב למקסימום וזה מחשב גם את ערך המנה הזו וגם את הערך של הזו הישנה שאנו מעדכנים
-            myDal.UpdateDishOrder(item);
-        }
-        public IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null)
-        {
-            return myDal.GetAllDishOrders(predicate);
-        }
-        #endregion
-
-        #region Client Functions
-        //need checking
-        internal void CompatibleClient(Client client, string str = null)//האם יש הגבלות יותר מוסימות על כרטיס אשראי?
-        {
-            if (client.Address == null)
-                throw new Exception(str + " The Address filed cant be empty!");
-            else if (client.CreditCard <= 0)
-                throw new Exception(str + " the client credit card is invalid");
-            else if (client.Name == null)
-                throw new Exception(str + " The Name filed cant be empty!");
-            if (client.Age < 18)
-                throw new Exception(str + " the services is offerd only to age 18+ client");
-        }
-        public void AddClient(Client newClient)//need checking
-        {
-
-            CompatibleClient(newClient, "The Client you are trying to add is incompatible:");
-            myDal.AddClient(newClient);
-        }
-        public void DeleteClient(int id)//need checking
-        {
-            if (myDal.GetAllOrders(item => item.ClientID == id).Any(item => item.Delivered==false))
-                throw new Exception("You cant delete a Client that has active orders");
-            myDal.DeleteClient(id);
-        }
-        public void DeleteClient(Client item)//need checking
-        {
-            DeleteClient(item.ID);
-        }
-        public void UpdateClient(Client item)//Done!
-        {
-            Client temp = myDal.GetClient(item.ID);
-            if (temp.Address != item.Address)
-            {
-                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.Delivered == false).Count() > 0)
-                    throw new Exception("You cant upadte a client address when he has an order to that address!");
-            }
-            CompatibleClient(item, "The Updated Client you sended to upadte the old one is incompatible:");
-            myDal.UpdateClient(item);
-        }
-        public IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null)
-        {
-            return myDal.GetAllClients(predicate);
-        }
-        public IEnumerable<Client> SearchClients(object obj)
-        {
-            return Search(obj, myDal.GetAllClients());
-        }
-        public Dish SuggestedDish(int ID)
-        {
-            Dish suggestion = null;
-            Client theClient = GetAllClients(item => item.ID == ID).First();
-            List<Client> mostSimilarClients=null;
-            int maxSimilarities = 0;
-            foreach(Client var in GetAllClients())
-            {
-                int similarityCount = 0;
-                foreach(DishOrder item1 in  GetAllDishOrders(item=> myDal.GetOrder(item.OrderID).ClientID==var.ID))//all the DishOrders of this Client
-                    foreach(DishOrder item2 in GetAllDishOrders(item=> (myDal.GetOrder(item.OrderID).ClientID==theClient.ID) && (myDal.GetDish(item1.DishID) == myDal.GetDish(item.ID))))//checks for all DishOrders of this client that are similar to the input client
-                        similarityCount += ((item1.DishAmount < item2.DishAmount) ? item1.DishAmount : item2.DishAmount);//adds the mimimum of the similarities (between the amounts of each one)
-                if(similarityCount > maxSimilarities)
-                {
-                    maxSimilarities = similarityCount;
-                    mostSimilarClients.Clear();
-                    mostSimilarClients.Add(var);
-                }
-                if(similarityCount==maxSimilarities)
-                {
-                    mostSimilarClients.Add(var);
-                }
-            }
-            if(mostSimilarClients.Count > 0)
-            {
-                //finding the most common dish from all the similar clients
-                int maxUsedDish = 0;
-                foreach(Dish curDish in GetAllDishs())
-                {
-                    int amount = 0;
-                    foreach(Client curClient in mostSimilarClients)//goes over all the clients that are most similar
-                        foreach (DishOrder curDO in GetAllDishOrders(item => (myDal.GetClient(myDal.GetOrder(item.OrderID).ClientID) == curClient) && (item.DishID == curDish.ID)))//gets all DishOrders that are from the current dish in this client
-                            amount += curDO.DishAmount;
-                    if(amount > maxUsedDish)
-                    {
-                        suggestion = curDish;
-                        maxUsedDish = amount;
-                    }
-                }
-                if (suggestion != null)
-                    return suggestion;
-            }
-            Random rand = new Random();
-            return GetAllDishs().ToList()[rand.Next(0, GetAllDishs().ToList().Count - 1)];
-        }
-        #endregion
     }
 }
