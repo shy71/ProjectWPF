@@ -506,6 +506,11 @@ namespace BL
         }
         //לחשוב אולי אפשר יהיה לעדכן שדות מוסימים גם בזמן שיש הזמנות לדבר
         #region Dish Functions
+        /// <summary>
+        /// checks if a dish is compatible for adding
+        /// </summary>
+        /// <param name="dish"></param>
+        /// <param name="str"></param>
         internal void CompatibleDish(Dish dish, string str = null)//need checking
         {
             if (dish.Price <= 0)
@@ -553,6 +558,11 @@ namespace BL
         #endregion
 
         #region Branch Functions
+        /// <summary>
+        /// checks if branch is compatible for adding
+        /// </summary>
+        /// <param name="branch"></param>
+        /// <param name="str"></param>
         internal void CompatibleBranch(Branch branch, string str = null)//need checking
         {
             if (branch.Address == null)
