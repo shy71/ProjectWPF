@@ -6,6 +6,15 @@ using System.Threading.Tasks;
 
 namespace BE
 {
+    /// <summary>
+    /// Interface for every class that we want to have the unique ID system
+    /// </summary>
+    public interface InterID
+    {
+        int ID { get; set; }
+        int MakeID();
+    }
+
     class Extensions
     {
         /// <summary>
@@ -18,10 +27,12 @@ namespace BE
             return str.Select((item, index) => (item.Sum(r => (int)r)) * (int)Math.Pow(10, index)).Sum() % 100000000;
         }
     }
+
     public enum Kashrut
     {
         LOW, MEDIUM, HIGH
     }
+
     public enum Size
     {
         SMALL, MEDIUM, LARGE
