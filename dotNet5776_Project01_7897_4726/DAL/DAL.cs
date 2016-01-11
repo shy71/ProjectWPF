@@ -226,7 +226,7 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="newItem">האיבר שהפוקנציה תוסיף</param>
         /// <param name="list">הרשימה לה היא תוסיף אותה</param>
-        void Add<T>(T newItem) where T : InterID//need checking
+        void Add<T>(T newItem) where T : InterID
         {
             if (newItem.ID < 0 || newItem.ID >= 100000000)
                 throw new Exception("The ID must be a positive number with at most 8 digits");
@@ -241,7 +241,7 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="id">תעודת הזהות של האיבר אותו אנו מבקשים למחוק</param>
         /// <param name="list">הרשימה ממנה נמחוק אותו</param>
-        void Delete<T>(int id) where T : InterID//need checking
+        void Delete<T>(int id) where T : InterID
         {
             List<T> list = getList<T>();
             if (ContainID<T>(id) == false)
@@ -255,7 +255,7 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="item">האיבר אותו אנו מבקשים למחוק</param>
         /// <param name="list">הרשימה ממנה נמחק אותו</param>
-        void Delete<T>(T item) where T : InterID { Delete<T>(item.ID); }//need checking
+        void Delete<T>(T item) where T : InterID { Delete<T>(item.ID); }
         /// <summary>
         /// עדכון איבר מהרשימה באמצעות איבר מעודכן
         /// </summary>
@@ -316,7 +316,7 @@ namespace DAL
                 result %= 100000000;
             }
             return result;
-        }//need checking
+        }
         /// <summary>
         /// בודקת האם קיים איבר ברשימה עם תעודת הזהות הזאת
         /// </summary>
@@ -324,11 +324,11 @@ namespace DAL
         /// <param name="id">תעדות הזהות</param>
         /// <param name="list">הרשימה בה נמצאים האיברים</param>
         /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
-        public bool ContainID<T>(int id) where T : InterID//need checking
+        public bool ContainID<T>(int id) where T : InterID
         {
             return getList<T>().Any(item => item.ID == id);
         }
-        List<T> getList<T>()//need checking
+        List<T> getList<T>()
         {
             if (typeof(T) == typeof(Dish))
                 return DS.DataSource.DishList as List<T>;
