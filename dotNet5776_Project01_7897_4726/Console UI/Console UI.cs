@@ -311,6 +311,10 @@ namespace Console_UI
                             #endregion
                             break;
                         case 15:
+                            #region Get suggestion
+                            Console.WriteLine("\n The dish we recommend for you to try is:");
+                            Console.WriteLine(myBL.SuggestedDish(ManageBing<Client>("Search for the client you wish to get suggestion for").ID));
+                            #endregion
                             break;
                         case 16:
                             break;
@@ -470,6 +474,7 @@ namespace Console_UI
                 Console.WriteLine("12. Print an Order");
                 Console.WriteLine("13. Update one of the items in the datdbase");
                 Console.WriteLine("14. Report on a finished delivery");
+                Console.WriteLine("15. Get recommended dish for a specific client");
                 Console.WriteLine("20. Print the entire DataBase");
                 Console.WriteLine("21. Use Bing!(Search Engine)");
                 Console.WriteLine("22. Print the best customer");
