@@ -55,7 +55,7 @@ namespace BL
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        IEnumerable<Dish> SearchDishs(object str);
+        IEnumerable<Dish> SearchDishs(string str);
         #endregion
 
         #region Branch Functions
@@ -90,7 +90,7 @@ namespace BL
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        IEnumerable<Branch> SearchBranchs(object str);
+        IEnumerable<Branch> SearchBranchs(string str);
 
         #endregion
 
@@ -131,7 +131,7 @@ namespace BL
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        IEnumerable<Order> SearchOrders(object str);
+        IEnumerable<Order> SearchOrders(string str);
 
         #endregion
 
@@ -202,23 +202,19 @@ namespace BL
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        IEnumerable<Client> SearchClients(object str);
+        IEnumerable<Client> SearchClients(string str);
         #endregion
 
 
 
         #region ToString Functions
         /// <summary>
-        /// Return A string of the Entire DataBase ready to be print
-        /// </summary>
-        /// <returns>The string to print</returns>
-        string ToStringAll();
-        /// <summary>
         /// return the string of an order, and its dishs. ready to be print
         /// </summary>
         /// <param name="order">The order you want to print</param>
         /// <returns>The string to print</returns>
         string ToStringOrder(Order order);
+
         #endregion
 
         #region Profits Functions
@@ -273,7 +269,7 @@ namespace BL
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        List<IEnumerable<InterID>> Search(object obj);
+        List<IEnumerable<InterID>> Search(string str);
         /// <summary>
         /// Returns Price of the order
         /// </summary>
@@ -285,10 +281,7 @@ namespace BL
         /// <summary>
         /// To create some raw data to do some checks
         /// </summary>
-        void Inti();
-
-
-        
+        void Inti();     
     }
 
     public class BL : IBL
@@ -624,8 +617,11 @@ namespace BL
 
 
         #region ToString functions
-
-        public string ToStringAll()
+        /// <summary>
+        /// Return A string of the Entire DataBase ready to be print
+        /// </summary>
+        /// <returns>The string to print</returns>
+        public override string ToString()
         {
             string res = "\n The DataBase:\n" + "Dishs:\n\t";
             foreach (Dish item in myDal.GetAllDishs())
@@ -641,6 +637,7 @@ namespace BL
                 res += item + "\n" + ToStringOrder(item) + "\n\t";
             return res;
         }
+
         public string ToStringOrder(Order order)
         {
             string res = "";
