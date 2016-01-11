@@ -4,20 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/*
- * להוסיף לפרופרטי מגבלה
-
- * */
 namespace BE
 {
-    public interface InterID
-    {
-        int ID { get; set; }
-        int MakeID();//צריך להוסיף את המימוש ביורשים!
-    }
     public class Dish : InterID
     {
-        public Dish(string name,Size size,float price,Kashrut kosher,int id = 0)
+        public Dish(string name, Size size, float price, Kashrut kosher, int id = 0)
         {
             ID = id;
             Name = name;
@@ -25,6 +16,8 @@ namespace BE
             Price = price;
             Kosher = kosher;
         }
+
+
         int id;
         public int ID
         {
@@ -55,6 +48,8 @@ namespace BE
             get { return kosher; }
             set { kosher = value; }
         }
+
+
         /// <summary>
         /// ממיר את המנה למחרוזת
         /// </summary>
@@ -67,22 +62,26 @@ namespace BE
                  + "\n\tSize: " + Size
                  + "\n\tPrice: " + Price;
         }
+        /// <summary>
+        /// Generates a unique ID based on the strings in the class
+        /// </summary>
+        /// <returns>The unique ID</returns>
         public int MakeID()
         {
             return Extensions.MakeID(Name, Size.ToString(), Price.ToString(), Kosher.ToString());
         }
     }
     public class Order : InterID
-    {//לבדוק שהכתובת עובדת טוב
+    {
         public Order(int branchID, string address, DateTime date, Kashrut kosher, int clientID, int id = 0)
         {
             Delivered = false;
             ID = id;
-            BranchID=branchID;
-            Address=address;
-            Date=date;
+            BranchID = branchID;
+            Address = address;
+            Date = date;
             Kosher = kosher;
-            ClientID=clientID;
+            ClientID = clientID;
         }
         public Order(Branch branch, Client client, DateTime date, Kashrut kosher, int id = 0)
         {
@@ -93,12 +92,8 @@ namespace BE
             Kosher = kosher;
             ClientID = client.ID;
         }
-        bool delivered;
-        public bool Delivered
-        {
-            get { return delivered; }
-            set { delivered = value; }
-        }
+
+
         int id;
         public int ID
         {
@@ -135,13 +130,21 @@ namespace BE
             get { return clientID; }
             set { clientID = value; }
         }
+        bool delivered;
+        public bool Delivered
+        {
+            get { return delivered; }
+            set { delivered = value; }
+        }
+
+
         /// <summary>
         /// ממיר את ההזמנה למחרוזת
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-           
+
             return "Order ID: " + ID
                     + "\n\tDate: " + Date
                     + "\n\tBranch: " + BranchID
@@ -150,21 +153,25 @@ namespace BE
                     + "\n\tOrder address: " + Address
                     + "\n\tDelivered Already?: " + Delivered;
         }
+        /// <summary>
+        /// Generates a unique ID based on the strings in the class
+        /// </summary>
+        /// <returns>The unique ID</returns>
         public int MakeID()
         {
-            return Extensions.MakeID(BranchID.ToString(),Address,Date.ToString(),Kosher.ToString(),ClientID.ToString());
+            return Extensions.MakeID(BranchID.ToString(), Address, Date.ToString(), Kosher.ToString(), ClientID.ToString());
         }
     }
     public class DishOrder : InterID
     {
-        public DishOrder(int orderID,int dishID,int dishAmount=1, int id = 0)
+        public DishOrder(int orderID, int dishID, int dishAmount = 1, int id = 0)
         {
             ID = id;
             OrderID = orderID;
             DishID = dishID;
             DishAmount = dishAmount;
         }
-        public DishOrder(Order order,Dish dish,int amout=1,int id=0)
+        public DishOrder(Order order, Dish dish, int amout = 1, int id = 0)
         {
             OrderID = order.ID;
             DishID = dish.ID;
@@ -172,6 +179,8 @@ namespace BE
             ID = id;
 
         }
+
+
         int id;
         public int ID
         {
@@ -196,6 +205,8 @@ namespace BE
             get { return dishAmount; }
             set { dishAmount = value; }
         }
+
+
         /// <summary>
         /// ממיר את ההזמנת מנה למחרוזת
         /// </summary>
@@ -203,10 +214,14 @@ namespace BE
         public override string ToString()
         {
             return "Dish In Order"
-                 +"\n\tOrder number: " + OrderID
+                 + "\n\tOrder number: " + OrderID
                  + "\n\tDish number: " + DishID
                  + "\n\tAmount of dishes ordered: " + DishAmount;
         }
+        /// <summary>
+        /// Generates a unique ID based on the strings in the class
+        /// </summary>
+        /// <returns>The unique ID</returns>
         public int MakeID()
         {
             return Extensions.MakeID(OrderID.ToString(), DishID.ToString(), DishAmount.ToString());
@@ -214,7 +229,7 @@ namespace BE
     }
     public class Branch : InterID
     {
-        public Branch(string name, string address, string phoneNumber,string boss,int employeeCount,int availableMessangers,Kashrut kosher, int id = 0)
+        public Branch(string name, string address, string phoneNumber, string boss, int employeeCount, int availableMessangers, Kashrut kosher, int id = 0)
         {
             ID = id;
             Name = name;
@@ -225,6 +240,8 @@ namespace BE
             AvailableMessangers = availableMessangers;
             Kosher = kosher;
         }
+       
+
         int id;
         public int ID
         {
@@ -273,22 +290,28 @@ namespace BE
             get { return kosher; }
             set { kosher = value; }
         }
+
+
         /// <summary>
         /// ממיר את הסניף למחרוזת
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return "Branch "+Name+":"
-                  +"\n\tID: " + ID
+            return "Branch " + Name + ":"
+                  + "\n\tID: " + ID
                   + "\n\tName: " + Name
                   + "\n\tAddress: " + Address
                   + "\n\tPhone number: " + PhoneNumber
                   + "\n\tBoss: " + Boss
                   + "\n\tEmployee Count: " + EmployeeCount
                   + "\n\tAvilable messanger count: " + AvailableMessangers
-                  + "\n\tKashrut: " + Kosher; 
+                  + "\n\tKashrut: " + Kosher;
         }
+        /// <summary>
+        /// Generates a unique ID based on the strings in the class
+        /// </summary>
+        /// <returns>The unique ID</returns>
         public int MakeID()
         {
             return Extensions.MakeID(Name, Address, PhoneNumber, Boss, EmployeeCount.ToString(), AvailableMessangers.ToString(), Kosher.ToString());
@@ -296,7 +319,7 @@ namespace BE
     }
     public class Client : InterID
     {
-        public Client(string name, string address, int creditCard,int age, int id = 0)
+        public Client(string name, string address, int creditCard, int age, int id = 0)
         {
             ID = id;
             Name = name;
@@ -304,6 +327,8 @@ namespace BE
             CreditCard = creditCard;
             Age = age;
         }
+
+
         int id;
         public int ID
         {
@@ -334,18 +359,24 @@ namespace BE
             get { return age; }
             set { age = value; }
         }
+
+
         public override string ToString()
         {
-            return "Client "+Name+":"
+            return "Client " + Name + ":"
                 + "\n\tID: " + ID
                 + "\n\tName: " + Name
                 + "\n\tAddress: " + Address
                 + "\n\tCredit card number: " + CreditCard
                 + "\n\tAge: " + Age;
         }
+        /// <summary>
+        /// Generates a unique ID based on the strings in the class
+        /// </summary>
+        /// <returns>The unique ID</returns>
         public int MakeID()
         {
-            return Extensions.MakeID(Name, Address, CreditCard.ToString(),Age.ToString());
+            return Extensions.MakeID(Name, Address, CreditCard.ToString(), Age.ToString());
         }
     }
 }
