@@ -223,7 +223,7 @@ namespace DAL
         void Add<T>(T newItem) where T : InterID//need checking
         {
             if (newItem.ID < 0 || newItem.ID >= 100000000)
-                throw new Exception("The ID must be a positive number with at most 8 digits");
+                throw new Exception("The ID must be a positive number with at the most 8 digits");
             
             if (ContainID<T>(newItem.ID)||newItem.ID==0)
                 newItem.ID = NextID(newItem);

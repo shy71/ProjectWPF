@@ -134,7 +134,7 @@ namespace BL
         /// Get Profits grouped by the Address order
         /// </summary>
         /// <returns>The Profits grouped by the Address order(Key for the grouping is the Address)</returns>
-        IEnumerable<IGrouping<int, float>> GetProfitByAddress();
+        IEnumerable<IGrouping<string, float>> GetProfitByAddress();
         /// <summary>
         /// Get Profits grouped by the date of the order
         /// </summary>
@@ -407,10 +407,6 @@ namespace BL
                 throw new Exception(str + " The price of a dish have to be highr then zero!");
             else if (dish.Name == null)
                 throw new Exception(str + " A dish has to have a name!");
-            //else if (dish.Kosher == null)
-            //    throw new Exception(str+" A dish has to have a kosher level!");
-            //else if (dish.Size == null)
-            //    throw new Exception(str+" A dish has to have a Size level");
         }
         public void AddDish(Dish newDish)//need checking
         {

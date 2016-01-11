@@ -8,6 +8,11 @@ namespace BE
 {
     class Extensions
     {
+        /// <summary>
+        /// Make a unique ID from any numbers of strings
+        /// </summary>
+        /// <param name="str">The strings from them it will make the unique ID</param>
+        /// <returns>The unique ID</returns>
         internal static int MakeID(params string[] str)
         {
             return str.Select((item, index) => (item.Sum(r => (int)r)) * (int)Math.Pow(10, index)).Sum() % 100000000;
