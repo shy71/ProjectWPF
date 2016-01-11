@@ -12,8 +12,6 @@ namespace Console_UI
      * 
      * לסיים switch
      * 
-     * לבדוק איך כל מערך השגיאות עובד ולנהול אותו
-     * 
      * להריץ כמה עשרות ניסיונות
      * 
      * להוסיף הערות להכול
@@ -321,7 +319,6 @@ namespace Console_UI
                         case 18:
                             break;
                         case 19:
-
                             break;
                         case 20:
                             #region Print All
@@ -349,8 +346,8 @@ namespace Console_UI
                             #endregion
                             break;
                         default:
-                            #region Code
-                            Console.WriteLine("\n\nGood By! Hope to see you again at our restaurants");
+                            #region Good Bye!
+                            Console.WriteLine("\n\nGood Bye! Hope to see you again at our restaurants");
                             exit = true;
                             #endregion
                             break;
@@ -360,7 +357,10 @@ namespace Console_UI
                 }
                 catch (Exception exp)
                 {
-                    Console.WriteLine(exp.Message);
+                    Console.WriteLine("\n\n\tError!: " + exp.Message);
+                    Console.WriteLine("The Error occurred in the "+ exp.Source+" layer");
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
                 }
             }
         }
@@ -470,10 +470,6 @@ namespace Console_UI
                 Console.WriteLine("12. Print an Order");
                 Console.WriteLine("13. Update one of the items in the datdbase");
                 Console.WriteLine("14. Report on a finished delivery");
-                Console.WriteLine("12. Update Client's details");
-                Console.WriteLine("13. Update Branch's details");
-                Console.WriteLine("14. Update Order's details");
-                Console.WriteLine("15. Update the amount of dishs order from one kind from an order");
                 Console.WriteLine("20. Print the entire DataBase");
                 Console.WriteLine("21. Use Bing!(Search Engine)");
                 Console.WriteLine("22. Print the best customer");

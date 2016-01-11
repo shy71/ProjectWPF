@@ -407,11 +407,13 @@ namespace BL
                 throw new Exception(str + " The price of a dish have to be highr then zero!");
             else if (dish.Name == null)
                 throw new Exception(str + " A dish has to have a name!");
+            else if (dish.ID > 99999999)
+                throw new Exception(str + "The ID must be a positive number with at the most 8 digits");
         }
         public void AddDish(Dish newDish)//need checking
         {
-            CompatibleDish(newDish, "The Dish you are trying to add is incompatible:");
-            myDal.AddDish(newDish);
+                CompatibleDish(newDish, "The Dish you are trying to add is incompatible:");
+                myDal.AddDish(newDish);
         }
         public void DeleteDish(int id)//need checking
         {
