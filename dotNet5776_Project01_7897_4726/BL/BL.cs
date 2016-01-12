@@ -567,7 +567,7 @@ namespace BL
         public Dish SuggestedDish(int ID)
         {
             Dish suggestion = null;
-            Client theClient = GetAllClients(item => item.ID == ID).First();
+            Client theClient = GetAllClients(item => item.ID == ID).FirstOrDefault();
             List<Client> mostSimilarClients = null;
             int maxSimilarities = 0;
             foreach (Client var in GetAllClients())

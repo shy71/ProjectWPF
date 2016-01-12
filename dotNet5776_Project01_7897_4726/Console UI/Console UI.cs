@@ -127,7 +127,7 @@ namespace Console_UI
                             foreach (DishOrder item in list)
                             {
                                 temp++;
-                                Console.WriteLine(temp + ") " + "Name: " + myBL.GetAllDishs(var => var.ID == item.DishID).First().Name + " , Amount: " + item.DishAmount);
+                                Console.WriteLine(temp + ") " + "Name: " + myBL.GetAllDishs(var => var.ID == item.DishID).FirstOrDefault().Name + " , Amount: " + item.DishAmount);
                             }
                             Console.WriteLine(temp + ") Cancel");
                             temp2 = int.Parse(GetString("Enter the number near the dishs you wish to remove from the order", item => int.TryParse(item, out temp2) && temp2 > 0 && temp2 <= temp + 1, "Invalid Input."));
@@ -146,7 +146,7 @@ namespace Console_UI
                                     var grouping = myBL.GetProfitByDishs();
                                     foreach (IGrouping<int, float> item in grouping)
                                     {
-                                        Console.WriteLine("Details for profit from Dish" + myBL.GetAllDishs(item2 => item2.ID == item.Key).First().Name + " (" + item.Key + "):");
+                                        Console.WriteLine("Details for profit from Dish" + myBL.GetAllDishs(item2 => item2.ID == item.Key).FirstOrDefault().Name + " (" + item.Key + "):");
                                         foreach (float item2 in item)
                                         {
                                             temp++;
@@ -180,7 +180,7 @@ namespace Console_UI
                                     var grouping3 = myBL.GetProfitByAddress();
                                     foreach (IGrouping<int, float> item in grouping3)
                                     {
-                                        Console.WriteLine("Details for profit from Client" + myBL.GetAllClients(item2 => item2.ID == item.Key).First().Name + " (" + item.Key + "):");
+                                        Console.WriteLine("Details for profit from Client" + myBL.GetAllClients(item2 => item2.ID == item.Key).FirstOrDefault().Name + " (" + item.Key + "):");
                                         foreach (float item2 in item)
                                         {
                                             temp++;
@@ -221,7 +221,7 @@ namespace Console_UI
                                 foreach (DishOrder item2 in myBL.GetAllDishOrders(var => var.OrderID == item.ID))
                                 {
                                     temp++;
-                                    Console.WriteLine("(" + temp + ") " + "Name: " + myBL.GetAllDishs(var => var.ID == item2.DishID).First().Name + " , Amount: " + item2.DishAmount);
+                                    Console.WriteLine("(" + temp + ") " + "Name: " + myBL.GetAllDishs(var => var.ID == item2.DishID).FirstOrDefault().Name + " , Amount: " + item2.DishAmount);
                                 }
                                 temp2++;
                             }
@@ -283,7 +283,7 @@ namespace Console_UI
                                         if (SwtichCase(int.Parse(GetString("Does the client is ordering the Dish home?(enter 1) or to someplace else(2)", item => item == "1" || item == "2", "Invalid Input.")), false, true))
                                             order.Address = GetString("Enter the address for the order:", item => item.Length > 2, "order address must be at least 3 characters");
                                         else
-                                            order.Address = myBL.GetAllClients(item => item.ID == (res as Order).ClientID).First().Address;
+                                            order.Address = myBL.GetAllClients(item => item.ID == (res as Order).ClientID).FirstOrDefault().Address;
                                         myBL.UpdateOrder(order);
                                         #endregion
                                     }
