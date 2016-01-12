@@ -10,13 +10,16 @@ namespace BL
 {
     public static class FactoryBL
     {
+        private static IBL instance;
         /// <summary>
-        /// Function to start up a new BL
+        /// Function to start get the BL
         /// </summary>
         /// <returns></returns>
         public static IBL getBL()
         {
-            return new BL();
+            if (instance == null)
+                instance = new BL();
+            return instance;
         }
     }
 

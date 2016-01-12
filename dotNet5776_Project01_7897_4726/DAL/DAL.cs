@@ -9,13 +9,16 @@ namespace DAL
 {
     public class FactoryDal
     {
+        private static Idal instance;
         /// <summary>
-        /// function to start up a dal
+        /// Function to Get the DAL
         /// </summary>
         /// <returns></returns>
         public static Idal getDal()
         {
-            return new Dal_imp();
+            if (instance == null)
+                instance = new Dal_imp();
+            return instance;
         }
     }
 

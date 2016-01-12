@@ -34,6 +34,10 @@ namespace tOD_FFD
             var s = new XElement("Shy");
             s.Save("@SHY.xml");
             var d = XElement.Load("@SHY.xml");
+
+            Dish d = new Dish("Hot dogs", Size.LARGE, 19, Kashrut.HIGH, 0);
+            new XElement("Dish", from item in d.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                 select new XElement(item.Name, item.GetValue(d))).Save("@Dish.xml");
         }
 
 
