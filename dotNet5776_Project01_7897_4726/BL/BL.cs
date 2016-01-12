@@ -568,9 +568,9 @@ namespace BL
         {
             Dish suggestion = null;
             Client theClient = GetAllClients(item => item.ID == ID).First();
-            List<Client> mostSimilarClients = null;
+            List<Client> mostSimilarClients = new List<Client>();
             int maxSimilarities = 0;
-            foreach (Client var in GetAllClients())
+            foreach (Client var in GetAllClients(item => item.ID != ID))
             {
                 int similarityCount = 0;
                 foreach (DishOrder item1 in GetAllDishOrders(item => myDal.GetOrder(item.OrderID).ClientID == var.ID))//all the DishOrders of this Client
@@ -582,12 +582,12 @@ namespace BL
                     mostSimilarClients.Clear();
                     mostSimilarClients.Add(var);
                 }
-                if (similarityCount == maxSimilarities)
+                else if (similarityCount == maxSimilarities && maxSimilarities!=0)
                 {
                     mostSimilarClients.Add(var);
                 }
             }
-            if (mostSimilarClients.Count > 0)
+            if (mostSimilarClients != null && mostSimilarClients.Count >0)
             {
                 //finding the most common dish from all the similar clients
                 int maxUsedDish = 0;
