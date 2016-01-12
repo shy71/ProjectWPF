@@ -9,13 +9,16 @@ namespace DAL
 {
     public class FactoryDal
     {
+        private static Idal instance;
         /// <summary>
-        /// function to start up a dal
+        /// Function to Get the DAL
         /// </summary>
         /// <returns></returns>
         public static Idal getDal()
         {
-            return new Dal_imp();
+            if (instance == null)
+                instance = new Dal_imp();
+            return instance;
         }
     }
 
@@ -246,7 +249,7 @@ namespace DAL
             List<T> list = getList<T>();
             if (ContainID<T>(id) == false)
                 throw new Exception("There isnt any item in the list with this id...");
-            list.Remove(list.First(item => item.ID == id));
+            list.Remove(list.FirstOrDefault(item => item.ID == id));
 
         }
         /// <summary>
@@ -267,7 +270,7 @@ namespace DAL
             List<T> list = getList<T>();
             if (ContainID<T>(item.ID) == false)
                 throw new Exception("There isnt any item in the list with this id...");
-            list.Remove(list.First(var => var.ID == item.ID));
+            list.Remove(list.FirstOrDefault(var => var.ID == item.ID));
             list.Add(item);
 
         }
@@ -279,7 +282,7 @@ namespace DAL
         /// <returns>The item that matchs this ID</returns>
         T Get<T>(int id) where T : InterID
         {
-            T res = getList<T>().First(item => item.ID == id);
+            T res = getList<T>().FirstOrDefault(item => item.ID == id);
             if (res == null)
                 throw new Exception("There isnt any item in the list with this id...");
             return res;

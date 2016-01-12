@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Linq;
 using System.Diagnostics;
 
 namespace tOD_FFD
@@ -31,11 +31,13 @@ namespace tOD_FFD
         }
         public static void Main()
         {
-            DateTime df = new DateTime();
-            Console.WriteLine(df.GetType().Name); ;
-            Inta a = new Dish();
-           Console.WriteLine(a.GetType().Name);
-           Console.WriteLine(   typeof(Dish).Name);
+            var s = new XElement("Shy");
+            s.Save("@SHY.xml");
+            var d = XElement.Load("@SHY.xml");
+
+            Dish d = new Dish("Hot dogs", Size.LARGE, 19, Kashrut.HIGH, 0);
+            new XElement("Dish", from item in d.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                                 select new XElement(item.Name, item.GetValue(d))).Save("@Dish.xml");
         }
 
 

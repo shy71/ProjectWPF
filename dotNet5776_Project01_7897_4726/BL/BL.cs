@@ -10,13 +10,16 @@ namespace BL
 {
     public static class FactoryBL
     {
+        private static IBL instance;
         /// <summary>
-        /// Function to start up a new BL
+        /// Function to start get the BL
         /// </summary>
         /// <returns></returns>
         public static IBL getBL()
         {
-            return new BL();
+            if (instance == null)
+                instance = new BL();
+            return instance;
         }
     }
 
@@ -567,7 +570,7 @@ namespace BL
         public Dish SuggestedDish(int ID)
         {
             Dish suggestion = null;
-            Client theClient = GetAllClients(item => item.ID == ID).First();
+            Client theClient = GetAllClients(item => item.ID == ID).FirstOrDefault();
             List<Client> mostSimilarClients = new List<Client>();
             int maxSimilarities = 0;
             foreach (Client var in GetAllClients(item => item.ID != ID))
