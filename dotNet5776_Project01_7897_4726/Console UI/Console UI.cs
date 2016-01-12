@@ -5,12 +5,13 @@ using System.Text;
 using BE;
 using System.Threading.Tasks;
 
+//מיני פרויקט במערכות חלונות -חלק ראשון - התשע"ו
+//כיתה י"ב - ישיבה תיכונית
+//שי טננבוים - 207447897 - shytennenbaum@gmail.com
+//עזרא בלוק - 324384726  - ezra@anyblock.com
+
 namespace Console_UI
 {
-    /*
-     * להריץ כמה עשרות ניסיונות
-     * */
-
     class Program
     {
 
