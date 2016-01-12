@@ -16,6 +16,7 @@ namespace Console_UI
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Menu: Project 1 - Ezra Block - Shy Tennenbaum\n");
             new PL().Run();
         }
     }
@@ -372,17 +373,16 @@ namespace Console_UI
             while (true)
             {
                 #region Output
-                Console.WriteLine("Menu: Project 1 - Ezra Block - Shy Tennenbaum\n");
                 Console.WriteLine("Press the number of the operation you wish to do:");
-                Console.WriteLine("1. Create new dish in the menu of the restaurant");
-                Console.WriteLine("2. Create new Client");
-                Console.WriteLine("3. Create new Branch");
-                Console.WriteLine("4. Create new Order");
-                Console.WriteLine("5. Add dishs to an order");
-                Console.WriteLine("6. Delete an item from the database of the restaurant");
-                Console.WriteLine("7. Delete a dish from an order");
-                Console.WriteLine("8. Get profits detlies");
-                Console.WriteLine("9. Calculate Order Total Price");
+                Console.WriteLine("1.  Create new dish in the menu of the restaurant");
+                Console.WriteLine("2.  Create new Client");
+                Console.WriteLine("3.  Create new Branch");
+                Console.WriteLine("4.  Create new Order");
+                Console.WriteLine("5.  Add dishs to an order");
+                Console.WriteLine("6.  Delete an item from the database of the restaurant");
+                Console.WriteLine("7.  Delete a dish from an order");
+                Console.WriteLine("8.  Get profits detlies");
+                Console.WriteLine("9.  Calculate Order Total Price");
                 Console.WriteLine("10. Mark Order as delivered");
                 Console.WriteLine("11. Print All undelivered Orders");
                 Console.WriteLine("12. Print an Order");

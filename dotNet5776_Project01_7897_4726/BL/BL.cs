@@ -620,18 +620,22 @@ namespace BL
         /// <returns>The string to print</returns>
         public override string ToString()
         {
+            int temp = 0;
             string res = "\n The DataBase:\n" + "Dishs:\n\t";
             foreach (Dish item in myDal.GetAllDishs())
-                res += item + "\n\t";
-            res += "Branchs:\n\t";
+                res += "|"+(++temp)+"| "+item + "\n\n\t";
+            res = res.Substring(0, res.Length - 1) + "Branchs:\n\t";
+            temp = 0;
             foreach (Branch item in myDal.GetAllBranchs())
-                res += item + "\n\t";
-            res += "Clients:\n\t";
+                res += "|" + (++temp) + "| " + item + "\n\n\t";
+            res = res.Substring(0, res.Length - 1) + "Clients:\n\t";
+            temp = 0;
             foreach (Client item in myDal.GetAllClients())
-                res += item + "\n\t";
-            res += "Orders:\n\t";
+                res += "|" + (++temp) + "| " + item + "\n\n\t";
+            res = res.Substring(0, res.Length - 1) + "Orders:\n\t";
+            temp = 0;
             foreach (Order item in myDal.GetAllOrders())
-                res += item + "\n" + ToStringOrder(item) + "\n\t";
+                res += "|" + (++temp) + "| " + ToStringOrder(item) + "\n\n\t";
             return res;
         }
 
