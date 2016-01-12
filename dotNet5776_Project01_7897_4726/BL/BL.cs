@@ -574,8 +574,11 @@ namespace BL
             {
                 int similarityCount = 0;
                 foreach (DishOrder item1 in GetAllDishOrders(item => myDal.GetOrder(item.OrderID).ClientID == var.ID))//all the DishOrders of this Client
-                    foreach (DishOrder item2 in GetAllDishOrders(item => (myDal.GetOrder(item.OrderID).ClientID == theClient.ID) && (myDal.GetDish(item1.DishID) == myDal.GetDish(item.ID))))//checks for all DishOrders of this client that are similar to the input client
-                        similarityCount += ((item1.DishAmount < item2.DishAmount) ? item1.DishAmount : item2.DishAmount);//adds the mimimum of the similarities (between the amounts of each one)
+                    foreach (DishOrder item2 in GetAllDishOrders(item => myDal.GetOrder(item.OrderID).ClientID == theClient.ID))
+                    {
+                        if (myDal.GetDish(item1.DishID).ID == myDal.GetDish(item2.DishID).ID)//checks for all DishOrders of this client that are similar to the input client
+                            similarityCount += ((item1.DishAmount < item2.DishAmount) ? item1.DishAmount : item2.DishAmount);//adds the mimimum of the similarities (between the amounts of each one)
+                    }
                 if (similarityCount > maxSimilarities)
                 {
                     maxSimilarities = similarityCount;
@@ -858,9 +861,11 @@ namespace BL
             AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW, 0));
             AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM, 9873));
             AddOrder(new Order(2, "Beit Shemesh shy", DateTime.Now, Kashrut.LOW, 10934, 192334));
+            AddOrder(new Order(87465, "Beit Shemesh shy", DateTime.Now, Kashrut.MEDIUM, 1921, 34567));
             AddDishOrder(new DishOrder(192334, 957473, 3));
             AddDishOrder(new DishOrder(192334, 957473, 2));
-            AddDishOrder(new DishOrder(192334, 19273, 2));
+            AddDishOrder(new DishOrder(192334, 19273, 7));
+            AddDishOrder(new DishOrder(34567, 957473, 7));
         }
     }
 }
