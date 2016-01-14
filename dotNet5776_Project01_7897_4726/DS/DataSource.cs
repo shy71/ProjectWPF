@@ -13,5 +13,6 @@ namespace DS
         static public List<BE.Client> ClientList = new List<BE.Client>();
         static public List<BE.DishOrder> DishOrderList = new List<BE.DishOrder>();
         static public List<BE.Order> OrderList = new List<BE.Order>();
+        static public List<BE.User> UserList = new List<BE.User>();
     }
 }

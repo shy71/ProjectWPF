@@ -215,6 +215,43 @@ namespace DAL
         /// <returns>True: there is an item with this ID , False: There isnt</returns>
         bool ContainID<T>(int id) where T : InterID;
 
+        //New
+        #region User Functions
+
+        /// <summary>
+        /// adds a User
+        /// </summary>
+        /// <param name="newUser"></param>
+        void AddUser(User newUser);
+        /// <summary>
+        /// deletes a User by username
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteUser(string username);
+        /// <summary>
+        /// deletes a User
+        /// </summary>
+        /// <param name="item"></param>
+        void DeleteUser(User item);
+        /// <summary>
+        /// updates a User 
+        /// </summary>
+        /// <param name="item"></param>
+        void UpdateUser(User item);
+        /// <summary>
+        /// gets a User from the DataBase by its Username
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        User GetUser(string username);
+        /// <summary>
+        /// gets all Users that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate">the predicate test</param>
+        /// <returns>An Enumerable of all of the Users that pass the predicate </returns>
+        IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null);
+        #endregion 
+
     }
 
     class Dal_imp : Idal
@@ -343,6 +380,8 @@ namespace DAL
                 return DS.DataSource.DishOrderList as List<T>;
             if (typeof(T) == typeof(Order))
                 return DS.DataSource.OrderList as List<T>;
+            if (typeof(T) == typeof(User))
+                return DS.DataSource.UserList as List<T>;
             return null;
 
         }
@@ -487,5 +526,72 @@ namespace DAL
             return GetAll(predicate);
         }
         #endregion
+
+        //New
+
+        #region User Functions
+
+        /// <summary>
+        /// adds a User
+        /// </summary>
+        /// <param name="newUser"></param>
+        public void AddUser(User newUser)
+        {
+            if (getList<User>().Any(item => item.UserName == newUser.UserName))
+                throw new Exception("there is already a user with that username");
+            getList<User>().Add(newUser);
+
+        }
+        /// <summary>
+        /// deletes a User by username
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteUser(string username)
+        {
+            if (getList<User>().Any(item => item.UserName == username))
+                getList<User>().RemoveAll(item => item.UserName == username);
+            else
+                throw new Exception("There isnt any user with that username in the database");
+        }
+        /// <summary>
+        /// deletes a User
+        /// </summary>
+        /// <param name="item"></param>
+        public void DeleteUser(User item)
+        {
+            DeleteUser(item.UserName);
+        }
+        /// <summary>
+        /// updates a User 
+        /// </summary>
+        /// <param name="item"></param>
+        public void UpdateUser(User item)
+        {
+            DeleteUser(item.UserName);
+            UpdateUser(item);
+        }
+        /// <summary>
+        /// gets a User from the DataBase by its Username
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public User GetUser(string username)
+        {
+            return getList<User>().FirstOrDefault(item => item.UserName == username);
+        }
+        /// <summary>
+        /// gets all Users that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate">the predicate test</param>
+        /// <returns>An Enumerable of all of the Users that pass the predicate </returns>
+        public IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null)
+        {
+            if (predicate == null)
+                return getList<User>().AsEnumerable();
+            return from User item in getList<User>()
+                   where predicate(item)
+                   select item;
+        }
+        #endregion 
     }
 }

@@ -285,10 +285,23 @@ namespace BL
         /// To create some raw data to do some checks
         /// </summary>
         void Inti();
+
+
+
+        //New
+
+        User getUser(string UserName);
     }
 
     public class BL : IBL
     {
+        //New
+        public User getUser(string UserName)
+        {
+           return myDal.GetUser(UserName);
+        }
+
+
         /// <summary>
         /// Max Price for an order
         /// </summary>
@@ -853,7 +866,7 @@ namespace BL
             AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH, 1243));
             AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM, 95840));
             AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW, 21));
-            AddClient(new Client("Shy", "Sderot Hertzel 12", 45326, 23, 1921));
+            AddClient(new Client("Shy", "Sderot Hertzel 12", 45326, 23,1921));
             AddClient(new Client("Ezra", "Beit Shemesh", 78695, 65, 10934));
             AddClient(new Client("Itai", "Giv'at Ze'ev", 1938, 18, 493));
             AddClient(new Client("Tal", "Alon Shvut", 91731, 20, 1313));
@@ -869,6 +882,7 @@ namespace BL
             AddDishOrder(new DishOrder(192334, 957473, 2));
             AddDishOrder(new DishOrder(192334, 19273, 7));
             AddDishOrder(new DishOrder(34567, 957473, 7));
+            myDal.AddUser(new User(UserType.Client,"shy71","123456","Shy Tennenbaum",1921));
         }
     }
 }
