@@ -85,6 +85,7 @@ namespace PLForms
         private void createAccountButton_Click(object sender, RoutedEventArgs e)
         {
             //open new client window
+            new NewClient().Activate();
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
