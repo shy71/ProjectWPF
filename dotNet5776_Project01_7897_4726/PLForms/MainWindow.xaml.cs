@@ -40,12 +40,12 @@ namespace PLForms
         {
             if (InputBox.Text == "" || InputBox.Foreground==Brushes.Gray)
             {
-                errorLabel.Content = "The username cant be empty!";
+                errorLabel.Content = "The username can't be empty!";
                 return;
             }
             user = BL.FactoryBL.getBL().getUser(InputBox.Text);
             if (user == null)
-                MessageBox.Show("Sorry, There isnt such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Sorry, There isn't such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
             else
                 ChangeToLogin();
         }
@@ -53,11 +53,11 @@ namespace PLForms
         {
             if (InputPassword.Password.Length == 0 || InputBox.Foreground == Brushes.Gray)
             {
-                errorLabel.Content = "The password cant be empty!";
+                errorLabel.Content = "The password can't be empty!";
                 return;
             }
-            else if (InputPassword.Password == user.Password) ;
-            //enter Type Window
+            else if (InputPassword.Password == user.Password);
+                //enter Type Window
             else
                 MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -102,11 +102,6 @@ namespace PLForms
             InputBox.Foreground = Brushes.Gray;
             createAccountButton.Visibility = Visibility.Visible;
         }
-
-
-
-
-
     }
 }
 
