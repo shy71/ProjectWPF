@@ -104,10 +104,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\Big logo.jpg" />
+    <Resource Include="Images\Big logo.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\Small logo.png" />
+    <Resource Include="Images\Sign In logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Small logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace PLForms
 {
@@ -20,14 +21,57 @@ namespace PLForms
     /// </summary>
     public partial class MainWindow : Window
     {
+        BE.User user;
         public MainWindow()
         {
             InitializeComponent();
+            BL.FactoryBL.getBL().Inti();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBox).Text = null;
+            (sender as TextBox).Foreground = Brushes.Black;
+            errorLabel.Content = null;
+        }
+
+        private void NextLogin(object sender, RoutedEventArgs e)
+        {
+            if (InputBox.Text == "" || InputBox.Foreground==Brushes.Gray)
+            {
+                errorLabel.Content = "The username cant be empty!";
+                return;
+            }
+            user = BL.FactoryBL.getBL().getUser(InputBox.Text);
+            if (user == null)
+                MessageBox.Show("Sorry, There isnt such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+                ChangeToLogin();
+        }
+        private void SignIn(object sender, RoutedEventArgs e)
+        {
+            if (InputBox.Text == "" || InputBox.Foreground == Brushes.Gray)
+            {
+                errorLabel.Content = "The password cant be empty!";
+                return;
+            }
+            else if (InputBox.Text == user.Password) ;
+            //enter Type Window
+            else
+                MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        private void ChangeToLogin()
+        {
+            InputBox.Text = "Passowrd";
+            InputBox.Foreground = Brushes.Gray;
+            SignInButton.Content = "Sign In";
+            typeLabel.Content = user.Type;
+            nameLabel.Content = user.Name;
+            UsernameLabel.Content = user.UserName;
+            SignInButton.Click -= NextLogin;
+            SignInButton.Click += SignIn;
         }
     }
 }
+
