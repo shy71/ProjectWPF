@@ -33,14 +33,12 @@ namespace PLForms
         {
                 (sender as TextBox).Text = null;
                 (sender as TextBox).Foreground = Brushes.Black;
-                errorLabel.Content = null;
         }
 
         private void NextLogin(object sender, RoutedEventArgs e)
         {
             if (InputBox.Text == "" || InputBox.Foreground==Brushes.Gray)
             {
-                errorLabel.Content = "The username can't be empty!";
                 return;
             }
             user = BL.FactoryBL.getBL().getUser(InputBox.Text);
@@ -53,7 +51,6 @@ namespace PLForms
         {
             if (InputPassword.Password.Length == 0 || InputBox.Foreground == Brushes.Gray)
             {
-                errorLabel.Content = "The password can't be empty!";
                 return;
             }
             else if (InputPassword.Password == user.Password);
@@ -79,7 +76,6 @@ namespace PLForms
         {
             InputPassword.Password = null;
             InputPassword.Foreground = Brushes.Black;
-            errorLabel.Content = null;
         }
 
         private void createAccountButton_Click(object sender, RoutedEventArgs e)
