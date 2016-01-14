@@ -59,11 +59,12 @@ namespace PLForms
             SignInButton.Click += SignIn;
             backArrow.Visibility = Visibility.Visible;
             InputPassword.Password = "******";
+            InputPassword.Foreground = Brushes.Gray;
         }
 
         private void InputPassword_GotFocus(object sender, RoutedEventArgs e)
         {
-            InputPassword.Password = null;
+            InputPassword.Password = "";
             InputPassword.Foreground = Brushes.Black;
         }
 
