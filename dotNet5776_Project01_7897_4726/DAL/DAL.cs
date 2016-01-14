@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Xml.Linq;
+using System.Xml;
 using BE;
 
 namespace DAL
@@ -253,7 +256,385 @@ namespace DAL
         #endregion 
 
     }
+    class XmlSample
+    {
+        XElement fileRoot;
+        public XElement FileRoot
+        { get { return fileRoot; } set { fileRoot = value; } }
+        string fPath, name;
+        public string FPath
+        { get { return fPath; } set { fPath = value; } }
+        public string Name
+        { get { return name; } set { name = value; } }
+        public XmlSample(string path,string name)
+        {
+            FPath = path;
+            if (!File.Exists(path))
+                CreateFile();
+            else
+                LoadFile();
+        }
+        public void LoadFile()
+        {
+            try
+            {
+                fileRoot = XElement.Load(fPath);
+            }
+            catch
+            {
+                throw new Exception("File upload problem.");
+            }
+        }
+        void CreateFile()
+        {
+            fileRoot = new XElement(name);
+            fileRoot.Save(fPath);
+        }
+    }
+    class Dal_XML_imp
+    {
+        Random rand = new Random();
+        XmlSample xmlDish = new XmlSample(@"XmlFiles\DishXml.xml", "Dishes"), 
+                  xmlBranch = new XmlSample(@"XmlFiles\BranchXml.xml", "Branches"), 
+                  xmlOrder = new XmlSample(@"XmlFiles\OrderXml.xml", "Order"),
+                  xmlDishOrder = new XmlSample(@"XmlFiles\DishOrderXml.xml", "DishOrders"), 
+                  xmlClient = new XmlSample(@"XmlFiles\ClientXml.xml", "Clients"),
+                  xmlUser = new XmlSample(@"XmlFiles\UserXml.xml", "Users");
+        #region Generic Functions
+        /// <summary>
+        /// מוסיפה איבר לרשימה, יחד עם כל הבדיקות הנצרכות
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר</typeparam>
+        /// <param name="newItem">האיבר שהפוקנציה תוסיף</param>
+        /// <param name="list">הרשימה לה היא תוסיף אותה</param>
+        void Add<T>(T newItem) where T : InterID
+        {
+            if (newItem.ID < 0 || newItem.ID >= 100000000)
+                throw new Exception("The ID must be a positi ve number with at most 8 digits");
 
+            if (ContainID<T>(newItem.ID) || newItem.ID == 0)
+                newItem.ID = NextID(newItem);
+            getList<T>().Add(newItem);
+        }
+        /// <summary>
+        /// מוחקת איבר מהרשימה באמצעות תעודת הזהות
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר</typeparam>
+        /// <param name="id">תעודת הזהות של האיבר אותו אנו מבקשים למחוק</param>
+        /// <param name="list">הרשימה ממנה נמחוק אותו</param>
+        void Delete<T>(int id) where T : InterID
+        {
+            List<T> list = getList<T>();
+            if (ContainID<T>(id) == false)
+                throw new Exception("There isnt any item in the list with this id...");
+            list.Remove(list.FirstOrDefault(item => item.ID == id));
+
+        }
+        /// <summary>
+        /// מוחקת איבר מהרשימה באמצעות האיבר עצמו
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר</typeparam>
+        /// <param name="item">האיבר אותו אנו מבקשים למחוק</param>
+        /// <param name="list">הרשימה ממנה נמחק אותו</param>
+        void Delete<T>(T item) where T : InterID { Delete<T>(item.ID); }
+        /// <summary>
+        /// עדכון איבר מהרשימה באמצעות איבר מעודכן
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר</typeparam>
+        /// <param name="item">האיבר המעודכן שבעזרת תעדות הזהות מסמן על האיבר שנעדכן</param>
+        /// <param name="list">הרשימה בא נמצא האיבר אותו נעדכן</param>
+        void Update<T>(T item) where T : InterID
+        {
+            List<T> list = getList<T>();
+            if (ContainID<T>(item.ID) == false)
+                throw new Exception("There isnt any item in the list with this id...");
+            list.Remove(list.FirstOrDefault(var => var.ID == item.ID));
+            list.Add(item);
+
+        }
+        /// <summary>
+        /// Get an item by his ID
+        /// </summary>
+        /// <typeparam name="T">The type of the item you want to get</typeparam>
+        /// <param name="id">The ID of the item</param>
+        /// <returns>The item that matchs this ID</returns>
+        T Get<T>(int id) where T : InterID
+        {
+            T res = getList<T>().FirstOrDefault(item => item.ID == id);
+            if (res == null)
+                throw new Exception("There isnt any item in the list with this id...");
+            return res;
+
+        }
+        /// <summary>
+        /// Get all the item that matches the predicate function
+        /// </summary>
+        /// <typeparam name="T">The type of items you want to get</typeparam>
+        /// <param name="predicate">The function that will chekc if you want them or not</param>
+        /// <returns>The list of all of the item that matches the predicate function</returns>
+        IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID
+        {
+            if (predicate == null)
+                return getList<T>().AsEnumerable();
+            return from T item in getList<T>()
+                   where predicate(item)
+                   select item;
+        }
+        /// <summary>
+        /// מביאה תעודת זהות פנוייה באופן רנדומלי
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר שצריך תעדות זהות</typeparam>
+        /// <param name="list">הרשימה בה נמצאים שאר האיברים מסוג זה</param>
+        /// <returns>מחזירה את תעדות הזהות הפנוייה</returns>
+        int NextID<T>(T item) where T : InterID
+        {
+            int original = item.MakeID(), result = original;
+            while (ContainID<T>(result))
+            {
+                result++;
+                if (result == original)
+                    throw new Exception("there is to many items! we cant assign them an ID");
+                result %= 100000000;
+            }
+            return result;
+        }
+        /// <summary>
+        /// בודקת האם קיים איבר ברשימה עם תעודת הזהות הזאת
+        /// </summary>
+        /// <typeparam name="T">סוג האיבר</typeparam>
+        /// <param name="id">תעדות הזהות</param>
+        /// <param name="list">הרשימה בה נמצאים האיברים</param>
+        /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
+        public bool ContainID<T>(int id) where T : InterID
+        {
+            return getList<T>().Any(item => item.ID == id);
+        }
+        List<T> getList<T>()
+        {
+            if (typeof(T) == typeof(Dish))
+                return DS.DataSource.DishList as List<T>;
+            if (typeof(T) == typeof(Branch))
+                return DS.DataSource.BranchList as List<T>;
+            if (typeof(T) == typeof(Client))
+                return DS.DataSource.ClientList as List<T>;
+            if (typeof(T) == typeof(DishOrder))
+                return DS.DataSource.DishOrderList as List<T>;
+            if (typeof(T) == typeof(Order))
+                return DS.DataSource.OrderList as List<T>;
+            if (typeof(T) == typeof(User))
+                return DS.DataSource.UserList as List<T>;
+            return null;
+
+        }
+        #endregion
+
+
+        #region Dish Functions
+        public void AddDish(Dish newDish)
+        {
+            Add(newDish);
+        }
+        public void DeleteDish(int id)
+        {
+            Delete<Dish>(id);
+        }
+        public void DeleteDish(Dish item)
+        {
+            DeleteDish(item.ID);
+        }
+        public void UpdateDish(Dish item)
+        {
+            Update(item);
+        }
+        public Dish GetDish(int id)
+        {
+            return Get<Dish>(id);
+        }
+        public IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null)
+        {
+            return GetAll(predicate);
+        }
+        #endregion
+
+        #region Branch Functions
+        public void AddBranch(Branch newBranch)
+        {
+            Add(newBranch);
+        }
+        public void DeleteBranch(int id)
+        {
+            Delete<Branch>(id);
+        }
+        public void DeleteBranch(Branch item)
+        {
+            DeleteBranch(item.ID);
+        }
+        public void UpdateBranch(Branch item)
+        {
+            Update(item);
+        }
+        public Branch GetBranch(int id)
+        {
+            return Get<Branch>(id);
+        }
+        public IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null)
+        {
+            return GetAll(predicate);
+        }
+        #endregion
+
+        #region Order Functions
+        public void DeliveredOrder(int id)
+        {
+            GetOrder(id).Delivered = true;
+        }
+        public void AddOrder(Order newOrder)
+        {
+            Add(newOrder);
+        }
+        public void DeleteOrder(int id)
+        {
+            Delete<Order>(id);
+        }
+        public void DeleteOrder(Order item)
+        {
+            DeleteOrder(item.ID);
+        }
+        public void UpdateOrder(Order item)
+        {
+            Update(item);
+        }
+        public Order GetOrder(int id)
+        {
+            return Get<Order>(id);
+        }
+        public IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)
+        {
+            return GetAll(predicate);
+        }
+        #endregion
+
+        #region DishOrder Functions
+        public void AddDishOrder(DishOrder newDishOrder)
+        {
+            Add(newDishOrder);
+        }
+        public void DeleteDishOrder(int id)
+        {
+            Delete<DishOrder>(id);
+        }
+        public void DeleteDishOrder(DishOrder item)
+        {
+            DeleteDishOrder(item.ID);
+        }
+        public void UpdateDishOrder(DishOrder item)
+        {
+            Update(item);
+        }
+        public DishOrder GetDishOrder(int id)
+        {
+            return Get<DishOrder>(id);
+        }
+        public IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null)
+        {
+            return GetAll(predicate);
+        }
+        #endregion
+
+        #region Client Functions
+        public void AddClient(Client newClient)
+        {
+            Add(newClient);
+        }
+        public void DeleteClient(int id)
+        {
+            Delete<Client>(id);
+        }
+        public void DeleteClient(Client item)
+        {
+            DeleteClient(item.ID);
+        }
+        public void UpdateClient(Client item)
+        {
+            Update(item);
+        }
+        public Client GetClient(int id)
+        {
+            return Get<Client>(id);
+        }
+        public IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null)
+        {
+            return GetAll(predicate);
+        }
+        #endregion
+
+        //New
+
+        #region User Functions
+
+        /// <summary>
+        /// adds a User
+        /// </summary>
+        /// <param name="newUser"></param>
+        public void AddUser(User newUser)
+        {
+            if (getList<User>().Any(item => item.UserName == newUser.UserName))
+                throw new Exception("there is already a user with that username");
+            getList<User>().Add(newUser);
+
+        }
+        /// <summary>
+        /// deletes a User by username
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteUser(string username)
+        {
+            if (getList<User>().Any(item => item.UserName == username))
+                getList<User>().RemoveAll(item => item.UserName == username);
+            else
+                throw new Exception("There isnt any user with that username in the database");
+        }
+        /// <summary>
+        /// deletes a User
+        /// </summary>
+        /// <param name="item"></param>
+        public void DeleteUser(User item)
+        {
+            DeleteUser(item.UserName);
+        }
+        /// <summary>
+        /// updates a User 
+        /// </summary>
+        /// <param name="item"></param>
+        public void UpdateUser(User item)
+        {
+            DeleteUser(item.UserName);
+            UpdateUser(item);
+        }
+        /// <summary>
+        /// gets a User from the DataBase by its Username
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public User GetUser(string username)
+        {
+            return getList<User>().FirstOrDefault(item => item.UserName == username);
+        }
+        /// <summary>
+        /// gets all Users that pass the predicate test (if there is one)
+        /// </summary>
+        /// <param name="predicate">the predicate test</param>
+        /// <returns>An Enumerable of all of the Users that pass the predicate </returns>
+        public IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null)
+        {
+            if (predicate == null)
+                return getList<User>().AsEnumerable();
+            return from User item in getList<User>()
+                   where predicate(item)
+                   select item;
+        }
+        #endregion
+    }
     class Dal_imp : Idal
     {
         Random rand = new Random();
@@ -269,7 +650,7 @@ namespace DAL
         void Add<T>(T newItem) where T : InterID
         {
             if (newItem.ID < 0 || newItem.ID >= 100000000)
-                throw new Exception("The ID must be a positive number with at most 8 digits");
+                throw new Exception("The ID must be a positi ve number with at most 8 digits");
 
             if (ContainID<T>(newItem.ID) || newItem.ID == 0)
                 newItem.ID = NextID(newItem);

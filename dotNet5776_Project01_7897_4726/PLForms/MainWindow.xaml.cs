@@ -37,21 +37,31 @@ namespace PLForms
 
         private void NextLogin(object sender, RoutedEventArgs e)
         {
+            if (InputBox.Text == "" || InputBox.Foreground==Brushes.Gray)
+            {
+                return;
+            }
             user = BL.FactoryBL.getBL().getUser(InputBox.Text);
             if (user == null)
-                MessageBox.Show("Sorry, There isnt such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Sorry, There isn't such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
             else
                 ChangeToLogin();
         }
         private void SignIn(object sender, RoutedEventArgs e)
         {
-            if (InputPassword.Password == user.Password) ;
+            if (InputPassword.Password.Length == 0 || InputBox.Foreground == Brushes.Gray)
+            {
+                return;
+            }
+            else if (InputPassword.Password == user.Password);
             //enter Type Window
             else
                 MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         private void ChangeToLogin()
         {
+            InputPassword.Visibility = Visibility.Visible;
+            SignInButton.Content = "Sign In";
             typeLabel.Content = user.Type;
             nameLabel.Content = user.Name;
             UsernameLabel.Content = user.UserName;
@@ -71,25 +81,23 @@ namespace PLForms
         private void createAccountButton_Click(object sender, RoutedEventArgs e)
         {          
             //open new client window
-            new NewClient().ShowDialog();
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
+            InputPassword.Visibility = Visibility.Hidden;
+            SignInButton.Content = "Next";
             typeLabel.Content = null;
             nameLabel.Content = null;
             UsernameLabel.Content =null;
             SignInButton.Click -= SignIn;
             SignInButton.Click += NextLogin;
             backArrow.Visibility = Visibility.Hidden;
+            backButton.Visibility = Visibility.Hidden;
             InputBox.Text = "Enter your Username";
             InputBox.Foreground = Brushes.Gray;
+            createAccountButton.Visibility = Visibility.Visible;
         }
-
-
-
-
-
     }
 }
 

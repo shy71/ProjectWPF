@@ -1,8 +1,38 @@
 ﻿<Window x:Class="PLForms.NewClient"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="NewClient" Height="300" Width="300">
+        Title="NewClient" Height="400" Width="400">
+    <Window.Resources>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#FFE6CBC8" />
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="BorderBrush" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Image Source="Images\Red.png" Stretch="Fill"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Image Source="Images\Red.png" Stretch="Fill" Grid.RowSpan="89"/>
+        <Label Content="Create your Freddy's BBQ Joint account!" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+        <TextBox x:Name="addressBox" Grid.Row="1" Text="Address" Style="{StaticResource TextBoxStyle}" Height="25" Width="300"/>
+        <TextBox x:Name="ageBox" Text="Age" Grid.Row="2" Style="{StaticResource TextBoxStyle}" Height="25" Width="70"/>
+        <TextBox x:Name="creditCardBox" Grid.Row="3" Text="Credit Card" Style="{StaticResource TextBoxStyle}"/>
+        <TextBox x:Name="nameBox" Grid.Row="4" Text="Name" Style="{StaticResource TextBoxStyle}"/>
+        <TextBox x:Name="idBox" Grid.Row="5" Text="ID" Style="{StaticResource TextBoxStyle}"/>
     </Grid>
 </Window>
