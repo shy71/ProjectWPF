@@ -37,4 +37,26 @@ namespace BE
     {
         SMALL, MEDIUM, LARGE
     }
+    //new
+    public enum UserType
+    { Client,BranchWorker,BranchManger,NetworkManger }
+
+
+    ////כרגע לא בשימוש 
+    ////אולי אחר כך
+    //class MessageBoxException : Exception
+    //{
+    //    string text, caption;
+    //    MessageBoxButton button;
+    //    MessageBoxImage icon;
+    //    public MessageBoxException(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
+    //        : base()
+    //    {
+    //        text = messageBoxText;
+    //        this.caption = caption;
+    //        this.button = button;
+    //        this.icon = icon;
+    //    }
+    //}
+
 }
