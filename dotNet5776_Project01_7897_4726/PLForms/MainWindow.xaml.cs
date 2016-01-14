@@ -31,9 +31,9 @@ namespace PLForms
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            (sender as TextBox).Text = null;
-            (sender as TextBox).Foreground = Brushes.Black;
-            errorLabel.Content = null;
+                (sender as TextBox).Text = null;
+                (sender as TextBox).Foreground = Brushes.Black;
+                errorLabel.Content = null;
         }
 
         private void NextLogin(object sender, RoutedEventArgs e)
@@ -51,27 +51,62 @@ namespace PLForms
         }
         private void SignIn(object sender, RoutedEventArgs e)
         {
-            if (InputBox.Text == "" || InputBox.Foreground == Brushes.Gray)
+            if (InputPassword.Password.Length == 0 || InputBox.Foreground == Brushes.Gray)
             {
                 errorLabel.Content = "The password cant be empty!";
                 return;
             }
-            else if (InputBox.Text == user.Password) ;
+            else if (InputPassword.Password == user.Password) ;
             //enter Type Window
             else
                 MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         private void ChangeToLogin()
         {
-            InputBox.Text = "Passowrd";
-            InputBox.Foreground = Brushes.Gray;
+            InputPassword.Visibility = Visibility.Visible;
             SignInButton.Content = "Sign In";
             typeLabel.Content = user.Type;
             nameLabel.Content = user.Name;
             UsernameLabel.Content = user.UserName;
             SignInButton.Click -= NextLogin;
             SignInButton.Click += SignIn;
+            backArrow.Visibility = Visibility.Visible;
+            backButton.Visibility = Visibility.Visible;
+            createAccountButton.Visibility = Visibility.Hidden;
         }
+
+        private void InputPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            InputPassword.Password = null;
+            InputPassword.Foreground = Brushes.Black;
+            errorLabel.Content = null;
+        }
+
+        private void createAccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            //open new client window
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            InputPassword.Visibility = Visibility.Hidden;
+            SignInButton.Content = "Next";
+            typeLabel.Content = null;
+            nameLabel.Content = null;
+            UsernameLabel.Content =null;
+            SignInButton.Click -= SignIn;
+            SignInButton.Click += NextLogin;
+            backArrow.Visibility = Visibility.Hidden;
+            backButton.Visibility = Visibility.Hidden;
+            InputBox.Text = "Enter your Username";
+            InputBox.Foreground = Brushes.Gray;
+            createAccountButton.Visibility = Visibility.Visible;
+        }
+
+
+
+
+
     }
 }
 
