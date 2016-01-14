@@ -23,5 +23,88 @@ namespace PLForms
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // clientViewSource.Source = [generic data source]
+        }
+
+        private void Window_Loaded_1(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // clientViewSource.Source = [generic data source]
+        }
+
+        private void Window_Loaded_2(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // clientViewSource.Source = [generic data source]
+        }
+
+        private void Window_Loaded_3(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // clientViewSource.Source = [generic data source]
+        }
+
+        private void Window_Loaded_4(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // clientViewSource.Source = [generic data source]
+        }
+
+        private void Window_Loaded_5(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // clientViewSource.Source = [generic data source]
+        }
+
+        private void Window_Loaded_6(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // clientViewSource.Source = [generic data source]
+        }
+
+        private void Window_Loaded_7(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // clientViewSource.Source = [generic data source]
+            System.Windows.Data.CollectionViewSource dishViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("dishViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // dishViewSource.Source = [generic data source]
+        }
+
+        private void Window_Loaded_8(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // clientViewSource.Source = [generic data source]
+        }
+
+        private void Window_Loaded_9(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Data.CollectionViewSource dishViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("dishViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            // dishViewSource.Source = [generic data source]
+        }
     }
 }
