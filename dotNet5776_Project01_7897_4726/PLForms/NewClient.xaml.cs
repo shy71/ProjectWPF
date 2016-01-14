@@ -11,7 +11,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+/*
+להוסיף אייקון
+להוסיף קידוד לסיסמא
+האם כל השגיאות בהודעה נפתחת או בהערה
+*/
 namespace PLForms
 {
     /// <summary>
