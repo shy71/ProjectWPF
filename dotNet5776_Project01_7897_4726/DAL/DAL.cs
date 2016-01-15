@@ -429,21 +429,7 @@ namespace DAL
         /// <returns>The list of all of the item that matches the predicate function</returns>
         IEnumerable<T> GetAll<T>(XmlSample file, Func<T, bool> predicate = null) where T : InterID , new()
         {
-                T res = new T();
-                var s = (from p in file.FileRoot.Elements()
-                         select p);
-                foreach (var item in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
-                {
-                    item.SetValue(res, s.Element(item.Name).);
-                }
-                return res;
-
-
-            if (predicate == null)
-                return getList<T>().AsEnumerable();
-            return from T item in getList<T>()
-                   where predicate(item)
-                   select item;
+            
         }
         /// <summary>
         /// מביאה תעודת זהות פנוייה באופן רנדומלי
