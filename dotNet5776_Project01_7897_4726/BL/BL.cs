@@ -664,7 +664,7 @@ namespace BL
             int temp = 0;
             res += order + "\n";
             foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == order.ID).OrderBy(item => item.ID))//מסודר כדי שנוכל להשתמש בזה לבחירת קלט
-                res += "\t(" + (temp++) + ") Name: " + myDal.GetDish(item.DishID).Name + " Amount: " + item.DishAmount + "\n";
+                res += "\t(" + (++temp) + ") Name: " + myDal.GetDish(item.DishID).Name + " Amount: " + item.DishAmount + "\n";
             return res;
         }
 

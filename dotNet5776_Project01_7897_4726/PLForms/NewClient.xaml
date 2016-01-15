@@ -1,6 +1,7 @@
 ﻿<Window x:Class="PLForms.NewClient"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dc="clr-namespace:PLForms"
         Title="NewClient" Height="400" Width="400" ResizeMode="NoResize" Background="#FFE6CBC8">
     <Window.Resources>
         <Style x:Key="BoxStyle" TargetType="Control">
@@ -11,11 +12,11 @@
             <Setter Property="BorderBrush" Value="Black"/>
         </Style>
         <Style x:Key="TextBoxStyle" BasedOn="{StaticResource BoxStyle}" TargetType="TextBox">
-            <Style.Triggers>
+            <!--<Style.Triggers>
                 <Trigger Property="Text" Value="">
                     <Setter Property="BorderBrush" Value="Red"/>
                 </Trigger>
-            </Style.Triggers>
+            </Style.Triggers>-->
         </Style>
     </Window.Resources>
     <Grid>
@@ -33,7 +34,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Create your Freddy's BBQ Joint account!" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-        <TextBox x:Name="usernameBox" Grid.Row="1" Style="{StaticResource TextBoxStyle}" Margin="89,0,0,0"/>
+        <TextBox Text="{Binding ElementName=dc:user,Path=UserName}" x:Name="usernameBox" Grid.Row="1" Style="{StaticResource TextBoxStyle}" Margin="89,0,0,0"/>
         <Label x:Name="usernameLabel" Content="Username:" Grid.Row="1" Foreground="Black" VerticalContentAlignment="Center" Margin="0,0,305,0"/>
         <PasswordBox x:Name="passowrdBox1" Grid.Row="2" Style="{StaticResource BoxStyle}" Margin="146,0,0,0"/>
         <Label x:Name="passwordLabel1" Content="Password:" Grid.Row="2"  VerticalContentAlignment="Center" Margin="0,0,310,0"/>
@@ -42,17 +43,18 @@
         <TextBox x:Name="addressBox" Grid.Row="4" Style="{StaticResource TextBoxStyle}" Margin="73,0,0,0"/>
         <Label Content="Address:" Grid.Row="4" VerticalContentAlignment="Center" Margin="0,0,326,0"/>
         <Label Content="Age:" Grid.Row="5" VerticalContentAlignment="Center" Margin="0,0,351,0"/>
-        <ComboBox Margin="46,0,288,0" Grid.Row="5" SelectedItem="{Binding Age}"/>
+        <TextBox x:Name="ageBox" Grid.Row="5" Text="{Binding Age}" Style="{StaticResource TextBoxStyle}" Margin="89,0,0,0"/>
+
 
         <TextBox x:Name="creditCardBox" Grid.Row="6" Text="{Binding CreditCard}" Style="{StaticResource TextBoxStyle}" Margin="89,0,0,0"/>
         <Label Content="Credit Card:" Grid.Row="6" VerticalContentAlignment="Center" Margin="0,0,305,0"/>
         <TextBox x:Name="nameBox" Grid.Row="7" Text="{Binding Name}" Style="{StaticResource TextBoxStyle}" Margin="53,0,0,0"/>
         <Label Content="Name:" Grid.Row="7" VerticalContentAlignment="Center" Margin="0,0,341,0"/>
-        <TextBox x:Name="idBox" Grid.Row="8" Text="{Binding ID}" Style="{StaticResource TextBoxStyle}" Margin="237,0,0,0"/>
-        <Label Content="ID:" Grid.Row="8" VerticalContentAlignment="Center" Margin="0,0,355,0"/>
-        <CheckBox  Grid.Row="8" Margin="122,21,250,0"/>
+        <TextBox x:Name="idBox" Grid.Row="8" Text="{Binding ID}" Style="{StaticResource TextBoxStyle}" Margin="237,0,0,0" IsEnabled="{Binding ElementName=checkBox, Path=IsChecked}"/>
+        <Label Content="ID:" Grid.Row="8" VerticalContentAlignment="Center" Margin="0,0,355,0" />
+        <CheckBox x:Name="checkBox" Grid.Row="8" Margin="122,21,250,0" />
         <Label Content="Pick ID yourself(not recommended)" Grid.Row="8" Margin="37,0,155,15"/>
-        <Button x:Name="nextButton" Grid.Row="9" Content="Next step!" Background="Blue" Foreground="White" Margin="308,5,10,5" FontWeight="Bold" >
+        <Button x:Name="nextButton" Grid.Row="9" Content="Next step!" Background="Blue" Foreground="White" Margin="308,5,10,5" FontWeight="Bold" Click="nextButton_Click" >
             <Button.Style>
                 <Style>
                     <Style.Triggers>
@@ -68,12 +70,22 @@
                         <DataTrigger Binding="{Binding ElementName=addressBox, Path=Text}" Value="">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=ageBox, Path=Text}" Value="">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=creditCardBox, Path=Text}" Value="">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=Name, Path=Text}" Value="">
+                        <DataTrigger Binding="{Binding ElementName=nameBox, Path=Text}" Value="">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=checkBox, Path=IsChecked}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=idBox, Path=Text}" Value=""/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>

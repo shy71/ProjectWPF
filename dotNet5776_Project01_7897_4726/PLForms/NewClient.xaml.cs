@@ -23,12 +23,28 @@ namespace PLForms
     /// </summary>
     public partial class NewClient : Window
     {
+        BE.Client client;
+        BE.User user;
         public NewClient()
         {
-           BE.Client client=new BE.Client();
-            BE.User user;
+           
             InitializeComponent();
+            client = new BE.Client();
+            user = new BE.User();
             this.DataContext = client;
+        }
+
+        private void nextButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int a=5;
+                
+            }
+            catch(Exception exp)
+            {
+                MessageBox.Show(exp.Message, "Problem with account", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
