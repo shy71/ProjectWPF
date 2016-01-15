@@ -355,12 +355,12 @@ namespace DAL
         void Delete(int id,XmlSample file)
         {
             file.LoadFile();
-            if (ContainID(id,file) == false)
+            if (!ContainID(id,file))
                 throw new Exception("There isnt any item in the list with this id...");
             try
             {
                 XElement TElement = (from p in file.FileRoot.Elements()
-                                     where Convert.ToInt32(p.Element("id").Value) == id
+                                     where Convert.ToInt32(p.Element("ID").Value) == id
                                      select p).FirstOrDefault();
                 TElement.Remove();
                 file.Save();
@@ -387,7 +387,7 @@ namespace DAL
         void Update<T>(T item,XmlSample file) where T : InterID
         {
             file.LoadFile();
-            if (ContainID(item.ID,file) == false)
+            if (!ContainID(item.ID,file))
                 throw new Exception("There isnt any item in the list with this id...");
             Delete(item, file);
             Add(item, file);
@@ -398,28 +398,53 @@ namespace DAL
         /// <typeparam name="T">The type of the item you want to get</typeparam>
         /// <param name="id">The ID of the item</param>
         /// <returns>The item that matchs this ID</returns>
-        //T Get<T>(int id,XmlSample file) where T : InterID
-        //{
-        //    T res = file.
-        //    if (res == null)
-        //        throw new Exception("There isnt any item in the list with this id...");
-        //    return res;
+        T Get<T>(int id,XmlSample file) where T : InterID,new()
+        {
+            file.LoadFile();
+            if (!ContainID(id, file))
+                throw new Exception("There isnt any item in the datdbase with this id...");
+            try
+            {
+                T res = new T();
+                var s = (from p in file.FileRoot.Elements()
+                         where Convert.ToInt32(p.Element("ID").Value) == id
+                         select p).FirstOrDefault();
+                foreach (var item in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+                {
+                    item.SetValue(res, s.Element(item.Name));
+                }
+                return res;
+            }
+            catch
+            {
+                throw new Exception("Failed to load item.");
+            }
 
-        //}
+        }
         /// <summary>
         /// Get all the item that matches the predicate function
         /// </summary>
         /// <typeparam name="T">The type of items you want to get</typeparam>
         /// <param name="predicate">The function that will chekc if you want them or not</param>
         /// <returns>The list of all of the item that matches the predicate function</returns>
-        //IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID
-        //{
-        //    if (predicate == null)
-        //        return getList<T>().AsEnumerable();
-        //    return from T item in getList<T>()
-        //           where predicate(item)
-        //           select item;
-        //}
+        IEnumerable<T> GetAll<T>(XmlSample file, Func<T, bool> predicate = null) where T : InterID
+        {
+                T res = new T();
+                var s = (from p in file.FileRoot.Elements()
+                         select p);
+                foreach (var item in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+                {
+                    item.SetValue(res, s.Element(item.Name));
+                }
+                return res;
+
+
+            if (predicate == null)
+                return getList<T>().AsEnumerable();
+            return from T item in getList<T>()
+                   where predicate(item)
+                   select item;
+        }
         /// <summary>
         /// מביאה תעודת זהות פנוייה באופן רנדומלי
         /// </summary>
