@@ -8,6 +8,7 @@ namespace BE
 {
     public class Dish : InterID
     {
+        public Dish() { }
         public Dish(string name, Size size, float price, Kashrut kosher, int id = 0)
         {
             ID = id;
@@ -119,6 +120,7 @@ namespace BE
     }
     public class Order : InterID
     {
+        public Order() { }
         public Order(int branchID, string address, DateTime date, Kashrut kosher, int clientID, int id = 0)
         {
             Delivered = false;
@@ -210,6 +212,7 @@ namespace BE
     }
     public class DishOrder : InterID
     {
+        public DishOrder() { }
         public DishOrder(int orderID, int dishID, int dishAmount = 1, int id = 0)
         {
             ID = id;
@@ -275,6 +278,7 @@ namespace BE
     }
     public class Branch : InterID
     {
+                public Branch() { }
         public Branch(string name, string address, string phoneNumber, string boss, int employeeCount, int availableMessangers, Kashrut kosher, int id = 0)
         {
             ID = id;
@@ -428,6 +432,7 @@ namespace BE
     }
     public class User
     {
+        public User() { }
         public User(UserType type,string username,string password,string name,int clientID=0)
         {
             Type = type;
