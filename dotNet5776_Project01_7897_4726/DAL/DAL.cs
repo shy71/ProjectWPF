@@ -20,7 +20,7 @@ namespace DAL
         public static Idal getDal()
         {
             if (instance == null)
-                instance = new Dal_imp();
+                instance = new Dal_XML_imp();
             return instance;
         }
     }
@@ -269,6 +269,7 @@ namespace DAL
         public XmlSample(string path,string name)
         {
             FPath = path;
+            Name = name;
             if (!File.Exists(path))
                 CreateFile();
             else
@@ -301,15 +302,15 @@ namespace DAL
                                select new XElement(item.Name, item.GetValue(obj))));
     }
     }
-    class Dal_XML_imp
+    class Dal_XML_imp : Idal
     {
         Random rand = new Random();
-        XmlSample xmlDish = new XmlSample(@"XmlFiles\DishXml.xml", "Dishes"), 
-                  xmlBranch = new XmlSample(@"XmlFiles\BranchXml.xml", "Branches"), 
-                  xmlOrder = new XmlSample(@"XmlFiles\OrderXml.xml", "Order"),
-                  xmlDishOrder = new XmlSample(@"XmlFiles\DishOrderXml.xml", "DishOrders"), 
-                  xmlClient = new XmlSample(@"XmlFiles\ClientXml.xml", "Clients"),
-                  xmlUser = new XmlSample(@"XmlFiles\UserXml.xml", "Users");
+        XmlSample xmlDish = new XmlSample("../../" + @"XmlFiles\DishXml.xml", "Dishes"),
+                  xmlBranch = new XmlSample("../../" + @"XmlFiles\BranchXml.xml", "Branches"),
+                  xmlOrder = new XmlSample("../../" + @"XmlFiles\OrderXml.xml", "Order"),
+                  xmlDishOrder = new XmlSample("../../" + @"XmlFiles\DishOrderXml.xml", "DishOrders"),
+                  xmlClient = new XmlSample("../../" + @"XmlFiles\ClientXml.xml", "Clients"),
+                  xmlUser = new XmlSample("../../" + @"XmlFiles\UserXml.xml", "Users");
         #region Generic Functions
         /// <summary>
         /// מוסיפה איבר לרשימה, יחד עם כל הבדיקות הנצרכות
@@ -333,7 +334,7 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="id">תעודת הזהות של האיבר אותו אנו מבקשים למחוק</param>
         /// <param name="list">הרשימה ממנה נמחוק אותו</param>
-        void Delete<T>(int id)
+        void Delete<T>(int id) where T : InterID
         {
             getFile<T>().LoadFile();
             if (!ContainID<T>(id))
@@ -392,7 +393,16 @@ namespace DAL
                          select p).FirstOrDefault();
                 foreach (var item in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
                 {
-                    item.SetValue(res, s.Element(item.Name));
+                    if (item.PropertyType.Name == typeof(int).Name)
+                        item.SetValue(res, Convert.ToInt32(s.Element(item.Name).Value));
+                    else if (item.PropertyType.Name == typeof(string).Name)
+                        item.SetValue(res, s.Element(item.Name).Value);
+                    else if (item.PropertyType.Name == typeof(Size).Name)
+                        item.SetValue(res, BE.Extensions.ToSize(s.Element(item.Name).Value));
+                    else if (item.PropertyType.Name == typeof(Kashrut).Name)
+                        item.SetValue(res, BE.Extensions.ToKashrut(s.Element(item.Name).Value));
+                    else if (item.PropertyType.Name == typeof(DateTime).Name)
+                        item.SetValue(res, Convert.ToDateTime(s.Element(item.Name).Value));
                 }
                 return res;
             }
@@ -408,7 +418,7 @@ namespace DAL
         /// <typeparam name="T">The type of items you want to get</typeparam>
         /// <param name="predicate">The function that will chekc if you want them or not</param>
         /// <returns>The list of all of the item that matches the predicate function</returns>
-        IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID,new()
+        IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID, new()
         {
             getFile<T>().LoadFile();
             try
@@ -416,18 +426,28 @@ namespace DAL
                 IEnumerable<T> list = (from p in getFile<T>().FileRoot.Elements()
                                        select p).Select((item) =>
         {
-                T res = new T();
-                                foreach (var item2 in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
-                {
-                                    item2.SetValue(res, item.Element(item2.Name));
-                }
-                return res;
-                            });
-            if (predicate == null)
+            T res = new T();
+            foreach (var item2 in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+            {
+
+                if (item2.PropertyType == typeof(int))
+                    item2.SetValue(res, Convert.ToInt32(item.Element(item2.Name).Value));
+                else if (item2.PropertyType == typeof(string))
+                    item2.SetValue(res, item.Element(item2.Name).Value);
+                else if (item2.PropertyType == typeof(Size))
+                    item2.SetValue(res, BE.Extensions.ToSize(item.Element(item2.Name).Value));
+                else if (item2.PropertyType == typeof(Kashrut))
+                    item2.SetValue(res, BE.Extensions.ToKashrut(item.Element(item2.Name).Value));
+                else if (item2.PropertyType == typeof(DateTime))
+                    item2.SetValue(res, Convert.ToDateTime(item.Element(item2.Name).Value));
+            }
+            return res;
+        });
+                if (predicate == null)
                     return list;
                 return from T item in list
-                   where predicate(item)
-                   select item;
+                       where predicate(item)
+                       select item;
         }
             catch
             {
@@ -459,7 +479,7 @@ namespace DAL
         /// <param name="id">תעדות הזהות</param>
         /// <param name="list">הרשימה בה נמצאים האיברים</param>
         /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
-        public bool ContainID<T>(int id)
+        public bool ContainID<T>(int id) where T:InterID
         {
             return getFile<T>().FileRoot.Elements().Any(p=>Convert.ToInt32(p.Element("ID").Value) == id);
         }
@@ -698,7 +718,12 @@ namespace DAL
                     throw new Exception("There isnt any item in the datdbase with this id...");
                 foreach (var item in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
                 {
-                    item.SetValue(res, s.Element(item.Name));
+                        if (item.PropertyType == typeof(int))
+                            item.SetValue(res, Convert.ToInt32(s.Element(item.Name).Value));
+                        else if (item.PropertyType == typeof(string))
+                            item.SetValue(res, s.Element(item.Name).Value);
+                        else if (item.PropertyType == typeof(UserType))
+                            item.SetValue(res, BE.Extensions.ToUserType(s.Element(item.Name).Value));
                 }
                 return res;
             }
@@ -726,7 +751,14 @@ namespace DAL
                                            User res = new User();
                                            foreach (var item2 in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
                                            {
-                                               item2.SetValue(res, item.Element(item2.Name));
+                                               item2.SetValue(res, item.Element(item2.Name).Value);
+
+                                               if (item2.PropertyType == typeof(int))
+                                                   item2.SetValue(res, Convert.ToInt32(item.Element(item2.Name).Value));
+                                               else if (item2.PropertyType == typeof(string))
+                                                   item2.SetValue(res, item.Element(item.Name).Value);
+                                               else if (item2.PropertyType == typeof(UserType))
+                                                   item2.SetValue(res, BE.Extensions.ToUserType(item.Element(item2.Name).Value));
                                            }
                                            return res;
                                        });
