@@ -365,6 +365,7 @@ namespace BE
     }
     public class Client : InterID
     {
+        public Client() { }
         public Client(string name, string address, int creditCard, int age, int id = 0)
         {
             ID = id;

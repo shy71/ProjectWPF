@@ -25,24 +25,10 @@ namespace PLForms
     {
         public NewClient()
         {
+           BE.Client client=new BE.Client();
+            BE.User user;
             InitializeComponent();
-        }
-
-        private void Box_GotFocus(object sender, RoutedEventArgs e)
-        {
-            (sender as TextBox).Text = null;
-            (sender as TextBox).Foreground = Brushes.Black;
-        }
-
-        private void passwordLabel1_GotFocus(object sender, RoutedEventArgs e)
-        {
-            passwordLabel1.Visibility = Visibility.Hidden;
-            passowrdBox1.Foreground = Brushes.Black;
-        }
-        private void passwordLabel2_GotFocus(object sender, RoutedEventArgs e)
-        {
-            passwordLabel2.Visibility = Visibility.Hidden;
-            passowrdBox2.Foreground = Brushes.Black;
+            this.DataContext = client;
         }
     }
 }
