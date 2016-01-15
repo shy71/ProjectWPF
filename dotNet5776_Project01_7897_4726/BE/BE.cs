@@ -16,7 +16,14 @@ namespace BE
             Price = price;
             Kosher = kosher;
         }
-
+        public Dish(string name, string size, float price, string kosher, int id = 0)
+        {
+            ID = id;
+            Name = name;
+            SizeConsturctor = size;
+            Price = price;
+            KosherConstructor = kosher;
+        }
 
         int id;
         public int ID
@@ -37,6 +44,26 @@ namespace BE
             set { size = value; }
         }
         float price;
+        public string SizeConsturctor
+        {
+            set
+            {
+                switch (value.ToUpper())
+                {
+                    case "LARGE":
+                        size = BE.Size.LARGE;
+                        break;
+                    case "MEDIUM":
+                        size = BE.Size.MEDIUM;
+                        break;
+                    case "SMALL":
+                        size = BE.Size.SMALL;
+                        break;
+                    default:
+                        throw new Exception("Invalid size level.");
+                }
+            }
+        }
         public float Price
         {
             get { return price; }
@@ -48,7 +75,26 @@ namespace BE
             get { return kosher; }
             set { kosher = value; }
         }
-
+        public string KosherConstructor
+        {
+            set 
+            {
+                switch(value.ToUpper())
+                {
+                    case "HIGH":
+                        kosher = Kashrut.HIGH;
+                        break;
+                    case "MEDIUM":
+                        kosher = Kashrut.MEDIUM;
+                        break;
+                    case "LOW":
+                        kosher = Kashrut.LOW;
+                        break;
+                    default:
+                        throw new Exception("Invalid kashrut level.");
+                }
+            }
+        }
 
         /// <summary>
         /// ממיר את המנה למחרוזת
