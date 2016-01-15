@@ -11,7 +11,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+/*
+להוסיף אייקון
+להוסיף קידוד לסיסמא
+האם כל השגיאות בהודעה נפתחת או בהערה
+*/
 namespace PLForms
 {
     /// <summary>
@@ -24,87 +28,21 @@ namespace PLForms
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Box_GotFocus(object sender, RoutedEventArgs e)
         {
-
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // clientViewSource.Source = [generic data source]
+            (sender as TextBox).Text = null;
+            (sender as TextBox).Foreground = Brushes.Black;
         }
 
-        private void Window_Loaded_1(object sender, RoutedEventArgs e)
+        private void passwordLabel1_GotFocus(object sender, RoutedEventArgs e)
         {
-
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // clientViewSource.Source = [generic data source]
+            passwordLabel1.Visibility = Visibility.Hidden;
+            passowrdBox1.Foreground = Brushes.Black;
         }
-
-        private void Window_Loaded_2(object sender, RoutedEventArgs e)
+        private void passwordLabel2_GotFocus(object sender, RoutedEventArgs e)
         {
-
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // clientViewSource.Source = [generic data source]
-        }
-
-        private void Window_Loaded_3(object sender, RoutedEventArgs e)
-        {
-
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // clientViewSource.Source = [generic data source]
-        }
-
-        private void Window_Loaded_4(object sender, RoutedEventArgs e)
-        {
-
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // clientViewSource.Source = [generic data source]
-        }
-
-        private void Window_Loaded_5(object sender, RoutedEventArgs e)
-        {
-
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // clientViewSource.Source = [generic data source]
-        }
-
-        private void Window_Loaded_6(object sender, RoutedEventArgs e)
-        {
-
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // clientViewSource.Source = [generic data source]
-        }
-
-        private void Window_Loaded_7(object sender, RoutedEventArgs e)
-        {
-
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // clientViewSource.Source = [generic data source]
-            System.Windows.Data.CollectionViewSource dishViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("dishViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // dishViewSource.Source = [generic data source]
-        }
-
-        private void Window_Loaded_8(object sender, RoutedEventArgs e)
-        {
-
-            System.Windows.Data.CollectionViewSource clientViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("clientViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // clientViewSource.Source = [generic data source]
-        }
-
-        private void Window_Loaded_9(object sender, RoutedEventArgs e)
-        {
-
-            System.Windows.Data.CollectionViewSource dishViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("dishViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // dishViewSource.Source = [generic data source]
+            passwordLabel2.Visibility = Visibility.Hidden;
+            passowrdBox2.Foreground = Brushes.Black;
         }
     }
 }

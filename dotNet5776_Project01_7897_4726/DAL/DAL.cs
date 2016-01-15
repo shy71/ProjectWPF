@@ -318,7 +318,8 @@ namespace DAL
         //    }
         //}
     }
-    class Dal_XML_imp    {
+    class Dal_XML_imp
+    {
         Random rand = new Random();
         XmlSample xmlDish = new XmlSample(@"XmlFiles\DishXml.xml", "Dishes"), 
                   xmlBranch = new XmlSample(@"XmlFiles\BranchXml.xml", "Branches"), 
@@ -510,13 +511,18 @@ namespace DAL
             try
             {
                 IEnumerable<Dish> list = (from p in xmlDish.FileRoot.Elements()
-                                          select new Dish(p.Element("Name").Value
-                                                        , p.Element("Size").Value
-                                                        , Convert.ToSingle(p.Element("Price").Value)
-                                                        , p.Element("Kashrut").Value
-                                                        , Convert.ToInt32(p.Element("ID").Value))
-                                         ).ToList();
-
+                                   select new Dish(p.Element("Name").Value
+                                                 , p.Element("Size").Value
+                                                 , Convert.ToSingle(p.Element("Price").Value)
+                                                 , p.Element("Kashrut").Value
+                                                 , Convert.ToInt32(p.Element("ID").Value))
+                                         );
+                if (predicate == null)
+                    return list;
+                else
+                    return (from item in list
+                            where predicate(item)
+                            select item);
             }
             catch
             {
