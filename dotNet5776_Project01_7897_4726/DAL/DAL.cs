@@ -342,7 +342,7 @@ namespace DAL
             if (ContainID(newItem.ID,file) || newItem.ID == 0)
                 newItem.ID = NextID(newItem,file);
             file.FileRoot.Add(new XElement(newItem.GetType().ToString(), 
-                                           from item in newItem.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance).ToArray()
+                                           from item in newItem.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
                                            select new XElement(item.Name, item.GetValue(newItem))));
             file.Save();
         }
@@ -534,11 +534,11 @@ namespace DAL
         #region Branch Functions
         public void AddBranch(Branch newBranch)
         {
-            Add(newBranch);
+            Add(newBranch, xmlBranch);
         }
         public void DeleteBranch(int id)
         {
-            Delete<Branch>(id);
+            Delete(id,xmlBranch);
         }
         public void DeleteBranch(Branch item)
         {
@@ -546,11 +546,27 @@ namespace DAL
         }
         public void UpdateBranch(Branch item)
         {
-            Update(item);
+            Update(item,xmlBranch);
         }
         public Branch GetBranch(int id)
         {
-            return Get<Branch>(id);
+            try
+            {
+                Branch result = (from p in xmlBranch.FileRoot.Elements()
+                               where Convert.ToInt32(p.Element("ID").Value) == id
+                               select new Branch(p.Element("Name").Value,
+                                                p.Element("Address").Value,
+                                                p.Element("PhoneNumber").Value,
+                                                p.Element("Boss").Value,
+                                                
+
+                              ).FirstOrDefault();
+                return result;
+            }
+            catch
+            {
+                throw new Exception("Failed to load item.");
+            }
         }
         public IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null)
         {
