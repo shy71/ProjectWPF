@@ -398,14 +398,7 @@ namespace DAL
         /// <typeparam name="T">The type of the item you want to get</typeparam>
         /// <param name="id">The ID of the item</param>
         /// <returns>The item that matchs this ID</returns>
-        //T Get<T>(int id,XmlSample file) where T : InterID
-        //{
-        //    T res = file.
-        //    if (res == null)
-        //        throw new Exception("There isnt any item in the list with this id...");
-        //    return res;
-
-        //}
+        
         /// <summary>
         /// Get all the item that matches the predicate function
         /// </summary>
@@ -489,45 +482,11 @@ namespace DAL
         }
         public Dish GetDish(int id)
         {
-            try
-            {
-                Dish result = (from p in xmlDish.FileRoot.Elements()
-                               where Convert.ToInt32(p.Element("ID").Value) == id
-                               select new Dish(p.Element("Name").Value
-                                   , p.Element("Size").Value
-                                   , Convert.ToSingle(p.Element("Price").Value)
-                                   , p.Element("Kashrut").Value
-                                   , Convert.ToInt32(p.Element("ID").Value))
-                              ).FirstOrDefault();
-                return result;
-            }
-            catch
-            {
-                throw new Exception("Failed to load item.");
-            }
+            
         }
         public IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null)
         {
-            try
-            {
-                IEnumerable<Dish> list = (from p in xmlDish.FileRoot.Elements()
-                                   select new Dish(p.Element("Name").Value
-                                                 , p.Element("Size").Value
-                                                 , Convert.ToSingle(p.Element("Price").Value)
-                                                 , p.Element("Kashrut").Value
-                                                 , Convert.ToInt32(p.Element("ID").Value))
-                                         );
-                if (predicate == null)
-                    return list;
-                else
-                    return (from item in list
-                            where predicate(item)
-                            select item);
-            }
-            catch
-            {
-                throw new Exception("Failed to load items");
-            }
+            
         }
         #endregion
 
@@ -558,6 +517,8 @@ namespace DAL
                                                 p.Element("Address").Value,
                                                 p.Element("PhoneNumber").Value,
                                                 p.Element("Boss").Value,
+                                                Convert.ToInt32(p.Element("EmployeeCount").Value),
+
                                                 
 
                               ).FirstOrDefault();
