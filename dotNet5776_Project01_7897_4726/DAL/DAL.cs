@@ -502,8 +502,6 @@ namespace DAL
         }
         #endregion
 
-
-
         #region Dish Functions
         public void AddDish(Dish newDish)
         {
@@ -643,8 +641,6 @@ namespace DAL
         }
         #endregion
 
-        //New
-
         #region User Functions
 
         /// <summary>
@@ -652,11 +648,11 @@ namespace DAL
         /// </summary>
         /// <param name="newUser"></param>
         public void AddUser(User newUser)
-       {
+        {
                getFile<User>().LoadFile();
-               if (getFile<User>().FileRoot.Elements().Any(p => p.Element("UserName").Value == newUser.UserName))
+            if (getFile<User>().FileRoot.Elements().Any(p => p.Element("UserName").Value == newUser.UserName))
                    throw new Exception("there is already a user with that username!");
-               getFile<User>().Add(newUser);
+            getFile<User>().Add(newUser);
                getFile<User>().Save();
 
         }
@@ -717,7 +713,7 @@ namespace DAL
                          where p.Element("UserName").Value == username
                          select p).FirstOrDefault();
                 if (s == null)
-                    throw new Exception("There isnt any item in the datdbase with this id...");
+                    return null;
                 foreach (var item in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
                 {
                     if (item.PropertyType == typeof(int))
@@ -731,10 +727,7 @@ namespace DAL
             }
             catch (Exception exp)
             {
-                if (exp.Source == "DAL")
-                    throw exp;
                 throw new Exception("Failed to load item.");
-
             }
         }
         /// <summary>
@@ -1063,7 +1056,6 @@ namespace DAL
             if (getList<User>().Any(item => item.UserName == newUser.UserName))
                 throw new Exception("there is already a user with that username");
             getList<User>().Add(newUser);
-
         }
         /// <summary>
         /// deletes a User by username
