@@ -290,6 +290,33 @@ namespace DAL
             fileRoot = new XElement(name);
             fileRoot.Save(fPath);
         }
+        public void Save()
+        {
+            fileRoot.Save(fPath);
+        }
+        //T Get<T>(int ID)where T:InterID
+        //{
+        //    try
+        //    {
+        //        //List<T> Tlist=(from p in fileRoot.Elements()
+        //        //               where Convert.ToInt32(p.Element("id").Value) == ID
+        //        //               select /*copy item into Tlist*/p).ToList();
+        //        /*foreach(var item in fileRoot.Elements())
+        //        {
+        //            foreach(var p in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+        //            {
+        //                if(Convert.ToInt32(item.Element("id").Value) == ID)
+        //                {
+        //                    //copy the item into res
+        //                }
+        //            }
+        //        }*/
+        //    }
+        //    catch
+        //    {
+        //        throw new Exception("Problem getting the item");
+        //    }
+        //}
     }
     class Dal_XML_imp
     {
@@ -307,14 +334,17 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="newItem">האיבר שהפוקנציה תוסיף</param>
         /// <param name="list">הרשימה לה היא תוסיף אותה</param>
-        void Add<T>(T newItem) where T : InterID
+        void Add<T>(T newItem, XmlSample file) where T : InterID
         {
             if (newItem.ID < 0 || newItem.ID >= 100000000)
-                throw new Exception("The ID must be a positi ve number with at most 8 digits");
-
-            if (ContainID<T>(newItem.ID) || newItem.ID == 0)
-                newItem.ID = NextID(newItem);
-            getList<T>().Add(newItem);
+                throw new Exception("The ID must be a positive number with at most 8 digits");
+            file.LoadFile();
+            if (ContainID(newItem.ID,file) || newItem.ID == 0)
+                newItem.ID = NextID(newItem,file);
+            file.FileRoot.Add(new XElement(newItem.GetType().ToString(), 
+                                           from item in newItem.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance).ToArray()
+                                           select new XElement(item.Name, item.GetValue(newItem))));
+            file.Save();
         }
         /// <summary>
         /// מוחקת איבר מהרשימה באמצעות תעודת הזהות
@@ -322,12 +352,23 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="id">תעודת הזהות של האיבר אותו אנו מבקשים למחוק</param>
         /// <param name="list">הרשימה ממנה נמחוק אותו</param>
-        void Delete<T>(int id) where T : InterID
+        void Delete(int id,XmlSample file)
         {
-            List<T> list = getList<T>();
-            if (ContainID<T>(id) == false)
+            file.LoadFile();
+            if (ContainID(id,file) == false)
                 throw new Exception("There isnt any item in the list with this id...");
-            list.Remove(list.FirstOrDefault(item => item.ID == id));
+            try
+            {
+                XElement TElement = (from p in file.FileRoot.Elements()
+                                     where Convert.ToInt32(p.Element("id").Value) == id
+                                     select p).FirstOrDefault();
+                TElement.Remove();
+                file.Save();
+            }
+            catch
+            {
+                throw new Exception("Problem deleting the item.");
+            }
 
         }
         /// <summary>
@@ -336,21 +377,20 @@ namespace DAL
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="item">האיבר אותו אנו מבקשים למחוק</param>
         /// <param name="list">הרשימה ממנה נמחק אותו</param>
-        void Delete<T>(T item) where T : InterID { Delete<T>(item.ID); }
+        void Delete<T>(T item, XmlSample file) where T:InterID { Delete(item.ID,file); }
         /// <summary>
         /// עדכון איבר מהרשימה באמצעות איבר מעודכן
         /// </summary>
         /// <typeparam name="T">סוג האיבר</typeparam>
         /// <param name="item">האיבר המעודכן שבעזרת תעדות הזהות מסמן על האיבר שנעדכן</param>
         /// <param name="list">הרשימה בא נמצא האיבר אותו נעדכן</param>
-        void Update<T>(T item) where T : InterID
+        void Update<T>(T item,XmlSample file) where T : InterID
         {
-            List<T> list = getList<T>();
-            if (ContainID<T>(item.ID) == false)
+            file.LoadFile();
+            if (ContainID(item.ID,file) == false)
                 throw new Exception("There isnt any item in the list with this id...");
-            list.Remove(list.FirstOrDefault(var => var.ID == item.ID));
-            list.Add(item);
-
+            Delete(item, file);
+            Add(item, file);
         }
         /// <summary>
         /// Get an item by his ID
@@ -358,38 +398,38 @@ namespace DAL
         /// <typeparam name="T">The type of the item you want to get</typeparam>
         /// <param name="id">The ID of the item</param>
         /// <returns>The item that matchs this ID</returns>
-        T Get<T>(int id) where T : InterID
-        {
-            T res = getList<T>().FirstOrDefault(item => item.ID == id);
-            if (res == null)
-                throw new Exception("There isnt any item in the list with this id...");
-            return res;
+        //T Get<T>(int id,XmlSample file) where T : InterID
+        //{
+        //    T res = file.
+        //    if (res == null)
+        //        throw new Exception("There isnt any item in the list with this id...");
+        //    return res;
 
-        }
+        //}
         /// <summary>
         /// Get all the item that matches the predicate function
         /// </summary>
         /// <typeparam name="T">The type of items you want to get</typeparam>
         /// <param name="predicate">The function that will chekc if you want them or not</param>
         /// <returns>The list of all of the item that matches the predicate function</returns>
-        IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID
-        {
-            if (predicate == null)
-                return getList<T>().AsEnumerable();
-            return from T item in getList<T>()
-                   where predicate(item)
-                   select item;
-        }
+        //IEnumerable<T> GetAll<T>(Func<T, bool> predicate = null) where T : InterID
+        //{
+        //    if (predicate == null)
+        //        return getList<T>().AsEnumerable();
+        //    return from T item in getList<T>()
+        //           where predicate(item)
+        //           select item;
+        //}
         /// <summary>
         /// מביאה תעודת זהות פנוייה באופן רנדומלי
         /// </summary>
         /// <typeparam name="T">סוג האיבר שצריך תעדות זהות</typeparam>
         /// <param name="list">הרשימה בה נמצאים שאר האיברים מסוג זה</param>
         /// <returns>מחזירה את תעדות הזהות הפנוייה</returns>
-        int NextID<T>(T item) where T : InterID
+        int NextID<T>(T item,XmlSample file) where T : InterID
         {
             int original = item.MakeID(), result = original;
-            while (ContainID<T>(result))
+            while (ContainID(result,file))
             {
                 result++;
                 if (result == original)
@@ -405,9 +445,11 @@ namespace DAL
         /// <param name="id">תעדות הזהות</param>
         /// <param name="list">הרשימה בה נמצאים האיברים</param>
         /// <returns>מחזירה משתנה בוליאני המציין האם קיים איבר עם תעודת הזהות הזאת</returns>
-        public bool ContainID<T>(int id) where T : InterID
+        public bool ContainID(int id,XmlSample file)
         {
-            return getList<T>().Any(item => item.ID == id);
+            return (from p in file.FileRoot.Elements()
+                    where Convert.ToInt32(p.Element("ID").Value) == id
+                    select p).ToList().Count > 0;
         }
         List<T> getList<T>()
         {
@@ -428,15 +470,14 @@ namespace DAL
         }
         #endregion
 
-
         #region Dish Functions
         public void AddDish(Dish newDish)
         {
-            Add(newDish);
+            Add(newDish,xmlDish);
         }
         public void DeleteDish(int id)
         {
-            Delete<Dish>(id);
+            Delete(id,xmlDish);
         }
         public void DeleteDish(Dish item)
         {
@@ -444,15 +485,49 @@ namespace DAL
         }
         public void UpdateDish(Dish item)
         {
-            Update(item);
+            Update(item,xmlDish);
         }
         public Dish GetDish(int id)
         {
-            return Get<Dish>(id);
+            try
+            {
+                Dish result = (from p in xmlDish.FileRoot.Elements()
+                               where Convert.ToInt32(p.Element("ID").Value) == id
+                               select new Dish(p.Element("Name").Value
+                                   , p.Element("Size").Value
+                                   , Convert.ToSingle(p.Element("Price").Value)
+                                   , p.Element("Kashrut").Value
+                                   , Convert.ToInt32(p.Element("ID").Value))
+                              ).FirstOrDefault();
+                return result;
+            }
+            catch
+            {
+                throw new Exception("Failed to load item.");
+            }
         }
         public IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null)
         {
-            return GetAll(predicate);
+            try
+            {
+                IEnumerable<Dish> list = (from p in xmlDish.FileRoot.Elements()
+                                   select new Dish(p.Element("Name").Value
+                                                 , p.Element("Size").Value
+                                                 , Convert.ToSingle(p.Element("Price").Value)
+                                                 , p.Element("Kashrut").Value
+                                                 , Convert.ToInt32(p.Element("ID").Value))
+                                         );
+                if (predicate == null)
+                    return list;
+                else
+                    return (from item in list
+                            where predicate(item)
+                            select item);
+            }
+            catch
+            {
+                throw new Exception("Failed to load items");
+            }
         }
         #endregion
 
