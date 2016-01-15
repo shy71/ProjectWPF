@@ -24,8 +24,14 @@ namespace PLForms
         BE.User user;
         public MainWindow()
         {
-            InitializeComponent();
-            BL.FactoryBL.getBL().Inti();
+            try
+            {
+                InitializeComponent();
+                BL.FactoryBL.getBL().Inti();
+            }
+            catch(Exception exp)
+            {
+            }
         }
 
 

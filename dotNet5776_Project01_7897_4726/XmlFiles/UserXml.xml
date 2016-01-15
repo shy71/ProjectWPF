@@ -1,2 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Users />
+<Users>
+  <User>
+    <Type>Client</Type>
+    <UserName>shy71</UserName>
+    <Password>123456</Password>
+    <Name>Shy Tennenbaum</Name>
+    <ClientID>1921</ClientID>
+  </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>lala10</UserName>
+    <Password>123456</Password>
+    <Name>dfsdghsdg</Name>
+    <ClientID>131172</ClientID>
+  </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>shy72</UserName>
+    <Password>123456</Password>
+    <Name>shy tennen</Name>
+    <ClientID>142860</ClientID>
+  </User>
+</Users>

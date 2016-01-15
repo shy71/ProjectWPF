@@ -652,10 +652,12 @@ namespace DAL
         /// </summary>
         /// <param name="newUser"></param>
         public void AddUser(User newUser)
-        {
-            if (getFile<User>().FileRoot.Elements().Any(p => p.Element("UserName").Value == newUser.UserName))
-                throw new Exception("there is already a user with that username");
-            getFile<User>().Add(newUser);
+       {
+               getFile<User>().LoadFile();
+               if (getFile<User>().FileRoot.Elements().Any(p => p.Element("UserName").Value == newUser.UserName))
+                   throw new Exception("there is already a user with that username!");
+               getFile<User>().Add(newUser);
+               getFile<User>().Save();
 
         }
         /// <summary>

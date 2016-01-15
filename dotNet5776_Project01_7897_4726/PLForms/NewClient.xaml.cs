@@ -38,7 +38,19 @@ namespace PLForms
         {
             try
             {
-                int a=5;
+                if (passowrdBox1.Password != passowrdBox2.Password)
+                    throw new Exception("The passwords does not match!");
+                if (passowrdBox1.Password == "")
+                    throw new Exception("The password cant be empty!");
+                BL.FactoryBL.getBL().AddClient(client);
+                user.Name=client.Name;
+                user.UserName = usernameBox.Text;
+                user.Password=passowrdBox1.Password;
+                user.Type=BE.UserType.Client;
+                user.ClientID=client.ID;
+                BL.FactoryBL.getBL().AddUser(user);
+                MessageBox.Show("The account "+user.UserName+" was created!", "Account created", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
                 
             }
             catch(Exception exp)

@@ -34,13 +34,13 @@
         </Grid.RowDefinitions>
 
         <Label Content="Create your Freddy's BBQ Joint account!" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-        <TextBox Text="{Binding ElementName=dc:user,Path=UserName}" x:Name="usernameBox" Grid.Row="1" Style="{StaticResource TextBoxStyle}" Margin="89,0,0,0"/>
+        <TextBox x:Name="usernameBox" Grid.Row="1" Style="{StaticResource TextBoxStyle}" Margin="89,0,0,0"/>
         <Label x:Name="usernameLabel" Content="Username:" Grid.Row="1" Foreground="Black" VerticalContentAlignment="Center" Margin="0,0,305,0"/>
         <PasswordBox x:Name="passowrdBox1" Grid.Row="2" Style="{StaticResource BoxStyle}" Margin="146,0,0,0"/>
         <Label x:Name="passwordLabel1" Content="Password:" Grid.Row="2"  VerticalContentAlignment="Center" Margin="0,0,310,0"/>
         <PasswordBox x:Name="passowrdBox2" Grid.Row="3" Style="{StaticResource BoxStyle}"  Margin="146,0,0,0"/>
         <Label x:Name="passwordLabel2" Content="Password Conformation:" Grid.Row="3"  VerticalContentAlignment="Center" Margin="0,0,236,0"/>
-        <TextBox x:Name="addressBox" Grid.Row="4" Style="{StaticResource TextBoxStyle}" Margin="73,0,0,0"/>
+        <TextBox x:Name="addressBox" Grid.Row="4" Style="{StaticResource TextBoxStyle}" Text="{Binding Address}" Margin="73,0,0,0"/>
         <Label Content="Address:" Grid.Row="4" VerticalContentAlignment="Center" Margin="0,0,326,0"/>
         <Label Content="Age:" Grid.Row="5" VerticalContentAlignment="Center" Margin="0,0,351,0"/>
         <TextBox x:Name="ageBox" Grid.Row="5" Text="{Binding Age}" Style="{StaticResource TextBoxStyle}" Margin="89,0,0,0"/>

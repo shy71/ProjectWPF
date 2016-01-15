@@ -291,11 +291,28 @@ namespace BL
         //New
 
         User getUser(string UserName);
+        void AddUser(User user);
     }
 
     public class BL : IBL
     {
         //New
+        internal void CompatibleUser(User myUser, string str)
+        {
+            if (myUser.Password == "")
+                throw new Exception(str + "The password cant be empty!");
+            else if(myUser.Name=="")
+                throw new Exception(str + "The name cant be empty!");
+            else if(myUser.UserName=="")
+                throw new Exception(str + "The username cant be empty!");
+            else if(myUser.Type==UserType.Client&&!myDal.ContainID<Client>(myUser.ClientID))
+                throw new Exception(str + "There isnt a client that connected to this user!");
+
+        }
+       public void AddUser(User user)
+        {
+            myDal.AddUser(user);
+        }
         public User getUser(string UserName)
         {
            return myDal.GetUser(UserName);
