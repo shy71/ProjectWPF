@@ -299,7 +299,7 @@ namespace DAL
             FileRoot.Add(new XElement(obj.GetType().Name,
                                from item in obj.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
                                select new XElement(item.Name, item.GetValue(obj))));
-        }
+    }
     }
     class Dal_XML_imp
     {
@@ -415,20 +415,20 @@ namespace DAL
             {
                 IEnumerable<T> list = (from p in getFile<T>().FileRoot.Elements()
                                        select p).Select((item) =>
-                            {
-                                T res = new T();
+        {
+                T res = new T();
                                 foreach (var item2 in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
-                                {
+                {
                                     item2.SetValue(res, item.Element(item2.Name));
-                                }
-                                return res;
+                }
+                return res;
                             });
-                if (predicate == null)
+            if (predicate == null)
                     return list;
                 return from T item in list
-                       where predicate(item)
-                       select item;
-            }
+                   where predicate(item)
+                   select item;
+        }
             catch
             {
                 throw new Exception("Failed to load items");
@@ -504,7 +504,7 @@ namespace DAL
         public Dish GetDish(int id)
         {
             return Get<Dish>(id);
-        }
+            }
         public IEnumerable<Dish> GetAllDishs(Func<Dish, bool> predicate = null)
         {
             return GetAll(predicate);
@@ -650,7 +650,7 @@ namespace DAL
                                      where p.Element("UserName").Value == username
                                      select p).FirstOrDefault();
                 if (TElement == null)
-                    throw new Exception("There isnt any user with that username in the database");
+                throw new Exception("There isnt any user with that username in the database");
                 TElement.Remove();
                 getFile<User>().Save();
             }
@@ -730,12 +730,12 @@ namespace DAL
                                            }
                                            return res;
                                        });
-                if (predicate == null)
+            if (predicate == null)
                     return list;
                 return from User item in list
-                       where predicate(item)
-                       select item;
-            }
+                   where predicate(item)
+                   select item;
+        }
             catch
             {
                 throw new Exception("Failed to load items");
