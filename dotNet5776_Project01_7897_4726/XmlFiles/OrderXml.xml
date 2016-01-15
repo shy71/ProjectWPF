@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Order>
+  <Order>
+    <ID>192334</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:31:52.2392567+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>34567</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:31:52.2942598+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2922140</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:32:56.776948+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2609360</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:32:56.8019494+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2921740</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:33:42.3505547+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2608960</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:33:42.373556+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2921940</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:34:43.8180704+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2609160</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:34:43.8420718+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2922141</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:35:26.172493+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2609361</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:35:26.1964943+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2921840</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:36:04.2036682+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2609060</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:36:04.2296697+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2922940</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:39:57.8620327+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2610160</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:39:57.8970347+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2922340</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:45:54.8754527+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2609560</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:45:54.9044544+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2922040</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:51:27.5184788+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2609260</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:51:27.5484805+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2921340</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:53:00.6658065+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2608560</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:53:00.6928081+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2922740</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:57:46.355147+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2609960</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:57:46.3921491+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2922440</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:59:23.4266992+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2609660</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:59:23.4507006+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2923040</ID>
+    <BranchID>2</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:59:56.6235979+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>10934</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2610260</ID>
+    <BranchID>87465</BranchID>
+    <Address>Beit Shemesh shy</Address>
+    <Date>2016-01-15T13:59:56.6505995+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+</Order>
