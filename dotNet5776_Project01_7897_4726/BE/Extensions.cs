@@ -15,7 +15,7 @@ namespace BE
         int MakeID();
     }
 
-    class Extensions
+    public class Extensions
     {
         /// <summary>
         /// Make a unique ID from any numbers of strings
@@ -25,6 +25,50 @@ namespace BE
         internal static int MakeID(params string[] str)
         {
             return str.Select((item, index) => (item.Sum(r => (int)r)) * (int)Math.Pow(10, index)).Sum() % 100000000;
+        }
+        public static Kashrut ToKashrut(string str)
+        {
+            switch (str.ToUpper())
+            {
+                case "HIGH":
+                    return Kashrut.HIGH;
+                case "MEDIUM":
+                    return Kashrut.MEDIUM;
+                case "LOW":
+                    return Kashrut.LOW;
+                default:
+                    throw new Exception("Invalid kashrut level.");
+            }
+        }
+        public static Size ToSize(string str)
+        {
+            switch (str.ToUpper())
+            {
+                case "LARGE":
+                    return BE.Size.LARGE;
+                case "MEDIUM":
+                    return BE.Size.MEDIUM;
+                case "SMALL":
+                    return BE.Size.SMALL;
+                default:
+                    throw new Exception("Invalid size level.");
+            }
+        }
+        public static UserType ToUserType(string str)
+        {
+            switch (str.ToUpper())
+            {
+                case "CLIENT":
+                    return UserType.Client;
+                case "BRANCHWORKER":
+                    return UserType.BranchWorker;
+                case "BRANCHMANGER":
+                    return UserType.BranchManger;
+                case"NETWORKMANGER":
+                    return UserType.NetworkManger;
+                default:
+                    throw new Exception("Invalid size level.");
+            }
         }
     }
 
