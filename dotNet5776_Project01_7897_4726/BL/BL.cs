@@ -899,7 +899,8 @@ namespace BL
             AddDishOrder(new DishOrder(192334, 957473, 2));
             AddDishOrder(new DishOrder(192334, 19273, 7));
             AddDishOrder(new DishOrder(34567, 957473, 7));
-            myDal.AddUser(new User(UserType.Client,"shy71","123456","Shy Tennenbaum",1921));
+            myDal.AddUser(new User(UserType.Client, "shy71", "123456", "Shy Tennenbaum", 1921));
+            myDal.AddUser(new User(UserType.NetworkManger, "ezra1", "123456", "Ezra Block", 10934));
         }
     }
 }

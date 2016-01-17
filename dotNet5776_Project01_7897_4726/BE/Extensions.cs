@@ -60,8 +60,6 @@ namespace BE
             {
                 case "CLIENT":
                     return UserType.Client;
-                case "BRANCHWORKER":
-                    return UserType.BranchWorker;
                 case "BRANCHMANGER":
                     return UserType.BranchManger;
                 case"NETWORKMANGER":
@@ -83,7 +81,7 @@ namespace BE
     }
     //new
     public enum UserType
-    { Client,BranchWorker,BranchManger,NetworkManger }
+    { Client,BranchManger,NetworkManger }
 
 
     ////כרגע לא בשימוש 
