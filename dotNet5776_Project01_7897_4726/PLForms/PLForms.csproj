@@ -69,6 +69,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="NewBranch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NewClient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -77,6 +81,9 @@
   <ItemGroup>
     <Compile Include="NetworkManagerWindow.xaml.cs">
       <DependentUpon>NetworkManagerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewBranch.xaml.cs">
+      <DependentUpon>NewBranch.xaml</DependentUpon>
     </Compile>
     <Compile Include="NewClient.xaml.cs">
       <DependentUpon>NewClient.xaml</DependentUpon>

@@ -37,8 +37,8 @@ namespace PLForms
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-                (sender as TextBox).Text = null;
-                (sender as TextBox).Foreground = Brushes.Black;
+            (sender as TextBox).Text = null;
+            (sender as TextBox).Foreground = Brushes.Black;
         }
 
         private void NextLogin(object sender, RoutedEventArgs e)
@@ -47,11 +47,11 @@ namespace PLForms
             {
                 case "Next":
                     #region Next
-            user = BL.FactoryBL.getBL().getUser(InputBox.Text);
-            if (user == null)
-                MessageBox.Show("Sorry, There isn't such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
-            else
-                ChangeToLogin();
+                    user = BL.FactoryBL.getBL().getUser(InputBox.Text);
+                    if (user == null)
+                        MessageBox.Show("Sorry, There isn't such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
+                    else
+                        ChangeToLogin();
                     #endregion
                     break;
                 case "Sign In":
@@ -71,13 +71,10 @@ namespace PLForms
                                 break;
                         }
                         this.Close();
-        }
-
-
+                    }
             //enter Type Window
-            else
-                MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                    else
+                        MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
                     #endregion
                     break;
             }
@@ -103,7 +100,7 @@ namespace PLForms
         }
 
         private void createAccountButton_Click(object sender, RoutedEventArgs e)
-        {          
+        {
             //open new client window
             new NewClient().ShowDialog();
         }
