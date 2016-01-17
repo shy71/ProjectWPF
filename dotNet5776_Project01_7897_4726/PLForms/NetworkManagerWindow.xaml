@@ -2,15 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NetworkManagerWindow" Height="300" Width="300">
-    <Grid>
+    <Grid  Background="LightBlue" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*" />
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="IenformationText" Grid.Row="0" Background="LightBlue" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Text="Choose from the following options:" >
+        <TextBlock x:Name="IenformationText" Grid.Row="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Text="Choose from the following options:" >
             
         </TextBlock>
         <Button x:Name="AddBranchButton" Grid.Row="1" Background="White" Content="Add a new branch" FontSize="20" Click="AddBranchButton_Click"/>

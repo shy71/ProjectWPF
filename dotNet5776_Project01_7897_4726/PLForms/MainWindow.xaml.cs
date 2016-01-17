@@ -79,7 +79,6 @@ namespace PLForms
                     //enter Type Window
                     else
                         MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
-
                     #endregion
                     break;
             }
@@ -110,7 +109,7 @@ namespace PLForms
         {
             this.DataContext = null;
             backArrow.Visibility = Visibility.Hidden;
-           InputBox.Foreground = Brushes.Gray;
+            InputBox.Foreground = Brushes.Gray;
         }
     }
 }
