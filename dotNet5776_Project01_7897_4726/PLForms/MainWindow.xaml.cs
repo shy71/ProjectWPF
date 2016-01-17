@@ -29,7 +29,7 @@ namespace PLForms
                 InitializeComponent();
                 BL.FactoryBL.getBL().Inti();
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
             }
         }
@@ -43,27 +43,58 @@ namespace PLForms
 
         private void NextLogin(object sender, RoutedEventArgs e)
         {
+            switch (SignInButton.Content.ToString())
+            {
+                case "Next":
+                    #region Next
             user = BL.FactoryBL.getBL().getUser(InputBox.Text);
             if (user == null)
                 MessageBox.Show("Sorry, There isn't such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
             else
                 ChangeToLogin();
+                    #endregion
+                    break;
+                case "Sign In":
+                    #region Sign In
+                    if (InputPassword.Password == user.Password)
+                    {
+                        switch (user.Type)
+                        {
+                            case BE.UserType.Client:
+                                //open client window
+                                break;
+                            case BE.UserType.BranchManger:
+                                //open branch manger window
+                                break;
+                            case BE.UserType.NetworkManger:
+                                //open network manger window  
+                                break;
+                        }
+                        this.Close();
+                    }
+            }
         }
+          
         private void SignIn(object sender, RoutedEventArgs e)
         {
             if (InputPassword.Password == user.Password) ;
-
             //enter Type Window
             else
                 MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    #endregion
+                    break;
+            }
+
+        }
+        private void SignIn(object sender, RoutedEventArgs e)
+        {
         }
         private void ChangeToLogin()
         {
             typeLabel.Content = user.Type;
             nameLabel.Content = user.Name;
             UsernameLabel.Content = user.UserName;
-            SignInButton.Click -= NextLogin;
-            SignInButton.Click += SignIn;
             backArrow.Visibility = Visibility.Visible;
             InputPassword.Password = "******";
             InputPassword.Foreground = Brushes.Gray;
@@ -85,9 +116,7 @@ namespace PLForms
         {
             typeLabel.Content = null;
             nameLabel.Content = null;
-            UsernameLabel.Content =null;
-            SignInButton.Click -= SignIn;
-            SignInButton.Click += NextLogin;
+            UsernameLabel.Content = null;
             backArrow.Visibility = Visibility.Hidden;
             InputBox.Text = "Enter your Username";
             InputBox.Foreground = Brushes.Gray;
