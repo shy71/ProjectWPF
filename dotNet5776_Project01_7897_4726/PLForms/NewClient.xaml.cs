@@ -38,6 +38,8 @@ namespace PLForms
         {
             try
             {
+                if (nextButton.Opacity != 1)
+                    throw new Exception("You must filed all of the fileds!");
                 if (passowrdBox1.Password != passowrdBox2.Password)
                     throw new Exception("The passwords does not match!");
                 if (passowrdBox1.Password == "")
