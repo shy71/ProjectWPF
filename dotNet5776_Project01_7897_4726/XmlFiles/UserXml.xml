@@ -8,17 +8,10 @@
     <ClientID>1921</ClientID>
   </User>
   <User>
-    <Type>Client</Type>
-    <UserName>lala10</UserName>
+    <Type>NetworkManger</Type>
+    <UserName>ezra1</UserName>
     <Password>123456</Password>
-    <Name>dfsdghsdg</Name>
-    <ClientID>131172</ClientID>
-  </User>
-  <User>
-    <Type>Client</Type>
-    <UserName>shy72</UserName>
-    <Password>123456</Password>
-    <Name>shy tennen</Name>
-    <ClientID>142860</ClientID>
+    <Name>Ezra Block</Name>
+    <ClientID>0</ClientID>
   </User>
 </Users>

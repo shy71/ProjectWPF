@@ -28,6 +28,9 @@ namespace PLForms
             {
                 InitializeComponent();
                 BL.FactoryBL.getBL().Inti();
+                if (!BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger).Any())
+                    MessageBox.Show("Hello! and wellcom to Shy and Ezra program for manging Fred's BBQ Joint\n you will now be redirected to create the First Network Manger account \n please pay attention to this process","Hello World!",MessageBoxButton.OK,MessageBoxImage.Information);
+                    //Open a new Window manger window
             }
             catch (Exception exp)
             {
@@ -37,17 +40,17 @@ namespace PLForms
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            (sender as TextBox).Text = null;
+            (sender as TextBox).Clear();
             (sender as TextBox).Foreground = Brushes.Black;
         }
-
         private void NextLogin(object sender, RoutedEventArgs e)
         {
             switch (SignInButton.Content.ToString())
             {
                 case "Next":
                     #region Next
-                    user = BL.FactoryBL.getBL().getUser(InputBox.Text);
+                    user = BL.FactoryBL.getBL().GetUser(InputBox.Text);
+                    InputBox.Clear();
                     this.DataContext = user;
                     if (user == null)
                         MessageBox.Show("Sorry, There isn't such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -68,13 +71,11 @@ namespace PLForms
                                 //open branch manger window
                                 break;
                             case BE.UserType.NetworkManger:
-                                //open network manger window  
+                                new NetworkManagerWindow(user).Show();
                                 break;
                         }
                         this.Close();
                     }
-
-
                     //enter Type Window
                     else
                         MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -91,7 +92,6 @@ namespace PLForms
         {
             backArrow.Visibility = Visibility.Visible;
             InputPassword.Password = "******";
-            InputPassword.Foreground = Brushes.Gray;
         }
 
         private void InputPassword_GotFocus(object sender, RoutedEventArgs e)
@@ -110,8 +110,7 @@ namespace PLForms
         {
             this.DataContext = null;
             backArrow.Visibility = Visibility.Hidden;
-            InputBox.Text = "Enter your Username";
-            InputBox.Foreground = Brushes.Gray;
+           InputBox.Foreground = Brushes.Gray;
         }
     }
 }

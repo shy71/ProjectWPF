@@ -289,8 +289,8 @@ namespace BL
 
 
         //New
-
-        User getUser(string UserName);
+        IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null);
+        User GetUser(string UserName);
         void AddUser(User user);
     }
 
@@ -309,11 +309,15 @@ namespace BL
                 throw new Exception(str + "There isnt a client that connected to this user!");
 
         }
+       public IEnumerable<User> GetAllUsers(Func<User,bool> predicate=null)
+        {
+            return myDal.GetAllUsers(predicate);
+        }
        public void AddUser(User user)
         {
             myDal.AddUser(user);
         }
-        public User getUser(string UserName)
+        public User GetUser(string UserName)
         {
            return myDal.GetUser(UserName);
         }

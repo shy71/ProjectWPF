@@ -19,9 +19,11 @@ namespace PLForms
     /// </summary>
     public partial class NetworkManagerWindow : Window
     {
-        public NetworkManagerWindow()
+        BE.User manger;
+        public NetworkManagerWindow(BE.User manger)
         {
             InitializeComponent();
+            this.manger = manger;
         }
 
         private void AddBranchButton_Click(object sender, RoutedEventArgs e)
