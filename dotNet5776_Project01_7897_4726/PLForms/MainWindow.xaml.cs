@@ -48,6 +48,7 @@ namespace PLForms
                 case "Next":
                     #region Next
                     user = BL.FactoryBL.getBL().getUser(InputBox.Text);
+                    this.DataContext = user;
                     if (user == null)
                         MessageBox.Show("Sorry, There isn't such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
                     else
@@ -88,9 +89,6 @@ namespace PLForms
         }
         private void ChangeToLogin()
         {
-            typeLabel.Content = user.Type;
-            nameLabel.Content = user.Name;
-            UsernameLabel.Content = user.UserName;
             backArrow.Visibility = Visibility.Visible;
             InputPassword.Password = "******";
             InputPassword.Foreground = Brushes.Gray;
@@ -110,9 +108,7 @@ namespace PLForms
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-            typeLabel.Content = null;
-            nameLabel.Content = null;
-            UsernameLabel.Content = null;
+            this.DataContext = null;
             backArrow.Visibility = Visibility.Hidden;
             InputBox.Text = "Enter your Username";
             InputBox.Foreground = Brushes.Gray;
