@@ -71,13 +71,9 @@ namespace PLForms
                                 break;
                         }
                         this.Close();
-                    }
-            }
         }
-          
-        private void SignIn(object sender, RoutedEventArgs e)
-        {
-            if (InputPassword.Password == user.Password) ;
+
+
             //enter Type Window
             else
                 MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);

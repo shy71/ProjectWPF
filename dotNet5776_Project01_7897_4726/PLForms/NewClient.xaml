@@ -59,32 +59,32 @@
                 <Style>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=usernameBox, Path=Text}" Value="">
-                            <Setter Property="Button.IsEnabled" Value="False"/>
+<Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=passwordBox1, Path=Password}" Value="">
-                            <Setter Property="Button.IsEnabled" Value="False"/>
+<Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=passwordBox2, Path=Password}" Value="">
-                            <Setter Property="Button.IsEnabled" Value="False"/>
+<Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=addressBox, Path=Text}" Value="">
-                            <Setter Property="Button.IsEnabled" Value="False"/>
+<Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=ageBox, Path=Text}" Value="">
-                            <Setter Property="Button.IsEnabled" Value="False"/>
+<Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=creditCardBox, Path=Text}" Value="">
-                            <Setter Property="Button.IsEnabled" Value="False"/>
+<Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=nameBox, Path=Text}" Value="">
-                            <Setter Property="Button.IsEnabled" Value="False"/>
+<Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=checkBox, Path=IsChecked}" Value="True"/>
-                                <Condition Binding="{Binding ElementName=idBox, Path=Text}" Value=""/>
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Button.IsEnabled" Value="False"/>
+                                                        <Condition Binding="{Binding ElementName=idBox, Path=Text}" Value=""/>
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Button.Opacity" Value="0.3"/>
                         </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
