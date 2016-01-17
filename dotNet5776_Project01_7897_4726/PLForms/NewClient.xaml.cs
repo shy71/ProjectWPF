@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 להוסיף אייקון
 להוסיף קידוד לסיסמא
 האם כל השגיאות בהודעה נפתחת או בהערה
- * אפשרות להוסיף משתמש מההערה
  * להוסיף יותר דברים לגרידים
  * באג-לבדוק לגבי שגיאות
  * 
@@ -35,6 +34,15 @@ namespace PLForms
             InitializeComponent();
             client = new BE.Client();
             user = new BE.User();
+            this.DataContext = client;
+        }
+        public NewClient(string str)
+        {
+
+            InitializeComponent();
+            client = new BE.Client();
+            user = new BE.User();
+            usernameBox.Text = str;
             this.DataContext = client;
         }
 

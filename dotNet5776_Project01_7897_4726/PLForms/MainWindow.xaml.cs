@@ -50,12 +50,17 @@ namespace PLForms
                 case "Next":
                     #region Next
                     user = BL.FactoryBL.getBL().GetUser(InputBox.Text);
-                    InputBox.Clear();
-                    this.DataContext = user;
                     if (user == null)
-                        MessageBox.Show("Sorry, There isn't such username in our datdbase", "Incorrect username", MessageBoxButton.OK, MessageBoxImage.Error);
+                    {
+                        if (MessageBox.Show("Sorry, There isn't such username in our datdbase\n\n would you like to create a new client with that username?", "Incorrect username", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                            new NewClient(InputBox.Text).ShowDialog();
+                    }
                     else
+                    {
+                        this.DataContext = user;
                         ChangeToLogin();
+                    }
+                    InputBox.Clear();
                     #endregion
                     break;
                 case "Sign In":
