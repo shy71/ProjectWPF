@@ -20,6 +20,8 @@ using System.Windows.Shapes;
  * להוסיף יותר דברים לגרידים
  * באג-לבדוק לגבי שגיאות
  * 
+ * לבדוק לגבי שמות בצד או בתוך השדות
+ * 
 */
 namespace PLForms
 {
@@ -74,5 +76,24 @@ namespace PLForms
                 MessageBox.Show(exp.Message, "Problem with account", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void PlusMinusTextBox_Changed(object sender, EventValue e)
+        {
+            if (client != null)
+                client.Age =Convert.ToInt32(e.Value);
+        }
+
+        //private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    (sender as TextBox).Text = null;
+        //    (sender as TextBox).Foreground = Brushes.Black;
+        //}
+        //private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    var temp = (sender as TextBox).Resources.Values.GetEnumerator();
+        //    temp.MoveNext();
+        //    (sender as TextBox).Text = temp.Current as string;
+        //    (sender as TextBox).Foreground = Brushes.Gray;
+        //}
     }
 }

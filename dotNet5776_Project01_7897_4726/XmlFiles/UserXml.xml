@@ -14,4 +14,18 @@
     <Name>Ezra Block</Name>
     <ClientID>0</ClientID>
   </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>qwer</UserName>
+    <Password>123456</Password>
+    <Name>a</Name>
+    <ClientID>121967</ClientID>
+  </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>shy73</UserName>
+    <Password>123456</Password>
+    <Name>shy tennenbaum</Name>
+    <ClientID>136621</ClientID>
+  </User>
 </Users>

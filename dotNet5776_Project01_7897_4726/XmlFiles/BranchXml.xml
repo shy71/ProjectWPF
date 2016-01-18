@@ -2350,4 +2350,3104 @@
     <AvailableMessangers>3</AvailableMessangers>
     <Kosher>MEDIUM</Kosher>
   </Branch>
+  <Branch>
+    <ID>55312232</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491084</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235971</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248918</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413843</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312233</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491085</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235972</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248919</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413844</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312234</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491086</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235973</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248920</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413845</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312235</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491087</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235974</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248921</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413846</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312236</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491088</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235975</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248922</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413847</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312237</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491089</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235976</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248923</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413848</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312238</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491090</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235977</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248924</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413849</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312239</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491091</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235978</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248925</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413850</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312240</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491092</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235979</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248926</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413851</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312241</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491093</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235980</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248927</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413852</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312242</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491094</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235981</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248928</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413853</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312243</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491095</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235982</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248929</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413854</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312244</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491096</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235983</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248930</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413855</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312245</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491097</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235984</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248931</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413856</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312246</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491098</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235985</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248932</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413857</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312247</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491099</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235986</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248933</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413858</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312248</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491100</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235987</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248934</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413859</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312249</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491101</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235988</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248935</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413860</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312250</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491102</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235989</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248936</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413861</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312251</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491103</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235990</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248937</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413862</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312252</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491104</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235991</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248938</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413863</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312253</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491105</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235992</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248939</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413864</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312254</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491106</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235993</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248940</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413865</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312255</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491107</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235994</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248941</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413866</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312256</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491108</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235995</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248942</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413867</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312257</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491109</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235996</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248943</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413868</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312258</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491110</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235997</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248944</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413869</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312259</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491111</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235998</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248945</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413870</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312260</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491112</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48235999</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248946</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413871</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312261</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491113</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236000</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248947</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413872</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312262</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491114</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236001</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248948</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413873</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312263</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491115</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236002</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248949</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413874</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312264</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491116</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236003</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248950</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413875</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312265</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491117</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236004</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248951</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413876</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312266</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491118</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236005</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248952</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413877</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312267</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491119</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236006</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248953</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413878</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312268</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491120</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236007</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248954</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413879</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312269</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491121</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236008</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248955</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413880</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312270</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491122</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236009</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248956</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413881</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312271</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491123</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236010</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248957</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413882</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312272</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491124</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236011</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248958</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413883</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312273</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491125</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236012</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248959</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413884</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312274</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491126</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236013</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248960</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413885</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312275</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491127</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236014</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248961</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413886</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312276</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491128</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236015</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248962</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413887</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312277</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491129</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236016</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248963</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413888</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312278</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491130</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236017</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248964</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413889</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312279</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491131</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236018</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248965</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413890</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312280</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491132</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236019</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248966</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413891</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312281</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491133</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236020</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248967</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413892</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312282</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491134</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236021</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248968</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413893</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312283</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491135</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236022</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248969</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413894</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312284</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491136</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236023</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248970</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413895</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312285</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491137</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236024</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248971</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413896</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312286</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491138</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236025</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248972</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413897</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312287</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491139</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236026</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248973</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413898</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312288</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491140</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236027</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248974</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413899</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312289</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491141</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236028</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248975</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413900</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312290</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491142</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236029</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248976</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413901</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312291</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491143</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236030</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248977</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413902</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312292</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491144</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236031</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248978</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413903</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55312293</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>morli</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>94491145</ID>
+    <Name>Bnei Brak</Name>
+    <Address>sholm 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>kidron</Boss>
+    <EmployeeCount>1</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>48236032</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>oshri</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>53248979</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>amram</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>55413904</ID>
+    <Name>Beit Shemesh</Name>
+    <Address>Big Center 1</Address>
+    <PhoneNumber>073524121</PhoneNumber>
+    <Boss>joffrey</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
 </Branches>

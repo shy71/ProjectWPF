@@ -14,8 +14,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="Plus" Grid.Row="0" Content="+" Background="White" FontWeight="ExtraBold" FontSize="15" Click="Plus_Click" Grid.Column="1"/>
-        <Button x:Name="Minus" Grid.Row="1" Content="-" Background="White" FontWeight="ExtraBold" FontSize="15" Click="Minus_Click" Grid.Column="1" />
-        <TextBox x:Name="Number" Grid.RowSpan="2" Grid.Column="0" FontSize="33" Text="0"/>
+        <Button x:Name="PlusButton" Grid.Row="0" Content="+" Background="White" FontWeight="ExtraBold" FontSize="15" Click="Plus_Click" Grid.Column="1"/>
+        <Button x:Name="MinusButton" Grid.Row="1" Content="-" Background="White" FontWeight="ExtraBold" FontSize="15" Click="Minus_Click" Grid.Column="1" />
+        <TextBox x:Name="Number" HorizontalContentAlignment="Right" Grid.RowSpan="2" Grid.Column="0" FontSize="33" Text="0" TextChanged="Number_TextChanged" PreviewMouseWheel="Number_MouseWheel"/>
     </Grid>
 </UserControl>
