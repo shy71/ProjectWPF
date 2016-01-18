@@ -4,7 +4,8 @@
         Title="NetworkManagerWindow" Height="300" Width="300">
     <Grid  Background="LightBlue" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -14,9 +15,10 @@
             
         </TextBlock>
         <Button x:Name="AddBranchButton" Grid.Row="1" Background="White" Content="Add a new branch" FontSize="20" Click="AddBranchButton_Click"/>
-        <Button x:Name="AddNewBranchManagerButton" Grid.Row="2" Background="White" Content="Appoint a new branch manager" FontSize="18" Click="AddNewBranchManagerButton_Click" />
-        <Button x:Name="AddNewNetworkManagerButton" Grid.Row="3" Background="White" Content="Appoint a new network manager" FontSize="18" Click="AddNewNetworkManagerButton_Click" />
-        <Button x:Name="UpdateUserButton" Grid.Row="4" Background="White" Content="Change your details" FontSize="20" Click="UpdateUserButton_Click" />
+        <Button x:Name="DeleteBranchButton" Grid.Row="2" Background="White" Content="Delete a branch" FontSize="20" Click="DeleteBranchButton_Click"/>
+        <Button x:Name="AddNewBranchManagerButton" Grid.Row="3" Background="White" Content="Appoint a new branch manager" FontSize="18" Click="AddNewBranchManagerButton_Click" />
+        <Button x:Name="AddNewNetworkManagerButton" Grid.Row="4" Background="White" Content="Appoint the new network manager" FontSize="18" Click="AddNewNetworkManagerButton_Click" />
+        <Button x:Name="UpdateUserButton" Grid.Row="5" Background="White" Content="Change your details" FontSize="20" Click="UpdateUserButton_Click" />
         
     </Grid>
 </Window>

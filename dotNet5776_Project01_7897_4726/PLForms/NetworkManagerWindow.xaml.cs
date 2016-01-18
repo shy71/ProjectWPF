@@ -46,5 +46,10 @@ namespace PLForms
         {
             //open window for updating the manager's details
         }
+
+        private void DeleteBranchButton_Click(object sender, RoutedEventArgs e)
+        {
+            //open small window 4 checking which branch is being deleted
+        }
     }
 }

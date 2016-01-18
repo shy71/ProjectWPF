@@ -22,6 +22,12 @@ namespace PLForms
         public NewBranch()
         {
             InitializeComponent();
+            
+        }
+
+        private void CreateBranchManagerButton_Click(object sender, RoutedEventArgs e)
+        {
+            //add new branch manager window
         }
     }
 }

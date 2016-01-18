@@ -2,6 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NewBranch" Height="300" Width="300">
+    <Window.Resources>
+        <Style x:Key="TextBoxStyle" TargetType="Control">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Opacity" Value="0.5"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+        </Style>
+    </Window.Resources>
     <Grid Background="#FFE6CBC8">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -10,17 +19,15 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="InformationText" Grid.Row="0" Text="Create a new branch:" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock x:Name="InformationText" Grid.Row="0" Text="Create a new branch:" FontSize="18" FontWeight="ExtraBold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         <TextBlock x:Name="BranchNameText" Grid.Row="1" Text="  Name:" VerticalAlignment="Center"></TextBlock>
-        <TextBox x:Name="BranchNameTextbox" Grid.Row="1" VerticalAlignment="Center" Margin="58,3,0,2"></TextBox>
+        <TextBox x:Name="BranchNameTextbox" Grid.Row="1" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" Margin="58,3,0,2"></TextBox>
         <TextBlock x:Name="BranchAddressText" Grid.Row="2" Text="  Address:" VerticalAlignment="Center"></TextBlock>
-        <TextBox x:Name="BranchAddressTextbox" Grid.Row="2" VerticalAlignment="Center" Margin="58,3,0,2"></TextBox>
+        <TextBox x:Name="BranchAddressTextbox" Grid.Row="2" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" Margin="58,3,0,2"></TextBox>
         <TextBlock x:Name="BranchPhoneText" Grid.Row="3" Text="  Phone Number:" VerticalAlignment="Center"></TextBlock>
-        <TextBox x:Name="BranchPhoneTextbox" Grid.Row="3" VerticalAlignment="Center" Margin="98,3,0,2"></TextBox>
+        <TextBox x:Name="BranchPhoneTextbox" Grid.Row="3" Style="{StaticResource TextBoxStyle}" VerticalAlignment="Center" Margin="98,3,0,2"></TextBox>
+        <Button x:Name="CreateBranchManagerButton" Grid.Row="4" FontSize="20" FontWeight="Bold" Content="Create the manager" Click="CreateBranchManagerButton_Click"/>
     </Grid>
 </Window>
