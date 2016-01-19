@@ -13,12 +13,12 @@
             <Setter Property="BorderBrush" Value="Black"/>
         </Style>
         <Style x:Key="TextBoxStyle" BasedOn="{StaticResource BoxStyle}" TargetType="TextBox">
-            <!--<Style.Setters>
+            <Style.Setters>
                 <Setter Property="Foreground" Value="Gray"/>
-                <Setter Property="Text" Value="{StaticResource descriptionString}"/>
+                <Setter Property="Text" Value="{DynamicResource descriptionString}"/>
                 <EventSetter Event="GotFocus" Handler="TextBox_GotFocus"/>
                 <EventSetter Event="LostFocus" Handler="TextBox_LostFocus"/>
-            </Style.Setters>-->
+            </Style.Setters>
             <!--<Style.Triggers>
                 <Trigger Property="Text" Value="">
                     <Setter Property="BorderBrush" Value="Red"/>
@@ -35,61 +35,97 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <Label Content="Create your Freddy's BBQ Joint account!" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-        <TextBox x:Name="usernameBox" Grid.Row="1" Style="{StaticResource TextBoxStyle}" Margin="89,0,0,0">
+        <TextBox x:Name="usernameBox" Grid.Row="1" Style="{StaticResource TextBoxStyle}">
+            <TextBox.Resources>
+                <clr:String x:Key="descriptionString">Username</clr:String>
+                <clr:String x:Key="ProptyName">UserName</clr:String>
+            </TextBox.Resources>
         </TextBox>
-        <Label x:Name="usernameLabel" Content="Username:" Grid.Row="1" Foreground="Black" VerticalContentAlignment="Center" Margin="0,0,305,0"/>
-        <PasswordBox x:Name="passowrdBox1" Grid.Row="2" Style="{StaticResource BoxStyle}" Margin="146,0,0,0"/>
-        <Label x:Name="passwordLabel1" Content="Password:" Grid.Row="2"  VerticalContentAlignment="Center" Margin="0,0,310,0"/>
-        <PasswordBox x:Name="passowrdBox2" Grid.Row="3" Style="{StaticResource BoxStyle}"  Margin="146,0,0,0"/>
-        <Label x:Name="passwordLabel2" Content="Password Conformation:" Grid.Row="3"  VerticalContentAlignment="Center" Margin="0,0,236,0"/>
-        <Label Content="Age:" Grid.Row="5" VerticalContentAlignment="Center" Margin="0,0,351,0"/>
-        <TextBox x:Name="nameBox" Grid.Row="4" Text="{Binding Name}" Style="{StaticResource TextBoxStyle}" Margin="53,0,0,0"/>
-        <Label Content="Name:" Grid.Row="4" VerticalContentAlignment="Center" Margin="0,0,341,0"/>
-        <dc:PlusMinusTextBox HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Top" Margin="59,0,0,0" Changed="PlusMinusTextBox_Changed"/>
+        <PasswordBox x:Name="passowrdBox1" Grid.Row="2" Style="{StaticResource BoxStyle}" Visibility="Hidden"  LostFocus="passowrdBox_LostFocus"/>
+        <TextBox x:Name="passowrdLabelBox1" Grid.Row="2" Style="{StaticResource TextBoxStyle}" GotFocus="passowrdLabelBox_GotFocus">
+            <TextBox.Resources>
+                <clr:String x:Key="descriptionString">Password</clr:String>
+                <clr:String x:Key="ProptyName">Password</clr:String>
+            </TextBox.Resources>
+        </TextBox>
+        <PasswordBox x:Name="passowrdBox2" Grid.Row="3" Style="{StaticResource BoxStyle}" Visibility="Hidden"  LostFocus="passowrdBox_LostFocus"/>
+        <TextBox x:Name="passowrdLabelBox2" Grid.Row="3" Style="{StaticResource TextBoxStyle}" GotFocus="passowrdLabelBox_GotFocus">
+            <TextBox.Resources>
+                <clr:String x:Key="descriptionString">Password Conformation</clr:String>
+                <clr:String x:Key="ProptyName">Password2</clr:String>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox x:Name="nameBox" Grid.Row="4" Style="{StaticResource TextBoxStyle}">
+            <TextBox.Resources>
+                <clr:String x:Key="descriptionString">Full Name</clr:String>
+                <clr:String x:Key="ProptyName">Name</clr:String>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox x:Name="creditCardBox" Grid.Row="5" Style="{StaticResource TextBoxStyle}">
+            <TextBox.Resources>
+                <clr:String x:Key="descriptionString">Credit Card</clr:String>
+                <clr:String x:Key="ProptyName">CreditCard</clr:String>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox x:Name="addressBox" Grid.Row="6" Style="{StaticResource TextBoxStyle}">
+            <TextBox.Resources>
+                <clr:String x:Key="descriptionString">Address</clr:String>
+                <clr:String x:Key="ProptyName">Address</clr:String>
+            </TextBox.Resources>
+        </TextBox>
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="101*"/>
+                <ColumnDefinition Width="157*"/>
+                <ColumnDefinition Width="42*"/>
+                <ColumnDefinition Width="94*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="idBox" Style="{StaticResource TextBoxStyle}" IsEnabled="{Binding ElementName=checkBox, Path=IsChecked}" Grid.Column="1">
+                <TextBox.Resources>
+                    <clr:String x:Key="descriptionString">ID</clr:String>
+                    <clr:String x:Key="ProptyName">ID</clr:String>
+                </TextBox.Resources>
+            </TextBox>
+            <CheckBox x:Name="checkBox" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="44,22,44,5" Height="12" Width="13"/>
+            <Label Content="Self aponited ID " Grid.Column="0" Margin="0,0,0,22" />
+            <Label Content="Age:" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="42"/>
+            <dc:PlusMinusTextBox Grid.Column="4" Changed="PlusMinusTextBox_Changed"/>
 
-        <TextBox x:Name="creditCardBox" Grid.Row="6" Text="{Binding CreditCard}" Style="{StaticResource TextBoxStyle}" Margin="89,0,0,0"/>
-        <Label Content="Credit Card:" Grid.Row="6" VerticalContentAlignment="Center" Margin="0,0,305,0"/>
-        <TextBox x:Name="addressBox" Grid.Row="7" Style="{StaticResource TextBoxStyle}" Text="{Binding Address}" Margin="73,0,0,0"/>
-        <Label Content="Address:" Grid.Row="7" VerticalContentAlignment="Center" Margin="0,0,326,0"/>
-        <TextBox x:Name="idBox" Grid.Row="8" Text="{Binding ID}" Style="{StaticResource TextBoxStyle}" Margin="237,0,0,0" IsEnabled="{Binding ElementName=checkBox, Path=IsChecked}"/>
-        <Label Content="ID:" Grid.Row="8" VerticalContentAlignment="Center" Margin="0,0,355,0" />
-        <CheckBox x:Name="checkBox" Grid.Row="8" Margin="122,21,250,0" />
-        <Label Content="Pick ID yourself(not recommended)" Grid.Row="8" Margin="37,0,155,15"/>
-        <Button x:Name="nextButton" Grid.Row="9" Content="Next step!" Background="Blue" Foreground="White" Margin="308,5,10,5" FontWeight="Bold" Click="nextButton_Click" >
+        </Grid>
+        <Button x:Name="nextButton" Grid.Row="9" Content="Next step!" Background="Blue" Foreground="White" HorizontalAlignment="Center" FontWeight="Bold" Visibility="Visible" Click="nextButton_Click" >
             <Button.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=usernameBox, Path=Text}" Value="">
+                        <DataTrigger Binding="{Binding ElementName=usernameBox, Path=Foreground}" Value="Gray">
                             <Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=passwordBox1, Path=Password}" Value="">
+                        <DataTrigger Binding="{Binding ElementName=addressBox, Path=Foreground}" Value="Gray">
                             <Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=passwordBox2, Path=Password}" Value="">
+                        <DataTrigger Binding="{Binding ElementName=ageBox, Path=Foreground}" Value="Gray">
                             <Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=addressBox, Path=Text}" Value="">
+                        <DataTrigger Binding="{Binding ElementName=creditCardBox, Path=Foreground}" Value="Gray">
                             <Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=ageBox, Path=Text}" Value="">
+                        <DataTrigger Binding="{Binding ElementName=nameBox, Path=Foreground}" Value="Gray">
                             <Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=creditCardBox, Path=Text}" Value="">
+                        <DataTrigger Binding="{Binding ElementName=passowrdLabelBox1, Path=Foreground}" Value="Gray">
                             <Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=nameBox, Path=Text}" Value="">
+                        <DataTrigger Binding="{Binding ElementName=passowrdLabelBox1, Path=Foreground}" Value="Gray">
                             <Setter Property="Button.Opacity" Value="0.3"/>
                         </DataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=checkBox, Path=IsChecked}" Value="True"/>
-                                <Condition Binding="{Binding ElementName=idBox, Path=Text}" Value=""/>
+                                <Condition Binding="{Binding ElementName=idBox, Path=Foreground}" Value="Gray"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Button.Opacity" Value="0.3"/>
                         </MultiDataTrigger>
@@ -97,6 +133,6 @@
                 </Style>
             </Button.Style>
         </Button>
-       
+
     </Grid>
 </Window>

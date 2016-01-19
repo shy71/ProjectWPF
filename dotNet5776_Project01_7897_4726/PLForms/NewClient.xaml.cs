@@ -61,9 +61,7 @@ namespace PLForms
                 if (passowrdBox1.Password == "")
                     throw new Exception("The password cant be empty!");
                 BL.FactoryBL.getBL().AddClient(client);
-                user.Name=client.Name;
-                user.UserName = usernameBox.Text;
-                user.Password=passowrdBox1.Password;
+                user.Name = client.Name;
                 user.Type=BE.UserType.Client;
                 user.ClientID=client.ID;
                 BL.FactoryBL.getBL().AddUser(user);
@@ -83,17 +81,103 @@ namespace PLForms
                 client.Age =Convert.ToInt32(e.Value);
         }
 
-        //private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    (sender as TextBox).Text = null;
-        //    (sender as TextBox).Foreground = Brushes.Black;
-        //}
-        //private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    var temp = (sender as TextBox).Resources.Values.GetEnumerator();
-        //    temp.MoveNext();
-        //    (sender as TextBox).Text = temp.Current as string;
-        //    (sender as TextBox).Foreground = Brushes.Gray;
-        //}
+        private void passowrdLabelBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBox).Visibility = Visibility.Hidden;
+            if ((sender as TextBox).Name == passowrdLabelBox1.Name)
+            {
+                passowrdBox1.Visibility = Visibility.Visible;
+                FocusManager.SetFocusedElement(this, passowrdBox1);
+            }
+            else
+            {
+                passowrdBox2.Visibility = Visibility.Visible;
+                FocusManager.SetFocusedElement(this, passowrdBox2);
+            }   
+        }
+        private void passowrdBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as PasswordBox).Password == "")
+            {
+                (sender as PasswordBox).Visibility = Visibility.Hidden;
+                if ((sender as PasswordBox).Name == passowrdBox1.Name)
+                {
+                    passowrdLabelBox1.Text = null;
+                    TextBox_LostFocus(passowrdLabelBox1, null);
+                    passowrdLabelBox1.Visibility = Visibility.Visible;
+                    passowrdBox1.Password = null;
+                }
+                else
+                {
+                    passowrdLabelBox2.Text = null;
+                    TextBox_LostFocus(passowrdLabelBox2, null);
+                    passowrdLabelBox2.Visibility = Visibility.Visible;
+                    passowrdBox2.Password = null;
+                }
+            }            
+            else
+            {
+                if ((sender as PasswordBox).Name == passowrdBox1.Name)
+                {
+                    passowrdLabelBox1.Text = (sender as PasswordBox).Password;
+                }
+                else
+                {
+                    passowrdLabelBox2.Text = (sender as PasswordBox).Password;
+                }
+            }
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as TextBox).Foreground == Brushes.Gray)
+            {
+                (sender as TextBox).Text = null;
+                (sender as TextBox).Foreground = Brushes.Black;
+                Binding myBind = null;
+
+
+                var temp = (sender as TextBox).Resources.Values.GetEnumerator();
+                temp.MoveNext();
+                if (GotPropty(client, temp.Current.ToString()))
+                {
+                    myBind = new Binding();
+                    myBind.Source = client;
+                    myBind.Path = new PropertyPath(client.GetType().GetProperty(temp.Current.ToString()));
+                    myBind.Mode = BindingMode.TwoWay;
+                    myBind.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                    (sender as TextBox).SetBinding(TextBox.TextProperty, myBind);
+                }
+                else if (GotPropty(user, temp.Current.ToString()))
+                {
+                    myBind = new Binding();
+                    myBind.Source = user;
+                    myBind.Path = new PropertyPath(user.GetType().GetProperty(temp.Current.ToString()));
+                    myBind.Mode = BindingMode.TwoWay;
+                    myBind.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                    (sender as TextBox).SetBinding(TextBox.TextProperty, myBind);
+                }
+                (sender as TextBox).Text = null;
+            }
+        }
+        bool GotPropty(object obj,string str)
+        {
+            if(obj.GetType().GetProperty(str)!=null)
+                return true;
+            return false;
+            
+        }
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as TextBox).Text == "")
+            {
+                BindingOperations.ClearBinding((sender as TextBox), TextBox.TextProperty);
+                var temp = (sender as TextBox).Resources.Values.GetEnumerator();
+                temp.MoveNext();
+                temp.MoveNext();
+                (sender as TextBox).Text = temp.Current as string;
+                (sender as TextBox).Foreground = Brushes.Gray;
+            }
+        }
     }
 }

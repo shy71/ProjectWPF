@@ -79,6 +79,8 @@ namespace PLForms
                 MinusButton.IsEnabled = false;
             else if ((!MinusButton.IsEnabled) && num != 0)
                 MinusButton.IsEnabled = true;
+            else if ((!MinusButton.IsEnabled) && num < maxNum)
+                PlusButton.IsEnabled = true;
             else if (num >= maxNum)
             {
                 Number.Text = maxNum.ToString();
