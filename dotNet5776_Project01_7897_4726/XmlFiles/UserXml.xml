@@ -49,4 +49,25 @@
     <Name>harel felhaimer</Name>
     <ClientID>122787</ClientID>
   </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>e</UserName>
+    <Password>e</Password>
+    <Name>e</Name>
+    <ClientID>159311</ClientID>
+  </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>ezra</UserName>
+    <Password>1234</Password>
+    <Name>ezra block</Name>
+    <ClientID>153419</ClientID>
+  </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>aaa</UserName>
+    <Password>11</Password>
+    <Name>aaa</Name>
+    <ClientID>135581</ClientID>
+  </User>
 </Users>

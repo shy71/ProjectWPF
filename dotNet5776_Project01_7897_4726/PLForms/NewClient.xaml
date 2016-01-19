@@ -3,38 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:clr="clr-namespace:System;assembly=mscorlib"
         xmlns:dc="clr-namespace:PLForms"
-        Title="NewClient" Height="400" Width="400" ResizeMode="NoResize" Background="#FFE6CBC8">
+        Title="NewClient" Height="400" Width="400" ResizeMode="NoResize" Background="#FFA50221" >
     <Window.Resources>
-        <Style x:Key="BoxStyle" TargetType="Control">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Opacity" Value="0.5"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-        </Style>
-        <Style x:Key="TextBoxStyle" BasedOn="{StaticResource BoxStyle}" TargetType="TextBox">
-            <Style.Setters>
-                <Setter Property="Foreground" Value="Gray"/>
-                <Setter Property="Text" Value="{DynamicResource descriptionString}"/>
-                <EventSetter Event="GotFocus" Handler="TextBox_GotFocus"/>
-                <EventSetter Event="LostFocus" Handler="TextBox_LostFocus"/>
-            </Style.Setters>
-            <!--<Style.Triggers>
-                <Trigger Property="Text" Value="">
-                    <Setter Property="BorderBrush" Value="Red"/>
-                </Trigger>
-            </Style.Triggers>-->
+        <Style x:Key="TextBoxStyle" BasedOn="{StaticResource TextStyle}" TargetType="TextBox">
+            <EventSetter Event="GotFocus" Handler="TextBox_GotFocus"/>
+            <EventSetter Event="LostFocus" Handler="TextBox_LostFocus"/>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.75*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
@@ -46,42 +36,42 @@
                 <clr:String x:Key="ProptyName">UserName</clr:String>
             </TextBox.Resources>
         </TextBox>
-        <PasswordBox x:Name="passowrdBox1" Grid.Row="2" Style="{StaticResource BoxStyle}" Visibility="Hidden"  LostFocus="passowrdBox_LostFocus"/>
-        <TextBox x:Name="passowrdLabelBox1" Grid.Row="2" Style="{StaticResource TextBoxStyle}" GotFocus="passowrdLabelBox_GotFocus">
+        <PasswordBox x:Name="passowrdBox1" Grid.Row="3" Visibility="Hidden"  LostFocus="passowrdBox_LostFocus"/>
+        <TextBox x:Name="passowrdLabelBox1" Grid.Row="3" Style="{StaticResource TextBoxStyle}" GotFocus="passowrdLabelBox_GotFocus">
             <TextBox.Resources>
                 <clr:String x:Key="descriptionString">Password</clr:String>
                 <clr:String x:Key="ProptyName">Password</clr:String>
             </TextBox.Resources>
         </TextBox>
-        <PasswordBox x:Name="passowrdBox2" Grid.Row="3" Style="{StaticResource BoxStyle}" Visibility="Hidden"  LostFocus="passowrdBox_LostFocus"/>
-        <TextBox x:Name="passowrdLabelBox2" Grid.Row="3" Style="{StaticResource TextBoxStyle}" GotFocus="passowrdLabelBox_GotFocus">
+        <PasswordBox x:Name="passowrdBox2" Grid.Row="5" Visibility="Hidden"  LostFocus="passowrdBox_LostFocus"/>
+        <TextBox x:Name="passowrdLabelBox2" Grid.Row="5" Style="{StaticResource TextBoxStyle}" GotFocus="passowrdLabelBox_GotFocus">
             <TextBox.Resources>
                 <clr:String x:Key="descriptionString">Password Conformation</clr:String>
                 <clr:String x:Key="ProptyName">Password2</clr:String>
             </TextBox.Resources>
         </TextBox>
-        <TextBox x:Name="nameBox" Grid.Row="4" Style="{StaticResource TextBoxStyle}">
+        <TextBox x:Name="nameBox" Grid.Row="7" Style="{StaticResource TextBoxStyle}">
             <TextBox.Resources>
                 <clr:String x:Key="descriptionString">Full Name</clr:String>
                 <clr:String x:Key="ProptyName">Name</clr:String>
             </TextBox.Resources>
         </TextBox>
-        <TextBox x:Name="creditCardBox" Grid.Row="5" Style="{StaticResource TextBoxStyle}">
+        <TextBox x:Name="creditCardBox" Grid.Row="9" Style="{StaticResource TextBoxStyle}">
             <TextBox.Resources>
                 <clr:String x:Key="descriptionString">Credit Card</clr:String>
                 <clr:String x:Key="ProptyName">CreditCard</clr:String>
             </TextBox.Resources>
         </TextBox>
-        <TextBox x:Name="addressBox" Grid.Row="6" Style="{StaticResource TextBoxStyle}">
+        <TextBox x:Name="addressBox" Grid.Row="11" Style="{StaticResource TextBoxStyle}">
             <TextBox.Resources>
                 <clr:String x:Key="descriptionString">Address</clr:String>
                 <clr:String x:Key="ProptyName">Address</clr:String>
             </TextBox.Resources>
         </TextBox>
-        <Grid Grid.Row="7">
+        <Grid Grid.Row="13">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="101*"/>
-                <ColumnDefinition Width="157*"/>
+                <ColumnDefinition Width="133*"/>
+                <ColumnDefinition Width="125*"/>
                 <ColumnDefinition Width="42*"/>
                 <ColumnDefinition Width="94*"/>
             </Grid.ColumnDefinitions>
@@ -91,43 +81,43 @@
                     <clr:String x:Key="ProptyName">ID</clr:String>
                 </TextBox.Resources>
             </TextBox>
-            <CheckBox x:Name="checkBox" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="44,22,44,5" Height="12" Width="13"/>
-            <Label Content="Self aponited ID " Grid.Column="0" Margin="0,0,0,22" />
+            <CheckBox x:Name="checkBox" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="110,12,9,20" Height="12" Width="14"/>
+            <TextBlock Grid.Column="0" Background="Transparent" Margin="0,3,0,-12" HorizontalAlignment="Left" TextAlignment="Center"><Run Text="Self appointed ID"/><LineBreak/><Run Text="Not recommended!"/></TextBlock>
             <Label Content="Age:" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="42"/>
-            <dc:PlusMinusTextBox Grid.Column="4" Changed="PlusMinusTextBox_Changed"/>
+            <dc:PlusMinusTextBox Grid.Column="3" Changed="PlusMinusTextBox_Changed"/>
 
         </Grid>
-        <Button x:Name="nextButton" Grid.Row="9" Content="Next step!" Background="Blue" Foreground="White" HorizontalAlignment="Center" FontWeight="Bold" Visibility="Visible" Click="nextButton_Click" >
+        <Button x:Name="nextButton" Grid.Row="14" FontSize="20" Content="Next step!"  HorizontalAlignment="Center" FontWeight="Bold" Width="114" Visibility="Visible" Click="nextButton_Click" VerticalAlignment="Center" Height="34" Margin="140,3,140,0" >
             <Button.Style>
-                <Style>
+                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=usernameBox, Path=Foreground}" Value="Gray">
-                            <Setter Property="Button.Opacity" Value="0.3"/>
+                            <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=addressBox, Path=Foreground}" Value="Gray">
-                            <Setter Property="Button.Opacity" Value="0.3"/>
+                            <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=ageBox, Path=Foreground}" Value="Gray">
-                            <Setter Property="Button.Opacity" Value="0.3"/>
+                            <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=creditCardBox, Path=Foreground}" Value="Gray">
-                            <Setter Property="Button.Opacity" Value="0.3"/>
+                            <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=nameBox, Path=Foreground}" Value="Gray">
-                            <Setter Property="Button.Opacity" Value="0.3"/>
+                            <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=passowrdLabelBox1, Path=Foreground}" Value="Gray">
-                            <Setter Property="Button.Opacity" Value="0.3"/>
+                            <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=passowrdLabelBox1, Path=Foreground}" Value="Gray">
-                            <Setter Property="Button.Opacity" Value="0.3"/>
+                            <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=checkBox, Path=IsChecked}" Value="True"/>
                                 <Condition Binding="{Binding ElementName=idBox, Path=Foreground}" Value="Gray"/>
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Button.Opacity" Value="0.3"/>
+                            <Setter Property="Button.IsEnabled" Value="false"/>
                         </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>

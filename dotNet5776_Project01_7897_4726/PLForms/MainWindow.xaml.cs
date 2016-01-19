@@ -150,6 +150,7 @@ namespace PLForms
         private void passwordLabelBox_GotFocus(object sender, RoutedEventArgs e)
         {
             (sender as TextBox).Visibility = Visibility.Hidden;
+            (sender as TextBox).Foreground = Brushes.Black;
             InputPassword.Visibility = Visibility.Visible;
             FocusManager.SetFocusedElement(this, InputPassword);
         }

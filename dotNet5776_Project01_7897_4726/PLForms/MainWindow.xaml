@@ -5,26 +5,10 @@
         xmlns:local="clr-namespace:PLForms"
         Title="Freddy's BBQ Joint" Icon="Images/Small logo.png" MinWidth="300" MinHeight="500" Height="500" Width="300" FontWeight="Bold" Background="#FFA50221">
     <Window.Resources>
-        <Style x:Key="BoxStyle" TargetType="Control">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="FontFamily" Value="Ariel"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-        </Style>
-        <Style x:Key="TextBoxStyle" BasedOn="{StaticResource BoxStyle}" TargetType="TextBox">
-            <Style.Setters>
-                <Setter Property="Foreground" Value="Gray"/>
-                <Setter Property="Text" Value="{DynamicResource descriptionString}"/>
-                <EventSetter Event="GotFocus" Handler="TextBox_GotFocus"/>
-                <EventSetter Event="LostFocus" Handler="TextBox_LostFocus"/>
-            </Style.Setters>
-            <!--<Style.Triggers>
-                <Trigger Property="Text" Value="">
-                    <Setter Property="BorderBrush" Value="Red"/>
-                </Trigger>
-            </Style.Triggers>-->
-        </Style>
+    <Style x:Key="TextBoxStyle" BasedOn="{StaticResource TextStyle}" TargetType="TextBox">
+        <EventSetter Event="GotFocus" Handler="TextBox_GotFocus"/>
+        <EventSetter Event="LostFocus" Handler="TextBox_LostFocus"/>
+    </Style>
     </Window.Resources>
     <Grid x:Name="grid">
         <Grid.RowDefinitions>
@@ -34,14 +18,14 @@
             <RowDefinition Height="121*"/>
         </Grid.RowDefinitions>
         <Image Grid.Row="0" Source="Images\Small logo.png"/>
-        <TextBox x:Name="InputBox" Grid.Row="2" Foreground="Gray" FontFamily="Arial" FontSize="20" Style="{StaticResource TextBoxStyle}" TextAlignment="Left" Height="35" FontWeight="Normal" GotFocus="TextBox_GotFocus" Margin="38,6,37,5" PreviewKeyDown="InputPreviewKeyDown">
+        <TextBox x:Name="InputBox" Grid.Row="2" Foreground="Gray" FontFamily="Arial" FontSize="20" TextAlignment="Left" Height="35" FontWeight="Normal" GotFocus="TextBox_GotFocus"  LostFocus="TextBox_LostFocus" Margin="38,6,37,5" PreviewKeyDown="InputPreviewKeyDown">
             <TextBox.Resources>
                 <clr:String x:Key="descriptionString">Enter your Username</clr:String>
             </TextBox.Resources>
         </TextBox>
-        <Button x:Name="SignInButton" Background="DarkGoldenrod" Foreground="Maroon" Grid.Row="3" VerticalAlignment="Top" Height="40" Margin="47,24,47,0" FontFamily="Comic Sans MS" FontSize="20" Click="NextLogin">
+        <Button x:Name="SignInButton" Grid.Row="3" VerticalAlignment="Top" Height="40" FontSize="20" Margin="47,24,47,0" Click="NextLogin">
             <Button.Style>
-                <Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -70,7 +54,7 @@
                                 <Setter Property="Button.IsEnabled" Value="False"/>
                             </MultiDataTrigger.Setters>
                         </MultiDataTrigger>
-                        <MultiDataTrigger>
+                        <!--<MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=InputPassword, Path=Foreground}" Value="Gray"/>
                                 <Condition Binding="{Binding ElementName=InputPassword, Path=Visibility}" Value="Visible"/>
@@ -78,7 +62,7 @@
                             <MultiDataTrigger.Setters>
                                 <Setter Property="Button.IsEnabled" Value="False"/>
                             </MultiDataTrigger.Setters>
-                        </MultiDataTrigger>
+                        </MultiDataTrigger>-->
                         <DataTrigger Binding="{Binding ElementName=backArrow, Path=Visibility}" Value="Hidden">
                             <Setter Property="Button.Content" Value="Next"/>
                         </DataTrigger>
@@ -105,9 +89,8 @@
             <Image x:Name="backArrow" Source="Images\Arrow.png" Grid.Column="1" Grid.Row="0" Visibility="Hidden" />
             <Button x:Name="backButton" Opacity="0.2" Grid.Column="1" Click="backButton_Click" Grid.Row="0">
                 <Button.Style>
-                    <Style>
+                    <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
                         <Style.Triggers>
-
                             <DataTrigger Binding="{Binding ElementName=backArrow,Path=Visibility}" Value="Visible">
                                 <Setter Property="Button.Visibility" Value="Visible"/>
                             </DataTrigger>
@@ -119,9 +102,9 @@
                 </Button.Style>
             </Button>
         </Grid>
-        <Button x:Name="createAccountButton" Content="Create account" Margin="90,88,90,0" Grid.Row="3" VerticalAlignment="Top" Background="DarkGoldenrod" Foreground="Maroon" Click="createAccountButton_Click">
+        <Button x:Name="createAccountButton" Content="Create account" Margin="90,88,90,0" Grid.Row="3" VerticalAlignment="Top" FontFamily="auto" Click="createAccountButton_Click">
             <Button.Style>
-                <Style>
+                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=backArrow,Path=Visibility}" Value="Visible">
                             <Setter Property="Button.Visibility" Value="Hidden"/>
@@ -147,7 +130,7 @@
                 </Style>
             </PasswordBox.Style>-->
         </PasswordBox>
-        <TextBox x:Name="passwordLabelBox"  Style="{StaticResource TextBoxStyle}" Grid.Row="2" Height="35" Margin="38,6,37,5" GotFocus="passwordLabelBox_GotFocus" Visibility="Hidden">
+        <TextBox x:Name="passwordLabelBox" Grid.Row="2" Height="35" Margin="38,6,37,5" GotFocus="passwordLabelBox_GotFocus" Visibility="Hidden">
             <TextBox.Resources>
                 <clr:String x:Key="descriptionString">Password</clr:String>
             </TextBox.Resources>
