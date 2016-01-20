@@ -83,7 +83,8 @@ namespace BE
     public enum UserType
     { Client,BranchManger,NetworkManger }
 
-
+    public enum CurrentPlacing
+    { Action,Info,Edit}
     ////כרגע לא בשימוש 
     ////אולי אחר כך
     //class MessageBoxException : Exception
