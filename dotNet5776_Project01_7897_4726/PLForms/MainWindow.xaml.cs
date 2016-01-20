@@ -36,34 +36,17 @@ namespace PLForms
             {
             }
         }
-
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            (sender as TextBox).Text = null;
-            (sender as TextBox).Foreground = Brushes.Black;
-        }
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if ((sender as TextBox).Text == "")
-            {
-                var temp = (sender as TextBox).Resources.Values.GetEnumerator();
-                temp.MoveNext();
-                (sender as TextBox).Text = temp.Current as string;
-                (sender as TextBox).Foreground = Brushes.Gray;
-            }
-        }
         private void NextLogin(object sender, RoutedEventArgs e)
         {
             switch (SignInButton.Content.ToString())
             {
                 case "Next":
                     #region Next
-                    user = BL.FactoryBL.getBL().GetUser(InputBox.Text);
+                    user = BL.FactoryBL.getBL().GetUser(InputBox.GetText());
                     if (user == null)
                     {
                         if (MessageBox.Show("Sorry, There isn't such username in our datdbase\n\n would you like to create a new client with that username?", "Incorrect username", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
-                            new NewClient(InputBox.Text).ShowDialog();
+                            new NewClient(InputBox.GetText()).ShowDialog();
                     }
                     else
                     {
@@ -71,12 +54,11 @@ namespace PLForms
                         ChangeToLogin();
                     }
                     InputBox.Clear();
-                    TextBox_LostFocus(InputBox, null);
                     #endregion
                     break;
                 case "Sign In":
                     #region Sign In
-                    if (InputPassword.Password == user.Password)
+                    if (InputPassword.GetPassword() == user.Password)
                     {
                         switch (user.Type)
                         {
@@ -106,25 +88,25 @@ namespace PLForms
         private void ChangeToLogin()
         {
             backArrow.Visibility = Visibility.Visible;
-            passwordLabelBox.Visibility = Visibility.Visible;
+            InputPassword.Visibility = Visibility.Visible;
         }
 
-        private void passwordLabelBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if ((sender as PasswordBox).Password == "" || backArrow.Visibility==Visibility.Hidden)
-            {
-                (sender as PasswordBox).Visibility = Visibility.Hidden;
-                passwordLabelBox.Text = null;
-                TextBox_LostFocus(passwordLabelBox, null);
-                passwordLabelBox.Visibility = Visibility;
-                InputPassword.Password = null;
+        //private void passwordLabelBox_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if ((sender as PasswordBox).Password == "" || backArrow.Visibility==Visibility.Hidden)
+        //    {
+        //        (sender as PasswordBox).Visibility = Visibility.Hidden;
+        //        passwordLabelBox.Text = null;
+        //        //TextBox_LostFocus(passwordLabelBox, null);
+        //        passwordLabelBox.Visibility = Visibility;
+        //        InputPassword.Password = null;
 
-            }
-            else
-            {
-                passwordLabelBox.Text = InputPassword.Password;
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        passwordLabelBox.Text = InputPassword.Password;
+        //    }
+        //}
 
         private void createAccountButton_Click(object sender, RoutedEventArgs e)
         {
@@ -136,8 +118,8 @@ namespace PLForms
         {
             this.DataContext = null;
             backArrow.Visibility = Visibility.Hidden;
-            passwordLabelBox_LostFocus(InputPassword, null);
-            passwordLabelBox.Visibility = Visibility.Hidden;
+            InputPassword.Clear();
+            InputPassword.Visibility = Visibility.Hidden;
         }
 
         private void InputPreviewKeyDown(object sender, KeyEventArgs e)
@@ -147,13 +129,13 @@ namespace PLForms
 
         }
 
-        private void passwordLabelBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            (sender as TextBox).Visibility = Visibility.Hidden;
-            (sender as TextBox).Foreground = Brushes.Black;
-            InputPassword.Visibility = Visibility.Visible;
-            FocusManager.SetFocusedElement(this, InputPassword);
-        }
+        //private void passwordLabelBox_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    (sender as TextBox).Visibility = Visibility.Hidden;
+        //    (sender as TextBox).Foreground = Brushes.Black;
+        //    InputPassword.Visibility = Visibility.Visible;
+        //    FocusManager.SetFocusedElement(this, InputPassword);
+        //}
     }
 }
 
