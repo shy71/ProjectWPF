@@ -21,6 +21,7 @@ namespace PLForms
     public partial class TextControl : UserControl
     {
         public string Str { get; set; }
+        public string Text { get; set; }
         Binding myBind=null;
         public TextControl()
         {
@@ -31,13 +32,11 @@ namespace PLForms
             InitializeComponent();
             Str = waterMark;
         }
-        public TextControl(string WaterMark, object BindingObject, string PropertyName, BindingMode Mode = BindingMode.OneWay)
+        public void SetBinding(object BindingObject, string PropertyName, BindingMode Mode = BindingMode.OneWay)
         {
-            InitializeComponent();
-            Str = WaterMark;
             myBind = new Binding();
             myBind.Source = BindingObject;
-            myBind.Path =new PropertyPath(BindingObject.GetType().GetProperty(PropertyName));
+            myBind.Path = new PropertyPath(BindingObject.GetType().GetProperty(PropertyName));
             myBind.Mode = Mode;
             myBind.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
         }
@@ -76,6 +75,14 @@ namespace PLForms
         private void textBox_Loaded(object sender, RoutedEventArgs e)
         {
             textBox_LostFocus(textBox, null);
+        }
+
+        private void UserControl_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (textBox.Foreground == Brushes.Gray)
+                Text = null;
+            else
+                Text = textBox.Text;
         }
 
     }

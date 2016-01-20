@@ -36,7 +36,6 @@ namespace PLForms
             if (passwordBox.Password == "")
             {
                 passwordBox.Visibility = Visibility.Hidden;
-                textBox.Text = null;
                 textBox.Visibility = Visibility.Visible;
                 passwordBox.Password = null;
                 textBox.Foreground = Brushes.Gray;
@@ -64,10 +63,15 @@ namespace PLForms
             if (passwordBox.Password == "")
             {
                 textBox.Visibility = Visibility.Hidden;
-                 textBox.Foreground = Brushes.Black;
+                textBox.Foreground = Brushes.Black;
                 passwordBox.Visibility = Visibility.Visible;
-                FocusManager.SetFocusedElement(this, passwordBox);
+                Keyboard.Focus(passwordBox);
             }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            passwordLabelBox_LostFocus(passwordBox, null);
         }
     }
 }

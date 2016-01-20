@@ -30,12 +30,13 @@
         </Grid.RowDefinitions>
 
         <Label Content="Create your Freddy's BBQ Joint account!" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-        <TextBox x:Name="usernameBox" Grid.Row="1" Style="{StaticResource TextBoxStyle}">
+        <!--<TextBox x:Name="usernameBox" Grid.Row="1" Style="{StaticResource TextBoxStyle}">
             <TextBox.Resources>
                 <clr:String x:Key="descriptionString">Username</clr:String>
                 <clr:String x:Key="ProptyName">UserName</clr:String>
             </TextBox.Resources>
-        </TextBox>
+        </TextBox>-->
+        <dc:TextControl x:Name="usernameBox" Grid.Row="1" Str="Username"/>
         <PasswordBox x:Name="passowrdBox1" Grid.Row="3" Visibility="Hidden"  LostFocus="passowrdBox_LostFocus"/>
         <TextBox x:Name="passowrdLabelBox1" Grid.Row="3" Style="{StaticResource TextBoxStyle}" GotFocus="passowrdLabelBox_GotFocus">
             <TextBox.Resources>
@@ -123,6 +124,7 @@
                 </Style>
             </Button.Style>
         </Button>
+
 
     </Grid>
 </Window>

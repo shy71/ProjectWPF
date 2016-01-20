@@ -12,7 +12,7 @@
             <RowDefinition Height="121*"/>
         </Grid.RowDefinitions>
         <Image Grid.Row="0" Source="Images\Small logo.png"/>
-        <local:TextControl x:Name="InputBox" Str="Enter your Username" Grid.Row="2" Height="35" VerticalAlignment="Center" PreviewKeyDown="InputPreviewKeyDown" Width="217" />
+        <local:TextControl x:Name="InputBox" Str="Enter your Username" Grid.Row="2" Height="35" VerticalAlignment="Center" PreviewKeyDown="InputPreviewKeyDown" Width="217"/>
         <Button x:Name="SignInButton" Grid.Row="3" VerticalAlignment="Top" Height="40" FontSize="20" Margin="47,24,47,0" Click="NextLogin">
             <Button.Style>
                 <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
@@ -30,15 +30,6 @@
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=backArrow, Path=Visibility}" Value="Visible"/>
                                 <Condition Binding="{Binding ElementName=passwordLabelBox, Path=Foreground}" Value="Gray"/>
-                            </MultiDataTrigger.Conditions>
-                            <MultiDataTrigger.Setters>
-                                <Setter Property="Button.IsEnabled" Value="False"/>
-                            </MultiDataTrigger.Setters>
-                        </MultiDataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding ElementName=InputBox, Path=Foreground}" Value="Gray"/>
-                                <Condition Binding="{Binding ElementName=InputPassword, Path=Visibility}" Value="Hidden"/>
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.Setters>
                                 <Setter Property="Button.IsEnabled" Value="False"/>
@@ -106,6 +97,6 @@
                 </Style>
             </Button.Style>
         </Button>
-        <local:PasswordControl x:Name="InputPassword" Grid.Row="2"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" Width="217" PreviewKeyDown="InputPreviewKeyDown"  Str="Password" />
+        <local:PasswordControl x:Name="InputPassword" Grid.Row="2"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" Width="217" PreviewKeyDown="InputPreviewKeyDown" Str="Password"  Visibility="Hidden"/>
     </Grid>
 </Window>

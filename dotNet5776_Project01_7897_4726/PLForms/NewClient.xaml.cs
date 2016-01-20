@@ -87,12 +87,12 @@ namespace PLForms
             if ((sender as TextBox).Name == passowrdLabelBox1.Name)
             {
                 passowrdBox1.Visibility = Visibility.Visible;
-                FocusManager.SetFocusedElement(this, passowrdBox1);
+                Keyboard.Focus(passowrdBox1);
             }
             else
             {
                 passowrdBox2.Visibility = Visibility.Visible;
-                FocusManager.SetFocusedElement(this, passowrdBox2);
+                Keyboard.Focus(passowrdBox2);
             }   
         }
         private void passowrdBox_LostFocus(object sender, RoutedEventArgs e)

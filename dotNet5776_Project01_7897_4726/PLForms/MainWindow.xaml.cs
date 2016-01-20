@@ -75,15 +75,12 @@ namespace PLForms
                         this.Close();
                     }
                     //enter Type Window
-                    else
                         MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
+                        InputPassword.Clear();
                     #endregion
                     break;
             }
 
-        }
-        private void SignIn(object sender, RoutedEventArgs e)
-        {
         }
         private void ChangeToLogin()
         {
@@ -134,7 +131,7 @@ namespace PLForms
         //    (sender as TextBox).Visibility = Visibility.Hidden;
         //    (sender as TextBox).Foreground = Brushes.Black;
         //    InputPassword.Visibility = Visibility.Visible;
-        //    FocusManager.SetFocusedElement(this, InputPassword);
+        //   KeyBorad.Focus(InputPassword);
         //}
     }
 }
