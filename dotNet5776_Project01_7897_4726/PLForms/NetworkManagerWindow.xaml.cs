@@ -51,5 +51,10 @@ namespace PLForms
         {
             //open small window 4 checking which branch is being deleted
         }
+
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
