@@ -135,6 +135,7 @@
                 <clr:String x:Key="descriptionString">Password</clr:String>
             </TextBox.Resources>
         </TextBox>
+        <local:TextControl HorizontalAlignment="Left" Margin="10,88,0,0" Grid.Row="3" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -7770,4 +7770,39 @@
     <Price>34</Price>
     <Kosher>LOW</Kosher>
   </Dish>
+  <Dish>
+    <ID>302274</ID>
+    <Name>Soup</Name>
+    <Size>LARGE</Size>
+    <Price>13</Price>
+    <Kosher>HIGH</Kosher>
+  </Dish>
+  <Dish>
+    <ID>257639</ID>
+    <Name>Hot Dogs</Name>
+    <Size>MEDIUM</Size>
+    <Price>15</Price>
+    <Kosher>LOW</Kosher>
+  </Dish>
+  <Dish>
+    <ID>297758</ID>
+    <Name>Bamba</Name>
+    <Size>SMALL</Size>
+    <Price>5</Price>
+    <Kosher>HIGH</Kosher>
+  </Dish>
+  <Dish>
+    <ID>464031</ID>
+    <Name>Wings</Name>
+    <Size>MEDIUM</Size>
+    <Price>20</Price>
+    <Kosher>MEDIUM</Kosher>
+  </Dish>
+  <Dish>
+    <ID>256655</ID>
+    <Name>Stake</Name>
+    <Size>LARGE</Size>
+    <Price>34</Price>
+    <Kosher>LOW</Kosher>
+  </Dish>
 </Dishes>
