@@ -4,13 +4,7 @@
         xmlns:clr="clr-namespace:System;assembly=mscorlib"
         xmlns:dc="clr-namespace:PLForms"
         Title="NewClient" Height="400" Width="400" ResizeMode="NoResize" Background="#FFA50221" >
-    <Window.Resources>
-        <Style x:Key="TextBoxStyle" BasedOn="{StaticResource TextStyle}" TargetType="TextBox">
-            <EventSetter Event="GotFocus" Handler="TextBox_GotFocus"/>
-            <EventSetter Event="LostFocus" Handler="TextBox_LostFocus"/>
-        </Style>
-    </Window.Resources>
-    <Grid>
+    <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.75*"/>
             <RowDefinition Height="1*"/>
@@ -30,45 +24,12 @@
         </Grid.RowDefinitions>
 
         <Label Content="Create your Freddy's BBQ Joint account!" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-        <!--<TextBox x:Name="usernameBox" Grid.Row="1" Style="{StaticResource TextBoxStyle}">
-            <TextBox.Resources>
-                <clr:String x:Key="descriptionString">Username</clr:String>
-                <clr:String x:Key="ProptyName">UserName</clr:String>
-            </TextBox.Resources>
-        </TextBox>-->
-        <dc:TextControl x:Name="usernameBox" Grid.Row="1" Str="Username"/>
-        <PasswordBox x:Name="passowrdBox1" Grid.Row="3" Visibility="Hidden"  LostFocus="passowrdBox_LostFocus"/>
-        <TextBox x:Name="passowrdLabelBox1" Grid.Row="3" Style="{StaticResource TextBoxStyle}" GotFocus="passowrdLabelBox_GotFocus">
-            <TextBox.Resources>
-                <clr:String x:Key="descriptionString">Password</clr:String>
-                <clr:String x:Key="ProptyName">Password</clr:String>
-            </TextBox.Resources>
-        </TextBox>
-        <PasswordBox x:Name="passowrdBox2" Grid.Row="5" Visibility="Hidden"  LostFocus="passowrdBox_LostFocus"/>
-        <TextBox x:Name="passowrdLabelBox2" Grid.Row="5" Style="{StaticResource TextBoxStyle}" GotFocus="passowrdLabelBox_GotFocus">
-            <TextBox.Resources>
-                <clr:String x:Key="descriptionString">Password Conformation</clr:String>
-                <clr:String x:Key="ProptyName">Password2</clr:String>
-            </TextBox.Resources>
-        </TextBox>
-        <TextBox x:Name="nameBox" Grid.Row="7" Style="{StaticResource TextBoxStyle}">
-            <TextBox.Resources>
-                <clr:String x:Key="descriptionString">Full Name</clr:String>
-                <clr:String x:Key="ProptyName">Name</clr:String>
-            </TextBox.Resources>
-        </TextBox>
-        <TextBox x:Name="creditCardBox" Grid.Row="9" Style="{StaticResource TextBoxStyle}">
-            <TextBox.Resources>
-                <clr:String x:Key="descriptionString">Credit Card</clr:String>
-                <clr:String x:Key="ProptyName">CreditCard</clr:String>
-            </TextBox.Resources>
-        </TextBox>
-        <TextBox x:Name="addressBox" Grid.Row="11" Style="{StaticResource TextBoxStyle}">
-            <TextBox.Resources>
-                <clr:String x:Key="descriptionString">Address</clr:String>
-                <clr:String x:Key="ProptyName">Address</clr:String>
-            </TextBox.Resources>
-        </TextBox>
+        <dc:TextControl x:Name="usernameBox" Grid.Row="1" Str="Username" FontS="12"/>
+        <dc:PasswordControl x:Name="passwordBox1" Grid.Row="3" Str="Password"/>
+        <dc:PasswordControl x:Name="passwordBox2" Grid.Row="5" Str="Password Conformation"/>
+        <dc:TextControl x:Name="nameBox" Grid.Row="7" Str="Full Name"/>
+        <dc:TextControl x:Name="creditCardBox" Grid.Row="9" Str="Credit Card"/>
+        <dc:TextControl x:Name="addressBox" Grid.Row="11" Str="Address"/>
         <Grid Grid.Row="13">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="133*"/>
@@ -76,12 +37,7 @@
                 <ColumnDefinition Width="42*"/>
                 <ColumnDefinition Width="94*"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="idBox" Style="{StaticResource TextBoxStyle}" IsEnabled="{Binding ElementName=checkBox, Path=IsChecked}" Grid.Column="1">
-                <TextBox.Resources>
-                    <clr:String x:Key="descriptionString">ID</clr:String>
-                    <clr:String x:Key="ProptyName">ID</clr:String>
-                </TextBox.Resources>
-            </TextBox>
+            <dc:TextControl x:Name="idBox" IsEnabled="{Binding ElementName=checkBox, Path=IsChecked}" Grid.Column="1" Str="ID"/> 
             <CheckBox x:Name="checkBox" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="110,12,9,20" Height="12" Width="14"/>
             <TextBlock Grid.Column="0" Background="Transparent" Margin="0,3,0,-12" HorizontalAlignment="Left" TextAlignment="Center"><Run Text="Self appointed ID"/><LineBreak/><Run Text="Not recommended!"/></TextBlock>
             <Label Content="Age:" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="42"/>
@@ -92,31 +48,31 @@
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=usernameBox, Path=Foreground}" Value="Gray">
+                        <DataTrigger Binding="{Binding ElementName=usernameBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=addressBox, Path=Foreground}" Value="Gray">
+                        <DataTrigger Binding="{Binding ElementName=addressBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=ageBox, Path=Foreground}" Value="Gray">
+                        <DataTrigger Binding="{Binding ElementName=ageBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=creditCardBox, Path=Foreground}" Value="Gray">
+                        <DataTrigger Binding="{Binding ElementName=creditCardBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=nameBox, Path=Foreground}" Value="Gray">
+                        <DataTrigger Binding="{Binding ElementName=nameBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=passowrdLabelBox1, Path=Foreground}" Value="Gray">
+                        <DataTrigger Binding="{Binding ElementName=passwordBox1, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=passowrdLabelBox1, Path=Foreground}" Value="Gray">
+                        <DataTrigger Binding="{Binding ElementName=passwordBox2, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="false"/>
                         </DataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=checkBox, Path=IsChecked}" Value="True"/>
-                                <Condition Binding="{Binding ElementName=idBox, Path=Foreground}" Value="Gray"/>
+                                <Condition Binding="{Binding ElementName=idBox, Path=ForeG}" Value="Gray"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Button.IsEnabled" Value="false"/>
                         </MultiDataTrigger>

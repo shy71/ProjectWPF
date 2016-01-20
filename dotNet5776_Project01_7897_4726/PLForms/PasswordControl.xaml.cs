@@ -12,23 +12,53 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace PLForms
 {
     /// <summary>
     /// Interaction logic for PasswordControl.xaml
     /// </summary>
-    public partial class PasswordControl : UserControl
+    public partial class PasswordControl : UserControl,INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        protected bool SetField<T>(ref T field, T value, string propertyName)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
         public string Str { get; set; }
+        public double FontS { get; set; }
+        Brush foreG;
+        public Brush ForeG 
+        {
+            get
+            {
+                return foreG;
+            }
+            set
+            {
+                SetField(ref foreG, value, "ForeG");
+            }
+        }
         public PasswordControl()
         {
             InitializeComponent();
+            ForeG = Brushes.Gray;
         }
         public PasswordControl(string WaterMark)
         {
             InitializeComponent();
             Str = WaterMark;
+            ForeG = Brushes.Gray;
         }
 
         private void passwordLabelBox_LostFocus(object sender, RoutedEventArgs e)
@@ -38,7 +68,7 @@ namespace PLForms
                 passwordBox.Visibility = Visibility.Hidden;
                 textBox.Visibility = Visibility.Visible;
                 passwordBox.Password = null;
-                textBox.Foreground = Brushes.Gray;
+                passwordBox.Foreground = Brushes.Gray;
                 textBox.Text = Str;
 
             }
@@ -63,7 +93,6 @@ namespace PLForms
             if (passwordBox.Password == "")
             {
                 textBox.Visibility = Visibility.Hidden;
-                textBox.Foreground = Brushes.Black;
                 passwordBox.Visibility = Visibility.Visible;
                 Keyboard.Focus(passwordBox);
             }
@@ -72,6 +101,33 @@ namespace PLForms
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             passwordLabelBox_LostFocus(passwordBox, null);
+            if (FontS != 0)
+            {
+                passwordBox.FontSize = FontS;
+                textBox.FontSize = FontS;
+            }
+        }
+        private void PasswordInput(object sender, TextCompositionEventArgs e)
+        {
+            if (passwordBox.Foreground == Brushes.Gray && passwordBox.Password == "" && e.Text!="")
+            {
+                passwordBox.Foreground = Brushes.Black;
+                ForeG = Brushes.Black;
+            }
+            else if (passwordBox.Password.Length==1 && e.Text=="a")
+            {
+                passwordBox.Foreground = Brushes.Gray;
+                ForeG = Brushes.Gray;
+            }
+        }
+
+        private void passwordBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key==Key.Back&& passwordBox.Password.Length==0)
+            {
+                passwordBox.Foreground = Brushes.Gray;
+                ForeG = Brushes.Gray;
+            }
         }
     }
 }
