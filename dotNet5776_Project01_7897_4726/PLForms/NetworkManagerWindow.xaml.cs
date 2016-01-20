@@ -19,6 +19,7 @@ namespace PLForms
     /// </summary>
     public partial class NetworkManagerWindow : Window
     {
+        BE.CurrentPlacing? placing = null;
         BE.User manger;
         public NetworkManagerWindow(BE.User manger)
         {
@@ -54,7 +55,8 @@ namespace PLForms
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
-
+            new MainWindow().Show();
+            this.Close();
         }
     }
 }

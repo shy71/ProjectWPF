@@ -2,10 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NetworkManagerWindow" Height="500" Width="500">
-    <Grid  Background="#FFA50221">
+    <Grid Background="#FFA50221">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>        
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -23,6 +23,9 @@
         <Button x:Name="AddNewNetworkManagerButton" Content="Appoint the new network manager" FontSize="15" Click="AddNewNetworkManagerButton_Click" Grid.Column="1" Grid.Row="2" />
         <Button x:Name="UpdateUserButton" Grid.Row="5" Content="Change your details" FontSize="20" Click="UpdateUserButton_Click" />
         <Button x:Name="SignOutButton" Grid.Row="0" Grid.Column="0" Content="Sign out" Click="LogOutButton_Click" Margin="0,0,166,51" Background="Beige"/>
+        <Button x:Name="ActionButton" Content="Action" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="0,2,0,0" VerticalAlignment="Top" Width="80" Height="25"/>
+        <Button x:Name="InfoButton" Content="Information" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="80,2,0,0" VerticalAlignment="Top" Width="80" Height="25"/>
+        <Button x:Name="EditButton" Content="Edit" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="160,2,0,0" VerticalAlignment="Top" Width="80" Height="25"/>
 
     </Grid>
 </Window>
