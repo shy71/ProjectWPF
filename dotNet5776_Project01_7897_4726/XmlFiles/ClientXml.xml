@@ -8904,4 +8904,214 @@
     <CreditCard>38267</CreditCard>
     <Age>19</Age>
   </Client>
+  <Client>
+    <ID>142779</ID>
+    <Name>Shy</Name>
+    <Address>Sderot Hertzel 12</Address>
+    <CreditCard>45326</CreditCard>
+    <Age>23</Age>
+  </Client>
+  <Client>
+    <ID>146523</ID>
+    <Name>Ezra</Name>
+    <Address>Beit Shemesh</Address>
+    <CreditCard>78695</CreditCard>
+    <Age>65</Age>
+  </Client>
+  <Client>
+    <ID>137212</ID>
+    <Name>Itai</Name>
+    <Address>Giv'at Ze'ev</Address>
+    <CreditCard>1938</CreditCard>
+    <Age>18</Age>
+  </Client>
+  <Client>
+    <ID>134280</ID>
+    <Name>Tal</Name>
+    <Address>Alon Shvut</Address>
+    <CreditCard>91731</CreditCard>
+    <Age>20</Age>
+  </Client>
+  <Client>
+    <ID>144687</ID>
+    <Name>Gal</Name>
+    <Address>Ma'ale Adumim</Address>
+    <CreditCard>38267</CreditCard>
+    <Age>19</Age>
+  </Client>
+  <Client>
+    <ID>142780</ID>
+    <Name>Shy</Name>
+    <Address>Sderot Hertzel 12</Address>
+    <CreditCard>45326</CreditCard>
+    <Age>23</Age>
+  </Client>
+  <Client>
+    <ID>146524</ID>
+    <Name>Ezra</Name>
+    <Address>Beit Shemesh</Address>
+    <CreditCard>78695</CreditCard>
+    <Age>65</Age>
+  </Client>
+  <Client>
+    <ID>137213</ID>
+    <Name>Itai</Name>
+    <Address>Giv'at Ze'ev</Address>
+    <CreditCard>1938</CreditCard>
+    <Age>18</Age>
+  </Client>
+  <Client>
+    <ID>134281</ID>
+    <Name>Tal</Name>
+    <Address>Alon Shvut</Address>
+    <CreditCard>91731</CreditCard>
+    <Age>20</Age>
+  </Client>
+  <Client>
+    <ID>144688</ID>
+    <Name>Gal</Name>
+    <Address>Ma'ale Adumim</Address>
+    <CreditCard>38267</CreditCard>
+    <Age>19</Age>
+  </Client>
+  <Client>
+    <ID>142781</ID>
+    <Name>Shy</Name>
+    <Address>Sderot Hertzel 12</Address>
+    <CreditCard>45326</CreditCard>
+    <Age>23</Age>
+  </Client>
+  <Client>
+    <ID>146525</ID>
+    <Name>Ezra</Name>
+    <Address>Beit Shemesh</Address>
+    <CreditCard>78695</CreditCard>
+    <Age>65</Age>
+  </Client>
+  <Client>
+    <ID>137214</ID>
+    <Name>Itai</Name>
+    <Address>Giv'at Ze'ev</Address>
+    <CreditCard>1938</CreditCard>
+    <Age>18</Age>
+  </Client>
+  <Client>
+    <ID>134282</ID>
+    <Name>Tal</Name>
+    <Address>Alon Shvut</Address>
+    <CreditCard>91731</CreditCard>
+    <Age>20</Age>
+  </Client>
+  <Client>
+    <ID>144689</ID>
+    <Name>Gal</Name>
+    <Address>Ma'ale Adumim</Address>
+    <CreditCard>38267</CreditCard>
+    <Age>19</Age>
+  </Client>
+  <Client>
+    <ID>142782</ID>
+    <Name>Shy</Name>
+    <Address>Sderot Hertzel 12</Address>
+    <CreditCard>45326</CreditCard>
+    <Age>23</Age>
+  </Client>
+  <Client>
+    <ID>146526</ID>
+    <Name>Ezra</Name>
+    <Address>Beit Shemesh</Address>
+    <CreditCard>78695</CreditCard>
+    <Age>65</Age>
+  </Client>
+  <Client>
+    <ID>137215</ID>
+    <Name>Itai</Name>
+    <Address>Giv'at Ze'ev</Address>
+    <CreditCard>1938</CreditCard>
+    <Age>18</Age>
+  </Client>
+  <Client>
+    <ID>134283</ID>
+    <Name>Tal</Name>
+    <Address>Alon Shvut</Address>
+    <CreditCard>91731</CreditCard>
+    <Age>20</Age>
+  </Client>
+  <Client>
+    <ID>144690</ID>
+    <Name>Gal</Name>
+    <Address>Ma'ale Adumim</Address>
+    <CreditCard>38267</CreditCard>
+    <Age>19</Age>
+  </Client>
+  <Client>
+    <ID>142783</ID>
+    <Name>Shy</Name>
+    <Address>Sderot Hertzel 12</Address>
+    <CreditCard>45326</CreditCard>
+    <Age>23</Age>
+  </Client>
+  <Client>
+    <ID>146527</ID>
+    <Name>Ezra</Name>
+    <Address>Beit Shemesh</Address>
+    <CreditCard>78695</CreditCard>
+    <Age>65</Age>
+  </Client>
+  <Client>
+    <ID>137216</ID>
+    <Name>Itai</Name>
+    <Address>Giv'at Ze'ev</Address>
+    <CreditCard>1938</CreditCard>
+    <Age>18</Age>
+  </Client>
+  <Client>
+    <ID>134284</ID>
+    <Name>Tal</Name>
+    <Address>Alon Shvut</Address>
+    <CreditCard>91731</CreditCard>
+    <Age>20</Age>
+  </Client>
+  <Client>
+    <ID>144691</ID>
+    <Name>Gal</Name>
+    <Address>Ma'ale Adumim</Address>
+    <CreditCard>38267</CreditCard>
+    <Age>19</Age>
+  </Client>
+  <Client>
+    <ID>142784</ID>
+    <Name>Shy</Name>
+    <Address>Sderot Hertzel 12</Address>
+    <CreditCard>45326</CreditCard>
+    <Age>23</Age>
+  </Client>
+  <Client>
+    <ID>146528</ID>
+    <Name>Ezra</Name>
+    <Address>Beit Shemesh</Address>
+    <CreditCard>78695</CreditCard>
+    <Age>65</Age>
+  </Client>
+  <Client>
+    <ID>137217</ID>
+    <Name>Itai</Name>
+    <Address>Giv'at Ze'ev</Address>
+    <CreditCard>1938</CreditCard>
+    <Age>18</Age>
+  </Client>
+  <Client>
+    <ID>134285</ID>
+    <Name>Tal</Name>
+    <Address>Alon Shvut</Address>
+    <CreditCard>91731</CreditCard>
+    <Age>20</Age>
+  </Client>
+  <Client>
+    <ID>144692</ID>
+    <Name>Gal</Name>
+    <Address>Ma'ale Adumim</Address>
+    <CreditCard>38267</CreditCard>
+    <Age>19</Age>
+  </Client>
 </Clients>

@@ -8,24 +8,88 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.4*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <Button x:Name="AddBranchButton" Grid.Row="1" Grid.Column="0" Content="Add a new branch" FontSize="20" Click="AddBranchButton_Click"/>
-        <Button x:Name="DeleteBranchButton" Grid.Row="2" Grid.Column="0" Content="Delete a branch" FontSize="20" Click="DeleteBranchButton_Click"/>
-        <Button x:Name="UpdateBranchButton" Grid.Row="3" Grid.Column="0" Content="Update a branch" FontSize="20" Click="UpdateUserButton_Click"/>
-        <Button x:Name="AddNewBranchManagerButton" Grid.Row="1" Grid.Column="1" Content="Appoint a new branch manager" FontSize="17" Click="AddNewBranchManagerButton_Click"/>
-        <Button x:Name="AddNewNetworkManagerButton" Content="Appoint the new network manager" FontSize="15" Click="AddNewNetworkManagerButton_Click" Grid.Column="1" Grid.Row="2" />
-        <Button x:Name="UpdateUserButton" Grid.Row="5" Content="Change your details" FontSize="20" Click="UpdateUserButton_Click" />
-        <Button x:Name="SignOutButton" Grid.Row="0" Grid.Column="0" Content="Sign out" Click="LogOutButton_Click" Margin="0,0,166,51" Background="Beige"/>
-        <Button x:Name="ActionButton" Content="Action" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="0,2,0,0" VerticalAlignment="Top" Width="80" Height="25"/>
-        <Button x:Name="InfoButton" Content="Information" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="80,2,0,0" VerticalAlignment="Top" Width="80" Height="25"/>
-        <Button x:Name="EditButton" Content="Edit" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="160,2,0,0" VerticalAlignment="Top" Width="80" Height="25"/>
+        <Button x:Name="AddBranchButton" Grid.Row="1" Grid.Column="0" Content="Add a new branch" FontSize="20" Click="AddBranchButton_Click" >
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=DeleteBranchButton,Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=DeleteBranchButton,Path=Visibility}" Value="Hidden">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="DeleteBranchButton" Grid.Row="2" Grid.Column="0" Content="Delete a branch" FontSize="20" Click="DeleteBranchButton_Click">
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=UpdateBranchButton,Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=UpdateBranchButton,Path=Visibility}" Value="Hidden">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="UpdateBranchButton" Grid.Row="3" Grid.Column="0" Content="Update a branch" FontSize="20" Click="UpdateUserButton_Click">
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=AddNewBranchManagerButton,Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=AddNewBranchManagerButton,Path=Visibility}" Value="Hidden">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="AddNewBranchManagerButton" Grid.Row="1" Grid.Column="1" Content="Appoint a new branch manager" FontSize="17" Click="AddNewBranchManagerButton_Click">
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Hidden">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="AddNewNetworkManagerButton" Content="Appoint the new network manager" Visibility="Hidden" FontSize="15" Click="AddNewNetworkManagerButton_Click" Grid.Column="1" Grid.Row="2"/>
+        <Button x:Name="UpdateUserButton" Grid.Row="5" Content="Change your details" FontSize="20" Click="UpdateUserButton_Click" >
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Hidden">
+                            <Setter Property="Button.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="SignOutButton" Grid.Row="0" Grid.Column="0" Content="Sign out" Click="LogOutButton_Click" Background="Beige"/>
+        <Button x:Name="ActionButton" Content="Action" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" VerticalAlignment="Top" Width="80" Height="35" Click="ActionButton_Click"/>
+        <Button x:Name="InfoButton" Content="Information" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="80,0,0,0" VerticalAlignment="Top" Width="80" Height="35" Click="InfoButton_Click"/>
+        <Button x:Name="EditButton" Content="Edit" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="160,0,0,0" VerticalAlignment="Top" Width="86" Height="35" Click="EditButton_Click"/>
 
     </Grid>
 </Window>

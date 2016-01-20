@@ -25,6 +25,7 @@ namespace PLForms
         {
             InitializeComponent();
             this.manger = manger;
+            this.DataContext = placing;
         }
 
         private void AddBranchButton_Click(object sender, RoutedEventArgs e)
@@ -57,6 +58,25 @@ namespace PLForms
         {
             new MainWindow().Show();
             this.Close();
+        }
+
+        private void ActionButton_Click(object sender, RoutedEventArgs e)
+        {
+            placing = BE.CurrentPlacing.Action;
+            //Bind between placing and AddNewNetworkManagerButton visibilty
+            AddNewNetworkManagerButton.Visibility = Visibility.Visible;
+        }
+
+        private void InfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            placing = BE.CurrentPlacing.Info;
+            AddNewNetworkManagerButton.Visibility = Visibility.Hidden;
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            placing = BE.CurrentPlacing.Edit;
+            AddNewNetworkManagerButton.Visibility = Visibility.Hidden;
         }
     }
 }
