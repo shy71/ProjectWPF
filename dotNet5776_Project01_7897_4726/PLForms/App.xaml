@@ -8,11 +8,7 @@
             <Setter Property="Foreground" Value="Maroon" />
             <Setter Property="FontFamily" Value="Comic Sans MS" />
         </Style>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="DarkGoldenrod" />
-            <Setter Property="Foreground" Value="Maroon" />
-            <Setter Property="FontFamily" Value="Comic Sans MS" />
-        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource StyleButton}"/>
         <Style x:Key="TextStyle" TargetType="TextBox">
             <Style.Setters>
                 <Setter Property="Background" Value="White" />
@@ -23,15 +19,12 @@
                 <Setter Property="Text" Value="{DynamicResource descriptionString}"/>
             </Style.Setters>
         </Style>
-        <Style TargetType="TextBox">
-            <Style.Setters>
-                <Setter Property="Background" Value="White" />
-                <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Foreground" Value="Gray"/>
-                <Setter Property="Text" Value="{DynamicResource descriptionString}"/>
-            </Style.Setters>
+        <Style TargetType="TextBox" BasedOn="{StaticResource TextStyle}"/>
+        <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
+            <Setter Property="Background" Value="DarkGoldenrod"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxStyle}"/>
     </Application.Resources>
 </Application>

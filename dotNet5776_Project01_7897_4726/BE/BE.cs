@@ -397,6 +397,13 @@ namespace BE
         public string Password { get; set; }
         public string Name { get; set; }
         public int ClientID{get;set;}
+        public override string ToString()
+        {
+            return 
+                "Username: " + UserName
+                + "\nFull Name: " + Name
+                  + "\nType: " + Type;
+        }
 
     }
 }

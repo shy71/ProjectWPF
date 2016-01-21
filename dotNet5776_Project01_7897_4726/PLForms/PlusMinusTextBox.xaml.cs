@@ -18,9 +18,11 @@ namespace PLForms
     public class EventValue :EventArgs
     {
         public object Value{get;set;}
-        public EventValue( object value)
+        public string pName { get; set;}
+        public EventValue( object value,string pName=null)
         {
             Value=value;
+            this.pName = pName;
         }
     }
     /// <summary>
@@ -95,6 +97,10 @@ namespace PLForms
                 Number.Text = ((Convert.ToInt32(Number.Text) + ((int)e.Delta / 100))).ToString();
             else
                 Number.Text = "0";
+        }
+        public void SetNum(int num)
+        {
+            Number.Text = num.ToString();
         }
 
     }

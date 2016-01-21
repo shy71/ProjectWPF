@@ -19,7 +19,7 @@ using System.Windows.Shapes;
  * אפשרות שכחתי סיסמא - לבקש ממנהל מערכת לשחזר לך אותה
  * להוסיף יותר דברים לגרידים
  * באג-לבדוק לגבי שגיאות
- * 
+ * להוסיף פונצקית מחיקה
  * לבדוק לגבי שמות בצד או בתוך השדות
  *
  * 
@@ -39,11 +39,7 @@ namespace PLForms
             InitializeComponent();
             client = new BE.Client();
             user = new BE.User();
-            usernameBox.SetBinding(user, "UserName", BindingMode.TwoWay);
-            nameBox.SetBinding(client, "Name", BindingMode.TwoWay);
-            creditCardBox.SetBinding(client, "CreditCard", BindingMode.TwoWay);
-            addressBox.SetBinding(client, "Address", BindingMode.TwoWay);
-            idBox.SetBinding(client, "ID", BindingMode.TwoWay);
+            this.SetBinding();
         }
         public NewClient(string str)
         {
@@ -51,8 +47,16 @@ namespace PLForms
             InitializeComponent();
             client = new BE.Client();
             user = new BE.User();
-           // usernameBox.Text = str;
-            this.DataContext = client;
+            this.SetBinding();
+            usernameBox.SetText(str);
+        }
+        void SetBinding()
+        {
+            usernameBox.SetBinding(user, "UserName", BindingMode.TwoWay);
+            nameBox.SetBinding(client, "Name", BindingMode.TwoWay);
+            creditCardBox.SetBinding(client, "CreditCard", BindingMode.TwoWay);
+            addressBox.SetBinding(client, "Address", BindingMode.TwoWay);
+            idBox.SetBinding(client, "ID", BindingMode.TwoWay);
         }
 
         private void nextButton_Click(object sender, RoutedEventArgs e)

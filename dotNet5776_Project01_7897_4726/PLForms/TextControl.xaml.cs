@@ -21,6 +21,8 @@ namespace PLForms
     /// </summary>
     public partial class TextControl : UserControl, INotifyPropertyChanged
     {
+        public event EventHandler<EventValue> Changed;
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -37,6 +39,7 @@ namespace PLForms
 
         public string Str { get; set; }
         public double FontS { get; set; }
+        public string pName { get; set; }
         Brush foreG;
         [Bindable(true)]
         public Brush ForeG 
@@ -96,6 +99,11 @@ namespace PLForms
                 return null;
             return textBox.Text;
         }
+        public void SetText(string str)
+        {
+            textBox_GotFocus(textBox, null);
+            textBox.Text = str;
+        }
         public void Clear()
         {
             textBox.Clear();
@@ -120,6 +128,8 @@ namespace PLForms
                 textBox.Foreground = Brushes.Gray;
                 ForeG = Brushes.Gray;
             }
+            if (textBox.Foreground == Brushes.Black && Changed != null)
+                Changed(this, new EventValue(textBox.Text,pName));
         }
 
     }

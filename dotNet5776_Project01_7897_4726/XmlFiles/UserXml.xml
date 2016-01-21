@@ -1,17 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Users>
   <User>
-    <Type>Client</Type>
+    <Type>NetworkManger</Type>
     <UserName>shy71</UserName>
     <Password>123456</Password>
     <Name>Shy Tennenbaum</Name>
-    <ClientID>1921</ClientID>
+    <ClientID>0</ClientID>
   </User>
   <User>
     <Type>NetworkManger</Type>
     <UserName>ezra1</UserName>
     <Password>123456</Password>
     <Name>Ezra Block</Name>
+    <ClientID>0</ClientID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
+    <UserName>itai</UserName>
+    <Password>123456</Password>
+    <Name>itai deykan</Name>
+    <ClientID>0</ClientID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
+    <UserName>ali</UserName>
+    <Password>123456</Password>
+    <Name>uriel ali</Name>
+    <ClientID>0</ClientID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
+    <UserName>shay</UserName>
+    <Password>123456</Password>
+    <Name>shay katz</Name>
     <ClientID>0</ClientID>
   </User>
 </Users>

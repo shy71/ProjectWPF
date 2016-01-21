@@ -98,5 +98,6 @@
             </Button.Style>
         </Button>
         <local:PasswordControl x:Name="InputPassword" FontS="15" Grid.Row="2"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" Width="217" PreviewKeyDown="InputPreviewKeyDown" Str="Password"  Visibility="Hidden"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="110,88,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
     </Grid>
 </Window>

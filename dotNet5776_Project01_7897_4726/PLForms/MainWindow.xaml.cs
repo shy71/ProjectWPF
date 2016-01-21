@@ -132,6 +132,13 @@ namespace PLForms
 
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)//delete
+        {
+            new NewBranch().Show();
+            this.Close();
+
+        }
+
         //private void passwordLabelBox_GotFocus(object sender, RoutedEventArgs e)
         //{
         //    (sender as TextBox).Visibility = Visibility.Hidden;

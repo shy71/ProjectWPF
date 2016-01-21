@@ -746,12 +746,10 @@ namespace DAL
                                               User res = new User();
                                               foreach (var item2 in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
                                               {
-                                                  item2.SetValue(res, item.Element(item2.Name).Value);
-
                                                   if (item2.PropertyType == typeof(int))
                                                       item2.SetValue(res, Convert.ToInt32(item.Element(item2.Name).Value));
                                                   else if (item2.PropertyType == typeof(string))
-                                                      item2.SetValue(res, item.Element(item.Name).Value);
+                                                      item2.SetValue(res, item.Element(item2.Name).Value);
                                                   else if (item2.PropertyType == typeof(UserType))
                                                       item2.SetValue(res, BE.Extensions.ToUserType(item.Element(item2.Name).Value));
                                               }
