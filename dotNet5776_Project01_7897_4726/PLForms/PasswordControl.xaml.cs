@@ -114,11 +114,6 @@ namespace PLForms
                 passwordBox.Foreground = Brushes.Black;
                 ForeG = Brushes.Black;
             }
-            else if (passwordBox.Password.Length==1 && e.Text=="a")
-            {
-                passwordBox.Foreground = Brushes.Gray;
-                ForeG = Brushes.Gray;
-            }
         }
 
         private void passwordBox_KeyUp(object sender, KeyEventArgs e)

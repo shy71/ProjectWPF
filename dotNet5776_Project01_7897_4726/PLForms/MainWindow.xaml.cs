@@ -120,12 +120,15 @@ namespace PLForms
             backArrow.Visibility = Visibility.Hidden;
             InputPassword.Clear();
             InputPassword.Visibility = Visibility.Hidden;
+            Keyboard.Focus(SignInButton);
         }
 
         private void InputPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
                 NextLogin(sender, e);
+            if (e.Key == Key.Back && (InputPassword.ForeG == Brushes.Gray && backArrow.Visibility == Visibility.Visible))
+                backButton_Click(backButton, null);
 
         }
 

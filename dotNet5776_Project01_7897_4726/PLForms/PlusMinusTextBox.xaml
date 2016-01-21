@@ -3,20 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="100">
+             mc:Ignorable="d" MinHeight="35" Height="35"
+             >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="PlusButton" Grid.Row="0" Content="+" Background="White" FontWeight="ExtraBold" FontSize="15" Click="Plus_Click" Grid.Column="1"/>
-        <Button x:Name="MinusButton" Grid.Row="1" Content="-" Background="White" FontWeight="ExtraBold" FontSize="15" Click="Minus_Click" Grid.Column="1" />
-        <TextBox x:Name="Number" HorizontalContentAlignment="Right" Grid.RowSpan="2" Grid.Column="0" FontSize="30" Text="0" TextChanged="Number_TextChanged" PreviewMouseWheel="Number_MouseWheel">
+        <Button x:Name="PlusButton" Grid.Row="0" Content="^" Background="White" FontWeight="ExtraBold" FontSize="15" Click="Plus_Click" Grid.Column="1"/>
+        <Button x:Name="MinusButton" Grid.Row="1" Content="^" Background="White" FontWeight="ExtraBold" FontSize="15" Click="Minus_Click" Grid.Column="1" RenderTransformOrigin="0.5,0.5" >
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <TextBox x:Name="Number" HorizontalContentAlignment="Right" Grid.RowSpan="2" Grid.Column="0" FontSize="25" Text="0" TextChanged="Number_TextChanged" PreviewMouseWheel="Number_MouseWheel">
             <TextBox.Style>
                 <Style>
 

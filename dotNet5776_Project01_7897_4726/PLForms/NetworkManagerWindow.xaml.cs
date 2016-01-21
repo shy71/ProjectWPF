@@ -31,7 +31,8 @@ namespace PLForms
         private void AddBranchButton_Click(object sender, RoutedEventArgs e)
         {
             //open window for creating new branch.
-            MessageBox.Show("The Branch has been added.", "Information");
+            new NewBranch().ShowDialog();
+
         }
 
         private void AddNewBranchManagerButton_Click(object sender, RoutedEventArgs e)
