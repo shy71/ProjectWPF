@@ -1,2 +1,101 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Users />
+<Users>
+  <User>
+    <Type>NetworkManger</Type>
+    <UserName>shy71</UserName>
+    <Password>123456</Password>
+    <Name>Shy Tennenbaum</Name>
+    <ItemID>0</ItemID>
+  </User>
+  <User>
+    <Type>NetworkManger</Type>
+    <UserName>ezra1</UserName>
+    <Password>123456</Password>
+    <Name>Ezra Block</Name>
+    <ItemID>0</ItemID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
+    <UserName>itai1</UserName>
+    <Password>123456</Password>
+    <Name>itai deykan</Name>
+    <ItemID>0</ItemID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
+    <UserName>itai111</UserName>
+    <Password>123456</Password>
+    <Name>itai deykan</Name>
+    <ItemID>0</ItemID>
+  </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>shay</UserName>
+    <Password>123456</Password>
+    <Name>shay katz</Name>
+    <ItemID>1921</ItemID>
+  </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>ari</UserName>
+    <Password>123456</Password>
+    <Name>ari wiss</Name>
+    <ItemID>10934</ItemID>
+  </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>avia</UserName>
+    <Password>123456</Password>
+    <Name>avia yemini</Name>
+    <ItemID>493</ItemID>
+  </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>zvi</UserName>
+    <Password>123456</Password>
+    <Name>zvi zhrchin</Name>
+    <ItemID>1313</ItemID>
+  </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>itan</UserName>
+    <Password>123456</Password>
+    <Name>itan gotlive</Name>
+    <ItemID>20744</ItemID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
+    <UserName>itai6</UserName>
+    <Password>123456</Password>
+    <Name>itai deykan</Name>
+    <ItemID>87465</ItemID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
+    <UserName>itai2</UserName>
+    <Password>123456</Password>
+    <Name>itai deykan</Name>
+    <ItemID>18932</ItemID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
+    <UserName>itai3</UserName>
+    <Password>123456</Password>
+    <Name>itai deykan</Name>
+    <ItemID>2</ItemID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
+    <UserName>itai4</UserName>
+    <Password>123456</Password>
+    <Name>itai deykan</Name>
+    <ItemID>54384871</ItemID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
+    <UserName>itai5</UserName>
+    <Password>123456</Password>
+    <Name>itai deykan</Name>
+    <ItemID>9873</ItemID>
+  </User>
+</Users>

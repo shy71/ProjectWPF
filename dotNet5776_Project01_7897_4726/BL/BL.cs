@@ -311,8 +311,8 @@ namespace BL
                 throw new Exception(str + "The username cant be empty!");
             else if(myUser.Type==UserType.Client&&!myDal.ContainID<Client>(myUser.ItemID))
                 throw new Exception(str + "There isnt a client that connected to this user!");
-            else if(myUser.Type==UserType.BranchManger&& myUser.ItemID!=0 &&!myDal.ContainID<Branch>(myUser.ItemID))
-                throw new Exception(str + "There isnt a Branch that connected to this user!");
+            else if(myUser.Type==UserType.BranchManger&& myUser.ItemID!=0)
+                throw new Exception(str + "There is an uncorrected Branch that is connected to this user!");
         }
        public IEnumerable<User> GetAllUsers(Func<User,bool> predicate=null)
         {
@@ -417,16 +417,18 @@ namespace BL
                 throw new Exception(str + " every branch must have a phone number!");
             else if (branch.Name == null)
                 throw new Exception(str + " The Name filed cant be empty!");
-            else if(!int.TryParse(branch.PhoneNumber,out num))
-                throw new Exception(str +" The phone number is invalid");
-            else if(myDal.GetUser(branch.Boss.Substring(branch.Boss.IndexOf('@')))!=null)
+            else if (!int.TryParse(branch.PhoneNumber, out num))
+                throw new Exception(str + " The phone number is invalid");
+            else if (myDal.GetUser(branch.Boss.Substring(branch.Boss.IndexOf('@') + 1)) == null)
                 throw new Exception(str + " The branch boss doesnt have a user!");
+            else if (myDal.GetAllUsers(item => item.UserName == branch.Boss.Substring(branch.Boss.IndexOf('@') + 1)).FirstOrDefault().ItemID != 0)
+                throw new Exception(str + "The boss in the branch is a boss in anthor branch! a branch manger can only have one branch to mange!");
         }
         public void AddBranch(Branch newBranch)
         {
             CompatibleBranch(newBranch, "The Branch you are trying to add is incompatible:");
             myDal.AddBranch(newBranch);
-            var temp = myDal.GetUser(newBranch.Boss.Substring(newBranch.Boss.IndexOf('@')));
+            var temp = myDal.GetUser(newBranch.Boss.Substring(newBranch.Boss.IndexOf('@')+1));
             temp.ItemID = newBranch.ID;
             myDal.UpdateUser(temp);
 
@@ -901,16 +903,30 @@ namespace BL
             AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH, 1243));
             AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM, 95840));
             AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW, 21));
-            AddClient(new Client("Shy", "Sderot Hertzel 12", 45326, 23,1921));
-            AddClient(new Client("Ezra", "Beit Shemesh", 78695, 65, 10934));
-            AddClient(new Client("Itai", "Giv'at Ze'ev", 1938, 18, 493));
-            AddClient(new Client("Tal", "Alon Shvut", 91731, 20, 1313));
-            AddClient(new Client("Gal", "Ma'ale Adumim", 38267, 19, 20744));
-            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "morli", 3, 4, Kashrut.MEDIUM, 87465));
-            AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "kidron", 1, 5, Kashrut.HIGH, 18932));
-            AddBranch(new Branch("Eilat", "freedom 98", "078496352", "oshri", 5, 3, Kashrut.LOW, 2));
-            AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "amram", 10, 10, Kashrut.LOW, 0));
-            AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "joffrey", 2, 3, Kashrut.MEDIUM, 9873));
+            AddClient(new Client("Shay", "Sderot Hertzel 12", 45326, 23,1921));
+            AddClient(new Client("ari", "Beit Shemesh", 78695, 65, 10934));
+            AddClient(new Client("avia", "Giv'at Ze'ev", 1938, 18, 493));
+            AddClient(new Client("zvi", "Alon Shvut", 91731, 20, 1313));
+            AddClient(new Client("itan", "Ma'ale Adumim", 38267, 19, 20744));
+            myDal.AddUser(new User(UserType.NetworkManger, "shy71", "123456", "Shy Tennenbaum"));
+            myDal.AddUser(new User(UserType.NetworkManger, "ezra1", "123456", "Ezra Block"));
+            myDal.AddUser(new User(UserType.BranchManger, "itai1", "123456", "itai deykan"));
+            myDal.AddUser(new User(UserType.BranchManger, "itai2", "123456", "itai deykan"));
+            myDal.AddUser(new User(UserType.BranchManger, "itai3", "123456", "itai deykan"));
+            myDal.AddUser(new User(UserType.BranchManger, "itai4", "123456", "itai deykan"));
+            myDal.AddUser(new User(UserType.BranchManger, "itai5", "123456", "itai deykan"));
+                        myDal.AddUser(new User(UserType.BranchManger, "itai6", "123456", "itai deykan"));
+            myDal.AddUser(new User(UserType.BranchManger, "itai111", "123456", "itai deykan"));
+            myDal.AddUser(new User(UserType.Client, "shay", "123456", "shay katz", 1921));
+            myDal.AddUser(new User(UserType.Client, "ari", "123456", "ari wiss", 10934));
+            myDal.AddUser(new User(UserType.Client, "avia", "123456", "avia yemini", 493));
+            myDal.AddUser(new User(UserType.Client, "zvi", "123456", "zvi zhrchin", 1313));
+            myDal.AddUser(new User(UserType.Client, "itan", "123456", "itan gotlive", 20744));
+            AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "itai deykan @itai6", 3, 4, Kashrut.MEDIUM, 87465));
+            AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "itai deykan @itai2", 1, 5, Kashrut.HIGH, 18932));
+            AddBranch(new Branch("Eilat", "freedom 98", "078496352", "itai deykan @itai3", 5, 3, Kashrut.LOW, 2));
+            AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "itai deykan @itai4", 10, 10, Kashrut.LOW, 0));
+            AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "itai deykan @itai5", 2, 3, Kashrut.MEDIUM, 9873));
             AddOrder(new Order(2, "Beit Shemesh shy", DateTime.Now, Kashrut.LOW, 10934, 192334));
             AddOrder(new Order(87465, "Beit Shemesh shy", DateTime.Now, Kashrut.MEDIUM, 1921, 34567));
             AddDishOrder(new DishOrder(192334, 957473, 3));

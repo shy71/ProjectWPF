@@ -74,7 +74,7 @@ namespace PLForms
             {
                 temp = new ComboBoxItem();
                 
-                temp.Content = item.UserName + " @" + item.Name;
+                temp.Content = item.Name + " @" + item.UserName;
                 temp.ToolTip = item.ToString();
                 MangerCombo.Items.Add(temp);
             }
