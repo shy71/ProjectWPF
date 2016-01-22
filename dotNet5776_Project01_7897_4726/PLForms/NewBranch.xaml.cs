@@ -51,7 +51,17 @@ namespace PLForms
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int a;
+            try
+            {
+                BL.FactoryBL.getBL().AddBranch(branch);
+                MessageBox.Show("The branch " + branch.Name + " was created!", "Branch created", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            catch(Exception exp)
+            {
+                MessageBox.Show(exp.Message, "Problem with branch", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void MangerComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -60,7 +70,7 @@ namespace PLForms
             temp.Content = "Create a New manger!";
             temp.ToolTip = "Will give you the option to\ncreate a new manger that\nwill run the branch";
             MangerCombo.Items.Add(temp);
-            foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers(item2=>item2.Type==BE.UserType.BranchManger))
+            foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers(item2=>item2.Type==BE.UserType.BranchManger&&item2.ItemID==0))
             {
                 temp = new ComboBoxItem();
                 
@@ -77,7 +87,7 @@ namespace PLForms
             else if(MangerCombo.SelectedIndex!=0)
                 CreateBranchManagerButton.IsEnabled = false;
             if (MangerCombo.SelectedIndex > 0)
-                branch.Boss = MangerCombo.SelectedItem.ToString();
+                branch.Boss =( MangerCombo.Items.GetItemAt(MangerCombo.SelectedIndex) as ComboBoxItem).Content.ToString();
         }
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -89,6 +99,11 @@ namespace PLForms
                 temp.Content = item.Name + " - " + item.Address;
                 temp.ToolTip = item.ToString();
                 branchCombo.Items.Add(temp); 
+            }
+            if (branchCombo.Items.Count == 0)
+            {
+                branchCombo.IsEnabled = false;
+                branchCombo.ToolTip = "There isnt any branchs to pick from!";
             }
         }
 
@@ -111,6 +126,7 @@ namespace PLForms
                 empoyeBox.SetNum(temp.EmployeeCount);
                 messengersBox.SetNum(temp.AvailableMessangers);
                 KashrutCombo.SelectedIndex=(temp.Kosher==BE.Kashrut.HIGH)?2:(temp.Kosher==BE.Kashrut.MEDIUM)?1:0;
+                branchCombo.SelectedIndex = -1;
             }
             else
                 throw new Exception("ERROR");

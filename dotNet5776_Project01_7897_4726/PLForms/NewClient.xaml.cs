@@ -21,7 +21,7 @@ using System.Windows.Shapes;
  * באג-לבדוק לגבי שגיאות
  * להוסיף פונצקית מחיקה
  * לבדוק לגבי שמות בצד או בתוך השדות
- *
+ *כאשר מוחקים מנה ישנה את ה תעודת זהות שלה בהזמנות
  * 
 */
 namespace PLForms
@@ -73,7 +73,7 @@ namespace PLForms
                 user.Name = client.Name;
                 user.Password = passwordBox1.GetPassword();
                 user.Type=BE.UserType.Client;
-                user.ClientID=client.ID;
+                user.ItemID=client.ID;
                 BL.FactoryBL.getBL().AddUser(user);
                 MessageBox.Show("The account "+user.UserName+" was created!", "Account created", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();

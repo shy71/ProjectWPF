@@ -29,16 +29,17 @@
         <local:TextControl x:Name="nameBox" Grid.Row="1" Str="Branch Name" Grid.ColumnSpan="3" pName="Name" Changed="TextControl_Changed"/>
         <local:TextControl x:Name="addressBox" Str="Address" Grid.Row="3" Grid.ColumnSpan="3" pName="Address" Changed="TextControl_Changed"/>
         <local:TextControl x:Name="phoneBox" Str="Phone Number" Grid.Row="5" Grid.ColumnSpan="3" pName="PhoneNumber" Changed="TextControl_Changed"/>
-        <Button x:Name="CreateBranchManagerButton" Grid.Row="7" FontSize="14" FontWeight="Bold" Content="Create new manager" Click="CreateBranchManagerButton_Click" Grid.Column="1" Grid.ColumnSpan="2" Width="150" HorizontalAlignment="Center" Margin="13,0" IsEnabled="False">
-            <!--<Button.Style>
+        <Button x:Name="CreateBranchManagerButton" Grid.Row="7" FontSize="14" FontWeight="Bold" Content="Create new manager" Click="CreateBranchManagerButton_Click" Grid.Column="1" Grid.ColumnSpan="2" Width="150" HorizontalAlignment="Center" Margin="13,0">
+            <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                    <Setter Property="Button.Visibility" Value="Hidden"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=MangerCombo , Path=SelectedIndex}" Value="0">
-                            <Setter Property="Button.IsEnabled" Value="True"/>
+                            <Setter Property="Button.Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </Button.Style>-->
+            </Button.Style>
         </Button>
         <ComboBox x:Name="MangerCombo" Grid.Row="7" ToolTip="Chose the manger that will be assigned to the branch." Loaded="MangerComboBox_Loaded" SelectionChanged="MangerCombo_SelectionChanged"/>
         <TextBlock Text="Select Manger for the branch" IsHitTestVisible="False" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,10,15,10">
@@ -71,9 +72,34 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <Button Content="Create!" Grid.Column="1" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="13" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24" Click="Button_Click"/>
+        <Button Content="Create!" Grid.Column="1" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="13" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24" Click="Button_Click">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=nameBox, Path=ForeG}" Value="Gray">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=addressBox, Path=ForeG}" Value="Gray">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=phoneBox, Path=ForeG}" Value="Gray">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=MangerCombo,Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=KashrutCombo,Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=MangerCombo,Path=SelectedIndex}" Value="0">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <Button Content="Copy Branch" Grid.Column="2" FontWeight="Bold" ToolTip="Copy branch details into the new branch." HorizontalAlignment="Center" Click="CopyBranch"/>
-        <ComboBox x:Name="branchCombo" Grid.Column="1" Loaded="ComboBox_Loaded"/>
+        <ComboBox x:Name="branchCombo" Grid.Column="1" Loaded="ComboBox_Loaded" ToolTipService.ShowOnDisabled="True"/>
         <TextBlock Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">

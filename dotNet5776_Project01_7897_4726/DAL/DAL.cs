@@ -255,6 +255,7 @@ namespace DAL
         IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null);
         #endregion
 
+        void DeleteDataBase();
     }
     class XmlSample
     {
@@ -270,16 +271,21 @@ namespace DAL
         {
             FPath = path;
             Name = name;
-            if (!File.Exists(path))
+            if (!File.Exists(FPath))
                 CreateFile();
             else
                 LoadFile();
+        }
+        public void Delete()
+        {
+            File.Delete(FPath);
+            CreateFile();
         }
         public void LoadFile()
         {
             try
             {
-                fileRoot = XElement.Load(fPath);
+                FileRoot = XElement.Load(FPath);
             }
             catch
             {
@@ -288,12 +294,12 @@ namespace DAL
         }
         void CreateFile()
         {
-            fileRoot = new XElement(name);
-            fileRoot.Save(fPath);
+            FileRoot = new XElement(Name);
+            FileRoot.Save(FPath);
         }
         public void Save()
         {
-            fileRoot.Save(fPath);
+            FileRoot.Save(FPath);
         }
         public void Add(object obj)
         {
@@ -311,6 +317,10 @@ namespace DAL
                   xmlDishOrder = new XmlSample("../../../" + @"XmlFiles\DishOrderXml.xml", "DishOrders"),
                   xmlClient = new XmlSample("../../../" + @"XmlFiles\ClientXml.xml", "Clients"),
                   xmlUser = new XmlSample("../../../" + @"XmlFiles\UserXml.xml", "Users");
+        //public Dal_XML_imp()
+        //{
+        //    xmlDish.
+        //}
         #region Generic Functions
         /// <summary>
         /// מוסיפה איבר לרשימה, יחד עם כל הבדיקות הנצרכות
@@ -696,7 +706,7 @@ namespace DAL
         public void UpdateUser(User item)
         {
             DeleteUser(item.UserName);
-            UpdateUser(item);
+            AddUser(item);
         }
         /// <summary>
         /// gets a User from the DataBase by its Username
@@ -767,11 +777,29 @@ namespace DAL
             }
         }
         #endregion
+        public void DeleteDataBase()
+        {
+            getFile<User>().Delete();
+            getFile<Dish>().Delete();
+            getFile<Branch>().Delete();
+            getFile<Client>().Delete();
+            getFile<Order>().Delete();
+            getFile<DishOrder>().Delete();
+        }
     }
     class Dal_imp : Idal
     {
         Random rand = new Random();
 
+        public void DeleteDataBase()
+        {
+            getList<User>().RemoveAll(item=> true);
+            getList<Dish>().RemoveAll(item => true);
+            getList<Branch>().RemoveAll(item => true);
+            getList<Client>().RemoveAll(item => true);
+            getList<Order>().RemoveAll(item => true);
+            getList<DishOrder>().RemoveAll(item => true);
+        }
 
         #region Generic Functions
         /// <summary>

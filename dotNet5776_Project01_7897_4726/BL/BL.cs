@@ -265,7 +265,7 @@ namespace BL
         Dish BestDishInBranch(Branch myBranch);
         #endregion
 
-
+        void DeleteDataBase();
 
         /// <summary>
         /// searchs for something by something
@@ -297,6 +297,10 @@ namespace BL
     public class BL : IBL
     {
         //New
+        public void DeleteDataBase()
+        {
+            myDal.DeleteDataBase();
+        }
         internal void CompatibleUser(User myUser, string str)
         {
             if (myUser.Password == "")
@@ -305,9 +309,10 @@ namespace BL
                 throw new Exception(str + "The name cant be empty!");
             else if(myUser.UserName=="")
                 throw new Exception(str + "The username cant be empty!");
-            else if(myUser.Type==UserType.Client&&!myDal.ContainID<Client>(myUser.ClientID))
+            else if(myUser.Type==UserType.Client&&!myDal.ContainID<Client>(myUser.ItemID))
                 throw new Exception(str + "There isnt a client that connected to this user!");
-
+            else if(myUser.Type==UserType.BranchManger&& myUser.ItemID!=0 &&!myDal.ContainID<Branch>(myUser.ItemID))
+                throw new Exception(str + "There isnt a Branch that connected to this user!");
         }
        public IEnumerable<User> GetAllUsers(Func<User,bool> predicate=null)
         {
@@ -401,6 +406,7 @@ namespace BL
         /// <param name="str"></param>
         internal void CompatibleBranch(Branch branch, string str = null)
         {
+            int num;
             if (branch.Address == null)
                 throw new Exception(str + " The Address filed cant be empty!");
             else if (branch.Boss == null)
@@ -411,11 +417,19 @@ namespace BL
                 throw new Exception(str + " every branch must have a phone number!");
             else if (branch.Name == null)
                 throw new Exception(str + " The Name filed cant be empty!");
+            else if(!int.TryParse(branch.PhoneNumber,out num))
+                throw new Exception(str +" The phone number is invalid");
+            else if(myDal.GetUser(branch.Boss.Substring(branch.Boss.IndexOf('@')))!=null)
+                throw new Exception(str + " The branch boss doesnt have a user!");
         }
         public void AddBranch(Branch newBranch)
         {
             CompatibleBranch(newBranch, "The Branch you are trying to add is incompatible:");
             myDal.AddBranch(newBranch);
+            var temp = myDal.GetUser(newBranch.Boss.Substring(newBranch.Boss.IndexOf('@')));
+            temp.ItemID = newBranch.ID;
+            myDal.UpdateUser(temp);
+
         }
         public void DeleteBranch(int id)
         {

@@ -1,27 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DishOrders>
-  <DishOrder>
-    <ID>8640</ID>
-    <OrderID>192334</OrderID>
-    <DishID>957473</DishID>
-    <DishAmount>3</DishAmount>
-  </DishOrder>
-  <DishOrder>
-    <ID>8540</ID>
-    <OrderID>192334</OrderID>
-    <DishID>957473</DishID>
-    <DishAmount>2</DishAmount>
-  </DishOrder>
-  <DishOrder>
-    <ID>8430</ID>
-    <OrderID>192334</OrderID>
-    <DishID>19273</DishID>
-    <DishAmount>7</DishAmount>
-  </DishOrder>
-  <DishOrder>
-    <ID>8995</ID>
-    <OrderID>34567</OrderID>
-    <DishID>957473</DishID>
-    <DishAmount>7</DishAmount>
-  </DishOrder>
-</DishOrders>
+<DishOrders />
