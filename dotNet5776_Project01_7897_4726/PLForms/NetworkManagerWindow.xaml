@@ -71,7 +71,18 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="AddNewNetworkManagerButton" Content="Appoint the new network manager" Visibility="Hidden" FontSize="15" Click="AddNewNetworkManagerButton_Click" Grid.Column="1" Grid.Row="2"/>
+        <Button x:Name="AddNewNetworkManagerButton" Content="Appoint the new network manager" Visibility="Hidden" FontSize="15" Click="AddNewNetworkManagerButton_Click" Grid.Column="1" Grid.Row="2">
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                    <Setter Property="Button.Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="BE.CurrentPlacing.Actions">
+                            <Setter Property="Button.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <Button x:Name="UpdateUserButton" Grid.Row="5" Content="Change your details" FontSize="20" Click="UpdateUserButton_Click" >
             <Button.Style>
                 <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">

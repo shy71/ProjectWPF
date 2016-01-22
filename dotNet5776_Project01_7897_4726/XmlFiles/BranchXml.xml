@@ -1,13 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Branches>
-  <Branch>
-    <ID>87465</ID>
-    <Name>Jerusalem</Name>
-    <Address>malcha 1</Address>
-    <PhoneNumber>026587463</PhoneNumber>
-    <Boss>morli</Boss>
-    <EmployeeCount>3</EmployeeCount>
-    <AvailableMessangers>4</AvailableMessangers>
-    <Kosher>MEDIUM</Kosher>
-  </Branch>
-</Branches>
+<Branches />
