@@ -21,4 +21,11 @@
     <Name>shy tennen</Name>
     <ClientID>142860</ClientID>
   </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>ezra</UserName>
+    <Password>123456</Password>
+    <Name>ezra</Name>
+    <ClientID>149034</ClientID>
+  </User>
 </Users>
