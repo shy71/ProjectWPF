@@ -53,6 +53,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="PasswordControl.xaml.cs">
+      <DependentUpon>PasswordControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TextControl.xaml.cs">
+      <DependentUpon>TextControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -65,14 +71,43 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NetworkManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NewBranch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NewClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PasswordControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlusMinusTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NetworkManagerWindow.xaml.cs">
+      <DependentUpon>NetworkManagerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewBranch.xaml.cs">
+      <DependentUpon>NewBranch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewClient.xaml.cs">
       <DependentUpon>NewClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlusMinusTextBox.xaml.cs">
+      <DependentUpon>PlusMinusTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -124,6 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

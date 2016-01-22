@@ -289,8 +289,8 @@ namespace BL
 
 
         //New
-
-        User getUser(string UserName);
+        IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null);
+        User GetUser(string UserName);
         void AddUser(User user);
     }
 
@@ -309,11 +309,15 @@ namespace BL
                 throw new Exception(str + "There isnt a client that connected to this user!");
 
         }
+       public IEnumerable<User> GetAllUsers(Func<User,bool> predicate=null)
+        {
+            return myDal.GetAllUsers(predicate);
+        }
        public void AddUser(User user)
         {
             myDal.AddUser(user);
         }
-        public User getUser(string UserName)
+        public User GetUser(string UserName)
         {
            return myDal.GetUser(UserName);
         }
@@ -899,7 +903,17 @@ namespace BL
             AddDishOrder(new DishOrder(192334, 957473, 2));
             AddDishOrder(new DishOrder(192334, 19273, 7));
             AddDishOrder(new DishOrder(34567, 957473, 7));
-            myDal.AddUser(new User(UserType.Client,"shy71","123456","Shy Tennenbaum",1921));
+            myDal.AddUser(new User(UserType.NetworkManger, "shy71", "123456", "Shy Tennenbaum"));
+            myDal.AddUser(new User(UserType.NetworkManger, "ezra1", "123456", "Ezra Block"));
+            myDal.AddUser(new User(UserType.BranchManger, "itai", "123456", "itai deykan"));
+            myDal.AddUser(new User(UserType.BranchManger, "ali", "123456", "uriel ali"));
+            myDal.AddUser(new User(UserType.BranchManger, "shay", "123456", "shay katz"));
+            myDal.AddUser(new User(UserType.Client, "shay", "123456", "shay katz"));
+            myDal.AddUser(new User(UserType.Client, "ari", "123456", "ari wiss"));
+            myDal.AddUser(new User(UserType.Client, "avia", "123456", "avia yemini"));
+            myDal.AddUser(new User(UserType.Client, "zvi", "123456", "zvi zhrchin"));
+            myDal.AddUser(new User(UserType.Client, "itan", "123456", "itan gotlive"));
+            myDal.AddUser(new User(UserType.Client, "avidan", "123456", "avidan danino"));
         }
     }
 }

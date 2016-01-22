@@ -4,7 +4,7 @@
     <ID>192334</ID>
     <BranchID>2</BranchID>
     <Address>Beit Shemesh shy</Address>
-    <Date>2016-01-15T14:36:29.4850224+02:00</Date>
+    <Date>2016-01-21T14:29:10.677547+02:00</Date>
     <Kosher>LOW</Kosher>
     <ClientID>10934</ClientID>
     <Delivered>false</Delivered>
@@ -13,61 +13,7 @@
     <ID>34567</ID>
     <BranchID>87465</BranchID>
     <Address>Beit Shemesh shy</Address>
-    <Date>2016-01-15T14:36:29.4960231+02:00</Date>
-    <Kosher>MEDIUM</Kosher>
-    <ClientID>1921</ClientID>
-    <Delivered>false</Delivered>
-  </Order>
-  <Order>
-    <ID>2921940</ID>
-    <BranchID>2</BranchID>
-    <Address>Beit Shemesh shy</Address>
-    <Date>2016-01-15T14:38:20.1383515+02:00</Date>
-    <Kosher>LOW</Kosher>
-    <ClientID>10934</ClientID>
-    <Delivered>false</Delivered>
-  </Order>
-  <Order>
-    <ID>2609160</ID>
-    <BranchID>87465</BranchID>
-    <Address>Beit Shemesh shy</Address>
-    <Date>2016-01-15T14:38:20.1623528+02:00</Date>
-    <Kosher>MEDIUM</Kosher>
-    <ClientID>1921</ClientID>
-    <Delivered>false</Delivered>
-  </Order>
-  <Order>
-    <ID>2922440</ID>
-    <BranchID>2</BranchID>
-    <Address>Beit Shemesh shy</Address>
-    <Date>2016-01-15T14:38:52.213186+02:00</Date>
-    <Kosher>LOW</Kosher>
-    <ClientID>10934</ClientID>
-    <Delivered>false</Delivered>
-  </Order>
-  <Order>
-    <ID>2609660</ID>
-    <BranchID>87465</BranchID>
-    <Address>Beit Shemesh shy</Address>
-    <Date>2016-01-15T14:38:52.2361873+02:00</Date>
-    <Kosher>MEDIUM</Kosher>
-    <ClientID>1921</ClientID>
-    <Delivered>false</Delivered>
-  </Order>
-  <Order>
-    <ID>2930240</ID>
-    <BranchID>2</BranchID>
-    <Address>Beit Shemesh shy</Address>
-    <Date>2016-01-15T14:10:32.7086508+02:00</Date>
-    <Kosher>LOW</Kosher>
-    <ClientID>10934</ClientID>
-    <Delivered>false</Delivered>
-  </Order>
-  <Order>
-    <ID>2617460</ID>
-    <BranchID>87465</BranchID>
-    <Address>Beit Shemesh shy</Address>
-    <Date>2016-01-15T14:10:32.7526532+02:00</Date>
+    <Date>2016-01-21T14:29:10.7945537+02:00</Date>
     <Kosher>MEDIUM</Kosher>
     <ClientID>1921</ClientID>
     <Delivered>false</Delivered>

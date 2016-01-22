@@ -12,9 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 /*
-להוסיף אייקון
+להוסיף אייקון למסעדה
 להוסיף קידוד לסיסמא
 האם כל השגיאות בהודעה נפתחת או בהערה
+ * אפשרות במקרה שלא ידעת את השם משתמש לחפש לפי פרטים אחרים על הבן אדם
+ * אפשרות שכחתי סיסמא - לבקש ממנהל מערכת לשחזר לך אותה
+ * להוסיף יותר דברים לגרידים
+ * באג-לבדוק לגבי שגיאות
+ * להוסיף פונצקית מחיקה
+ * לבדוק לגבי שמות בצד או בתוך השדות
+ *
+ * 
 */
 namespace PLForms
 {
@@ -31,21 +39,39 @@ namespace PLForms
             InitializeComponent();
             client = new BE.Client();
             user = new BE.User();
-            this.DataContext = client;
+            this.SetBinding();
+        }
+        public NewClient(string str)
+        {
+
+            InitializeComponent();
+            client = new BE.Client();
+            user = new BE.User();
+            this.SetBinding();
+            usernameBox.SetText(str);
+        }
+        void SetBinding()
+        {
+            usernameBox.SetBinding(user, "UserName", BindingMode.TwoWay);
+            nameBox.SetBinding(client, "Name", BindingMode.TwoWay);
+            creditCardBox.SetBinding(client, "CreditCard", BindingMode.TwoWay);
+            addressBox.SetBinding(client, "Address", BindingMode.TwoWay);
+            idBox.SetBinding(client, "ID", BindingMode.TwoWay);
         }
 
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (passowrdBox1.Password != passowrdBox2.Password)
+                //if (nextButton.Opacity != 1)
+                //    throw new Exception("You must filed all of the fileds!");
+                if (passwordBox1.GetPassword() != passwordBox1.GetPassword())
                     throw new Exception("The passwords does not match!");
-                if (passowrdBox1.Password == "")
+                if (passwordBox1.GetPassword() == "")
                     throw new Exception("The password cant be empty!");
                 BL.FactoryBL.getBL().AddClient(client);
-                user.Name=client.Name;
-                user.UserName = usernameBox.Text;
-                user.Password=passowrdBox1.Password;
+                user.Name = client.Name;
+                user.Password = passwordBox1.GetPassword();
                 user.Type=BE.UserType.Client;
                 user.ClientID=client.ID;
                 BL.FactoryBL.getBL().AddUser(user);
@@ -58,5 +84,18 @@ namespace PLForms
                 MessageBox.Show(exp.Message, "Problem with account", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void PlusMinusTextBox_Changed(object sender, EventValue e)
+        {
+            if (client != null)
+                client.Age =Convert.ToInt32(e.Value);
+        }
+        //bool GotPropty(object obj,string str)
+        //{
+        //    if(obj.GetType().GetProperty(str)!=null)
+        //        return true;
+        //    return false;
+            
+        //}
     }
 }
