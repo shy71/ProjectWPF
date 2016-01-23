@@ -76,26 +76,70 @@
                 <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
                     <Setter Property="Button.Visibility" Value="Hidden"/>
                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=PrintAllClientsButton ,Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=UpdateUserButton ,Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding}" Value="BE.CurrentPlacing.Actions">
                             <Setter Property="Button.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <!-- find out why this doesn't work (trigger on top)/-->
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="PrintAllClientsButton" Grid.Row="5" Content="Show all of the clients in all of the network" FontSize="20" Click="PrintAllClientsButton_Click" Grid.ColumnSpan="2" >
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                    <Setter Property="Button.Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton ,Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="UpdateUserButton" Grid.Row="5" Content="Change your details" FontSize="20" Click="UpdateUserButton_Click" >
+        <Button x:Name="PrintBestDishButton" Grid.Row="4" Content="Show the most profitable dish in all of the network" FontSize="20" Click="PrintBestDishButton_Click" Grid.ColumnSpan="2" Visibility="{Binding ElementName=PrintAllClientsButton, Path=Visibility}">
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
+            </Button.Style>
+        </Button>
+        <Button x:Name="PrintBestClientButton" Grid.Row="3" Content="Show the best client in all of the network" FontSize="20" Click="PrintBestClientButton_Click" Grid.ColumnSpan="2" Visibility="{Binding ElementName=PrintAllClientsButton, Path=Visibility}">
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
+            </Button.Style>
+        </Button>
+        <Button x:Name="GetProfitDetails" Grid.Row="2" Content="Show the profit details in all of the network" FontSize="20" Click="GetProfitDetails_Click" Grid.ColumnSpan="2" Visibility="{Binding ElementName=PrintAllClientsButton, Path=Visibility}">
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
+            </Button.Style>
+        </Button>
+        <Button x:Name="PrintBestBranchButton" Grid.Row="1" Content="Show the best branch in the network" FontSize="20" Click="PrintBestBranchButton_Click" Grid.ColumnSpan="2" Visibility="{Binding ElementName=PrintAllClientsButton, Path=Visibility}">
+            <Button.Style>
+                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
+            </Button.Style>
+        </Button>
+        
+        <Button x:Name="UpdateUserButton" Grid.RowSpan="3" Grid.Row="2" Content="Change your details" FontSize="50" Click="UpdateUserButton_Click" Grid.ColumnSpan="2" >
             <Button.Style>
                 <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                    <Setter Property="Button.Visibility" Value="Visible"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Hidden">
-                            <Setter Property="Button.Visibility" Value="Visible"/>
+                        <DataTrigger Binding="{Binding ElementName=PrintAllClientsButton ,Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Visible">
                             <Setter Property="Button.Visibility" Value="Hidden"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=placing}" Value="BE.CurrentPlacing.Info">
+                        <!--DataTrigger Binding="{Binding Path=placing}" Value="BE.CurrentPlacing.Info">
                             <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
+                        </-->
                     </Style.Triggers>
                 </Style>
             </Button.Style>
@@ -104,6 +148,5 @@
         <Button x:Name="ActionButton" Content="Action" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" VerticalAlignment="Top" Width="80" Height="35" Click="ActionButton_Click"/>
         <Button x:Name="InfoButton" Content="Information" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="80,0,0,0" VerticalAlignment="Top" Width="80" Height="35" Click="InfoButton_Click"/>
         <Button x:Name="EditButton" Content="Edit" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="160,0,0,0" VerticalAlignment="Top" Width="86" Height="35" Click="EditButton_Click"/>
-
     </Grid>
 </Window>

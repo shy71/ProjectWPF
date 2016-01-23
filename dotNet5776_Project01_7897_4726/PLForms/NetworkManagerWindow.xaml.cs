@@ -63,21 +63,52 @@ namespace PLForms
 
         private void ActionButton_Click(object sender, RoutedEventArgs e)
         {
+            PrintAllClientsButton.Visibility = Visibility.Hidden;
+            UpdateUserButton.Visibility = Visibility.Hidden;
+            AddNewNetworkManagerButton.Visibility = Visibility.Visible;
             placing = BE.CurrentPlacing.Action;
             //Bind between placing and AddNewNetworkManagerButton visibilty
-            AddNewNetworkManagerButton.Visibility = Visibility.Visible;
         }
 
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
             placing = BE.CurrentPlacing.Info;
+            PrintAllClientsButton.Visibility = Visibility.Visible;
+            UpdateUserButton.Visibility = Visibility.Hidden;
             AddNewNetworkManagerButton.Visibility = Visibility.Hidden;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             placing = BE.CurrentPlacing.Edit;
+            PrintAllClientsButton.Visibility = Visibility.Hidden;
+            UpdateUserButton.Visibility = Visibility.Visible;
             AddNewNetworkManagerButton.Visibility = Visibility.Hidden;
+        }
+
+        private void PrintAllClientsButton_Click(object sender, RoutedEventArgs e)
+        {
+            //open window for printing all clients
+        }
+
+        private void PrintBestDishButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PrintBestClientButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PrintBestBranchButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GetProfitDetails_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
