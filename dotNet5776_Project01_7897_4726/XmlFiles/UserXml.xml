@@ -98,4 +98,11 @@
     <Name>itai deykan</Name>
     <ItemID>405436</ItemID>
   </User>
+  <User>
+    <Type>Client</Type>
+    <UserName>Yaakov1</UserName>
+    <Password>1234567</Password>
+    <Name>Yaakov Israel Block</Name>
+    <ItemID>165882</ItemID>
+  </User>
 </Users>

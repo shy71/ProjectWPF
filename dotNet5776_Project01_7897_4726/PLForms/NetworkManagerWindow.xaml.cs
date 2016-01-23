@@ -110,5 +110,15 @@ namespace PLForms
         {
 
         }
+
+        private void PrintAllDishesButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PrintAllBranchesButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
