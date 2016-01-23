@@ -15,28 +15,25 @@ using System.Windows.Shapes;
 namespace PLForms
 {
     /// <summary>
-    /// Interaction logic for Print_All_Branches.xaml
+    /// Interaction logic for Print_All_Clients.xaml
     /// </summary>
-    public partial class Print_All_Branches : Window
+    public partial class Print_All_Clients : Window
     {
-        public Print_All_Branches()
+        public Print_All_Clients()
         {
             InitializeComponent();
             try
             {
                 BL.IBL myBL = BL.FactoryBL.getBL();
-                IEnumerable<BE.Branch> BranchList = myBL.GetAllBranchs();
-                foreach (BE.Branch item in BranchList)
+                IEnumerable<BE.Client> ClientList = myBL.GetAllClients();
+                foreach (BE.Client item in ClientList)
                 {
-                    Branches.Text += (item.ToString().Substring(0, item.ToString().IndexOf('@'))
-                                    + "\n               Boss Username: "
-                                    + item.ToString().Substring(item.ToString().IndexOf('@') + 1, item.ToString().Length - item.ToString().IndexOf('@')-1)
-                                    + "\n");
+                    Clients.Text += (item.ToString() + "\n");
                 }
             }
-            catch(Exception Exp)
+            catch (Exception Exp)
             {
-                Branches.Text = Exp.ToString();
+                Clients.Text = Exp.ToString();
             }
         }
 

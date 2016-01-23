@@ -88,7 +88,7 @@ namespace PLForms
 
         private void PrintAllClientsButton_Click(object sender, RoutedEventArgs e)
         {
-            //open window for printing all clients
+            new Print_All_Clients().Show();
         }
 
         private void PrintBestDishButton_Click(object sender, RoutedEventArgs e)
@@ -113,7 +113,7 @@ namespace PLForms
 
         private void PrintAllDishesButton_Click(object sender, RoutedEventArgs e)
         {
-
+            new Print_All_Dishes().Show();
         }
 
         private void PrintAllBranchesButton_Click(object sender, RoutedEventArgs e)
