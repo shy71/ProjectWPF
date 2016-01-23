@@ -2,35 +2,35 @@
 <Clients>
   <Client>
     <ID>1921</ID>
-    <Name>Shy</Name>
+    <Name>Shay</Name>
     <Address>Sderot Hertzel 12</Address>
     <CreditCard>45326</CreditCard>
     <Age>23</Age>
   </Client>
   <Client>
     <ID>10934</ID>
-    <Name>Ezra</Name>
+    <Name>ari</Name>
     <Address>Beit Shemesh</Address>
     <CreditCard>78695</CreditCard>
     <Age>65</Age>
   </Client>
   <Client>
     <ID>493</ID>
-    <Name>Itai</Name>
+    <Name>avia</Name>
     <Address>Giv'at Ze'ev</Address>
     <CreditCard>1938</CreditCard>
     <Age>18</Age>
   </Client>
   <Client>
     <ID>1313</ID>
-    <Name>Tal</Name>
+    <Name>zvi</Name>
     <Address>Alon Shvut</Address>
     <CreditCard>91731</CreditCard>
     <Age>20</Age>
   </Client>
   <Client>
     <ID>20744</ID>
-    <Name>Gal</Name>
+    <Name>itan</Name>
     <Address>Ma'ale Adumim</Address>
     <CreditCard>38267</CreditCard>
     <Age>19</Age>

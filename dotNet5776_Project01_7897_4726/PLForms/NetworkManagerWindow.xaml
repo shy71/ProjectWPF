@@ -87,11 +87,14 @@
             <Button.Style>
                 <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Hidden">
+                            <Setter Property="Button.Visibility" Value="Visible"/>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Visible">
                             <Setter Property="Button.Visibility" Value="Hidden"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Hidden">
-                            <Setter Property="Button.Visibility" Value="Visible"/>
+                        <DataTrigger Binding="{Binding Path=placing}" Value="BE.CurrentPlacing.Info">
+                            <Setter Property="Button.Visibility" Value="Hidden"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
