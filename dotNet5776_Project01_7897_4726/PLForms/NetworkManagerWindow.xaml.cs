@@ -118,7 +118,7 @@ namespace PLForms
 
         private void PrintAllBranchesButton_Click(object sender, RoutedEventArgs e)
         {
-
+            new Print_All_Branches().Show();
         }
     }
 }
