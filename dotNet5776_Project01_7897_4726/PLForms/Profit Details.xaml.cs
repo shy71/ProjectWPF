@@ -27,6 +27,13 @@ namespace PLForms
                 switch(BE.ProfitWindowReturnValue.str)
                 {
                     case "Address":
+                        List<IGrouping<string,float>> addressList = BL.FactoryBL.getBL().GetProfitByAddress().ToList();
+                        foreach(IGrouping<string,float> grp in addressList)
+                        {
+                            /*ProfitDetails.Text += (grp.Key
+                                                +  ":\n"
+                                                +  */
+                        }
                         //finish address grouping print
                         break;
                     case "Date":
