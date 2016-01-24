@@ -139,9 +139,8 @@ namespace PLForms
 
         private void Button_Click(object sender, RoutedEventArgs e)//delete
         {
-            new NewBranch().Show();
-            this.Close();
-
+            new Profit_By().Show();
+            //new NewBranch().Show();
         }
 
         //private void passwordLabelBox_GotFocus(object sender, RoutedEventArgs e)

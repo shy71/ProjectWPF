@@ -14,7 +14,10 @@ namespace BE
         int ID { get; set; }
         int MakeID();
     }
-
+    public class ProfitWindowReturnValue
+    {
+        public static string str="";
+    }
     public class Extensions
     {
         /// <summary>

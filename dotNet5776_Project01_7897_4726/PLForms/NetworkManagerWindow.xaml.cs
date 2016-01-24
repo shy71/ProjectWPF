@@ -30,9 +30,7 @@ namespace PLForms
 
         private void AddBranchButton_Click(object sender, RoutedEventArgs e)
         {
-            //open window for creating new branch.
             new NewBranch().ShowDialog();
-
         }
 
         private void AddNewBranchManagerButton_Click(object sender, RoutedEventArgs e)
@@ -86,6 +84,8 @@ namespace PLForms
             AddNewNetworkManagerButton.Visibility = Visibility.Hidden;
         }
 
+        #region Information Functions
+
         private void PrintAllClientsButton_Click(object sender, RoutedEventArgs e)
         {
             new Print_All_Clients().Show();
@@ -120,5 +120,6 @@ namespace PLForms
         {
             new Print_All_Branches().Show();
         }
+        #endregion
     }
 }
