@@ -278,8 +278,10 @@ namespace DAL
         }
         public void Delete()
         {
+            LoadFile();
             File.Delete(FPath);
             CreateFile();
+            Save();
         }
         public void LoadFile()
         {

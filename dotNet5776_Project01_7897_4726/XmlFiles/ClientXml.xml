@@ -35,11 +35,4 @@
     <CreditCard>38267</CreditCard>
     <Age>19</Age>
   </Client>
-  <Client>
-    <ID>165882</ID>
-    <Name>Yaakov Israel Block</Name>
-    <Address>R' Yannai 14/21</Address>
-    <CreditCard>123456789</CreditCard>
-    <Age>19</Age>
-  </Client>
 </Clients>

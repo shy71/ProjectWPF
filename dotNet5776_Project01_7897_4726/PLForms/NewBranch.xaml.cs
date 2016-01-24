@@ -114,22 +114,30 @@ namespace PLForms
 
         private void CopyBranch(object sender, RoutedEventArgs e)
        {
-            BE.Branch temp;
-            if (branchCombo.SelectedIndex >= 0)
-            {
-                 temp = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ToString() == (branchCombo.Items.GetItemAt(branchCombo.SelectedIndex) as ComboBoxItem).ToolTip.ToString()).FirstOrDefault();
-                if (temp == null)
-                    throw new Exception("ERROR");
-                nameBox.SetText(temp.Name);
-                addressBox.SetText(temp.Address);
-                phoneBox.SetText(temp.PhoneNumber);
-                empoyeBox.SetNum(temp.EmployeeCount);
-                messengersBox.SetNum(temp.AvailableMessangers);
-                KashrutCombo.SelectedIndex=(temp.Kosher==BE.Kashrut.HIGH)?2:(temp.Kosher==BE.Kashrut.MEDIUM)?1:0;
-                branchCombo.SelectedIndex = -1;
-            }
-            else
-                throw new Exception("ERROR");
+           try
+           {
+               BE.Branch temp;
+               if (branchCombo.SelectedIndex >= 0)
+               {
+                   temp = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ToString() == (branchCombo.Items.GetItemAt(branchCombo.SelectedIndex) as ComboBoxItem).ToolTip.ToString()).FirstOrDefault();
+                   if (temp == null)
+                       throw new Exception("ERROR");
+                   nameBox.SetText(temp.Name);
+                   addressBox.SetText(temp.Address);
+                   phoneBox.SetText(temp.PhoneNumber);
+                   empoyeBox.SetNum(temp.EmployeeCount);
+                   messengersBox.SetNum(temp.AvailableMessangers);
+                   KashrutCombo.SelectedIndex = (temp.Kosher == BE.Kashrut.HIGH) ? 2 : (temp.Kosher == BE.Kashrut.MEDIUM) ? 1 : 0;
+                   branchCombo.SelectedIndex = -1;
+               }
+               else
+                   throw new Exception("ERROR");
+           }
+            catch(Exception Exp)
+           {
+               MessageBox.Show(Exp.ToString(), "Error");
+           }
+
         }
 
         private void KashrutCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

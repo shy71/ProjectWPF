@@ -65,6 +65,9 @@
     <Compile Include="Print All Dishes.xaml.cs">
       <DependentUpon>Print All Dishes.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Print Best Branch.xaml.cs">
+      <DependentUpon>Print Best Branch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Print Best Dish.xaml.cs">
       <DependentUpon>Print Best Dish.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Print All Dishes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Print Best Branch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

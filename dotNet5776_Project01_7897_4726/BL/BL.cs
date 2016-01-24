@@ -915,7 +915,7 @@ namespace BL
             myDal.AddUser(new User(UserType.BranchManger, "itai3", "123456", "itai deykan"));
             myDal.AddUser(new User(UserType.BranchManger, "itai4", "123456", "itai deykan"));
             myDal.AddUser(new User(UserType.BranchManger, "itai5", "123456", "itai deykan"));
-                        myDal.AddUser(new User(UserType.BranchManger, "itai6", "123456", "itai deykan"));
+            myDal.AddUser(new User(UserType.BranchManger, "itai6", "123456", "itai deykan"));
             myDal.AddUser(new User(UserType.BranchManger, "itai111", "123456", "itai deykan"));
             myDal.AddUser(new User(UserType.Client, "shay", "123456", "shay katz", 1921));
             myDal.AddUser(new User(UserType.Client, "ari", "123456", "ari wiss", 10934));

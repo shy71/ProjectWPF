@@ -103,7 +103,7 @@ namespace PLForms
 
         private void PrintBestBranchButton_Click(object sender, RoutedEventArgs e)
         {
-
+            new Print_Best_Branch().Show();
         }
 
         private void GetProfitDetails_Click(object sender, RoutedEventArgs e)

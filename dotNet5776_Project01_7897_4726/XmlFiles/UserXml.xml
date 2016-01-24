@@ -16,6 +16,13 @@
   </User>
   <User>
     <Type>BranchManger</Type>
+    <UserName>itai1</UserName>
+    <Password>123456</Password>
+    <Name>itai deykan</Name>
+    <ItemID>0</ItemID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
     <UserName>itai111</UserName>
     <Password>123456</Password>
     <Name>itai deykan</Name>
@@ -90,19 +97,5 @@
     <Password>123456</Password>
     <Name>itai deykan</Name>
     <ItemID>9873</ItemID>
-  </User>
-  <User>
-    <Type>BranchManger</Type>
-    <UserName>itai1</UserName>
-    <Password>123456</Password>
-    <Name>itai deykan</Name>
-    <ItemID>405436</ItemID>
-  </User>
-  <User>
-    <Type>Client</Type>
-    <UserName>Yaakov1</UserName>
-    <Password>1234567</Password>
-    <Name>Yaakov Israel Block</Name>
-    <ItemID>165882</ItemID>
   </User>
 </Users>
