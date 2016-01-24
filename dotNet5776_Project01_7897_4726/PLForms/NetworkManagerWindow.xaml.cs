@@ -61,7 +61,7 @@ namespace PLForms
 
         private void ActionButton_Click(object sender, RoutedEventArgs e)
         {
-            PrintAllClientsButton.Visibility = Visibility.Hidden;
+            PrintDB.Visibility = Visibility.Hidden;
             UpdateUserButton.Visibility = Visibility.Hidden;
             AddNewNetworkManagerButton.Visibility = Visibility.Visible;
             placing = BE.CurrentPlacing.Action;
@@ -71,7 +71,7 @@ namespace PLForms
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
             placing = BE.CurrentPlacing.Info;
-            PrintAllClientsButton.Visibility = Visibility.Visible;
+            PrintDB.Visibility = Visibility.Visible;
             UpdateUserButton.Visibility = Visibility.Hidden;
             AddNewNetworkManagerButton.Visibility = Visibility.Hidden;
         }
@@ -79,17 +79,13 @@ namespace PLForms
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             placing = BE.CurrentPlacing.Edit;
-            PrintAllClientsButton.Visibility = Visibility.Hidden;
+            PrintDB.Visibility = Visibility.Hidden;
             UpdateUserButton.Visibility = Visibility.Visible;
             AddNewNetworkManagerButton.Visibility = Visibility.Hidden;
         }
 
         #region Information Functions
 
-        private void PrintAllClientsButton_Click(object sender, RoutedEventArgs e)
-        {
-            new Print_All_Clients().Show();
-        }
 
         private void PrintBestDishButton_Click(object sender, RoutedEventArgs e)
         {
@@ -108,9 +104,13 @@ namespace PLForms
 
         private void GetProfitDetails_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
+        /*
+        private void PrintAllClientsButton_Click(object sender, RoutedEventArgs e)
+        {
+            new Print_All_Clients().Show();
+        }
         private void PrintAllDishesButton_Click(object sender, RoutedEventArgs e)
         {
             new Print_All_Dishes().Show();
@@ -119,7 +119,13 @@ namespace PLForms
         private void PrintAllBranchesButton_Click(object sender, RoutedEventArgs e)
         {
             new Print_All_Branches().Show();
+        }*/
+        private void PrintDB_Click(object sender, RoutedEventArgs e)
+        {
+            //new PrintSegments().ShowDialog();
+            new Print_Data_Base().Show();
         }
         #endregion
+
     }
 }
