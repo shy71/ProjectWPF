@@ -422,6 +422,12 @@ namespace DAL
             }
 
         }
+        float ConvertStringToFloat(string str)
+        {
+            float num;
+            float.TryParse(str, out num);
+            return num;
+        }
         /// <summary>
         /// Get all the item that matches the predicate function
         /// </summary>
@@ -439,9 +445,10 @@ namespace DAL
                                            T res = new T();
                                            foreach (var item2 in res.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
                                            {
-
                                                if (item2.PropertyType == typeof(int))
                                                    item2.SetValue(res, Convert.ToInt32(item.Element(item2.Name).Value));
+                                               else if (item2.PropertyType == typeof(float))
+                                                   item2.SetValue(res, ConvertStringToFloat(Convert.ToString(item.Element(item2.Name).Value)));
                                                else if (item2.PropertyType == typeof(string))
                                                    item2.SetValue(res, item.Element(item2.Name).Value);
                                                else if (item2.PropertyType == typeof(Size))

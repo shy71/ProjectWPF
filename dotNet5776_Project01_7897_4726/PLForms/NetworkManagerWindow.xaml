@@ -110,7 +110,7 @@
             <Button.Style>
                 <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
             </Button.Style>
-            <TextBlock>Show the most profitable<LineBreak/>dish in all of the network</TextBlock>
+            <TextBlock HorizontalAlignment="Center">Show the dish purchased<LineBreak/>the most in the network</TextBlock>
         </Button>
         <Button x:Name="PrintBestClientButton" Grid.Row="1" Grid.Column="1" FontSize="20" Click="PrintBestClientButton_Click"  Visibility="{Binding ElementName=PrintAllClientsButton, Path=Visibility}">
             <Button.Style>

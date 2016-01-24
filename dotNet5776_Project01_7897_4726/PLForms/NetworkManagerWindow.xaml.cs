@@ -93,7 +93,7 @@ namespace PLForms
 
         private void PrintBestDishButton_Click(object sender, RoutedEventArgs e)
         {
-
+            new Print_Best_Dish().Show();
         }
 
         private void PrintBestClientButton_Click(object sender, RoutedEventArgs e)
