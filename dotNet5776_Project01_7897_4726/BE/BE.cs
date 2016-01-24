@@ -304,7 +304,7 @@ namespace BE
                   + "\n\tName: " + Name
                   + "\n\tAddress: " + Address
                   + "\n\tPhone number: " + PhoneNumber
-                  + "\n\tBoss: " + Boss
+                  + "\n\tBoss: " + Boss.Substring(0,Boss.IndexOf('@'))
                   + "\n\tEmployee Count: " + EmployeeCount
                   + "\n\tAvilable messanger count: " + AvailableMessangers
                   + "\n\tKashrut: " + Kosher;

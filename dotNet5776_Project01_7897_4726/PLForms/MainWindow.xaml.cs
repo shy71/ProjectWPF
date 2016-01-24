@@ -27,7 +27,7 @@ namespace PLForms
             try
             {
                 InitializeComponent();
-                if (MessageBox.Show("would you like to reset the database?", "DataBase Restart", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                if (MessageBox.Show("would you like to reset the database?", "DataBase Restart", MessageBoxButton.YesNo, MessageBoxImage.Error,MessageBoxResult.No) == MessageBoxResult.Yes)
                 {
                     BL.FactoryBL.getBL().DeleteDataBase();
                     BL.FactoryBL.getBL().Inti();
@@ -35,6 +35,7 @@ namespace PLForms
                 if (!BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger).Any())
                     MessageBox.Show("Hello! and wellcom to Shy and Ezra program for manging Fred's BBQ Joint\n you will now be redirected to create the First Network Manger account \n please pay attention to this process","Hello World!",MessageBoxButton.OK,MessageBoxImage.Information);
                     //Open a new Window manger window
+                BL.FactoryBL.getBL().GetAllBranchs().First().ToString();
             }
             catch (Exception exp)
             {
@@ -139,8 +140,9 @@ namespace PLForms
 
         private void Button_Click(object sender, RoutedEventArgs e)//delete
         {
-            new Profit_By().Show();
-            //new NewBranch().Show();
+            //new Profit_By().Show();
+            new NewBranch().Show();
+            this.Close();
         }
 
         //private void passwordLabelBox_GotFocus(object sender, RoutedEventArgs e)

@@ -83,7 +83,7 @@
                 </Button.Style>
             </Button>
         </Grid>
-        <Button x:Name="createAccountButton" Content="Create account" Margin="90,88,90,0" Grid.Row="3" VerticalAlignment="Top" FontFamily="auto" Click="createAccountButton_Click">
+        <Button x:Name="createAccountButton" Content="Create account" Margin="90,88,90,0" Grid.Row="3" VerticalAlignment="Top" FontFamily="auto" Click="createAccountButton_Click" ToolTip="Dont have an account? create one now!">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
                     <Style.Triggers>

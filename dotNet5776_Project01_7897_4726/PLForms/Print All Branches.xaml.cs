@@ -28,10 +28,7 @@ namespace PLForms
                 IEnumerable<BE.Branch> BranchList = myBL.GetAllBranchs();
                 foreach (BE.Branch item in BranchList)
                 {
-                    Branches.Text += (item.ToString().Substring(0, item.ToString().IndexOf('@'))
-                                    + "\n               Boss Username: "
-                                    + item.ToString().Substring(item.ToString().IndexOf('@') + 1, item.ToString().Length - item.ToString().IndexOf('@')-1)
-                                    + "\n");
+                    Branches.Text += item.ToString();
                 }
             }
             catch(Exception Exp)
