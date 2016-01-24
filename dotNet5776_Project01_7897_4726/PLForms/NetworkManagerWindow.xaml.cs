@@ -89,17 +89,17 @@ namespace PLForms
 
         private void PrintBestDishButton_Click(object sender, RoutedEventArgs e)
         {
-            new Print_Best_Dish().Show();
+            new ShowBest("Dish").Show();
         }
 
         private void PrintBestClientButton_Click(object sender, RoutedEventArgs e)
         {
-            new Print_Best_Client().Show();
+            new ShowBest("Client").Show();
         }
 
         private void PrintBestBranchButton_Click(object sender, RoutedEventArgs e)
         {
-            new Print_Best_Branch().Show();
+            new ShowBest("Branch").Show();
         }
 
         private void GetProfitDetails_Click(object sender, RoutedEventArgs e)

@@ -796,9 +796,9 @@ namespace BL
             foreach (Dish curDish in myDal.GetAllDishs())
             {
                 int count = 0;
-                foreach (DishOrder item in myDal.GetAllDishOrders())
+                foreach (DishOrder item in myDal.GetAllDishOrders(item2=> item2.DishID==curDish.ID))
                 {
-                    if (myDal.GetOrder(item.OrderID).BranchID == myBranch.ID && myDal.GetDish(item.DishID) == curDish)
+                    if (myDal.GetOrder(item.OrderID).BranchID == myBranch.ID)
                     {
                         count += item.DishAmount;
                     }

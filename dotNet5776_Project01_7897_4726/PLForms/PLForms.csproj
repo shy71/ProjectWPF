@@ -74,15 +74,6 @@
     <Compile Include="Print All Dishes.xaml.cs">
       <DependentUpon>Print All Dishes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Print Best Branch.xaml.cs">
-      <DependentUpon>Print Best Branch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Print Best Client.xaml.cs">
-      <DependentUpon>Print Best Client.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Print Best Dish.xaml.cs">
-      <DependentUpon>Print Best Dish.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Print Data Base.xaml.cs">
       <DependentUpon>Print Data Base.xaml</DependentUpon>
     </Compile>
@@ -91,6 +82,9 @@
     </Compile>
     <Compile Include="Profit Details.xaml.cs">
       <DependentUpon>Profit Details.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShowBest.xaml.cs">
+      <DependentUpon>ShowBest.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextControl.xaml.cs">
       <DependentUpon>TextControl.xaml</DependentUpon>
@@ -140,26 +134,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Print All Branches.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Print All Clients.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Print All Dishes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Print Best Branch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Print Best Client.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Print Best Dish.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Profit Details.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShowBest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
