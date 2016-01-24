@@ -98,7 +98,7 @@ namespace PLForms
 
         private void PrintBestClientButton_Click(object sender, RoutedEventArgs e)
         {
-
+            new Print_Best_Client().Show();
         }
 
         private void PrintBestBranchButton_Click(object sender, RoutedEventArgs e)

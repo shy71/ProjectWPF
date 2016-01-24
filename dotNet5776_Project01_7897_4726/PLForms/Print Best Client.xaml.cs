@@ -15,20 +15,20 @@ using System.Windows.Shapes;
 namespace PLForms
 {
     /// <summary>
-    /// Interaction logic for Print_Best_Dish.xaml
+    /// Interaction logic for Print_Best_Client.xaml
     /// </summary>
-    public partial class Print_Best_Dish : Window
+    public partial class Print_Best_Client : Window
     {
-        public Print_Best_Dish()
+        public Print_Best_Client()
         {
             InitializeComponent();
             try
             {
-                BestDish.Text = BL.FactoryBL.getBL().MostOrderedDish().ToString();
+                BestClient.Text = BL.FactoryBL.getBL().BestCustomer().ToString();
             }
-            catch(Exception Exp)
+            catch(Exception exp)
             {
-                BestDish.Text = Exp.ToString();
+                BestClient.Text = exp.ToString();
             }
         }
 

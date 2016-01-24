@@ -38,6 +38,7 @@ namespace PLForms
             }
             catch (Exception exp)
             {
+                MessageBox.Show(exp.ToString(), "Error");
             }
         }
         private void NextLogin(object sender, RoutedEventArgs e)

@@ -24,8 +24,7 @@ namespace PLForms
             InitializeComponent();
             try
             {
-                BE.Branch bestBranch = BL.FactoryBL.getBL().BestBranch();
-                BestBranch.Text = bestBranch.ToString();
+                BestBranch.Text = BL.FactoryBL.getBL().BestBranch().ToString();
             }
             catch(Exception Exp)
             {
