@@ -421,17 +421,32 @@ namespace BL
                 throw new Exception(str + " The phone number is invalid");
             else if (myDal.GetUser(branch.Boss.Substring(branch.Boss.IndexOf('@') + 1)) == null)
                 throw new Exception(str + " The branch boss doesnt have a user!");
-            else if (myDal.GetAllUsers(item => item.UserName == branch.Boss.Substring(branch.Boss.IndexOf('@') + 1)).FirstOrDefault().ItemID != 0)
-                throw new Exception(str + "The boss in the branch is a boss in anthor branch! a branch manger can only have one branch to mange!");
         }
         public void AddBranch(Branch newBranch)
         {
             CompatibleBranch(newBranch, "The Branch you are trying to add is incompatible:");
             myDal.AddBranch(newBranch);
-            var temp = myDal.GetUser(newBranch.Boss.Substring(newBranch.Boss.IndexOf('@')+1));
-            temp.ItemID = newBranch.ID;
-            myDal.UpdateUser(temp);
+            SetBranchManger(newBranch, newBranch.Boss);
 
+        }
+        void SetBranchManger(Branch branch, string boss)
+        {
+            string username = boss.Substring(boss.IndexOf('@') + 1);
+            if (username != "")
+            {
+                var temp = myDal.GetUser(username);
+                if (temp != null)
+                {
+                    temp.ItemID = branch.ID;
+                    myDal.UpdateUser(temp);
+                }
+            }
+            var temp2 = myDal.GetAllUsers(item => item.ItemID == branch.ID&&item.Type==BE.UserType.BranchManger&&item.UserName!=username).FirstOrDefault();
+            if(temp2!=null)
+            {
+                temp2.ItemID = 0;
+                myDal.UpdateUser(temp2);
+            }
         }
         public void DeleteBranch(int id)
         {
@@ -442,17 +457,21 @@ namespace BL
         }
         public void DeleteBranch(Branch myBranch)
         {
+            SetBranchManger(myBranch, "");
             DeleteBranch(myBranch.ID);
+
         }
         public void UpdateBranch(Branch myBranch)
         {
             if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher && item.Delivered == false))
             {
-                CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible. Anything that could be updated was updated.");
+                CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible.");
+                if (myBranch.Boss != myDal.GetBranch(myBranch.ID).Boss)
+                    SetBranchManger(myBranch, myBranch.Boss);
                 myDal.UpdateBranch(myBranch);
             }
             else
-                throw new Exception("you can't lower a bracnh kashrut when he has an active orders from a higher kashrutstandardstandard!");
+                throw new Exception("you can't lower a bracnh kashrut when he has an active orders from a higher kashrut standard!");
         }
         public IEnumerable<Branch> GetAllBranchs(Func<Branch, bool> predicate = null)
         {

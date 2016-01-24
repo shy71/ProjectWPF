@@ -66,8 +66,8 @@ namespace DAL
         /// <summary>
         /// adds a branch to the system
         /// </summary>
-        /// <param name="newBranch"></param>
-        void AddBranch(Branch newBranch);
+        /// <param name="BranchEditor"></param>
+        void AddBranch(Branch BranchEditor);
         /// <summary>
         /// deletes a branch
         /// </summary>
@@ -549,9 +549,9 @@ namespace DAL
         #endregion
 
         #region Branch Functions
-        public void AddBranch(Branch newBranch)
+        public void AddBranch(Branch BranchEditor)
         {
-            Add(newBranch);
+            Add(BranchEditor);
         }
         public void DeleteBranch(int id)
         {
@@ -967,9 +967,9 @@ namespace DAL
         #endregion
 
         #region Branch Functions
-        public void AddBranch(Branch newBranch)
+        public void AddBranch(Branch BranchEditor)
         {
-            Add(newBranch);
+            Add(BranchEditor);
         }
         public void DeleteBranch(int id)
         {

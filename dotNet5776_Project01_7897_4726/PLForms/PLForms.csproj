@@ -113,7 +113,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="NewBranch.xaml">
+    <Page Include="BranchEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,8 +170,8 @@
     <Compile Include="NetworkManagerWindow.xaml.cs">
       <DependentUpon>NetworkManagerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NewBranch.xaml.cs">
-      <DependentUpon>NewBranch.xaml</DependentUpon>
+    <Compile Include="BranchEditor.xaml.cs">
+      <DependentUpon>BranchEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="NewClient.xaml.cs">
       <DependentUpon>NewClient.xaml</DependentUpon>

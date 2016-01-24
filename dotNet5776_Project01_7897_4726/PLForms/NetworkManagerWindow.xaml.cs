@@ -30,7 +30,7 @@ namespace PLForms
 
         private void AddBranchButton_Click(object sender, RoutedEventArgs e)
         {
-            new NewBranch().ShowDialog();
+            new BranchEditor().ShowDialog();
         }
 
         private void AddNewBranchManagerButton_Click(object sender, RoutedEventArgs e)

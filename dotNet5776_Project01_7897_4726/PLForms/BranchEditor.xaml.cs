@@ -15,16 +15,31 @@ using System.Windows.Shapes;
 namespace PLForms
 {
     /// <summary>
-    /// Interaction logic for NewBranch.xaml
+    /// Interaction logic for BranchEditor.xaml
     /// </summary>
-    public partial class NewBranch : Window
+    public partial class BranchEditor : Window
     {
+        bool IsUpadte;
         BE.Branch branch;
-        public NewBranch()
+        public BranchEditor()
         {
             InitializeComponent();
             branch = new BE.Branch();
 
+        }
+        public BranchEditor(BE.Branch bra)
+        {
+            InitializeComponent();
+            nameBox.SetText(bra.Name);
+            addressBox.SetText(bra.Address);
+            phoneBox.SetText(bra.PhoneNumber);
+            empoyeBox.SetNum(bra.EmployeeCount);
+            messengersBox.SetNum(bra.AvailableMessangers);
+            KashrutCombo.SelectedItem = bra.Kosher.ToString();
+                       branch = bra;
+            IsUpadte = true;
+            DoButton.Content = "Update!";
+            
         }
 
         private void CreateBranchManagerButton_Click(object sender, RoutedEventArgs e)
@@ -53,8 +68,11 @@ namespace PLForms
         {
             try
             {
-                BL.FactoryBL.getBL().AddBranch(branch);
-                MessageBox.Show("The branch " + branch.Name + " was created!", "Branch created", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (IsUpadte)
+                    BL.FactoryBL.getBL().UpdateBranch(branch);
+                else
+                    BL.FactoryBL.getBL().AddBranch(branch);
+                MessageBox.Show("The branch " + branch.Name + " was " + ((IsUpadte) ? "Updated!" : "created!"), "Branch created", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             catch(Exception exp)
@@ -70,6 +88,14 @@ namespace PLForms
             temp.Content = "Create a New manger!";
             temp.ToolTip = "Will give you the option to\ncreate a new manger that\nwill run the branch";
             MangerCombo.Items.Add(temp);
+            if(IsUpadte)
+            {
+                temp = new ComboBoxItem();
+                temp.Content = "Stay with the current manger!";
+                temp.ToolTip = branch.Boss;
+                MangerCombo.Items.Add(temp);
+                MangerCombo.SelectedItem = temp;
+            }
             foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers(item2=>item2.Type==BE.UserType.BranchManger&&item2.ItemID==0))
             {
                 temp = new ComboBoxItem();
