@@ -140,6 +140,7 @@ namespace PLForms
         private void Button_Click(object sender, RoutedEventArgs e)//delete
         {
             //new Profit_By().Show();
+            new ClientInterface().Show();
             this.Close();
         }
 

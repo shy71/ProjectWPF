@@ -62,6 +62,9 @@
     <Compile Include="DishOrderManger.xaml.cs">
       <DependentUpon>DishOrderManger.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OrderDeiltes.xaml.cs">
+      <DependentUpon>OrderDeiltes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PasswordControl.xaml.cs">
       <DependentUpon>PasswordControl.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DishOrderManger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OrderDeiltes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -234,10 +241,44 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Delete.jpg" />
+    <Resource Include="Images\Delete1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\19273.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Order1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Delete.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete-b.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Order1 - Copy.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Send.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\recycle_bin1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\text-edit-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\send2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\send3.jpg" />
+    <Resource Include="Images\send5.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
