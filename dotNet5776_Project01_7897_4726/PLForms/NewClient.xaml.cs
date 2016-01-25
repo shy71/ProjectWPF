@@ -23,6 +23,8 @@ using System.Windows.Shapes;
  * לבדוק לגבי שמות בצד או בתוך השדות
  *כאשר מוחקים מנה ישנה את ה תעודת זהות שלה בהזמנות
  *להוסיף תמונות למנות
+ *לעשות שהכפתורים יגדלו כאשר לוחצים עליהם
+ *
  * 
 */
 namespace PLForms
@@ -86,7 +88,7 @@ namespace PLForms
             }
         }
 
-        private void PlusMinusTextBox_Changed(object sender, EventValue e)
+        private void PlusMinusTextBox_Changed(object sender, BE.EventValue e)
         {
             if (client != null)
                 client.Age =Convert.ToInt32(e.Value);

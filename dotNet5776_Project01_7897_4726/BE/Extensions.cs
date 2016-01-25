@@ -14,6 +14,16 @@ namespace BE
         int ID { get; set; }
         int MakeID();
     }
+    public class EventValue : EventArgs
+    {
+        public object Value { get; set; }
+        public string pName { get; set; }
+        public EventValue(object value, string pName = null)
+        {
+            Value = value;
+            this.pName = pName;
+        }
+    }
     public class ProfitWindowReturnValue
     {
         public static string str="";

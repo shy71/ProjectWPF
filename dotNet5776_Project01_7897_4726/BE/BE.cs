@@ -72,7 +72,17 @@ namespace BE
     public class Order : InterID
     {
         public Order() { }
-        public Order(int branchID, string address, DateTime date, Kashrut kosher, int clientID, int id = 0)
+        public Order(int branchID, string address, Kashrut kosher, int clientID,int id = 0)
+        {
+            Delivered = false;
+            ID = id;
+            BranchID = branchID;
+            Address = address;
+            Date = DateTime.MinValue;
+            Kosher = kosher;
+            ClientID = clientID;
+        }
+        public Order(int branchID, string address,DateTime date, Kashrut kosher, int clientID, int id = 0)
         {
             Delivered = false;
             ID = id;
@@ -82,7 +92,16 @@ namespace BE
             Kosher = kosher;
             ClientID = clientID;
         }
-        public Order(Branch branch, Client client, DateTime date, Kashrut kosher, int id = 0)
+        public Order(Branch branch, Client client, Kashrut kosher, int id = 0)
+        {
+            ID = id;
+            BranchID = branch.ID;
+            Address = client.Address;
+            Date = DateTime.MinValue;
+            Kosher = kosher;
+            ClientID = client.ID;
+        }
+        public Order(Branch branch, Client client,DateTime date, Kashrut kosher, int id = 0)
         {
             ID = id;
             BranchID = branch.ID;
@@ -91,7 +110,6 @@ namespace BE
             Kosher = kosher;
             ClientID = client.ID;
         }
-
 
         int id;
         public int ID

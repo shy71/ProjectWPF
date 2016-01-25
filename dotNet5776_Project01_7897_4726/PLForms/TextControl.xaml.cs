@@ -21,7 +21,7 @@ namespace PLForms
     /// </summary>
     public partial class TextControl : UserControl, INotifyPropertyChanged
     {
-        public event EventHandler<EventValue> Changed;
+        public event EventHandler<BE.EventValue> Changed;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
@@ -129,7 +129,7 @@ namespace PLForms
                 ForeG = Brushes.Gray;
             }
             if (textBox.Foreground == Brushes.Black && Changed != null)
-                Changed(this, new EventValue(textBox.Text,pName));
+                Changed(this, new BE.EventValue(textBox.Text, pName));
         }
 
     }

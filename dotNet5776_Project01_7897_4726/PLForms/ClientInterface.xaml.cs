@@ -19,6 +19,7 @@ namespace PLForms
     /// </summary>
     public partial class ClientInterface : Window
     {
+        int numOfOrders = 0;
         BE.User user;
         public ClientInterface()
         {
@@ -34,15 +35,36 @@ namespace PLForms
         {
             int a;
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Restart(object sender, BE.EventValue e)
         {
-            int num = 0;
+            Clear_window();
+            if (DeliveredButton.IsChecked == true)
+                DeliveredButton_Checked(DeliveredButton, null);
+            else if (ActiveButton.IsChecked == true)
+                ActiveButton_Checked(ActiveButton, null);
+            else
+                UnsentButton_Checked(UnsentButton, null);
+                
+        }
+        private void Window_Loaded(object sender,RoutedEventArgs e)
+        {
+            UnsentButton.IsChecked = true;
+        }
+        void Clear_window()
+        {
+            stackPanel.Children.RemoveRange(1, stackPanel.Children.Count - 1);
+            numOfOrders = 0;
+            add.Visibility = Visibility.Hidden;
+            if (add.Parent != null)
+                (add.Parent as Grid).Children.Remove(add);
+        }
+        private void Window_Loaded_Active(RadioButton sender,Func<BE.Order,bool> predicate)
+        {
             Grid g;
             ColumnDefinition a, b, c, d;
-            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item2 => item2.Delivered == false))
+            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(predicate))
             {
-                if (num % 4 == 0)
+                if (numOfOrders % 4 == 0)
                 {
                     stackPanel.Children.Add(new Label());
                     g = new Grid();
@@ -62,36 +84,79 @@ namespace PLForms
                 }
                 var orderD = new OrderDeiltes(item);
                 orderD.HorizontalAlignment = HorizontalAlignment.Center;
+                orderD.Deleted += Restart;
+                orderD.Sended += Restart;
+                orderD.Updated += Restart;
+                orderD.Arived += Restart;
                 var ChildEnumrator = stackPanel.Children.GetEnumerator();
-                for (int i = 0; i < ((int)(num / 4))*2 + 3; i++)
+                for (int i = 0; i < ((int)(numOfOrders / 4))*2 + 3; i++)
                     ChildEnumrator.MoveNext();
                 (ChildEnumrator.Current as Grid).Children.Add(orderD);
-                Grid.SetColumn(orderD, num % 4);
-                num++;
+                Grid.SetColumn(orderD, numOfOrders % 4);
+                numOfOrders++;
             }
-             if (num % 4 == 0)
+            if (sender.Name == "UnsentButton")
             {
-                g = new Grid();
-                a = new ColumnDefinition();
-                b = new ColumnDefinition();
-                c = new ColumnDefinition();
-                d = new ColumnDefinition();
-                c.Width = new GridLength(1, GridUnitType.Star);
-                a.Width = c.Width;
-                b.Width = c.Width;
-                d.Width = c.Width;
-                g.ColumnDefinitions.Add(a);
-                g.ColumnDefinitions.Add(b);
-                g.ColumnDefinitions.Add(c);
-                g.ColumnDefinitions.Add(d);
-                stackPanel.Children.Add(g);
+                if (numOfOrders % 4 == 0)
+                {
+                    stackPanel.Children.Add(new Label());
+                    g = new Grid();
+                    a = new ColumnDefinition();
+                    b = new ColumnDefinition();
+                    c = new ColumnDefinition();
+                    d = new ColumnDefinition();
+                    c.Width = new GridLength(1, GridUnitType.Star);
+                    a.Width = c.Width;
+                    b.Width = c.Width;
+                    d.Width = c.Width;
+                    g.ColumnDefinitions.Add(a);
+                    g.ColumnDefinitions.Add(b);
+                    g.ColumnDefinitions.Add(c);
+                    g.ColumnDefinitions.Add(d);
+                    stackPanel.Children.Add(g);
+                }
+                var tempEnumrator = stackPanel.Children.GetEnumerator();
+                for (int i = 0; i < ((int)(numOfOrders / 4)) * 2 + 3; i++)
+                    tempEnumrator.MoveNext();
+                add.Visibility = Visibility.Visible;
+                (tempEnumrator.Current as Grid).Children.Add(add);
+                Grid.SetColumn(add, 3);
             }
-             var tempEnumrator = stackPanel.Children.GetEnumerator();
-             for (int i = 0; i < ((int)(num / 4)) * 2 + 3; i++)
-                 tempEnumrator.MoveNext();
-             BigGrid.Children.Remove(add);
-             (tempEnumrator.Current as Grid).Children.Add(add);
-             Grid.SetColumn(add, 3);
         }
+
+        private void UnsentButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Clear_window();
+            Title.Content = "Unsent orders";
+            Window_Loaded_Active(sender as RadioButton, item => item.Date == DateTime.MinValue && !item.Delivered);
+        }
+        private void ActiveButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Clear_window();
+            Title.Content = "Active orders";
+            Window_Loaded_Active(sender as RadioButton, item => item.Date != DateTime.MinValue && !item.Delivered);
+        }
+        private void DeliveredButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Clear_window();
+            Title.Content = "Delivered orders";
+            Window_Loaded_Active(sender as RadioButton, item =>item.Delivered);
+        }
+
+        private void Unsent_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            UnsentButton.IsChecked = true;
+        }
+
+        private void Active_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ActiveButton.IsChecked = true;
+        }
+
+        private void Deliverd_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)
+        {
+            DeliveredButton.IsChecked = true;
+        }
+       
     }
 }

@@ -47,18 +47,18 @@ namespace PLForms
             //add new branch manager window
         }
 
-        private void NumberOfEmplyes_Changed(object sender, EventValue e)
+        private void NumberOfEmplyes_Changed(object sender, BE.EventValue e)
         {
             if (branch != null)
                 branch.EmployeeCount = Convert.ToInt32(e.Value);
         }
-        private void AvilbleMesnngers_Changed(object sender, EventValue e)
+        private void AvilbleMesnngers_Changed(object sender, BE.EventValue e)
         {
             if (branch != null)
                 branch.AvailableMessangers = Convert.ToInt32(e.Value);
         }
 
-        private void TextControl_Changed(object sender, EventValue e)
+        private void TextControl_Changed(object sender, BE.EventValue e)
         {
             if (branch != null)
                 branch.GetType().GetProperty(e.pName).SetValue(branch, e.Value);

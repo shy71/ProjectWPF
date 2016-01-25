@@ -15,22 +15,13 @@ using System.Windows.Shapes;
 
 namespace PLForms
 {
-    public class EventValue :EventArgs
-    {
-        public object Value{get;set;}
-        public string pName { get; set;}
-        public EventValue( object value,string pName=null)
-        {
-            Value=value;
-            this.pName = pName;
-        }
-    }
+    
     /// <summary>
     /// Interaction logic for PlusMinusTextBox.xaml
     /// </summary>
     public partial class PlusMinusTextBox : UserControl
     {
-       public event EventHandler<EventValue> Changed;
+        public event EventHandler<BE.EventValue> Changed;
         int maxNum;
         public PlusMinusTextBox()
         {
@@ -89,7 +80,7 @@ namespace PLForms
                 PlusButton.IsEnabled = false;
             }
             if (Changed != null)
-                Changed(sender, new EventValue(Convert.ToInt32(Number.Text)));
+                Changed(sender, new BE.EventValue(Convert.ToInt32(Number.Text)));
         }
         private void Number_MouseWheel(object sender, MouseWheelEventArgs e)
         {

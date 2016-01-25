@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Reflection;
+using System.Diagnostics;
 using BE;
 
 namespace BL
@@ -60,6 +61,7 @@ namespace BL
         /// <returns></returns>
         IEnumerable<Dish> SearchDishs(string str);
         #endregion
+        event EventHandler<EventValue> Deliverd;
 
         #region Branch Functions
         /// <summary>
@@ -296,6 +298,8 @@ namespace BL
 
     public class BL : IBL
     {
+        public event EventHandler<EventValue> Deliverd;
+        Random rand1 = new Random();
         //New
         public void DeleteDataBase()
         {
@@ -493,8 +497,8 @@ namespace BL
                 throw new Exception(str + " the client in the order does not exists!");
             else if (!myDal.ContainID<Branch>(myOrder.BranchID))
                 throw new Exception(str + " the branch in the order does not exists!");
-            else if (myOrder.Date == null)
-                throw new Exception(str + " The Date field can't be empty!");
+            //else if (myOrder.Date == null)
+            //    throw new Exception(str + " The Date field can't be empty!");
             else if (myOrder.Kosher > myDal.GetBranch(myOrder.BranchID).Kosher)
                 throw new Exception(str + " The Kashrut in the branch is not sufficient for the order");
             else if (myDal.GetBranch(myOrder.BranchID).AvailableMessangers == 0)
@@ -502,7 +506,9 @@ namespace BL
         }
         public void DeliveredOrder(Order item)
         {
-            myDal.GetBranch(item.BranchID).AvailableMessangers++;
+            var temp=myDal.GetBranch(item.BranchID);
+            temp.AvailableMessangers++;
+            myDal.UpdateBranch(temp);
             myDal.DeliveredOrder(item.ID);
         }
         public void AddOrder(Order newOrder)
@@ -517,8 +523,8 @@ namespace BL
         {
             foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == id).ToList())
                 DeleteDishOrder(item);
-            myDal.DeleteOrder(id);
             myDal.GetBranch((myDal.GetOrder(id).BranchID)).AvailableMessangers++;
+            myDal.DeleteOrder(id);
         }
         public void DeleteOrder(Order myOrder)
         {
@@ -530,6 +536,10 @@ namespace BL
             if (oldOrder.BranchID != newOrder.BranchID || oldOrder.ClientID != newOrder.ClientID || oldOrder.Delivered != newOrder.Delivered || myDal.GetAllDishOrders(item => item.OrderID == newOrder.ID).Any(item => myDal.GetDish(item.DishID).Kosher < newOrder.Kosher))
                 throw new Exception("You can't update the order's kashrut level because it has dishes which aren't in the new sufficient kashrout level, also you cant update The client ID , branch ID, or if it was delivered or not(use the proper function to do it)");
             CompatibleOrder(newOrder, "The Updated order you sended to upadte the old one is incompatible:");
+            //if(oldOrder.Date==DateTime.MinValue&&newOrder.Date!=oldOrder.Date)
+            //{
+            //    new Thread(() => Timer(60,newOrder.ID)).Start();
+            //}
             myDal.UpdateOrder(newOrder);
         }
         public IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)
@@ -540,6 +550,17 @@ namespace BL
         {
             return Search(str, myDal.GetAllOrders());
         }
+        //void Timer(int NumberOFsec,int id)
+        //{
+        //    Stopwatch s= new Stopwatch();
+        //    s.Start();
+        //    while (s.Elapsed.Seconds <= NumberOFsec);
+        //    DeliveredOrder(myDal.GetOrder(id));
+        //    if (Deliverd != null)
+        //        Deliverd(null, new EventValue(id));
+
+        //}
+
         #endregion
 
         #region DishOrder Functions
@@ -946,20 +967,20 @@ namespace BL
             AddBranch(new Branch("Eilat", "freedom 98", "078496352", "itai deykan @itai3", 5, 3, Kashrut.LOW, 2));
             AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "itai deykan @itai4", 10, 10, Kashrut.LOW, 0));
             AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "itai deykan @itai5", 2, 3, Kashrut.MEDIUM, 9873));
-            AddOrder(new Order(2, "Sdarot herzl 12", DateTime.Now, Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems", DateTime.Now, Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(2, "Sdarot herzl 12", DateTime.Now, Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems", DateTime.Now, Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(2, "Sdarot herzl 12", DateTime.Now, Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems", DateTime.Now, Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(2, "Sdarot herzl 12", DateTime.Now, Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems", DateTime.Now, Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(2, "Sdarot herzl 12", DateTime.Now, Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(2, "Sdarot herzl 12", DateTime.Now, Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems", DateTime.Now, Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(2, "Sdarot herzl 12", DateTime.Now, Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems", DateTime.Now, Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(87465, "hall in beit shems", DateTime.Now, Kashrut.MEDIUM, 1921, 34567));
+            AddOrder(new Order(2, "Sdarot herzl 12", Kashrut.LOW, 10934, 192334));
+            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 34567));
+            AddOrder(new Order(2, "Sdarot herzl 12", Kashrut.LOW, 10934, 192334));
+            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 34567));
+            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 192334));
+            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 34567));
+            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 192334));
+            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 34567));
+            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 192334));
+            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 192334));
+            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 34567));
+            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 192334));
+            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 34567));
+            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 34567));
             AddDishOrder(new DishOrder(192334, 957473, 3));
             AddDishOrder(new DishOrder(192334, 957473, 2));
             AddDishOrder(new DishOrder(192334, 19273, 7));

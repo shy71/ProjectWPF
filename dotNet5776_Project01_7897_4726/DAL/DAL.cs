@@ -449,6 +449,8 @@ namespace DAL
                                            {
                                                if (item2.PropertyType == typeof(int))
                                                    item2.SetValue(res, Convert.ToInt32(item.Element(item2.Name).Value));
+                                               else if (item2.PropertyType == typeof(bool))
+                                                   item2.SetValue(res,Convert.ToBoolean(item.Element(item2.Name).Value));
                                                else if (item2.PropertyType == typeof(float))
                                                    item2.SetValue(res, ConvertStringToFloat(Convert.ToString(item.Element(item2.Name).Value)));
                                                else if (item2.PropertyType == typeof(string))
@@ -578,7 +580,9 @@ namespace DAL
         #region Order Functions
         public void DeliveredOrder(int id)
         {
-            GetOrder(id).Delivered = true;
+           var temp= GetOrder(id);
+           temp.Delivered = true;
+            UpdateOrder(temp);
         }
         public void AddOrder(Order newOrder)
         {
