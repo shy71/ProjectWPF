@@ -24,6 +24,7 @@ namespace PLForms
         public ClientInterface()
         {
             InitializeComponent();
+            //erroe
         }
         public ClientInterface(BE.User user)
         {
@@ -58,11 +59,15 @@ namespace PLForms
             if (add.Parent != null)
                 (add.Parent as Grid).Children.Remove(add);
         }
+        void DeleteMsg(object sender, EventArgs e)
+        {
+            MessageBox.Show("It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer","Not recommended");
+        }
         private void Window_Loaded_Active(RadioButton sender,Func<BE.Order,bool> predicate)
         {
             Grid g;
             ColumnDefinition a, b, c, d;
-            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(predicate))
+            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item=>item.ClientID==user.ItemID&&predicate(item)))
             {
                 if (numOfOrders % 4 == 0)
                 {
@@ -88,6 +93,8 @@ namespace PLForms
                 orderD.Sended += Restart;
                 orderD.Updated += Restart;
                 orderD.Arived += Restart;
+                if (sender.Name == "DeliveredButton")
+                    orderD.TryDelete += DeleteMsg;
                 var ChildEnumrator = stackPanel.Children.GetEnumerator();
                 for (int i = 0; i < ((int)(numOfOrders / 4))*2 + 3; i++)
                     ChildEnumrator.MoveNext();
@@ -153,9 +160,21 @@ namespace PLForms
             ActiveButton.IsChecked = true;
         }
 
-        private void Deliverd_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)
+        private void Deliverd_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             DeliveredButton.IsChecked = true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Clear_window();
+            Title.Content = "Profile editing is in progress";
+            new ClientEditor(user).ShowDialog();
+            if (UnsentButton.IsChecked != true)
+                UnsentButton.IsChecked = true;
+            else
+                UnsentButton_Checked(UnsentButton, null);
+
         }
        
     }

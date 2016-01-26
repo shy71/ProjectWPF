@@ -30,13 +30,14 @@ using System.Windows.Shapes;
 namespace PLForms
 {
     /// <summary>
-    /// Interaction logic for NewClient.xaml
+    /// Interaction logic for ClientEditor.xaml
     /// </summary>
-    public partial class NewClient : Window
+    public partial class ClientEditor : Window
     {
         BE.Client client;
         BE.User user;
-        public NewClient()
+        bool IsUpdated=false;
+        public ClientEditor()
         {
            
             InitializeComponent();
@@ -44,7 +45,7 @@ namespace PLForms
             user = new BE.User();
             this.SetBinding();
         }
-        public NewClient(string str)
+        public ClientEditor(string str)
         {
 
             InitializeComponent();
@@ -52,6 +53,25 @@ namespace PLForms
             user = new BE.User();
             this.SetBinding();
             usernameBox.SetText(str);
+        }
+        public ClientEditor(BE.User user)
+        {
+
+            InitializeComponent();
+            IsUpdated = true;
+            if (user.Type != BE.UserType.Client)
+                throw new Exception("Error!");
+            client = BL.FactoryBL.getBL().GetAllClients(item=>item.ID==user.ItemID).FirstOrDefault();
+            this.user = user;
+            this.SetBinding();
+            usernameBox.SetText(user.UserName);
+            nameBox.SetText(user.Name);
+            creditCardBox.SetText(client.CreditCard.ToString());
+            addressBox.SetText(client.Address);
+            idBox.SetText(client.ID.ToString());
+            ageBox.SetNum(client.Age);
+            idBox.IsEnabled = false;
+            usernameBox.IsEnabled = false;
         }
         void SetBinding()
         {
@@ -72,13 +92,23 @@ namespace PLForms
                     throw new Exception("The passwords does not match!");
                 if (passwordBox1.GetPassword() == "")
                     throw new Exception("The password cant be empty!");
+                if(!IsUpdated)
+                { 
                 BL.FactoryBL.getBL().AddClient(client);
-                user.Name = client.Name;
                 user.Password = passwordBox1.GetPassword();
-                user.Type=BE.UserType.Client;
-                user.ItemID=client.ID;
+                user.Type = BE.UserType.Client;
+                user.ItemID = client.ID;
                 BL.FactoryBL.getBL().AddUser(user);
-                MessageBox.Show("The account "+user.UserName+" was created!", "Account created", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("The account " + user.UserName + " was created!", "Account created", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    user.Name = client.Name;
+                    user.Password = passwordBox1.GetPassword();
+                    BL.FactoryBL.getBL().UpdateUser(user);
+                    BL.FactoryBL.getBL().UpdateClient(client);
+                    MessageBox.Show("The account " + user.UserName + " was Updated!", "Account Updated", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 this.Close();
                 
             }

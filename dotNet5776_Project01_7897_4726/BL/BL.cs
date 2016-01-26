@@ -294,6 +294,12 @@ namespace BL
         IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null);
         User GetUser(string UserName);
         void AddUser(User user);
+        void UpdateUser(User user);
+
+        void RemoveUser(string username, bool DeleteClient = false);
+
+        void RemoveUser(BE.User user, bool DeleteClient = false);
+
     }
 
     public class BL : IBL
@@ -330,7 +336,25 @@ namespace BL
         {
            return myDal.GetUser(UserName);
         }
-
+        public void UpdateUser(User user)
+        {
+            if (myDal.GetUser(user.UserName).ItemID != user.ItemID)
+                throw new Exception("You cant change the item that is linked to a user!");
+            CompatibleUser(user, "The updated user you sended to upadte the old one is incompatible.");
+            myDal.UpdateUser(user);
+        }
+        public void RemoveUser(string username,bool DeleteClient=false)
+        {
+            if (DeleteClient)
+                myDal.DeleteClient(myDal.GetUser(username).ItemID);
+            myDal.DeleteUser(username);
+        }
+        public void RemoveUser(BE.User user, bool DeleteClient = false)
+        {
+            if (DeleteClient)
+                myDal.DeleteClient(myDal.GetUser(user.UserName).ItemID);
+            myDal.DeleteUser(user.UserName);
+        }
 
         /// <summary>
         /// Max Price for an order
