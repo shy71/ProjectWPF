@@ -31,6 +31,7 @@ namespace PLForms
         {
             InitializeComponent();
             this.user = user;
+            MainTitle.Content = "Hello " + user.Name+"!";
         }
 
         private void Button_Drop(object sender, DragEventArgs e)
@@ -49,23 +50,27 @@ namespace PLForms
             else
                 UnsentButton_Checked(UnsentButton, null);
             foreach (object item in MenuStack.Children)
-            {
                 if (item.GetType() == typeof(Expander))
-                        (item as Expander).IsExpanded = false;
-            }
-                
+                        (item as Expander).IsExpanded = false;    
         }
         private void Window_Loaded(object sender,RoutedEventArgs e)
         {
-            UnsentButton.IsChecked = true;
+            //UnsentButton.IsChecked = true;
+            if (add.Parent != null)
+                (add.Parent as Grid).Children.Remove(add);
+            Title.Content = "";
         }
         void Clear_window()
         {
+            if (MainTitle.Visibility == Visibility.Visible)
+                MainTitle.Visibility = Visibility.Collapsed;
+            MainTitle.Content = user.Name + "'s account:";
             stackPanel.Children.RemoveRange(1, stackPanel.Children.Count - 1);
             numOfOrders = 0;
             add.Visibility = Visibility.Hidden;
             if (add.Parent != null)
                 (add.Parent as Grid).Children.Remove(add);
+
         }
         void DeleteMsg(object sender, EventArgs e)
         {
@@ -187,9 +192,10 @@ namespace PLForms
 
         private void Expender_Expanded(object sender, RoutedEventArgs e)
         {
-            CloseOthersExpenders(sender,null);
             if (e.OriginalSource == sender)
             {
+                CloseOthersExpenders(sender, null);
+                GetRadioChecked().IsChecked = true;
                 (((sender as Expander).Content as ScrollViewer).Content as StackPanel).Children.RemoveRange(0, (((sender as Expander).Content as ScrollViewer).Content as StackPanel).Children.Count);
                 Expander exp;
                 StackPanel temp;
@@ -249,5 +255,15 @@ namespace PLForms
                return item =>item.Delivered;
              return item=>false;
         }
+       RadioButton GetRadioChecked()
+       {
+           if (UnsentExpender.IsExpanded)
+               return UnsentButton;
+           else if (ActiveExpender.IsExpanded)
+               return ActiveButton;
+           else if (DeliveredExpender.IsExpanded)
+               return DeliveredButton;
+           return null;
+       }
     }
 }

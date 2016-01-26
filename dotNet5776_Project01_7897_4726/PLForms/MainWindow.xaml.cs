@@ -68,7 +68,7 @@ namespace PLForms
                         switch (user.Type)
                         {
                             case BE.UserType.Client:
-                                //open client window
+                                new ClientInterface(user).Show();
                                 break;
                             case BE.UserType.BranchManger:
                                 //open branch manger window
@@ -94,6 +94,7 @@ namespace PLForms
         {
             backArrow.Visibility = Visibility.Visible;
             InputPassword.Visibility = Visibility.Visible;
+            FocusManager.SetFocusedElement(this, InputPassword.textBox);
         }
 
         //private void passwordLabelBox_LostFocus(object sender, RoutedEventArgs e)
