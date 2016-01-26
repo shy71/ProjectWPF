@@ -37,13 +37,13 @@ namespace PLForms
             InitializeComponent();//error if branch does not exsist
             BE.Branch temp=BL.FactoryBL.getBL().GetAllBranchs(item=> item.ID==order.BranchID).FirstOrDefault();
             if(temp==null)
-                throw new Exception("There isnt a branch that matches this Order!");
+                throw new Exception("There isn't a branch that matches this Order!");
             ShortAddress.Text =temp.Name;
             ShortAddress.ToolTip = temp.Address;
             FullAddress.Text = order.Address;
             if (order.Date == DateTime.MinValue)
             {
-                Date.Content = "Not sended";
+                Date.Content = "Not sent";
                 Date.ToolTip = "Prees Send to send it now!";
                 
                 

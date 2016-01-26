@@ -93,16 +93,21 @@ namespace PLForms
             }
             DataBase.Text += "\n\n";
         }
-
+        private bool firstRound = true;
         private void SearchBing_Changed(object sender, BE.EventValue e)
         {
-            DataBase.Text = "";
-            if (collapseBranches.IsChecked == false)
-                PrintSearch<BE.Branch>();
-            if (collapseDishes.IsChecked == false)
-                PrintSearch<BE.Dish>();
-            if (collapseClients.IsChecked == false)
-                PrintSearch<BE.Client>();
+            if(firstRound)
+                firstRound=false;
+            else
+            {
+                DataBase.Text = "";
+                if (collapseBranches.IsChecked == false)
+                    PrintSearch<BE.Branch>();
+                if (collapseDishes.IsChecked == false)
+                    PrintSearch<BE.Dish>();
+                if (collapseClients.IsChecked == false)
+                    PrintSearch<BE.Client>();
+            }
         }
     }
 }

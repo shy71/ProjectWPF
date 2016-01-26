@@ -80,9 +80,6 @@
     <Compile Include="Print Data Base.xaml.cs">
       <DependentUpon>Print Data Base.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Profit By.xaml.cs">
-      <DependentUpon>Profit By.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Profit Details.xaml.cs">
       <DependentUpon>Profit Details.xaml</DependentUpon>
     </Compile>
@@ -156,10 +153,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Print Data Base.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Profit By.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
