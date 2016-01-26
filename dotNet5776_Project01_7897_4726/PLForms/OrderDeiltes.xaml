@@ -31,12 +31,64 @@
             <TextBlock x:Name="FullAddress" TextWrapping="WrapWithOverflow" FontSize="20" FontFamily="Comic Sans MS" Foreground="Green" Background="Transparent" TextAlignment="Center"/>
         </ScrollViewer>
         <Label x:Name="Date" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Column="1" Grid.Row="5" FontSize="20" FontFamily="Comic Sans MS" Foreground="Green" Grid.ColumnSpan="3" Margin="0,2" />
-        <Image x:Name="DeleteImg" Source="Images\recycle_bin1.png" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="3" Height="56" Width="44" Visibility="{Binding ElementName=Delete,Path=Visibility}" />
+        <Image x:Name="DeleteImg" Source="Images\recycle_bin1.png" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="3" Visibility="{Binding ElementName=Delete,Path=Visibility}">
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Width" Value="44"/>
+                    <Setter Property="Height" Value="56"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=Delete, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Width" Value="66"/>
+                            <Setter Property="Height" Value="84"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Width" Value="66"/>
+                            <Setter Property="Height" Value="84"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
         <Button x:Name="Delete" Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="44" Height="56" Grid.Column="3" ToolTip="Delete the order!" Click="Delete_Click"/>
-        <Image Source="Images\text-edit-2.png" Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom"  Grid.Column="2" Height="56" Margin="24,0,23,0" Width="56" Visibility="{Binding ElementName=SendBtn,Path=Visibility}" />
-        <Button  Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="52" Height="52" Grid.Column="2" ToolTip="Edit the order!" Click="Update_Click" Visibility="{Binding ElementName=SendBtn,Path=Visibility}"/>
-        <Image Source="Images\send5.jpg" Grid.Row="6"  Grid.Column="0"  Grid.ColumnSpan="2" VerticalAlignment="Bottom" Visibility="{Binding ElementName=SendBtn,Path=Visibility}"/>
-        <Button x:Name="SendBtn"  Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="46" Height="46" Grid.Column="0" Grid.ColumnSpan="2" ToolTip="Send the order!" Click="Send_Click" />
+        <Image x:Name="EditImg" Grid.Row="6" Source="Images\text-edit-2.png" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Grid.Column="2" Visibility="{Binding ElementName=SendBtn,Path=Visibility}" >
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Width" Value="56"/>
+                    <Setter Property="Height" Value="56"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=EditBtn, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Width" Value="84"/>
+                            <Setter Property="Height" Value="84"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Width" Value="66"/>
+                            <Setter Property="Height" Value="84"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <Button x:Name="EditBtn"  Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="52" Height="52" Grid.Column="2" ToolTip="Edit the order!" Click="Update_Click" Visibility="{Binding ElementName=SendBtn,Path=Visibility}"/>
+        
+        <Image x:Name="SendImg" Source="Images\send5.jpg" Grid.Row="6"  Grid.Column="0"  Grid.ColumnSpan="2" VerticalAlignment="Bottom" Visibility="{Binding ElementName=SendBtn,Path=Visibility}">
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Width" Value="44"/>
+                    <Setter Property="Height" Value="56"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=SendBtn, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Width" Value="66"/>
+                            <Setter Property="Height" Value="84"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Width" Value="66"/>
+                            <Setter Property="Height" Value="84"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <Button x:Name="SendBtn"  Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="46" Height="46" Grid.Column="0" Grid.ColumnSpan="2" ToolTip="Send the order!" Click="Send_Click" />
         <Label x:Name="timeLeft" Grid.Row="6" Grid.ColumnSpan="5" IsHitTestVisible="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="Hidden"/>
         <Button x:Name="Arrived" Content="Report delivery" ToolTip="press when the order has arived you you" Click="Arrived_Click" Grid.Row="6" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Visibility="{Binding ElementName=timeLeft,Path=Visibility}"/>
     </Grid>
