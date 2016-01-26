@@ -51,7 +51,7 @@ namespace PLForms
                     if (user == null)
                     {
                         if (MessageBox.Show("Sorry, There isn't such username in our datdbase\n\n would you like to create a new client with that username?", "Incorrect username", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
-                            new NewClient(InputBox.GetText()).ShowDialog();
+                            new ClientEditor(InputBox.GetText()).ShowDialog();
                     }
                     else
                     {
@@ -116,7 +116,7 @@ namespace PLForms
         private void createAccountButton_Click(object sender, RoutedEventArgs e)
         {
             //open new client window
-            new NewClient().ShowDialog();
+            new ClientEditor().ShowDialog();
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
@@ -140,7 +140,7 @@ namespace PLForms
         private void Button_Click(object sender, RoutedEventArgs e)//delete
         {
             //new Profit_By().Show();
-            new ClientInterface().Show();
+            new ClientInterface(BL.FactoryBL.getBL().GetAllUsers(item => item.ItemID == 10934).FirstOrDefault()).Show();
             this.Close();
         }
 

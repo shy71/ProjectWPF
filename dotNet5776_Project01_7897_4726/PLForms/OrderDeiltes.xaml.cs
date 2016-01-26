@@ -26,6 +26,7 @@ namespace PLForms
         public event EventHandler<BE.EventValue> Updated;
         public event EventHandler<BE.EventValue> Sended;
         public event EventHandler<BE.EventValue> Arived;
+        public event EventHandler<BE.EventValue> TryDelete;
         int ID;
         public OrderDeiltes()
         {
@@ -75,6 +76,8 @@ namespace PLForms
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            if (TryDelete != null)
+                TryDelete(this,new BE.EventValue(ID));
             if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to delete this order?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
                 BL.FactoryBL.getBL().DeleteOrder(ID);
             if (Deleted != null)
@@ -88,7 +91,7 @@ namespace PLForms
         }
         private void Send_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send this order?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send this order?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
             {
                 var temp = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First();
                 temp.Date = DateTime.Now;

@@ -14,20 +14,29 @@
                 <Label x:Name="Title" Content="Active Orders" HorizontalContentAlignment="Center" FontSize="50"/>
             </StackPanel>
         </ScrollViewer>
-        
+
         <Grid  Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="88*"/>
-                    <RowDefinition Height="93*"/>
-                    <RowDefinition Height="96*"/>
-                    <RowDefinition Height="693*"/>
-                </Grid.RowDefinitions>
-            <RadioButton x:Name="UnsentButton" Grid.Row="0" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="29,38,257,38" Checked="UnsentButton_Checked"/>
-            <Label Content="Unsent Orders" Grid.Row="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Unsent_MouseLeftButtonUp"/>
-            <RadioButton x:Name="ActiveButton" Grid.Row="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="29,38,257,38" Checked="ActiveButton_Checked"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <RadioButton x:Name="UnsentButton" Grid.Row="0" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="27,38,259,38" Checked="UnsentButton_Checked" Panel.ZIndex="1"/>
+            <Label Content="Unsent Orders" Grid.Row="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Unsent_MouseLeftButtonUp"/>
+            <RadioButton x:Name="ActiveButton" Grid.Row="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  Checked="ActiveButton_Checked" Panel.ZIndex="1" Margin="27,38,259,38"/>
             <Label  Content="Active Orders" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Active_MouseLeftButtonUp"/>
-            <RadioButton x:Name="DeliveredButton" Grid.Row="2" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="29,38,257,38" Checked="DeliveredButton_Checked"/>
-            <Label Content="Delivered Orders" Grid.Row="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Deliverd_MouseLeftButtonUp_1"/>
+            <RadioButton x:Name="DeliveredButton" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Checked="DeliveredButton_Checked" Panel.ZIndex="1" Margin="27,38,259,38" />
+            <Label Content="Delivered Orders" Grid.Row="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Deliverd_MouseLeftButtonUp"/>
+            <Button Content="Edit your profile" HorizontalAlignment="Center" Grid.Row="10" VerticalAlignment="Center" Width="150" Click="Button_Click"/>
+
         </Grid>
 
     </Grid>
