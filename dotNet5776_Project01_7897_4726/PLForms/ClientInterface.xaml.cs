@@ -62,9 +62,8 @@ namespace PLForms
         }
         void Clear_window()
         {
-            if (MainTitle.Visibility == Visibility.Visible)
-                MainTitle.Visibility = Visibility.Collapsed;
             MainTitle.Content = user.Name + "'s account:";
+            MainTitle.FontSize = 35;
             stackPanel.Children.RemoveRange(1, stackPanel.Children.Count - 1);
             numOfOrders = 0;
             add.Visibility = Visibility.Hidden;
