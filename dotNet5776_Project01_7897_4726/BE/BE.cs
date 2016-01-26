@@ -163,7 +163,7 @@ namespace BE
         {
 
             return "Order ID: " + ID
-                    + "\n\tDate: " + Date
+                + "\n\tDate: " + ((Date == DateTime.MinValue) ? "Not sended" : Date.ToShortDateString() + " : " + Date.ToShortTimeString())
                     + "\n\tBranch: " + BranchID
                     + "\n\tKashrut: " + Kosher
                     + "\n\tClient ID: " + ClientID
