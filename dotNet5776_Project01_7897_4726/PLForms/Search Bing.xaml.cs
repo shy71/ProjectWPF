@@ -24,16 +24,42 @@ namespace PLForms
             InitializeComponent();
             SearchText.Str = "Search";
             SearchText = new TextControl("Search");
+            SearcgResults.Text = "";
+            BL.IBL myBL = BL.FactoryBL.getBL();
+            SearcgResults.Text += "\nDishes:\n";
+            IEnumerable<BE.Dish> DishList = myBL.GetAllDishs();
+            foreach (BE.Dish item in DishList)
+            {
+                SearcgResults.Text += (item.ToString() + "\n");
+            }
+            SearcgResults.Text += "\nBranches:\n";
+            IEnumerable<BE.Branch> BranchList = myBL.GetAllBranchs();
+            foreach (BE.Branch item in BranchList)
+            {
+                SearcgResults.Text += (item.ToString() + "\n");
+            }
+            SearcgResults.Text += "\nClients:\n";
+            IEnumerable<BE.Client> ClientList = myBL.GetAllClients();
+            foreach (BE.Client item in ClientList)
+            {
+                SearcgResults.Text += (item.ToString() + "\n");
+            }
         }
+        private bool firstRound = true;
         private void SearchText_Changed(object sender, BE.EventValue e)
         {
-            SearcgResults.Text = "";
-            List<IEnumerable<BE.InterID>> list = BL.FactoryBL.getBL().Search((sender as TextControl).GetText());
-            foreach (IEnumerable<BE.InterID> item in list)
+            if (firstRound)
+                firstRound = false;
+            else
             {
-                foreach (var v in item)
-                    SearcgResults.Text += v.ToString() + "\n";
-                SearcgResults.Text += "\n\n";
+                SearcgResults.Text = "";
+                List<IEnumerable<BE.InterID>> list = BL.FactoryBL.getBL().Search((sender as TextControl).GetText());
+                foreach (IEnumerable<BE.InterID> item in list)
+                {
+                    foreach (var v in item)
+                        SearcgResults.Text += v.ToString() + "\n";
+                    SearcgResults.Text += "\n\n";
+                }
             }
         }
 
