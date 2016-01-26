@@ -8,6 +8,13 @@
     <Age>23</Age>
   </Client>
   <Client>
+    <ID>10934</ID>
+    <Name>ari</Name>
+    <Address>Beit Shemesh</Address>
+    <CreditCard>78695</CreditCard>
+    <Age>65</Age>
+  </Client>
+  <Client>
     <ID>493</ID>
     <Name>avia</Name>
     <Address>Giv'at Ze'ev</Address>
@@ -27,12 +34,5 @@
     <Address>Ma'ale Adumim</Address>
     <CreditCard>38267</CreditCard>
     <Age>19</Age>
-  </Client>
-  <Client>
-    <ID>10934</ID>
-    <Name>ari wiss66</Name>
-    <Address>Beit Shemesh</Address>
-    <CreditCard>78695</CreditCard>
-    <Age>65</Age>
   </Client>
 </Clients>

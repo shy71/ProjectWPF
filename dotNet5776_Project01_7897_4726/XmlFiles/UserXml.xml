@@ -37,6 +37,13 @@
   </User>
   <User>
     <Type>Client</Type>
+    <UserName>ari</UserName>
+    <Password>123456</Password>
+    <Name>ari wiss</Name>
+    <ItemID>10934</ItemID>
+  </User>
+  <User>
+    <Type>Client</Type>
     <UserName>avia</UserName>
     <Password>123456</Password>
     <Name>avia yemini</Name>
@@ -90,12 +97,5 @@
     <Password>123456</Password>
     <Name>itai deykan</Name>
     <ItemID>9873</ItemID>
-  </User>
-  <User>
-    <UserName>ari</UserName>
-    <Type>Client</Type>
-    <Password>1234</Password>
-    <Name>ari wiss66</Name>
-    <ItemID>10934</ItemID>
   </User>
 </Users>
