@@ -53,53 +53,53 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ClientInterface.xaml.cs">
+    <Compile Include="Interfaces\ClientInterface.xaml.cs">
       <DependentUpon>ClientInterface.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MangeOrder.xaml.cs">
-      <DependentUpon>MangeOrder.xaml</DependentUpon>
+    <Compile Include="Editors\OrderEditor.xaml.cs">
+      <DependentUpon>OrderEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DishOrderManger.xaml.cs">
+    <Compile Include="UserControls\DishOrderManger.xaml.cs">
       <DependentUpon>DishOrderManger.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OrderDeiltes.xaml.cs">
+    <Compile Include="UserControls\OrderDeiltes.xaml.cs">
       <DependentUpon>OrderDeiltes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PasswordControl.xaml.cs">
+    <Compile Include="UserControls\PasswordControl.xaml.cs">
       <DependentUpon>PasswordControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Print All Branches.xaml.cs">
+    <Compile Include="Print\Print All Branches.xaml.cs">
       <DependentUpon>Print All Branches.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Print All Clients.xaml.cs">
+    <Compile Include="Print\Print All Clients.xaml.cs">
       <DependentUpon>Print All Clients.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Print All Dishes.xaml.cs">
+    <Compile Include="Print\Print All Dishes.xaml.cs">
       <DependentUpon>Print All Dishes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Print Data Base.xaml.cs">
+    <Compile Include="Print\Print Data Base.xaml.cs">
       <DependentUpon>Print Data Base.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Profit Details.xaml.cs">
+    <Compile Include="Print\Profit Details.xaml.cs">
       <DependentUpon>Profit Details.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Search Bing.xaml.cs">
+    <Compile Include="Print\Search Bing.xaml.cs">
       <DependentUpon>Search Bing.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShowBest.xaml.cs">
+    <Compile Include="Print\ShowBest.xaml.cs">
       <DependentUpon>ShowBest.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShowUserControl.xaml.cs">
+    <Compile Include="UserControls\ShowUserControl.xaml.cs">
       <DependentUpon>ShowUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TextControl.xaml.cs">
+    <Compile Include="UserControls\TextControl.xaml.cs">
       <DependentUpon>TextControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="ClientInterface.xaml">
+    <Page Include="Interfaces\ClientInterface.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Interfaces\MainInterface.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -107,90 +107,90 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Interfaces\MainInterface.xaml.cs">
+      <DependentUpon>MainInterface.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MangeOrder.xaml">
+    <Page Include="Editors\OrderEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="NetworkManagerWindow.xaml">
+    <Page Include="Interfaces\NetworkManagerInterface.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BranchEditor.xaml">
+    <Page Include="Editors\BranchEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ClientEditor.xaml">
+    <Page Include="Editors\ClientEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DishOrderManger.xaml">
+    <Page Include="UserControls\DishOrderManger.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OrderDeiltes.xaml">
+    <Page Include="UserControls\OrderDeiltes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PasswordControl.xaml">
+    <Page Include="UserControls\PasswordControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PlusMinusTextBox.xaml">
+    <Page Include="UserControls\PlusMinusTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Print All Branches.xaml">
+    <Page Include="Print\Print All Branches.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Print All Clients.xaml">
+    <Page Include="Print\Print All Clients.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Print All Dishes.xaml">
+    <Page Include="Print\Print All Dishes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Print Data Base.xaml">
+    <Page Include="Print\Print Data Base.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Profit Details.xaml">
+    <Page Include="Print\Profit Details.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Search Bing.xaml">
+    <Page Include="Print\Search Bing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShowBest.xaml">
+    <Page Include="Print\ShowBest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShowUserControl.xaml">
+    <Page Include="UserControls\ShowUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TextControl.xaml">
+    <Page Include="UserControls\TextControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NetworkManagerWindow.xaml.cs">
-      <DependentUpon>NetworkManagerWindow.xaml</DependentUpon>
+    <Compile Include="Interfaces\NetworkManagerInterface.xaml.cs">
+      <DependentUpon>NetworkManagerInterface.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BranchEditor.xaml.cs">
+    <Compile Include="Editors\BranchEditor.xaml.cs">
       <DependentUpon>BranchEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ClientEditor.xaml.cs">
+    <Compile Include="Editors\ClientEditor.xaml.cs">
       <DependentUpon>ClientEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PlusMinusTextBox.xaml.cs">
+    <Compile Include="UserControls\PlusMinusTextBox.xaml.cs">
       <DependentUpon>PlusMinusTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -245,9 +245,6 @@
     <Resource Include="Images\Arrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Delete1.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +284,7 @@
     <Content Include="Images\send3.jpg" />
     <Resource Include="Images\send5.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

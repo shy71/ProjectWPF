@@ -17,9 +17,9 @@ namespace PLForms
     /// <summary>
     /// Interaction logic for MangeOrder.xaml
     /// </summary>
-    public partial class MangeOrder : Window
+    public partial class OrderEditor : Window
     {
-        public MangeOrder()
+        public OrderEditor()
         {
             InitializeComponent();
         }

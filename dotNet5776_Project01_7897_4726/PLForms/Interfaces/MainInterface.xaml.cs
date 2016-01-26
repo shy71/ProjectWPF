@@ -19,10 +19,10 @@ namespace PLForms
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainInterface : Window
     {
         BE.User user;
-        public MainWindow()
+        public MainInterface()
         {
             try
             {
@@ -74,7 +74,7 @@ namespace PLForms
                                 //open branch manger window
                                 break;
                             case BE.UserType.NetworkManger:
-                                new NetworkManagerWindow(user).Show();
+                                new NetworkManagerInterface(user).Show();
                                 break;
                         }
                         this.Close();

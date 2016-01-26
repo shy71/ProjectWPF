@@ -17,11 +17,11 @@ namespace PLForms
     /// <summary>
     /// Interaction logic for NetworkManagerWindow.xaml
     /// </summary>
-    public partial class NetworkManagerWindow : Window
+    public partial class NetworkManagerInterface : Window
     {
         BE.CurrentPlacing? placing = null;
         BE.User manger;
-        public NetworkManagerWindow(BE.User manger)
+        public NetworkManagerInterface(BE.User manger)
         {
             InitializeComponent();
             this.manger = manger;
@@ -55,7 +55,7 @@ namespace PLForms
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow().Show();
+            new MainInterface().Show();
             this.Close();
         }
 
