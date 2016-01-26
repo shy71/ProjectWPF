@@ -935,13 +935,12 @@ namespace BL
             if (IsString)
                 return (obj as string).ToLower().Contains(subStr.ToLower());
             else if (IsInt && int.TryParse(subStr, out temp))
-                return (int)obj == temp;
+                return ((int)obj).ToString().Contains(temp.ToString());
             else if (IsDate)
-                return ((DateTime)obj).ToShortDateString() == (obj as string);
+                return ((DateTime)obj).ToShortDateString().Contains(subStr);
             else if (IsFloat && float.TryParse(subStr, out temp2))
-                return ((float)obj) == (temp2);
+                return ((float)obj).ToString().Contains((temp2.ToString()));
             return false;
-
         }
         #endregion
 
