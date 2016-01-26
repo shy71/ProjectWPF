@@ -127,5 +127,10 @@ namespace PLForms
         }
         #endregion
 
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            new Search_Bing().Show();
+        }
+
     }
 }

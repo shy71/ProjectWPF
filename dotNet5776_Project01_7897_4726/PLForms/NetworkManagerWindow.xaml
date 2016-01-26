@@ -157,7 +157,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="SignOutButton" Grid.Row="0" Grid.Column="0" Content="Sign out" Click="LogOutButton_Click" Background="Beige"/>
+        <Button x:Name="SignOutButton" Grid.Row="0" Grid.Column="0" Content="Sign out" Click="LogOutButton_Click" Margin="0,0,120,0" Background="Beige"/>
+        <Button x:Name="SearchButton" Grid.Row="0" Grid.Column="0" Content="Search Bing!" Margin="123,0,0,0" Background="Beige" Click="SearchButton_Click"/>
         <Button x:Name="ActionButton" Content="Action" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" VerticalAlignment="Top" Width="80" Height="35" Click="ActionButton_Click"/>
         <Button x:Name="InfoButton" Content="Information" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="80,0,0,0" VerticalAlignment="Top" Width="80" Height="35" Click="InfoButton_Click"/>
         <Button x:Name="EditButton" Content="Edit" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="160,0,0,0" VerticalAlignment="Top" Width="86" Height="35" Click="EditButton_Click"/>

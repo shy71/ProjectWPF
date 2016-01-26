@@ -54,6 +54,7 @@ namespace PLForms
         public Print_Data_Base()
         {
             InitializeComponent();
+            SearchBing.Str = "Search Bing for specifics";
             try
             {
                 AddText();
@@ -79,6 +80,29 @@ namespace PLForms
             {
                 DataBase.Text = Exp.ToString();
             }
+        }
+        internal void PrintSearch<T>()
+        {
+            IEnumerable<BE.InterID> list = from item1 in BL.FactoryBL.getBL().Search(SearchBing.GetText())
+                                  from item2 in (item1 as IEnumerable<BE.InterID>)
+                                  where item2.GetType().Name == typeof(T).Name
+                                  select item2;
+            foreach(BE.InterID var in list)
+            {
+                DataBase.Text += var.ToString() + "\n";
+            }
+            DataBase.Text += "\n\n";
+        }
+
+        private void SearchBing_Changed(object sender, BE.EventValue e)
+        {
+            DataBase.Text = "";
+            if (collapseBranches.IsChecked == false)
+                PrintSearch<BE.Branch>();
+            if (collapseDishes.IsChecked == false)
+                PrintSearch<BE.Dish>();
+            if (collapseClients.IsChecked == false)
+                PrintSearch<BE.Client>();
         }
     }
 }
