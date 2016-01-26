@@ -21,16 +21,6 @@
     <Kosher>HIGH</Kosher>
   </Branch>
   <Branch>
-    <ID>2</ID>
-    <Name>Eilat</Name>
-    <Address>freedom 98</Address>
-    <PhoneNumber>078496352</PhoneNumber>
-    <Boss>itai deykan @itai3</Boss>
-    <EmployeeCount>5</EmployeeCount>
-    <AvailableMessangers>3</AvailableMessangers>
-    <Kosher>LOW</Kosher>
-  </Branch>
-  <Branch>
     <ID>54384871</ID>
     <Name>Tel Aviv</Name>
     <Address>zion 6</Address>
@@ -49,5 +39,15 @@
     <EmployeeCount>2</EmployeeCount>
     <AvailableMessangers>3</AvailableMessangers>
     <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>2</ID>
+    <Name>Eilat</Name>
+    <Address>freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>itai deykan @itai3</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>LOW</Kosher>
   </Branch>
 </Branches>

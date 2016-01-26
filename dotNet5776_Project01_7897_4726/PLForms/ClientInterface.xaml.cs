@@ -19,6 +19,7 @@ namespace PLForms
     /// </summary>
     public partial class ClientInterface : Window
     {
+        List<Window> subWin=new List<Window>();
         int numOfOrders = 0;
         BE.User user;
         public ClientInterface()
@@ -38,6 +39,8 @@ namespace PLForms
         }
         private void Restart(object sender, BE.EventValue e)
         {
+            foreach (Window item in subWin)
+                item.Close();//שיסגר רק החלון שעשה את הריסטרט
             Clear_window();
             if (DeliveredButton.IsChecked == true)
                 DeliveredButton_Checked(DeliveredButton, null);
@@ -45,6 +48,11 @@ namespace PLForms
                 ActiveButton_Checked(ActiveButton, null);
             else
                 UnsentButton_Checked(UnsentButton, null);
+            foreach (object item in MenuStack.Children)
+            {
+                if (item.GetType() == typeof(Expander))
+                        (item as Expander).IsExpanded = false;
+            }
                 
         }
         private void Window_Loaded(object sender,RoutedEventArgs e)
@@ -176,6 +184,70 @@ namespace PLForms
                 UnsentButton_Checked(UnsentButton, null);
 
         }
-       
+
+        private void Expender_Expanded(object sender, RoutedEventArgs e)
+        {
+            CloseOthersExpenders(sender,null);
+            if (e.OriginalSource == sender)
+            {
+                (((sender as Expander).Content as ScrollViewer).Content as StackPanel).Children.RemoveRange(0, (((sender as Expander).Content as ScrollViewer).Content as StackPanel).Children.Count);
+                Expander exp;
+                StackPanel temp;
+                TextBox text;
+                Button btn;
+                foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && GetPredicte()(item)))
+                {
+                    exp = new Expander();
+                    text = new TextBox();
+                    exp.Expanded += CloseOthersExpenders;
+                    text.Foreground = Brushes.Black;
+                    text.FontFamily=new FontFamily("Comic Sans MS");
+                    text.Background =Brushes.DarkRed;
+                    text.Text = item.ToString();
+                    exp.Header = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ID == item.BranchID).First().Name + " " + item.Address;
+                    exp.ToolTip = (item.Date == DateTime.MinValue) ? "Not sended" : item.Date.ToShortDateString();
+                    btn = new Button();
+                    btn.Content = "Open Order";
+                    btn.Click += OpenOrder;
+                    btn.Resources.Add("ID", item.ID);
+                    temp = new StackPanel();
+                    temp.Children.Add(text);
+                    temp.Children.Add(btn);
+                    exp.Content = temp;
+                    (((sender as Expander).Content as ScrollViewer).Content as StackPanel).Children.Add(exp);
+                }
+            }
+        }
+        void CloseOthersExpenders(object sender, EventArgs s)
+        {
+            foreach (object item in ((sender as Expander).Parent as StackPanel).Children)
+                if (item.GetType() == typeof(Expander))
+                    if (sender.GetHashCode() != item.GetHashCode())
+                        (item as Expander).IsExpanded = false;
+        }
+        void OpenOrder(object sender, EventArgs e)
+        {
+            var temp=(sender as Button).Resources.Values.GetEnumerator();
+            temp.MoveNext();
+            var us = new OrderDeiltes(BL.FactoryBL.getBL().GetAllOrders(item => item.ID == Convert.ToInt32(temp.Current)).First());
+            us.Deleted += Restart;
+            us.Sended += Restart;
+            us.Updated += Restart;
+            us.Arived += Restart;
+            if (DeliveredExpender.IsExpanded)
+                us.TryDelete += DeleteMsg;
+            subWin.Add(new ShowUserControl(us));
+            subWin.Last().Show();
+        }
+       Func<BE.Order,bool> GetPredicte()
+        {
+             if(UnsentExpender.IsExpanded) 
+                return item => item.Date == DateTime.MinValue && !item.Delivered;
+             else if (ActiveExpender.IsExpanded)
+                 return item => item.Date != DateTime.MinValue && !item.Delivered;
+           else if(DeliveredExpender.IsExpanded)
+               return item =>item.Delivered;
+             return item=>false;
+        }
     }
 }
