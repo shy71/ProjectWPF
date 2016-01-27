@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="PLForms.OrderDeiltes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="250" Width="196" Background="#FFA50221">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="22*"/>
+            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="124*"/>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="21*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="52*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="17*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="57*"/>
+        </Grid.RowDefinitions>
+        <Image Source="Images\Order1 - Copy.jpg" Grid.RowSpan="7" Grid.ColumnSpan="5" Margin="0,0,0,-2"/>
+        <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3" Margin="0,2,0,1">
+            <TextBlock x:Name="ShortAddress" TextAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Foreground="Green"/>
+        </ScrollViewer>
+        <ScrollViewer Grid.Column="1" Grid.Row="3" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3" Margin="0,2,0,6">
+            <TextBlock x:Name="FullAddress" TextWrapping="WrapWithOverflow" FontSize="20" FontFamily="Comic Sans MS" Foreground="Green" Background="Transparent" TextAlignment="Center"/>
+        </ScrollViewer>
+        <Label x:Name="Date" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Column="1" Grid.Row="5" FontSize="20" FontFamily="Comic Sans MS" Foreground="Green" Grid.ColumnSpan="3" Margin="0,2" />
+        <Image x:Name="DeleteImg" Source="Images\recycle_bin1.png" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="3" Visibility="{Binding ElementName=Delete,Path=Visibility}">
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Width" Value="44"/>
+                    <Setter Property="Height" Value="56"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=Delete, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Width" Value="66"/>
+                            <Setter Property="Height" Value="84"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Width" Value="66"/>
+                            <Setter Property="Height" Value="84"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <Button x:Name="Delete" Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="44" Height="56" Grid.Column="3" ToolTip="Delete the order!" Click="Delete_Click"/>
+        <Image x:Name="EditImg" Grid.Row="6" Source="Images\text-edit-2.png" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Grid.Column="2" Visibility="{Binding ElementName=SendBtn,Path=Visibility}" >
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Width" Value="56"/>
+                    <Setter Property="Height" Value="56"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=EditBtn, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Width" Value="84"/>
+                            <Setter Property="Height" Value="84"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Width" Value="66"/>
+                            <Setter Property="Height" Value="84"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <Button x:Name="EditBtn"  Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="52" Height="52" Grid.Column="2" ToolTip="Edit the order!" Click="Update_Click" Visibility="{Binding ElementName=SendBtn,Path=Visibility}"/>
+        
+        <Image x:Name="SendImg" Source="Images\send5.jpg" Grid.Row="6"  Grid.Column="0"  Grid.ColumnSpan="2" VerticalAlignment="Bottom" Visibility="{Binding ElementName=SendBtn,Path=Visibility}">
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Width" Value="44"/>
+                    <Setter Property="Height" Value="56"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=SendBtn, Path=IsMouseOver}" Value="True">
+                            <Setter Property="Width" Value="66"/>
+                            <Setter Property="Height" Value="84"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Width" Value="66"/>
+                            <Setter Property="Height" Value="84"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <Button x:Name="SendBtn"  Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="46" Height="46" Grid.Column="0" Grid.ColumnSpan="2" ToolTip="Send the order!" Click="Send_Click" />
+        <Label x:Name="timeLeft" Grid.Row="6" Grid.ColumnSpan="5" IsHitTestVisible="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <Button x:Name="Arrived" Content="Report delivery" ToolTip="press when the order has arived you you" Click="Arrived_Click" Grid.Row="6" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Visibility="{Binding ElementName=timeLeft,Path=Visibility}"/>
+    </Grid>
+</UserControl>
