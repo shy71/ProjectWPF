@@ -44,6 +44,12 @@ namespace PLForms
             {
                 SearcgResults.Text += (item.ToString() + "\n");
             }
+            SearcgResults.Text += "\nOrders:\n";
+            IEnumerable<BE.Order> OrderList = myBL.GetAllOrders();
+            foreach (BE.Order item in OrderList)
+            {
+                SearcgResults.Text += (item.ToString() + "\n");
+            }
         }
         private bool firstRound = true;
         private void SearchText_Changed(object sender, BE.EventValue e)

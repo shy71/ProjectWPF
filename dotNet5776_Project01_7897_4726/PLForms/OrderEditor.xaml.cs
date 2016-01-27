@@ -19,9 +19,24 @@ namespace PLForms
     /// </summary>
     public partial class OrderEditor : Window
     {
+        BE.Client client;
         public OrderEditor()
         {
             InitializeComponent();
+        }
+        public OrderEditor(BE.Client client)
+        {
+            InitializeComponent();
+            this.client = client;
+        }
+
+        private void HomeCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            addressBox.SetText(client.Address);
+        }
+        private void HomeCheckBox_UnChecked(object sender, RoutedEventArgs e)
+        {
+            addressBox.Clear();
         }
     }
 }

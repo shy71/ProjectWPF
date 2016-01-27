@@ -23,6 +23,15 @@ namespace PLForms
         {
             DataBase.Text = "";
             BL.IBL myBL = BL.FactoryBL.getBL();
+            if (collapseOrders.IsChecked == false)
+            {
+                DataBase.Text += "\nOrders\n";
+                IEnumerable<BE.Order> OrderList = myBL.GetAllOrders();
+                foreach (BE.Order item in OrderList)
+                {
+                    DataBase.Text += (item.ToString() + "\n");
+                }
+            }
             if (collapseDishes.IsChecked == false)
             {
                 DataBase.Text += "\nDishes:\n";
@@ -59,7 +68,7 @@ namespace PLForms
             {
                 AddText();
             }
-            catch(Exception Exp)
+            catch (Exception Exp)
             {
                 DataBase.Text = Exp.ToString();
             }
@@ -84,10 +93,10 @@ namespace PLForms
         internal void PrintSearch<T>()
         {
             IEnumerable<BE.InterID> list = from item1 in BL.FactoryBL.getBL().Search(SearchBing.GetText())
-                                  from item2 in (item1 as IEnumerable<BE.InterID>)
-                                  where item2.GetType().Name == typeof(T).Name
-                                  select item2;
-            foreach(BE.InterID var in list)
+                                           from item2 in (item1 as IEnumerable<BE.InterID>)
+                                           where item2.GetType().Name == typeof(T).Name
+                                           select item2;
+            foreach (BE.InterID var in list)
             {
                 DataBase.Text += var.ToString() + "\n";
             }
@@ -96,8 +105,8 @@ namespace PLForms
         private bool firstRound = true;
         private void SearchBing_Changed(object sender, BE.EventValue e)
         {
-            if(firstRound)
-                firstRound=false;
+            if (firstRound)
+                firstRound = false;
             else
             {
                 DataBase.Text = "";
@@ -107,6 +116,8 @@ namespace PLForms
                     PrintSearch<BE.Dish>();
                 if (collapseClients.IsChecked == false)
                     PrintSearch<BE.Client>();
+                if (collapseOrders.IsChecked == false)
+                    PrintSearch<BE.Order>();
             }
         }
     }
