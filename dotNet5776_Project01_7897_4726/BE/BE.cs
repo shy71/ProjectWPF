@@ -58,7 +58,8 @@ namespace BE
                  + "\n\tID: " + ID
                  + "\n\tName: " + Name
                  + "\n\tSize: " + Size
-                 + "\n\tPrice: " + Price;
+                 + "\n\tPrice: " + Price
+                 + "\n\tKashrut: " + kosher;
         }
         /// <summary>
         /// Generates a unique ID based on the strings in the class
