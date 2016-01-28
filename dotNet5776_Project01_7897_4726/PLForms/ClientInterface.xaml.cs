@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -58,7 +58,7 @@ namespace PLForms
             //UnsentButton.IsChecked = true;
             if (add.Parent != null)
                 (add.Parent as Grid).Children.Remove(add);
-            Title.Content = "";
+            LittleTitle.Content = "";
         }
         void Clear_window()
         {
@@ -146,19 +146,19 @@ namespace PLForms
         private void UnsentButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
-            Title.Content = "Unsent orders";
+            LittleTitle.Content = "Unsent orders";
             Window_Loaded_Active(sender as RadioButton, item => item.Date == DateTime.MinValue && !item.Delivered);
         }
         private void ActiveButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
-            Title.Content = "Active orders";
+            LittleTitle.Content = "Active orders";
             Window_Loaded_Active(sender as RadioButton, item => item.Date != DateTime.MinValue && !item.Delivered);
         }
         private void DeliveredButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
-            Title.Content = "Delivered orders";
+            LittleTitle.Content = "Delivered orders";
             Window_Loaded_Active(sender as RadioButton, item =>item.Delivered);
         }
 
@@ -180,12 +180,13 @@ namespace PLForms
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Clear_window();
-            Title.Content = "Profile editing is in progress";
+            LittleTitle.Content = "Profile editing is in progress";
             new ClientEditor(user).ShowDialog();
             if (UnsentButton.IsChecked != true)
                 UnsentButton.IsChecked = true;
             else
                 UnsentButton_Checked(UnsentButton, null);
+            
 
         }
 
