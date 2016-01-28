@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -141,7 +141,9 @@ namespace PLForms
         private void Button_Click(object sender, RoutedEventArgs e)//delete
         {
             //new Profit_By().Show();
-            new ClientInterface(BL.FactoryBL.getBL().GetAllUsers(item => item.ItemID == 10934).FirstOrDefault()).Show();
+            //new ShowUserControl(new DishOrder(BL.FactoryBL.getBL().GetAllDishOrders().First())).Show();
+            //new ShowUserControl(new DishOrder(BL.FactoryBL.getBL().GetAllDishOrders().ElementAt(2))).Show();
+            new OrderEditor(BL.FactoryBL.getBL().GetAllOrders().First()).Show();
             this.Close();
         }
 
