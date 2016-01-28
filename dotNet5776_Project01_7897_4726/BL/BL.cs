@@ -26,6 +26,7 @@ namespace BL
 
     public interface IBL
     {
+        int MAX_PRICE { get; set; }
 
         #region Dish Functions
         /// <summary>
@@ -359,7 +360,7 @@ namespace BL
         /// <summary>
         /// Max Price for an order
         /// </summary>
-        public readonly int MAX_PRICE;
+        public int MAX_PRICE { get; set; }
 
         DAL.Idal myDal;
 
@@ -591,12 +592,14 @@ namespace BL
         internal void CompatibleDishOrder(DishOrder theDishOrder, string str = null, bool IsNewDishOrder = true)
         {
             if (theDishOrder.DishAmount <= 0)
-                throw new Exception(str + " you cant order less the one from a Dish");
+                throw new Exception(str + " you cant order less then one from a Dish");
             else if (!myDal.ContainID<Dish>(theDishOrder.DishID))
                 throw new Exception(str + " the Dish you are trying to order does not exists!");
             else if (!myDal.ContainID<Order>(theDishOrder.OrderID))
                 throw new Exception(str + " The order you are trying to add dishs to does not exists!");
-            else if (IsNewDishOrder && (PriceOfOrder(myDal.GetOrder(theDishOrder.OrderID)) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price) > MAX_PRICE)//αεγχ ωδξηιψ δφτει μΰ βαεδ ξδξχριξεν δξεϊψ
+            else if (IsNewDishOrder&& myDal.GetAllDishOrders(item => item.DishID == theDishOrder.DishID && item.OrderID == theDishOrder.OrderID).FirstOrDefault() != null)
+                throw new Exception("You cant Create a dish order for a dish and order that already has dish order");//Think
+            else if (IsNewDishOrder && (PriceOfOrder(myDal.GetOrder(theDishOrder.OrderID)) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price) > MAX_PRICE)//Χ‘Χ•Χ“Χ§ Χ©Χ”ΧΧ—Χ™Χ¨ Χ”Χ¦Χ¤Χ•Χ™ ΧΧ Χ’Χ‘Χ•Χ” ΧΧ”ΧΧ§Χ΅Χ™ΧΧ•Χ Χ”ΧΧ•ΧªΧ¨
                 throw new Exception(str + " with those dishes the order price will be above the approved limit!");
             else if (myDal.GetDish(theDishOrder.DishID).Kosher < myDal.GetOrder(theDishOrder.OrderID).Kosher)
                 throw new Exception(str + " you cant add a dish without the sufficient Kashrut for the order");
@@ -619,12 +622,12 @@ namespace BL
             DishOrder temp = myDal.GetDishOrder(item.ID);
             if (item.DishAmount > temp.DishAmount)
             {
-                if (PriceOfOrder(myDal.GetOrder(item.OrderID)) + (item.DishAmount - temp.DishAmount) * myDal.GetDish(item.ID).Price > MAX_PRICE)
+                if (PriceOfOrder(myDal.GetOrder(item.OrderID)) + (item.DishAmount - temp.DishAmount) * myDal.GetDish(item.DishID).Price > MAX_PRICE)
                     throw new Exception("you cant upadte the order because with the extra dishs your ordered your order price will be above the approved limit!");
             }
             else if (item.DishID != temp.DishID || item.OrderID != temp.OrderID)
                 throw new Exception("You cant update those components!");
-            CompatibleDishOrder(item, "The Updated Client you sended to upadte the old one is incompatible:", false);
+            CompatibleDishOrder(item, "The Updated Dish order you sended to upadte the old one is incompatible:", false);
             myDal.UpdateDishOrder(item);
         }
         public IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null)
@@ -764,7 +767,7 @@ namespace BL
             string res = "";
             int temp = 0;
             res += order + "\n";
-            foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == order.ID).OrderBy(item => item.ID))//ξρεγψ λγι ωπελμ μδωϊξω αζδ μαηιψϊ χμθ
+            foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == order.ID).OrderBy(item => item.ID))//ΧΧ΅Χ•Χ“Χ¨ Χ›Χ“Χ™ Χ©Χ Χ•Χ›Χ ΧΧ”Χ©ΧªΧΧ© Χ‘Χ–Χ” ΧΧ‘Χ—Χ™Χ¨Χª Χ§ΧΧ
                 res += "\t(" + (++temp) + ") Name: " + myDal.GetDish(item.DishID).Name + " Amount: " + item.DishAmount + "\n";
             return res;
         }
@@ -962,7 +965,7 @@ namespace BL
         {
 
             AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH, 957473));
-            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.LOW, 19273));
+            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.HIGH, 19273));
             AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH, 1243));
             AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM, 95840));
             AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW, 21));
@@ -1005,9 +1008,10 @@ namespace BL
             AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 34567));
             AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 34567));
             AddDishOrder(new DishOrder(192334, 957473, 3));
-            AddDishOrder(new DishOrder(192334, 957473, 2));
-            AddDishOrder(new DishOrder(192334, 19273, 7));
-            AddDishOrder(new DishOrder(34567, 957473, 7));
+            AddDishOrder(new DishOrder(192334, 1243, 2));
+            AddDishOrder(new DishOrder(192334, 19273,  55));
+            AddDishOrder(new DishOrder(192334, 21, 2));
+            AddDishOrder(new DishOrder(34567, 19273, 3));
         }
     }
 }
