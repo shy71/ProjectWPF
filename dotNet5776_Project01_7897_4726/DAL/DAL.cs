@@ -407,6 +407,10 @@ namespace DAL
                 {
                     if (item.PropertyType.Name == typeof(int).Name)
                         item.SetValue(res, Convert.ToInt32(s.Element(item.Name).Value));
+                    else if (item.PropertyType == typeof(bool))
+                        item.SetValue(res, Convert.ToBoolean(s.Element(item.Name).Value));
+                    else if (item.PropertyType == typeof(float))
+                        item.SetValue(res, ConvertStringToFloat(Convert.ToString(s.Element(item.Name).Value)));
                     else if (item.PropertyType.Name == typeof(string).Name)
                         item.SetValue(res, s.Element(item.Name).Value);
                     else if (item.PropertyType.Name == typeof(Size).Name)
