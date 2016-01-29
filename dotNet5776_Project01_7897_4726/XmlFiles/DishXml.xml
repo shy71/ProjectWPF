@@ -12,7 +12,7 @@
     <Name>Hot Dogs</Name>
     <Size>MEDIUM</Size>
     <Price>15</Price>
-    <Kosher>LOW</Kosher>
+    <Kosher>HIGH</Kosher>
   </Dish>
   <Dish>
     <ID>1243</ID>

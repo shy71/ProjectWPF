@@ -7,21 +7,15 @@
     <DishAmount>3</DishAmount>
   </DishOrder>
   <DishOrder>
-    <ID>8540</ID>
-    <OrderID>192334</OrderID>
-    <DishID>957473</DishID>
-    <DishAmount>2</DishAmount>
-  </DishOrder>
-  <DishOrder>
-    <ID>8430</ID>
-    <OrderID>192334</OrderID>
-    <DishID>19273</DishID>
-    <DishAmount>7</DishAmount>
-  </DishOrder>
-  <DishOrder>
-    <ID>8995</ID>
+    <ID>7985</ID>
     <OrderID>34567</OrderID>
-    <DishID>957473</DishID>
-    <DishAmount>7</DishAmount>
+    <DishID>19273</DishID>
+    <DishAmount>3</DishAmount>
+  </DishOrder>
+  <DishOrder>
+    <ID>7882</ID>
+    <OrderID>2606183</OrderID>
+    <DishID>19273</DishID>
+    <DishAmount>4</DishAmount>
   </DishOrder>
 </DishOrders>

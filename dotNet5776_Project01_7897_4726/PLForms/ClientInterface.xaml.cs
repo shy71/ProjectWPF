@@ -33,11 +33,6 @@ namespace PLForms
             this.user = user;
             MainTitle.Content = "Hello " + user.Name+"!";
         }
-
-        private void Button_Drop(object sender, DragEventArgs e)
-        {
-            int a;
-        }
         private void Restart(object sender, BE.EventValue e)
         {
             foreach (Window item in subWin)

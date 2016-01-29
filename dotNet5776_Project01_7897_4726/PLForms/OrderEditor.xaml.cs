@@ -25,11 +25,6 @@ namespace PLForms
         {
             InitializeComponent();
         }
-        public OrderEditor(BE.Client client)
-        {
-            InitializeComponent();
-            this.client = client;
-        }
         public OrderEditor(BE.Order order)
         {
             InitializeComponent();
@@ -37,7 +32,8 @@ namespace PLForms
             tempOrder = order;
             if (order.Address == client.Address)
                 HomeCheckBox.IsChecked = true;
-            addressBox.SetBinding(tempOrder, "Address", BindingMode.TwoWay);//check
+            else
+                HomeCheckBox_UnChecked(this,null);
         }
 
         private void HomeCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -46,7 +42,10 @@ namespace PLForms
         }
         private void HomeCheckBox_UnChecked(object sender, RoutedEventArgs e)
         {
-            addressBox.Clear();
+            if (tempOrder.Address == client.Address)
+                addressBox.Clear();
+            else
+                addressBox.SetText(tempOrder.Address);
         }
         private void RefreshStacks(object sender, RoutedEventArgs e)
         {
@@ -84,5 +83,60 @@ namespace PLForms
             ds.DishAmount =Convert.ToInt32(e.Value);
             BL.FactoryBL.getBL().UpdateDishOrder(ds);
         }
+
+        private void SendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (addressBox.ForeG == Brushes.Gray)
+            {
+                MessageBox.Show("You must peek an Address!", "Problem with order");
+                return;
+            }
+            tempOrder.Address = addressBox.GetText();
+            BL.FactoryBL.getBL().UpdateOrder(tempOrder);
+            this.Close();
+        }
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+           var picker= new DishPicker(tempOrder.Kosher, tempOrder.ID);
+           picker.Added += AddedDishs;
+           picker.Show();
+        }
+
+        void AddedDishs(object sender, BE.EventValue e)
+        {
+            if(e.pName==tempOrder.ID.ToString())
+            {
+                try
+                {
+                    foreach (int item in (e.Value as List<int>))
+                    {
+
+                        BL.FactoryBL.getBL().AddDishOrder(new BE.DishOrder(tempOrder.ID, item));
+
+                    }
+                }
+                catch (Exception)
+                {
+                    if (MessageBoxResult.Yes == (MessageBox.Show("Only some of the new dishs you added were added.\n all of the nw dishs togther with the old one,  would have resluted a price above the aproved limit.\n\n You can delete some dishs from your order and then to add the other dishs or you can split your order\n would like to delete all of the dishs that were added in this?", "Not all dishs were added", MessageBoxButton.YesNo, MessageBoxImage.Warning)))
+                    {
+                        try
+                        {
+                            foreach (int item in (e.Value as List<int>))
+                            {
+                                BL.FactoryBL.getBL().DeleteDishOrder(new BE.DishOrder(tempOrder.ID, item));
+
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+                RefreshStacks(this, null);
+            }
+        }
+
+
     }
 }

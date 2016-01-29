@@ -282,7 +282,7 @@ namespace BL
         /// <param name="order">Order being priced</param>
         /// <returns>Price</returns>
         float PriceOfOrder(Order order);
-
+        float PriceOfOrder(int orderID);
 
         /// <summary>
         /// To create some raw data to do some checks
@@ -599,7 +599,7 @@ namespace BL
                 throw new Exception(str + " The order you are trying to add dishs to does not exists!");
             else if (IsNewDishOrder&& myDal.GetAllDishOrders(item => item.DishID == theDishOrder.DishID && item.OrderID == theDishOrder.OrderID).FirstOrDefault() != null)
                 throw new Exception("You cant Create a dish order for a dish and order that already has dish order");//Think
-            else if (IsNewDishOrder && (PriceOfOrder(myDal.GetOrder(theDishOrder.OrderID)) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price) > MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
+            else if (IsNewDishOrder && (PriceOfOrder(theDishOrder.OrderID) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price) > MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
                 throw new Exception(str + " with those dishes the order price will be above the approved limit!");
             else if (myDal.GetDish(theDishOrder.DishID).Kosher < myDal.GetOrder(theDishOrder.OrderID).Kosher)
                 throw new Exception(str + " you cant add a dish without the sufficient Kashrut for the order");
@@ -622,7 +622,7 @@ namespace BL
             DishOrder temp = myDal.GetDishOrder(item.ID);
             if (item.DishAmount > temp.DishAmount)
             {
-                if (PriceOfOrder(myDal.GetOrder(item.OrderID)) + (item.DishAmount - temp.DishAmount) * myDal.GetDish(item.DishID).Price > MAX_PRICE)
+                if (PriceOfOrder(item.OrderID) + (item.DishAmount - temp.DishAmount) * myDal.GetDish(item.DishID).Price > MAX_PRICE)
                     throw new Exception("you cant upadte the order because with the extra dishs your ordered your order price will be above the approved limit!");
             }
             else if (item.DishID != temp.DishID || item.OrderID != temp.OrderID)
@@ -954,13 +954,16 @@ namespace BL
         /// <returns></returns>
         public float PriceOfOrder(Order order)
         {
+            return PriceOfOrder(order.ID);
+        }
+        public float PriceOfOrder(int orderID)
+        {
             float result = 0;
-            List<DishOrder> list = myDal.GetAllDishOrders(item => item.OrderID == order.ID).ToList<DishOrder>();
+            List<DishOrder> list = myDal.GetAllDishOrders(item => item.OrderID == orderID).ToList<DishOrder>();
             foreach (DishOrder item in list)
                 result += item.DishAmount * myDal.GetDish(item.DishID).Price;
             return result;
         }
-
         public void Inti()
         {
 
@@ -1008,9 +1011,9 @@ namespace BL
             AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 34567));
             AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 34567));
             AddDishOrder(new DishOrder(192334, 957473, 3));
-            AddDishOrder(new DishOrder(192334, 1243, 2));
-            AddDishOrder(new DishOrder(192334, 19273,  55));
-            AddDishOrder(new DishOrder(192334, 21, 2));
+            //AddDishOrder(new DishOrder(192334, 1243, 2));
+            //AddDishOrder(new DishOrder(192334, 19273,  55));
+            //AddDishOrder(new DishOrder(192334, 21, 2));
             AddDishOrder(new DishOrder(34567, 19273, 3));
         }
     }

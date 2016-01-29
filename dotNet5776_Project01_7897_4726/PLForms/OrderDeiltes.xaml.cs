@@ -91,7 +91,7 @@ namespace PLForms
         }
         private void Send_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send this order?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send this order? Cost - "+BL.FactoryBL.getBL().PriceOfOrder(ID).ToString() +"$", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
             {
                 var temp = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First();
                 temp.Date = DateTime.Now;

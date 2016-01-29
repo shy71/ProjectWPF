@@ -83,6 +83,14 @@ namespace PLForms
             if(Refresh!=null)
             Refresh(this, new BE.EventValue(BL.FactoryBL.getBL().PriceOfOrder(order), order.ID.ToString()));
         }
+        private void WindowMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (PlusBtn.IsEnabled&&e.Delta > 0)
+                Plus_Click(this, null);
+            else if (MinusBtn.IsEnabled&& e.Delta < 0)
+                Minus_Click(this, null);
+            return;
+        }
         public void Close()
         {
             Refresh-=RefreshBtn;
