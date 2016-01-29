@@ -601,7 +601,7 @@ namespace BL
                 throw new Exception("You cant Create a dish order for a dish and order that already has dish order");//Think
             else if (IsNewDishOrder && (PriceOfOrder(theDishOrder.OrderID) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price) > MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
                 throw new Exception(str + " with those dishes the order price will be above the approved limit!");
-            else if (myDal.GetDish(theDishOrder.DishID).Kosher < myDal.GetOrder(theDishOrder.OrderID).Kosher)
+            else if (myDal.GetDish(theDishOrder.DishID).Kosher <myDal.GetBranch(myDal.GetOrder(theDishOrder.OrderID).BranchID).Kosher)
                 throw new Exception(str + " you cant add a dish without the sufficient Kashrut for the order");
         }
         public void AddDishOrder(DishOrder newDishOrder)

@@ -25,7 +25,7 @@ namespace PLForms
         {
             InitializeComponent();
         }
-        public OrderEditor(BE.Order order)
+        public OrderEditor(BE.Order order,bool ReadOnly=false)
         {
             InitializeComponent();
             this.client = BL.FactoryBL.getBL().GetAllClients(item=>item.ID==order.ClientID).First();
@@ -34,6 +34,11 @@ namespace PLForms
                 HomeCheckBox.IsChecked = true;
             else
                 HomeCheckBox_UnChecked(this,null);
+            if (ReadOnly)
+            {
+                AddBtn.Visibility = Visibility.Collapsed;
+                SendBtn.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void HomeCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -97,11 +102,16 @@ namespace PLForms
         }
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-           var picker= new DishPicker(tempOrder.Kosher, tempOrder.ID);
+           var picker= new DishPicker(Max(tempOrder.Kosher,BL.FactoryBL.getBL().GetAllBranchs(item=>item.ID==tempOrder.BranchID).First().Kosher), tempOrder.ID);
            picker.Added += AddedDishs;
            picker.Show();
         }
-
+        BE.Kashrut Max(BE.Kashrut kosher1, BE.Kashrut kosher2)
+        {
+            if (kosher1 > kosher2)
+                return kosher1;
+            return kosher2;
+        }
         void AddedDishs(object sender, BE.EventValue e)
         {
             if(e.pName==tempOrder.ID.ToString())

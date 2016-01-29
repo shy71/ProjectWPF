@@ -8,7 +8,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="add" Source="Images/Add.png" Height="150" Width="150"/>
+        <Image x:Name="add" Source="Images/Add.png" Height="150" Width="150" PreviewMouseDown="BigGrid_MouseDown"/>
         <ScrollViewer Grid.Column="1"  VerticalScrollBarVisibility="Auto" Grid.RowSpan="4">
             <StackPanel>
                 <Label x:Name="MainTitle" HorizontalContentAlignment="Center" FontSize="50"/>

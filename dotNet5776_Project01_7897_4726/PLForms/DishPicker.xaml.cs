@@ -45,8 +45,12 @@ namespace PLForms
         {
             TextBox text;
             int NumOfDishs=0;
+            foreach (StackPanel item in MainGrid.Children)
+            {
+                item.Children.RemoveRange(0, item.Children.Count);
+            }
             var list = BL.FactoryBL.getBL().GetAllDishOrders(item => item.OrderID == orderID);
-            foreach (BE.Dish item in BL.FactoryBL.getBL().GetAllDishs(item => !list.Any(item2 => item2.DishID == item.ID)))
+            foreach (BE.Dish item in BL.FactoryBL.getBL().GetAllDishs(item => !list.Any(item2 => item2.DishID == item.ID) && item.Kosher>=minKashrut ))
             {
                 text = new TextBox();
                 text.Text = item.ToString().Replace("\t", "");
@@ -120,6 +124,12 @@ namespace PLForms
             if (Added != null)
                 Added(this, new BE.EventValue(listID, orderID.ToString()));
             this.Close();
+        }
+
+        private void Kosher_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            minKashrut = BE.Extensions.ToKashrut(Kosher.SelectedItem.ToString());
+            Refresh(this, null);
         }
 
 

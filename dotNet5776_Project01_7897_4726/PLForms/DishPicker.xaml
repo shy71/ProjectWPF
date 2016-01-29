@@ -8,7 +8,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="Kosher" Grid.Row="1" HorizontalAlignment="Center" MinWidth="100" Loaded="Kosher_Loaded"/>
+        <ComboBox x:Name="Kosher" Grid.Row="1" HorizontalAlignment="Center" MinWidth="100" Loaded="Kosher_Loaded" SelectionChanged="Kosher_SelectionChanged"/>
         <TextBlock Text="Kashrut level" IsHitTestVisible="False" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">

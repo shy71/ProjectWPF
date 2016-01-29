@@ -41,7 +41,7 @@ namespace PLForms
             foreach (BE.Branch item in BL.FactoryBL.getBL().GetAllBranchs(item=>item.Kosher>=BE.Extensions.ToKashrut(KashrutCombo.SelectedItem.ToString())))
             {
                 temp = new ComboBoxItem();
-                temp.Content = item.Name + " - " + item.Address;
+                temp.Content = item.Name + " - " + item.Address +" | "+item.Kosher;
                 temp.ToolTip = item.ToString();
                 branchCombo.Items.Add(temp);
             }
@@ -59,13 +59,18 @@ namespace PLForms
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {                  
-            string temp=(branchCombo.SelectedItem as ComboBoxItem).ToolTip.ToString();
-            BE.Order tempOrder = new BE.Order(Convert.ToInt32(temp.Substring(temp.IndexOf("ID: ") + 4, temp.IndexOf("\n\tName:") - temp.IndexOf("ID: ") - 4)),
-                                            client.Address,BE.Extensions.ToKashrut(KashrutCombo.SelectedItem.ToString()), client.ID);//עובד רק עם ה by ref...
-            BL.FactoryBL.getBL().AddOrder(tempOrder);
-            new OrderEditor(tempOrder).Show();
+        {
+            string temp;
+            BE.Order order;
+                temp = (branchCombo.SelectedItem as ComboBoxItem).ToolTip.ToString();
+                order = new BE.Order(Convert.ToInt32(temp.Substring(temp.IndexOf("ID: ") + 4, temp.IndexOf("\n\tName:") - temp.IndexOf("ID: ") - 4)),
+                                               client.Address, BE.Extensions.ToKashrut(KashrutCombo.SelectedItem.ToString()), client.ID);//עובד רק עם ה by ref...
+                BL.FactoryBL.getBL().AddOrder(order);
+            this.Hide();
+            new OrderEditor(order).ShowDialog();
             this.Close();
+           
         }
+
     }
 }   

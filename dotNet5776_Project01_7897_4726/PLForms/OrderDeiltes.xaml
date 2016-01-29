@@ -50,7 +50,7 @@
             </Image.Style>
         </Image>
         <Button x:Name="Delete" Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="44" Height="56" Grid.Column="3" ToolTip="Delete the order!" Click="Delete_Click"/>
-        <Image x:Name="EditImg" Grid.Row="6" Source="Images\text-edit-2.png" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Grid.Column="2" Visibility="{Binding ElementName=SendBtn,Path=Visibility}" >
+        <Image x:Name="EditImg" Grid.Row="6" Source="Images\text-edit-2.png" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Grid.Column="2"  Visibility="{Binding ElementName=EditBtn,Path=Visibility}">
             <Image.Style>
                 <Style TargetType="{x:Type Image}">
                     <Setter Property="Width" Value="56"/>
@@ -68,7 +68,7 @@
                 </Style>
             </Image.Style>
         </Image>
-        <Button x:Name="EditBtn"  Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="52" Height="52" Grid.Column="2" ToolTip="Edit the order!" Click="Update_Click" Visibility="{Binding ElementName=SendBtn,Path=Visibility}"/>
+        <Button x:Name="EditBtn"  Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="52" Height="52" Grid.Column="2" ToolTip="Edit the order!" Click="Update_Click"/>
         
         <Image x:Name="SendImg" Source="Images\send5.jpg" Grid.Row="6"  Grid.Column="0"  Grid.ColumnSpan="2" VerticalAlignment="Bottom" Visibility="{Binding ElementName=SendBtn,Path=Visibility}">
             <Image.Style>

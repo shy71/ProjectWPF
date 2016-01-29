@@ -30,6 +30,8 @@ namespace PLForms
         public ClientInterface(BE.User user)
         {
             InitializeComponent();
+            if (user.Type != BE.UserType.Client)
+                throw new Exception("You cant open client interface with a user that isnt a client!");
             this.user = user;
             MainTitle.Content = "Hello " + user.Name+"!";
         }
@@ -66,10 +68,7 @@ namespace PLForms
                 (add.Parent as Grid).Children.Remove(add);
 
         }
-        void DeleteMsg(object sender, EventArgs e)
-        {
-            MessageBox.Show("It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer","Not recommended");
-        }
+
         private void Window_Loaded_Active(RadioButton sender,Func<BE.Order,bool> predicate)
         {
             Grid g;
@@ -100,8 +99,6 @@ namespace PLForms
                 orderD.Sended += Restart;
                 orderD.Updated += Restart;
                 orderD.Arived += Restart;
-                if (sender.Name == "DeliveredButton")
-                    orderD.TryDelete += DeleteMsg;
                 var ChildEnumrator = stackPanel.Children.GetEnumerator();
                 for (int i = 0; i < ((int)(numOfOrders / 4))*2 + 3; i++)
                     ChildEnumrator.MoveNext();
@@ -235,8 +232,6 @@ namespace PLForms
             us.Sended += Restart;
             us.Updated += Restart;
             us.Arived += Restart;
-            if (DeliveredExpender.IsExpanded)
-                us.TryDelete += DeleteMsg;
             subWin.Add(new ShowUserControl(us));
             subWin.Last().Show();
         }
@@ -259,6 +254,12 @@ namespace PLForms
            else if (DeliveredExpender.IsExpanded)
                return DeliveredButton;
            return null;
+       }
+
+       private void BigGrid_MouseDown(object sender, MouseButtonEventArgs e)
+       {
+           new OrderEditor1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First()).ShowDialog();
+           UnsentButton_Checked(UnsentButton, null);
        }
     }
 }

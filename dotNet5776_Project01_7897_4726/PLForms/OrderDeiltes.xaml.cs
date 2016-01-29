@@ -26,8 +26,8 @@ namespace PLForms
         public event EventHandler<BE.EventValue> Updated;
         public event EventHandler<BE.EventValue> Sended;
         public event EventHandler<BE.EventValue> Arived;
-        public event EventHandler<BE.EventValue> TryDelete;
         int ID;
+        bool IsDeliverd = false;
         public OrderDeiltes()
         {
             InitializeComponent();
@@ -56,7 +56,7 @@ namespace PLForms
                     Delete.Visibility = Visibility.Hidden;
                 timeLeft.Content = "The order is on the way!";
                 timeLeft.Visibility = Visibility.Visible;
-
+                EditBtn.Visibility = Visibility.Hidden;
                 //timeLeft.Visibility = Visibility.Visible;
                 //new Thread(() =>
                 //    {
@@ -70,22 +70,22 @@ namespace PLForms
                 Date.Content = order.Date.ToShortDateString();
                 Date.ToolTip = order.Date.ToShortTimeString();
                 SendBtn.Visibility = Visibility.Hidden;
+                EditBtn.ToolTip = "See the dishs in the order";
+                IsDeliverd = true;
             }
             ID = order.ID;
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (TryDelete != null)
-                TryDelete(this,new BE.EventValue(ID));
-            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to delete this order?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
+            if (MessageBoxResult.Yes == MessageBox.Show((IsDeliverd?"It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer\n":"")+"Are you sure you want to delete this order?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
                 BL.FactoryBL.getBL().DeleteOrder(ID);
             if (Deleted != null)
                 Deleted(this, new BE.EventValue(ID));
         }
         private void Update_Click(object sender, RoutedEventArgs e)
         {
-            //Open window update order
+            new OrderEditor(BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First(), IsDeliverd).ShowDialog();
             if (Updated != null)
                 Updated(this, new BE.EventValue(ID));
         }
