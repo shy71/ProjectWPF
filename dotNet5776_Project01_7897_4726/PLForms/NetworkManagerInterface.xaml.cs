@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,7 +50,7 @@ namespace PLForms
 
         private void DeleteBranchButton_Click(object sender, RoutedEventArgs e)
         {
-            //open small window 4 checking which branch is being deleted
+            new Delete_Branch().Show();
         }
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
