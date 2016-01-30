@@ -29,7 +29,7 @@ namespace PLForms
         {
             InitializeComponent();
         }
-        public DishOrder(BE.DishOrder ds)
+        public DishOrder(BE.DishOrder ds,bool ReadOnly=false)
         {
             InitializeComponent();//eror dish doesnt exist
             dish = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == ds.DishID).First();
@@ -37,10 +37,16 @@ namespace PLForms
             this.DataContext = dish;
             order = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ds.OrderID).First();
             Amount.Text = ds.DishAmount.ToString();
+            AmountGrid.ToolTip = dish.Price * ds.DishAmount + "$";
             //AmountGrid.DataContext = ds; doesnt work like that
             Details.Text = dish.ToString().Substring(dish.ToString().IndexOf("\n")+2).Replace("\t","");
             Refresh += RefreshBtn;
             RefreshBtn(this, new BE.EventValue(BL.FactoryBL.getBL().PriceOfOrder(order), order.ID.ToString()));
+            if (ReadOnly)
+            {
+                PlusBtn.IsEnabled = false;
+                MinusBtn.IsEnabled = false;
+            }
         }
         private void RefreshBtn(object sender , BE.EventValue e)
         {
@@ -69,6 +75,7 @@ namespace PLForms
                 AmountChanged(this, new BE.EventValue(Convert.ToInt32(Amount.Text), DsID.ToString()));
             if (Refresh != null)
             Refresh(this, new BE.EventValue(BL.FactoryBL.getBL().PriceOfOrder(order), order.ID.ToString()));
+            AmountGrid.ToolTip = dish.Price * Convert.ToInt32(Amount.Text) + "$";
         }
         private void Minus_Click(object sender, RoutedEventArgs e)
         {
@@ -82,6 +89,7 @@ namespace PLForms
                 AmountChanged(this, new BE.EventValue(Convert.ToInt32(Amount.Text), DsID.ToString()));
             if(Refresh!=null)
             Refresh(this, new BE.EventValue(BL.FactoryBL.getBL().PriceOfOrder(order), order.ID.ToString()));
+            AmountGrid.ToolTip = dish.Price * Convert.ToInt32(Amount.Text) + "$";
         }
         private void WindowMouseWheel(object sender, MouseWheelEventArgs e)
         {

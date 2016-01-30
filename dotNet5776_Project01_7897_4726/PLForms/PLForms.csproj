@@ -284,7 +284,7 @@
     <Resource Include="Images\Edit.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Order1 - Copy.jpg" />
+    <Resource Include="Images\Order1 - Copy1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Send.jpg" />
@@ -302,6 +302,8 @@
     <Resource Include="Images\send2.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Order1 - Copy - Copy.jpg" />
+    <Resource Include="Images\data_arrived1.png" />
     <Content Include="Images\send3.jpg" />
     <Resource Include="Images\Send Order.png" />
     <Resource Include="Images\send5.jpg" />

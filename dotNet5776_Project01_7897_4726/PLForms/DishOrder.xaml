@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             MinWidth="75" MinHeight="50" Background="Red" BorderThickness="2" BorderBrush="Black">
+             MinWidth="75" MinHeight="50" Background="Red" BorderThickness="2" BorderBrush="Black" PreviewMouseWheel="WindowMouseWheel">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <Expander x:Name="MainExpnder" Header="{Binding Name}" MouseWheel="WindowMouseWheel">
+                <Expander x:Name="MainExpnder" Header="{Binding Name}">
                     <TextBlock x:Name="Details" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 </Expander>
                 <Grid x:Name="AmountGrid">
@@ -17,9 +17,9 @@
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="MinusBtn" Content="-" Grid.Column="0" Click="Minus_Click" MouseWheel="WindowMouseWheel"/>
-                    <TextBlock x:Name="Amount" Grid.Column="1" TextAlignment="Center"  MouseWheel="WindowMouseWheel"/>
-                    <Button  x:Name="PlusBtn" Content="+" Grid.Column="2" Click="Plus_Click" ToolTipService.ShowOnDisabled="True" MouseWheel="WindowMouseWheel"/>
+                    <Button x:Name="MinusBtn" Content="-" Grid.Column="0" Click="Minus_Click"/>
+                    <TextBlock x:Name="Amount" Grid.Column="1" TextAlignment="Center"/>
+                    <Button  x:Name="PlusBtn" Content="+" Grid.Column="2" Click="Plus_Click" ToolTipService.ShowOnDisabled="True"/>
                 </Grid>
             </StackPanel>
         </ScrollViewer>

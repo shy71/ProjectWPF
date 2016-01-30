@@ -23,7 +23,7 @@
             <RowDefinition Height="37*"/>
             <RowDefinition Height="57*"/>
         </Grid.RowDefinitions>
-        <Image Source="Images\Order1 - Copy.jpg" Grid.RowSpan="7" Grid.ColumnSpan="5" Margin="0,0,0,-2"/>
+        <Image Source="Images\Order1 - Copy1.jpg" Grid.RowSpan="7" VerticalAlignment="Top" Grid.ColumnSpan="5" Margin="0,0,0,-2"/>
         <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3" Margin="0,2,0,1">
             <TextBlock x:Name="ShortAddress" TextAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Foreground="Green"/>
         </ScrollViewer>
@@ -31,7 +31,7 @@
             <TextBlock x:Name="FullAddress" TextWrapping="WrapWithOverflow" FontSize="20" FontFamily="Comic Sans MS" Foreground="Green" Background="Transparent" TextAlignment="Center"/>
         </ScrollViewer>
         <Label x:Name="Date" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Column="1" Grid.Row="5" FontSize="20" FontFamily="Comic Sans MS" Foreground="Green" Grid.ColumnSpan="3" Margin="0,2" />
-        <Image x:Name="DeleteImg" Source="Images\recycle_bin1.png" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="3" Visibility="{Binding ElementName=Delete,Path=Visibility}">
+        <Image x:Name="DeleteImg" Source="Images\recycle_bin1.png" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="3" Visibility="{Binding ElementName=DeleteBtn,Path=Visibility}">
             <Image.Style>
                 <Style TargetType="{x:Type Image}">
                     <Setter Property="Width" Value="44"/>
@@ -49,7 +49,7 @@
                 </Style>
             </Image.Style>
         </Image>
-        <Button x:Name="Delete" Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="44" Height="56" Grid.Column="3" ToolTip="Delete the order!" Click="Delete_Click"/>
+        <Button x:Name="DeleteBtn" Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="44" Height="56" Grid.Column="3" ToolTip="Delete the order!" Click="Delete_Click"/>
         <Image x:Name="EditImg" Grid.Row="6" Source="Images\text-edit-2.png" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Grid.Column="2"  Visibility="{Binding ElementName=EditBtn,Path=Visibility}">
             <Image.Style>
                 <Style TargetType="{x:Type Image}">
@@ -90,6 +90,6 @@
         </Image>
         <Button x:Name="SendBtn"  Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="46" Height="46" Grid.Column="0" Grid.ColumnSpan="2" ToolTip="Send the order!" Click="Send_Click" />
         <Label x:Name="timeLeft" Grid.Row="6" Grid.ColumnSpan="5" IsHitTestVisible="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="Hidden"/>
-        <Button x:Name="Arrived" Content="Report delivery" ToolTip="press when the order has arived you you" Click="Arrived_Click" Grid.Row="6" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Visibility="{Binding ElementName=timeLeft,Path=Visibility}"/>
+        <Button x:Name="ArrivedBtn" Content="Report delivery" ToolTip="press when the order has arived you you" Click="Arrived_Click" Grid.Row="6" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Visibility="{Binding ElementName=timeLeft,Path=Visibility}"/>
     </Grid>
 </UserControl>

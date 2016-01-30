@@ -21,6 +21,7 @@ namespace PLForms
     {
         BE.Client client;
         BE.Order tempOrder;
+        bool IsReadOnly = false;
         public OrderEditor()
         {
             InitializeComponent();
@@ -36,9 +37,12 @@ namespace PLForms
                 HomeCheckBox_UnChecked(this,null);
             if (ReadOnly)
             {
-                AddBtn.Visibility = Visibility.Collapsed;
-                SendBtn.Visibility = Visibility.Collapsed;
+                AddImg.Visibility = Visibility.Collapsed;
+                SendImg.Visibility = Visibility.Collapsed;
+                HomeCheckBox.Visibility = Visibility.Collapsed;
+                addressBox.IsEnabled = false;
             }
+            IsReadOnly = ReadOnly;
         }
 
         private void HomeCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -63,7 +67,7 @@ namespace PLForms
             }
             foreach (BE.DishOrder item in BL.FactoryBL.getBL().GetAllDishOrders(item=>item.OrderID==tempOrder.ID))
             {
-                us = new DishOrder(item);
+                us = new DishOrder(item,IsReadOnly);
                 us.AmountChanged += DishOrderAmount;
                 us.HorizontalAlignment = HorizontalAlignment.Center;
                 us.HorizontalContentAlignment = HorizontalAlignment.Center;

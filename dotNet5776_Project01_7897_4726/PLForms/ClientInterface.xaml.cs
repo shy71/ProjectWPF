@@ -22,6 +22,7 @@ namespace PLForms
         List<Window> subWin=new List<Window>();
         int numOfOrders = 0;
         BE.User user;
+        bool IsCtrlDown = false;
         public ClientInterface()
         {
             InitializeComponent();
@@ -48,7 +49,22 @@ namespace PLForms
                 UnsentButton_Checked(UnsentButton, null);
             foreach (object item in MenuStack.Children)
                 if (item.GetType() == typeof(Expander))
-                        (item as Expander).IsExpanded = false;    
+                        (item as Expander).IsExpanded = false;
+            foreach (object grid in stackPanel.Children)
+            {
+                if (grid.GetType() == typeof(Grid))
+                {
+                    foreach (object item in (grid as Panel).Children)
+                    {
+                        if (item.GetType() == typeof(OrderDeiltes))
+                        {
+                            (item as OrderDeiltes).Opacity = 0.7;
+                            //(item as OrderDeiltes).BorderThickness = new Thickness(1);
+                            //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                        }
+                    }
+                }
+            }
         }
         private void Window_Loaded(object sender,RoutedEventArgs e)
         {
@@ -59,6 +75,7 @@ namespace PLForms
         }
         void Clear_window()
         {
+            SelectAtLeastOne(false);
             MainTitle.Content = user.Name + "'s account:";
             MainTitle.FontSize = 35;
             stackPanel.Children.RemoveRange(1, stackPanel.Children.Count - 1);
@@ -93,12 +110,14 @@ namespace PLForms
                     g.ColumnDefinitions.Add(d);
                     stackPanel.Children.Add(g);
                 }
-                var orderD = new OrderDeiltes(item);
+                var orderD = new OrderDeiltes(item,true);
                 orderD.HorizontalAlignment = HorizontalAlignment.Center;
                 orderD.Deleted += Restart;
                 orderD.Sended += Restart;
                 orderD.Updated += Restart;
                 orderD.Arived += Restart;
+                orderD.Opacity = 0.7;
+                orderD.PreviewMouseDown += MouseClick;
                 var ChildEnumrator = stackPanel.Children.GetEnumerator();
                 for (int i = 0; i < ((int)(numOfOrders / 4))*2 + 3; i++)
                     ChildEnumrator.MoveNext();
@@ -139,35 +158,49 @@ namespace PLForms
         {
             Clear_window();
             LittleTitle.Content = "Unsent orders";
+            DeleteImg.Visibility = Visibility.Visible;
+            EditImg.Visibility = Visibility.Visible;
+            EditImg.ToolTip = "Edit The Orders";
+            SendImg.Visibility = Visibility.Visible;
+            ArivedImg.Visibility = Visibility.Collapsed;
             Window_Loaded_Active(sender as RadioButton, item => item.Date == DateTime.MinValue && !item.Delivered);
         }
         private void ActiveButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
             LittleTitle.Content = "Active orders";
+            DeleteImg.Visibility = Visibility.Collapsed;
+            EditImg.Visibility = Visibility.Collapsed;
+            SendImg.Visibility = Visibility.Collapsed;
+            ArivedImg.Visibility = Visibility.Visible;
             Window_Loaded_Active(sender as RadioButton, item => item.Date != DateTime.MinValue && !item.Delivered);
         }
         private void DeliveredButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
             LittleTitle.Content = "Delivered orders";
+            DeleteImg.Visibility = Visibility.Visible;
+            EditImg.Visibility = Visibility.Visible;
+            EditImg.ToolTip = "Look at the specific of the order";
+            SendImg.Visibility = Visibility.Collapsed;
+            ArivedImg.Visibility = Visibility.Collapsed;
             Window_Loaded_Active(sender as RadioButton, item =>item.Delivered);
         }
 
-        private void Unsent_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            UnsentButton.IsChecked = true;
-        }
+        //private void Unsent_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    UnsentButton.IsChecked = true;
+        //}
 
-        private void Active_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            ActiveButton.IsChecked = true;
-        }
+        //private void Active_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    ActiveButton.IsChecked = true;
+        //}
 
-        private void Deliverd_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            DeliveredButton.IsChecked = true;
-        }
+        //private void Deliverd_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    DeliveredButton.IsChecked = true;
+        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -260,6 +293,184 @@ namespace PLForms
        {
            new OrderEditor1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First()).ShowDialog();
            UnsentButton_Checked(UnsentButton, null);
+       }
+       void MouseClick(object sender, MouseButtonEventArgs e)
+       {
+           bool WasSelected = (sender as OrderDeiltes).Opacity == 1;
+           if (!IsCtrlDown)
+           {
+               foreach (object grid in stackPanel.Children)
+               {
+                   if (grid.GetType() == typeof(Grid))
+                   {
+                       foreach (object item in (grid as Panel).Children)
+                       {
+                           if (item.GetType() == typeof(OrderDeiltes))
+                           {
+                               (item as OrderDeiltes).Opacity = 0.7;
+                               //(item as OrderDeiltes).BorderThickness = new Thickness(1);
+                               //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                           }
+                       }
+                   }
+               }
+           }
+           if (!WasSelected)
+           {
+               (sender as OrderDeiltes).Opacity = 1;
+              // (sender as OrderDeiltes).BorderThickness = new Thickness(2);
+              // (sender as OrderDeiltes).BorderBrush = Brushes.LightBlue;
+           }
+           else if (IsCtrlDown)
+           {
+               (sender as OrderDeiltes).Opacity = 0.7;
+              // (sender as OrderDeiltes).BorderThickness = new Thickness(1);
+             //  (sender as OrderDeiltes).BorderBrush = Brushes.Black;
+           }
+           if(!DoesSelect())
+           {
+               SelectAtLeastOne(false);
+           }
+           else if (DeleteImg.Opacity == 0.7)
+               SelectAtLeastOne(true);
+       }
+       void SelectAtLeastOne(bool IsSelected)
+       {
+           if (IsSelected)
+           {
+               DeleteImg.Opacity = 1;
+               EditImg.Opacity = 1;
+               SendImg.Opacity = 1;
+               ArivedImg.Opacity = 1;
+           }
+           else
+           {
+               DeleteImg.Opacity = 0.7;
+               EditImg.Opacity = 0.7;
+               SendImg.Opacity = 0.7;
+               ArivedImg.Opacity = 0.5;
+           }
+
+       }
+       private void KeyDownCheck(object sender, KeyEventArgs e)
+       {
+           if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+               IsCtrlDown = true;
+       }
+
+       private void KeyUpCheck(object sender, KeyEventArgs e)
+       {
+           if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+               IsCtrlDown = false;
+       }
+       bool DoesSelect()
+       {
+           foreach (object grid in stackPanel.Children)
+           {
+               if (grid.GetType() == typeof(Grid))
+               {
+                   foreach (object item in (grid as Panel).Children)
+                   {
+                       if (item.GetType() == typeof(OrderDeiltes))
+                       {
+                           if ((item as OrderDeiltes).Opacity == 1)
+                               return true;
+
+                       }
+                   }
+               }
+           }
+            return false;
+       }
+       private void Delete_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+       {
+           if (DeleteImg.Opacity == 0.7)
+               return;
+           if (MessageBoxResult.Yes == MessageBox.Show(((DeliveredButton.IsChecked == true) ? "It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer\n" : "") + "Are you sure you want to delete this orders?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
+               foreach (object grid in stackPanel.Children)
+               {
+                   if (grid.GetType() == typeof(Grid))
+                   {
+                       foreach (object item in (grid as Panel).Children)
+                       {
+                           if (item.GetType() == typeof(OrderDeiltes))
+                           {
+                               if ((item as OrderDeiltes).Opacity == 1)
+                                   (item as OrderDeiltes).DeleteOrder();
+                               //(item as OrderDeiltes).BorderThickness = new Thickness(1);
+                               //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                           }
+                       }
+                   }
+               }
+           Restart(this,null);
+       }
+       private void Edit_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+       {
+           if (EditImg.Opacity == 0.7)
+               return;
+                         foreach (object grid in stackPanel.Children)
+               {
+                   if (grid.GetType() == typeof(Grid))
+                   {
+                       foreach (object item in (grid as Panel).Children)
+                       {
+                           if (item.GetType() == typeof(OrderDeiltes))
+                           {
+                               if ((item as OrderDeiltes).Opacity == 1)
+                                   (item as OrderDeiltes).UpdateOrder();
+                               //(item as OrderDeiltes).BorderThickness = new Thickness(1);
+                               //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                           }
+                       }
+                   }
+               }
+           Restart(this, null);
+       }
+       private void Send_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+       {
+           if (SendImg.Opacity == 0.7)
+               return;
+           if ( MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send all of this orders?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
+               foreach (object grid in stackPanel.Children)
+               {
+                   if (grid.GetType() == typeof(Grid))
+                   {
+                       foreach (object item in (grid as Panel).Children)
+                       {
+                           if (item.GetType() == typeof(OrderDeiltes))
+                           {
+                               if ((item as OrderDeiltes).Opacity == 1)
+                                   (item as OrderDeiltes).SendOrder();
+                               //(item as OrderDeiltes).BorderThickness = new Thickness(1);
+                               //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                           }
+                       }
+                   }
+               }
+           Restart(this, null);
+       }
+       private void Arived_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+       {
+           if (ArivedImg.Opacity == 0.5)
+               return;
+           foreach (object grid in stackPanel.Children)
+               {
+                   if (grid.GetType() == typeof(Grid))
+                   {
+                       foreach (object item in (grid as Panel).Children)
+                       {
+                           if (item.GetType() == typeof(OrderDeiltes))
+                           {
+                               if ((item as OrderDeiltes).Opacity == 1)
+                                   (item as OrderDeiltes).ArivedOrder();
+                               //(item as OrderDeiltes).BorderThickness = new Thickness(1);
+                               //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                           }
+                       }
+                   }
+               }
+           Restart(this, null);
        }
     }
 }

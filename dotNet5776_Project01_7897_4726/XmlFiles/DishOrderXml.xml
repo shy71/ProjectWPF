@@ -12,4 +12,16 @@
     <DishID>19273</DishID>
     <DishAmount>3</DishAmount>
   </DishOrder>
+  <DishOrder>
+    <ID>7888</ID>
+    <OrderID>2607890</OrderID>
+    <DishID>19273</DishID>
+    <DishAmount>2</DishAmount>
+  </DishOrder>
+  <DishOrder>
+    <ID>7288</ID>
+    <OrderID>2607890</OrderID>
+    <DishID>1243</DishID>
+    <DishAmount>38</DishAmount>
+  </DishOrder>
 </DishOrders>
