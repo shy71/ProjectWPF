@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,7 +44,7 @@ namespace PLForms
 
         private void CreateBranchManagerButton_Click(object sender, RoutedEventArgs e)
         {
-            //add new branch manager window
+            new UserEditor(BE.UserType.BranchManger).ShowDialog();
         }
 
         private void NumberOfEmplyes_Changed(object sender, BE.EventValue e)
