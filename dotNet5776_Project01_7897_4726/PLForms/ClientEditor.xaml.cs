@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -93,8 +93,9 @@ namespace PLForms
                 if (passwordBox1.GetPassword() == "")
                     throw new Exception("The password cant be empty!");
                 if(!IsUpdated)
-                { 
+                {
                 BL.FactoryBL.getBL().AddClient(client);
+                user.Name = client.Name;
                 user.Password = passwordBox1.GetPassword();
                 user.Type = BE.UserType.Client;
                 user.ItemID = client.ID;
