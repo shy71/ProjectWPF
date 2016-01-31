@@ -31,7 +31,7 @@
         <local:TextControl x:Name="phoneBox" Str="Phone Number" Grid.Row="5" Grid.ColumnSpan="3" pName="PhoneNumber" Changed="TextControl_Changed"/>
         <Button x:Name="CreateBranchManagerButton" Grid.Row="7" FontSize="14" FontWeight="Bold" Content="Create new manager" Click="CreateBranchManagerButton_Click" Grid.Column="1" Grid.ColumnSpan="2" Width="150" HorizontalAlignment="Center" Margin="13,0">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="Button.Visibility" Value="Hidden"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=MangerCombo , Path=SelectedIndex}" Value="0">
@@ -74,7 +74,7 @@
 
         <Button x:Name="DoButton" Content="Create!" Grid.Column="1" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="13" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24" Click="Button_Click">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=nameBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="False"/>
@@ -100,7 +100,7 @@
         </Button>
         <Button Content="Copy Branch" Grid.Column="2" FontWeight="Bold" ToolTip="Copy branch details into the new branch." HorizontalAlignment="Center" Click="CopyBranch">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=branchCombo,Path=SelectedItem}" Value="{x:Null}">
                             <Setter Property="IsEnabled" Value="False"/>

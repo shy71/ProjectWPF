@@ -25,7 +25,7 @@
         </TextBlock>
         <ComboBox x:Name="branchCombo" Grid.Row="2">
             <ComboBox.Style>
-                <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxStyle}">
+                <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=KashrutCombo,Path=SelectedItem}" Value="{x:Null}">
                             <Setter Property="ComboBox.IsEnabled" Value="False"/>
@@ -48,7 +48,7 @@
         </TextBlock>
         <Button Content="Next->" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Bottom" Width="75" Click="Button_Click">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=KashrutCombo,Path=SelectedItem}" Value="{x:Null}">
                             <Setter Property="ComboBox.IsEnabled" Value="False"/>

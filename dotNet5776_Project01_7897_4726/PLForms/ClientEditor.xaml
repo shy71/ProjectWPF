@@ -46,7 +46,7 @@
         </Grid>
         <Button x:Name="nextButton" Grid.Row="14" FontSize="20" Content="Next step!"  HorizontalAlignment="Center" FontWeight="Bold" Width="114" Visibility="Visible" Click="nextButton_Click" VerticalAlignment="Center" Height="34" Margin="140,3,140,0" >
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=usernameBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="false"/>

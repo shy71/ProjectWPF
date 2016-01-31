@@ -52,7 +52,7 @@
 
         <Button x:Name="DoButton" Content="Create!" Grid.Column="2" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="7" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24" Click="DoButton_Click" Margin="51,16,51,17">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=nameBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="False"/>
@@ -72,7 +72,7 @@
         </Button>
         <Button Content="Copy Dish!" Grid.Column="3" FontWeight="Bold" ToolTip="Copy Dish details into the new branch." Click="Button_Click">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=dishCombo,Path=SelectedItem}" Value="{x:Null}">
                             <Setter Property="IsEnabled" Value="False"/>
