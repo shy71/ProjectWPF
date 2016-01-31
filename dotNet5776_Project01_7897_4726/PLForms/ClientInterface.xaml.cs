@@ -472,5 +472,14 @@ namespace PLForms
                }
            Restart(this, null);
        }
+
+       private void LogOut_Click(object sender, RoutedEventArgs e)
+       {
+           if(MessageBoxResult.Yes==MessageBox.Show("Are you sure you want to log out?","Log out?",MessageBoxButton.YesNo))
+           {
+               new MainInterface().Show();
+               this.Close();
+           }
+       }
     }
 }
