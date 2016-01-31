@@ -56,6 +56,12 @@
     <Compile Include="ClientInterface.xaml.cs">
       <DependentUpon>ClientInterface.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Delete Branch.xaml.cs">
+      <DependentUpon>Delete Branch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DishEditor.xaml.cs">
+      <DependentUpon>DishEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DishOrder.xaml.cs">
       <DependentUpon>DishOrder.xaml</DependentUpon>
     </Compile>
@@ -104,9 +110,20 @@
     <Compile Include="TextControl.xaml.cs">
       <DependentUpon>TextControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserEditor.xaml.cs">
+      <DependentUpon>UserEditor.xaml</DependentUpon>
+    </Compile>
     <Page Include="ClientInterface.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Delete Branch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DishEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="DishOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -199,6 +216,10 @@
     <Page Include="TextControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

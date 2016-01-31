@@ -12,6 +12,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
+        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" FontSize="24" Click="LogOut_Click"/>
         <Image x:Name="add" Source="Images/Add.png" Height="150" Width="150" PreviewMouseDown="BigGrid_MouseDown"/>
         <ScrollViewer Grid.Column="1"  VerticalScrollBarVisibility="Auto" Grid.RowSpan="1">
             <StackPanel>
@@ -56,7 +57,7 @@
             <Image x:Name="ArivedImg" Source="Images\data_arrived1.png" Margin="0,0,30,0" PreviewMouseDown="Arived_PreviewMouseDown" Visibility="Collapsed" ToolTip="Report The Orders as arived"/>
 
         </StackPanel>
-        
+
         <!--<Grid  Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
