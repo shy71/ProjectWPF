@@ -1,485 +1,92 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PLForms" x:Class="PLForms.ClientInterface"
+        Title="ClientInterface" Height="1000" Width="1500" Loaded="Window_Loaded" Background="#FFA50221" PreviewKeyDown="KeyDownCheck" PreviewKeyUp="KeyUpCheck">
+    <Grid x:Name="BigGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="417*"/>
+            <RowDefinition Height="68*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" FontSize="24" Click="LogOut_Click"/>
+        <Image x:Name="add" Source="Images/Add.png" Height="150" Width="150" PreviewMouseDown="BigGrid_MouseDown"/>
+        <ScrollViewer Grid.Column="1"  VerticalScrollBarVisibility="Auto" Grid.RowSpan="1">
+            <StackPanel>
+                <Label x:Name="MainTitle" HorizontalContentAlignment="Center" FontSize="50"/>
+                <StackPanel x:Name="stackPanel">
+                    <Label x:Name="LittleTitle" Content="Active Orders" HorizontalContentAlignment="Center" FontSize="40"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel x:Name="MenuStack" Grid.RowSpan="2">
+            <Label Content="Options Menu:" FontFamily="Comic Sans MS" FontSize="30" FontWeight="Bold" />
+            <RadioButton x:Name="UnsentButton" Content="Unsent Orders" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="UnsentButton_Checked"/>
+            <!--<Label  Grid.Row="0"  MouseLeftButtonUp="Unsent_MouseLeftButtonUp"/>-->
+            <Expander x:Name="UnsentExpender"  MaxHeight="500" Header="Unsent Orders List" HorizontalAlignment="Right"  VerticalAlignment="Bottom" IsExpanded="False" ExpandDirection="Down" Expanded="Expender_Expanded" Width="220">
+                <ScrollViewer  VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="UnsentStack">
+                    </StackPanel>
+                </ScrollViewer>
+            </Expander>
+            <RadioButton x:Name="ActiveButton" Content="Active Orders" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="ActiveButton_Checked"/>
+            <Expander x:Name="ActiveExpender"  Header="Active Orders List" HorizontalAlignment="Right"  VerticalAlignment="Bottom" IsExpanded="False" ExpandDirection="Down" Expanded="Expender_Expanded" Width="220">
+                <ScrollViewer  VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="ActiveStack">
+                    </StackPanel>
+                </ScrollViewer>
+            </Expander>
+            <RadioButton x:Name="DeliveredButton" Content="Delivered Orders" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="30" HorizontalAlignment="Right" VerticalAlignment="Center"  Checked="DeliveredButton_Checked"/>
+            <Expander x:Name="DeliveredExpender"   Header="Active Orders List" HorizontalAlignment="Right"  VerticalAlignment="Bottom" IsExpanded="False" ExpandDirection="Down"  Expanded="Expender_Expanded" Width="220">
+                <ScrollViewer  VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="DeliveredStack">
+                    </StackPanel>
+                </ScrollViewer>
+            </Expander>
 
-namespace PLForms
-{
-    /// <summary>
-    /// Interaction logic for ClientInterface.xaml
-    /// </summary>
-    public partial class ClientInterface : Window
-    {
-        List<Window> subWin=new List<Window>();
-        int numOfOrders = 0;
-        BE.User user;
-        bool IsCtrlDown = false;
-        public ClientInterface()
-        {
-            InitializeComponent();
-            //erroe
-        }
-        public ClientInterface(BE.User user)
-        {
-            InitializeComponent();
-            if (user.Type != BE.UserType.Client)
-                throw new Exception("You cant open client interface with a user that isnt a client!");
-            this.user = user;
-            MainTitle.Content = "Hello " + user.Name+"!";
-        }
-        private void Restart(object sender, BE.EventValue e)
-        {
-            foreach (Window item in subWin)
-                item.Close();//שיסגר רק החלון שעשה את הריסטרט
-            Clear_window();
-            if (DeliveredButton.IsChecked == true)
-                DeliveredButton_Checked(DeliveredButton, null);
-            else if (ActiveButton.IsChecked == true)
-                ActiveButton_Checked(ActiveButton, null);
-            else
-                UnsentButton_Checked(UnsentButton, null);
-            foreach (object item in MenuStack.Children)
-                if (item.GetType() == typeof(Expander))
-                        (item as Expander).IsExpanded = false;
-            foreach (object grid in stackPanel.Children)
-            {
-                if (grid.GetType() == typeof(Grid))
-                {
-                    foreach (object item in (grid as Panel).Children)
-                    {
-                        if (item.GetType() == typeof(OrderDeiltes))
-                        {
-                            (item as OrderDeiltes).Opacity = 0.7;
-                            //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                            //(item as OrderDeiltes).BorderBrush = Brushes.Black;
-                        }
-                    }
-                }
-            }
-        }
-        private void Window_Loaded(object sender,RoutedEventArgs e)
-        {
-            //UnsentButton.IsChecked = true;
-            if (add.Parent != null)
-                (add.Parent as Grid).Children.Remove(add);
-            LittleTitle.Content = "";
-        }
-        void Clear_window()
-        {
-            SelectAtLeastOne(false);
-            MainTitle.Content = user.Name + "'s account:";
-            MainTitle.FontSize = 35;
-            stackPanel.Children.RemoveRange(1, stackPanel.Children.Count - 1);
-            numOfOrders = 0;
-            add.Visibility = Visibility.Hidden;
-            if (add.Parent != null)
-                (add.Parent as Grid).Children.Remove(add);
 
-        }
+        </StackPanel>
+        <Button Content="Edit your profile" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Click="Button_Click" Margin="74,0" Grid.Row="1"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
+            <Image x:Name="DeleteImg" Source="Images\delete-b.jpg" Margin="0,0,30,0" PreviewMouseDown="Delete_PreviewMouseDown" Visibility="Collapsed" ToolTip="Delete The Orders"/>
+            <Image x:Name="EditImg" Source="Images\Edit.png" Margin="0,0,30,0" PreviewMouseDown="Edit_PreviewMouseDown" Visibility="Collapsed"/>
+            <Image x:Name="SendImg" Source="Images\Send2.jpg" Margin="0,0,30,0" PreviewMouseDown="Send_PreviewMouseDown" Visibility="Collapsed" ToolTip="Send The Orders"/>
+            <Image x:Name="ArivedImg" Source="Images\data_arrived1.png" Margin="0,0,30,0" PreviewMouseDown="Arived_PreviewMouseDown" Visibility="Collapsed" ToolTip="Report The Orders as arived"/>
 
-        private void Window_Loaded_Active(RadioButton sender,Func<BE.Order,bool> predicate)
-        {
-            Grid g;
-            ColumnDefinition a, b, c, d;
-            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item=>item.ClientID==user.ItemID&&predicate(item)))
-            {
-                if (numOfOrders % 4 == 0)
-                {
-                    stackPanel.Children.Add(new Label());
-                    g = new Grid();
-                    a = new ColumnDefinition();
-                    b = new ColumnDefinition();
-                    c = new ColumnDefinition();
-                    d = new ColumnDefinition();
-                    c.Width = new GridLength(1, GridUnitType.Star);
-                    a.Width = c.Width;
-                    b.Width = c.Width;
-                    d.Width = c.Width;
-                    g.ColumnDefinitions.Add(a);
-                    g.ColumnDefinitions.Add(b);
-                    g.ColumnDefinitions.Add(c);
-                    g.ColumnDefinitions.Add(d);
-                    stackPanel.Children.Add(g);
-                }
-                var orderD = new OrderDeiltes(item,true);
-                orderD.HorizontalAlignment = HorizontalAlignment.Center;
-                orderD.Deleted += Restart;
-                orderD.Sended += Restart;
-                orderD.Updated += Restart;
-                orderD.Arived += Restart;
-                orderD.Opacity = 0.7;
-                orderD.PreviewMouseDown += MouseClick;
-                var ChildEnumrator = stackPanel.Children.GetEnumerator();
-                for (int i = 0; i < ((int)(numOfOrders / 4))*2 + 3; i++)
-                    ChildEnumrator.MoveNext();
-                (ChildEnumrator.Current as Grid).Children.Add(orderD);
-                Grid.SetColumn(orderD, numOfOrders % 4);
-                numOfOrders++;
-            }
-            if (sender.Name == "UnsentButton")
-            {
-                if (numOfOrders % 4 == 0)
-                {
-                    stackPanel.Children.Add(new Label());
-                    g = new Grid();
-                    a = new ColumnDefinition();
-                    b = new ColumnDefinition();
-                    c = new ColumnDefinition();
-                    d = new ColumnDefinition();
-                    c.Width = new GridLength(1, GridUnitType.Star);
-                    a.Width = c.Width;
-                    b.Width = c.Width;
-                    d.Width = c.Width;
-                    g.ColumnDefinitions.Add(a);
-                    g.ColumnDefinitions.Add(b);
-                    g.ColumnDefinitions.Add(c);
-                    g.ColumnDefinitions.Add(d);
-                    stackPanel.Children.Add(g);
-                }
-                var tempEnumrator = stackPanel.Children.GetEnumerator();
-                for (int i = 0; i < ((int)(numOfOrders / 4)) * 2 + 3; i++)
-                    tempEnumrator.MoveNext();
-                add.Visibility = Visibility.Visible;
-                (tempEnumrator.Current as Grid).Children.Add(add);
-                Grid.SetColumn(add, 3);
-            }
-        }
+        </StackPanel>
+        
+        <!--<Grid  Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <RadioButton x:Name="UnsentButton" Grid.Row="0" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="27,38,259,38" Checked="UnsentButton_Checked" Panel.ZIndex="1"/>
+            <Label Content="Unsent Orders" Grid.Row="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Unsent_MouseLeftButtonUp"/>
+            <Expander Grid.Row="0"  Header="Unsent Orders List" HorizontalAlignment="Center"  VerticalAlignment="Bottom" IsExpanded="False" ExpandDirection="Down" >
+                <Grid Background="#FFE5E5E5">
+                    <TextBox Text="SHy"/>
+                </Grid>
+            </Expander>
+            <RadioButton x:Name="ActiveButton" Grid.Row="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  Checked="ActiveButton_Checked" Panel.ZIndex="1" Margin="27,38,259,38"/>
+            <Label  Content="Active Orders" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Active_MouseLeftButtonUp"/>
+            <RadioButton x:Name="DeliveredButton" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Checked="DeliveredButton_Checked" Panel.ZIndex="1" Margin="27,38,259,38" />
+            <Label Content="Delivered Orders" Grid.Row="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Deliverd_MouseLeftButtonUp"/>
+            <Button Content="Edit your profile" HorizontalAlignment="Center" Grid.Row="10" VerticalAlignment="Center" Width="150" Click="Button_Click"/>
 
-        private void UnsentButton_Checked(object sender, RoutedEventArgs e)
-        {
-            Clear_window();
-            LittleTitle.Content = "Unsent orders";
-            DeleteImg.Visibility = Visibility.Visible;
-            EditImg.Visibility = Visibility.Visible;
-            EditImg.ToolTip = "Edit The Orders";
-            SendImg.Visibility = Visibility.Visible;
-            ArivedImg.Visibility = Visibility.Collapsed;
-            Window_Loaded_Active(sender as RadioButton, item => item.Date == DateTime.MinValue && !item.Delivered);
-        }
-        private void ActiveButton_Checked(object sender, RoutedEventArgs e)
-        {
-            Clear_window();
-            LittleTitle.Content = "Active orders";
-            DeleteImg.Visibility = Visibility.Collapsed;
-            EditImg.Visibility = Visibility.Collapsed;
-            SendImg.Visibility = Visibility.Collapsed;
-            ArivedImg.Visibility = Visibility.Visible;
-            Window_Loaded_Active(sender as RadioButton, item => item.Date != DateTime.MinValue && !item.Delivered);
-        }
-        private void DeliveredButton_Checked(object sender, RoutedEventArgs e)
-        {
-            Clear_window();
-            LittleTitle.Content = "Delivered orders";
-            DeleteImg.Visibility = Visibility.Visible;
-            EditImg.Visibility = Visibility.Visible;
-            EditImg.ToolTip = "Look at the specific of the order";
-            SendImg.Visibility = Visibility.Collapsed;
-            ArivedImg.Visibility = Visibility.Collapsed;
-            Window_Loaded_Active(sender as RadioButton, item =>item.Delivered);
-        }
 
-        //private void Unsent_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    UnsentButton.IsChecked = true;
-        //}
+        </Grid>-->
 
-        //private void Active_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    ActiveButton.IsChecked = true;
-        //}
-
-        //private void Deliverd_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    DeliveredButton.IsChecked = true;
-        //}
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Clear_window();
-            LittleTitle.Content = "Profile editing is in progress";
-            new ClientEditor(user).ShowDialog();
-            if (UnsentButton.IsChecked != true)
-                UnsentButton.IsChecked = true;
-            else
-                UnsentButton_Checked(UnsentButton, null);
-            
-
-        }
-
-        private void Expender_Expanded(object sender, RoutedEventArgs e)
-        {
-            if (e.OriginalSource == sender)
-            {
-                CloseOthersExpenders(sender, null);
-                GetRadioChecked().IsChecked = true;
-                (((sender as Expander).Content as ScrollViewer).Content as StackPanel).Children.RemoveRange(0, (((sender as Expander).Content as ScrollViewer).Content as StackPanel).Children.Count);
-                Expander exp;
-                StackPanel temp;
-                TextBox text;
-                Button btn;
-                foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && GetPredicte()(item)))
-                {
-                    exp = new Expander();
-                    text = new TextBox();
-                    exp.Expanded += CloseOthersExpenders;
-                    text.Foreground = Brushes.Black;
-                    text.FontFamily=new FontFamily("Comic Sans MS");
-                    text.Background =Brushes.DarkRed;
-                    text.Text = item.ToString();
-                    exp.Header = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ID == item.BranchID).First().Name + " " + item.Address;
-                    exp.ToolTip = (item.Date == DateTime.MinValue) ? "Not sended" : item.Date.ToShortDateString();
-                    btn = new Button();
-                    btn.Content = "Open Order";
-                    btn.Click += OpenOrder;
-                    btn.Resources.Add("ID", item.ID);
-                    temp = new StackPanel();
-                    temp.Children.Add(text);
-                    temp.Children.Add(btn);
-                    exp.Content = temp;
-                    (((sender as Expander).Content as ScrollViewer).Content as StackPanel).Children.Add(exp);
-                }
-            }
-        }
-        void CloseOthersExpenders(object sender, EventArgs s)
-        {
-            foreach (object item in ((sender as Expander).Parent as StackPanel).Children)
-                if (item.GetType() == typeof(Expander))
-                    if (sender.GetHashCode() != item.GetHashCode())
-                        (item as Expander).IsExpanded = false;
-        }
-        void OpenOrder(object sender, EventArgs e)
-        {
-            var temp=(sender as Button).Resources.Values.GetEnumerator();
-            temp.MoveNext();
-            var us = new OrderDeiltes(BL.FactoryBL.getBL().GetAllOrders(item => item.ID == Convert.ToInt32(temp.Current)).First());
-            us.Deleted += Restart;
-            us.Sended += Restart;
-            us.Updated += Restart;
-            us.Arived += Restart;
-            subWin.Add(new ShowUserControl(us));
-            subWin.Last().Show();
-        }
-       Func<BE.Order,bool> GetPredicte()
-        {
-             if(UnsentExpender.IsExpanded) 
-                return item => item.Date == DateTime.MinValue && !item.Delivered;
-             else if (ActiveExpender.IsExpanded)
-                 return item => item.Date != DateTime.MinValue && !item.Delivered;
-           else if(DeliveredExpender.IsExpanded)
-               return item =>item.Delivered;
-             return item=>false;
-        }
-       RadioButton GetRadioChecked()
-       {
-           if (UnsentExpender.IsExpanded)
-               return UnsentButton;
-           else if (ActiveExpender.IsExpanded)
-               return ActiveButton;
-           else if (DeliveredExpender.IsExpanded)
-               return DeliveredButton;
-           return null;
-       }
-
-       private void BigGrid_MouseDown(object sender, MouseButtonEventArgs e)
-       {
-           new OrderEditor1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First()).ShowDialog();
-           UnsentButton_Checked(UnsentButton, null);
-       }
-       void MouseClick(object sender, MouseButtonEventArgs e)
-       {
-           bool WasSelected = (sender as OrderDeiltes).Opacity == 1;
-           if (!IsCtrlDown)
-           {
-               foreach (object grid in stackPanel.Children)
-               {
-                   if (grid.GetType() == typeof(Grid))
-                   {
-                       foreach (object item in (grid as Panel).Children)
-                       {
-                           if (item.GetType() == typeof(OrderDeiltes))
-                           {
-                               (item as OrderDeiltes).Opacity = 0.7;
-                               //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                               //(item as OrderDeiltes).BorderBrush = Brushes.Black;
-                           }
-                       }
-                   }
-               }
-           }
-           if (!WasSelected)
-           {
-               (sender as OrderDeiltes).Opacity = 1;
-              // (sender as OrderDeiltes).BorderThickness = new Thickness(2);
-              // (sender as OrderDeiltes).BorderBrush = Brushes.LightBlue;
-           }
-           else if (IsCtrlDown)
-           {
-               (sender as OrderDeiltes).Opacity = 0.7;
-              // (sender as OrderDeiltes).BorderThickness = new Thickness(1);
-             //  (sender as OrderDeiltes).BorderBrush = Brushes.Black;
-           }
-           if(!DoesSelect())
-           {
-               SelectAtLeastOne(false);
-           }
-           else if (DeleteImg.Opacity == 0.7)
-               SelectAtLeastOne(true);
-       }
-       void SelectAtLeastOne(bool IsSelected)
-       {
-           if (IsSelected)
-           {
-               DeleteImg.Opacity = 1;
-               EditImg.Opacity = 1;
-               SendImg.Opacity = 1;
-               ArivedImg.Opacity = 1;
-           }
-           else
-           {
-               DeleteImg.Opacity = 0.7;
-               EditImg.Opacity = 0.7;
-               SendImg.Opacity = 0.7;
-               ArivedImg.Opacity = 0.5;
-           }
-
-       }
-       private void KeyDownCheck(object sender, KeyEventArgs e)
-       {
-           if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
-               IsCtrlDown = true;
-       }
-
-       private void KeyUpCheck(object sender, KeyEventArgs e)
-       {
-           if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
-               IsCtrlDown = false;
-       }
-       bool DoesSelect()
-       {
-           foreach (object grid in stackPanel.Children)
-           {
-               if (grid.GetType() == typeof(Grid))
-               {
-                   foreach (object item in (grid as Panel).Children)
-                   {
-                       if (item.GetType() == typeof(OrderDeiltes))
-                       {
-                           if ((item as OrderDeiltes).Opacity == 1)
-                               return true;
-
-                       }
-                   }
-               }
-           }
-            return false;
-       }
-       private void Delete_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-       {
-           if (DeleteImg.Opacity == 0.7)
-               return;
-           if (MessageBoxResult.Yes == MessageBox.Show(((DeliveredButton.IsChecked == true) ? "It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer\n" : "") + "Are you sure you want to delete this orders?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
-               foreach (object grid in stackPanel.Children)
-               {
-                   if (grid.GetType() == typeof(Grid))
-                   {
-                       foreach (object item in (grid as Panel).Children)
-                       {
-                           if (item.GetType() == typeof(OrderDeiltes))
-                           {
-                               if ((item as OrderDeiltes).Opacity == 1)
-                                   (item as OrderDeiltes).DeleteOrder();
-                               //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                               //(item as OrderDeiltes).BorderBrush = Brushes.Black;
-                           }
-                       }
-                   }
-               }
-           Restart(this,null);
-       }
-       private void Edit_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-       {
-           if (EditImg.Opacity == 0.7)
-               return;
-                         foreach (object grid in stackPanel.Children)
-               {
-                   if (grid.GetType() == typeof(Grid))
-                   {
-                       foreach (object item in (grid as Panel).Children)
-                       {
-                           if (item.GetType() == typeof(OrderDeiltes))
-                           {
-                               if ((item as OrderDeiltes).Opacity == 1)
-                                   (item as OrderDeiltes).UpdateOrder();
-                               //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                               //(item as OrderDeiltes).BorderBrush = Brushes.Black;
-                           }
-                       }
-                   }
-               }
-           Restart(this, null);
-       }
-       private void Send_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-       {
-           if (SendImg.Opacity == 0.7)
-               return;
-           if ( MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send all of this orders?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
-               foreach (object grid in stackPanel.Children)
-               {
-                   if (grid.GetType() == typeof(Grid))
-                   {
-                       foreach (object item in (grid as Panel).Children)
-                       {
-                           if (item.GetType() == typeof(OrderDeiltes))
-                           {
-                               if ((item as OrderDeiltes).Opacity == 1)
-                                   (item as OrderDeiltes).SendOrder();
-                               //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                               //(item as OrderDeiltes).BorderBrush = Brushes.Black;
-                           }
-                       }
-                   }
-               }
-           Restart(this, null);
-       }
-       private void Arived_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-       {
-           if (ArivedImg.Opacity == 0.5)
-               return;
-           foreach (object grid in stackPanel.Children)
-               {
-                   if (grid.GetType() == typeof(Grid))
-                   {
-                       foreach (object item in (grid as Panel).Children)
-                       {
-                           if (item.GetType() == typeof(OrderDeiltes))
-                           {
-                               if ((item as OrderDeiltes).Opacity == 1)
-                                   (item as OrderDeiltes).ArivedOrder();
-                               //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                               //(item as OrderDeiltes).BorderBrush = Brushes.Black;
-                           }
-                       }
-                   }
-               }
-           Restart(this, null);
-       }
-
-       private void LogOut_Click(object sender, RoutedEventArgs e)
-       {
-           if(MessageBoxResult.Yes==MessageBox.Show("Are you sure you want to log out?","Log out?",MessageBoxButton.YesNo))
-           {
-               new MainInterface().Show();
-               this.Close();
-           }
-       }
-    }
-}
+    </Grid>
+</Window>
