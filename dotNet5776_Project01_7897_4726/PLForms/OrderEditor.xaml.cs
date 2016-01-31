@@ -37,8 +37,8 @@ namespace PLForms
                 HomeCheckBox_UnChecked(this,null);
             if (ReadOnly)
             {
-                AddImg.Visibility = Visibility.Collapsed;
-                SendImg.Visibility = Visibility.Collapsed;
+                AddBtn.Visibility = Visibility.Collapsed;
+                SendBtn.Visibility = Visibility.Collapsed;
                 HomeCheckBox.Visibility = Visibility.Collapsed;
                 addressBox.IsEnabled = false;
             }

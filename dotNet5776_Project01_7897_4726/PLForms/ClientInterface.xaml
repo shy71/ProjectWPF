@@ -12,8 +12,12 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" FontSize="24" Click="LogOut_Click"/>
-        <Image x:Name="add" Source="Images/Add.png" Height="150" Width="150" PreviewMouseDown="BigGrid_MouseDown"/>
+        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" FontSize="24" Click="LogOut_Click" Panel.ZIndex="1"/>
+        <Button x:Name="addBtn" Height="150" Width="150" Click="addBtn_Click" Background="Transparent">
+            <Button.Content>
+                <Image Source="Images/Add.png"/>
+            </Button.Content>
+        </Button>
         <ScrollViewer Grid.Column="1"  VerticalScrollBarVisibility="Auto" Grid.RowSpan="1">
             <StackPanel>
                 <Label x:Name="MainTitle" HorizontalContentAlignment="Center" FontSize="50"/>
@@ -46,16 +50,29 @@
                     </StackPanel>
                 </ScrollViewer>
             </Expander>
-
-
         </StackPanel>
         <Button Content="Edit your profile" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Click="Button_Click" Margin="74,0" Grid.Row="1"/>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
-            <Image x:Name="DeleteImg" Source="Images\delete-b.jpg" Margin="0,0,30,0" PreviewMouseDown="Delete_PreviewMouseDown" Visibility="Collapsed" ToolTip="Delete The Orders"/>
-            <Image x:Name="EditImg" Source="Images\Edit.png" Margin="0,0,30,0" PreviewMouseDown="Edit_PreviewMouseDown" Visibility="Collapsed"/>
-            <Image x:Name="SendImg" Source="Images\Send2.jpg" Margin="0,0,30,0" PreviewMouseDown="Send_PreviewMouseDown" Visibility="Collapsed" ToolTip="Send The Orders"/>
-            <Image x:Name="ArivedImg" Source="Images\data_arrived1.png" Margin="0,0,30,0" PreviewMouseDown="Arived_PreviewMouseDown" Visibility="Collapsed" ToolTip="Report The Orders as arived"/>
-
+            <Button x:Name="DeleteBtn"  Margin="0,0,30,0" Click="DeleteBtn_Click" Visibility="Collapsed"  ToolTip="Delete The Orders">
+                <Button.Content>
+                    <Image Source="Images/delete-b.jpg"/>
+                </Button.Content>
+            </Button>
+            <Button x:Name="EditBtn"  Margin="0,0,30,0" Click="EditBtn_Click" Visibility="Collapsed" ToolTip="Delete The Orders">
+                <Button.Content>
+                    <Image Source="Images\Edit.png" Stretch="Uniform"/>
+                </Button.Content>
+            </Button>
+            <Button x:Name="SendBtn"  Margin="0,0,30,0" Click="SendBtn_Click" Visibility="Collapsed" ToolTip="Delete The Orders">
+                <Button.Content>
+                    <Image Source="Images\Send2.jpg" Stretch="Uniform"/>
+                </Button.Content>
+            </Button>
+            <Button x:Name="ArivedBtn"  Margin="0,0,30,0" Click="ArivedBtn_Click" Visibility="Collapsed" ToolTip="Delete The Orders">
+                <Button.Content>
+                    <Image Source="Images\data_arrived1.png" Stretch="Uniform"/>
+                </Button.Content>
+            </Button>
         </StackPanel>
 
         <!--<Grid  Grid.Column="0">

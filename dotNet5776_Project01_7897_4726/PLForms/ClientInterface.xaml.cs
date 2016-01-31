@@ -69,8 +69,8 @@ namespace PLForms
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //UnsentButton.IsChecked = true;
-            if (add.Parent != null)
-                (add.Parent as Grid).Children.Remove(add);
+            if (addBtn.Parent != null)
+                (addBtn.Parent as Grid).Children.Remove(addBtn);
             LittleTitle.Content = "";
         }
         void Clear_window()
@@ -80,9 +80,9 @@ namespace PLForms
             MainTitle.FontSize = 35;
             stackPanel.Children.RemoveRange(1, stackPanel.Children.Count - 1);
             numOfOrders = 0;
-            add.Visibility = Visibility.Hidden;
-            if (add.Parent != null)
-                (add.Parent as Grid).Children.Remove(add);
+            addBtn.Visibility = Visibility.Hidden;
+            if (addBtn.Parent != null)
+                (addBtn.Parent as Grid).Children.Remove(addBtn);
 
         }
 
@@ -148,9 +148,9 @@ namespace PLForms
                 var tempEnumrator = stackPanel.Children.GetEnumerator();
                 for (int i = 0; i < ((int)(numOfOrders / 4)) * 2 + 3; i++)
                     tempEnumrator.MoveNext();
-                add.Visibility = Visibility.Visible;
-                (tempEnumrator.Current as Grid).Children.Add(add);
-                Grid.SetColumn(add, 3);
+                addBtn.Visibility = Visibility.Visible;
+                (tempEnumrator.Current as Grid).Children.Add(addBtn);
+                Grid.SetColumn(addBtn, 3);
             }
         }
 
@@ -158,32 +158,32 @@ namespace PLForms
         {
             Clear_window();
             LittleTitle.Content = "Unsent orders";
-            DeleteImg.Visibility = Visibility.Visible;
-            EditImg.Visibility = Visibility.Visible;
-            EditImg.ToolTip = "Edit The Orders";
-            SendImg.Visibility = Visibility.Visible;
-            ArivedImg.Visibility = Visibility.Collapsed;
+            DeleteBtn.Visibility = Visibility.Visible;
+            EditBtn.Visibility = Visibility.Visible;
+            EditBtn.ToolTip = "Edit The Orders";
+            SendBtn.Visibility = Visibility.Visible;
+            ArivedBtn.Visibility = Visibility.Collapsed;
             Window_Loaded_Active(sender as RadioButton, item => item.Date == DateTime.MinValue && !item.Delivered);
         }
         private void ActiveButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
             LittleTitle.Content = "Active orders";
-            DeleteImg.Visibility = Visibility.Collapsed;
-            EditImg.Visibility = Visibility.Collapsed;
-            SendImg.Visibility = Visibility.Collapsed;
-            ArivedImg.Visibility = Visibility.Visible;
+            DeleteBtn.Visibility = Visibility.Collapsed;
+            EditBtn.Visibility = Visibility.Collapsed;
+            SendBtn.Visibility = Visibility.Collapsed;
+            ArivedBtn.Visibility = Visibility.Visible;
             Window_Loaded_Active(sender as RadioButton, item => item.Date != DateTime.MinValue && !item.Delivered);
         }
         private void DeliveredButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
             LittleTitle.Content = "Delivered orders";
-            DeleteImg.Visibility = Visibility.Visible;
-            EditImg.Visibility = Visibility.Visible;
-            EditImg.ToolTip = "Look at the specific of the order";
-            SendImg.Visibility = Visibility.Collapsed;
-            ArivedImg.Visibility = Visibility.Collapsed;
+            DeleteBtn.Visibility = Visibility.Visible;
+            EditBtn.Visibility = Visibility.Visible;
+            EditBtn.ToolTip = "Look at the specific of the order";
+            SendBtn.Visibility = Visibility.Collapsed;
+            ArivedBtn.Visibility = Visibility.Collapsed;
             Window_Loaded_Active(sender as RadioButton, item => item.Delivered);
         }
 
@@ -288,12 +288,6 @@ namespace PLForms
                 return DeliveredButton;
             return null;
         }
-
-        private void BigGrid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            new OrderEditor1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First()).ShowDialog();
-            UnsentButton_Checked(UnsentButton, null);
-        }
         void MouseClick(object sender, MouseButtonEventArgs e)
         {
             bool WasSelected = (sender as OrderDeiltes).Opacity == 1;
@@ -331,24 +325,32 @@ namespace PLForms
             {
                 SelectAtLeastOne(false);
             }
-            else if (DeleteImg.Opacity == 0.7)
+            else if (DeleteBtn.IsEnabled == false)
                 SelectAtLeastOne(true);
         }
         void SelectAtLeastOne(bool IsSelected)
         {
             if (IsSelected)
             {
-                DeleteImg.Opacity = 1;
-                EditImg.Opacity = 1;
-                SendImg.Opacity = 1;
-                ArivedImg.Opacity = 1;
+                DeleteBtn.IsEnabled = true;
+                EditBtn.IsEnabled = true;
+                SendBtn.IsEnabled = true;
+                ArivedBtn.IsEnabled = true;
+                DeleteBtn.Opacity = 1;
+                EditBtn.Opacity = 1;
+                SendBtn.Opacity = 1;
+                ArivedBtn.Opacity = 1;
             }
             else
             {
-                DeleteImg.Opacity = 0.7;
-                EditImg.Opacity = 0.7;
-                SendImg.Opacity = 0.7;
-                ArivedImg.Opacity = 0.5;
+                DeleteBtn.IsEnabled = false;
+                EditBtn.IsEnabled = false;
+                SendBtn.IsEnabled = false;
+                ArivedBtn.IsEnabled = false;
+                DeleteBtn.Opacity = 0.7;
+                EditBtn.Opacity = 0.7;
+                SendBtn.Opacity = 0.7;
+                ArivedBtn.Opacity = 0.7;
             }
 
         }
@@ -382,10 +384,24 @@ namespace PLForms
             }
             return false;
         }
-        private void Delete_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void LogOut_Click(object sender, RoutedEventArgs e)
         {
-            if (DeleteImg.Opacity == 0.7)
-                return;
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to log out?", "Log out?", MessageBoxButton.YesNo))
+            {
+                new MainInterface().Show();
+                this.Close();
+            }
+        }
+
+        private void addBtn_Click(object sender, RoutedEventArgs e)
+        
+            {
+                new OrderEditor1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First()).ShowDialog();
+                UnsentButton_Checked(UnsentButton, null);
+            }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
             if (MessageBoxResult.Yes == MessageBox.Show(((DeliveredButton.IsChecked == true) ? "It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer\n" : "") + "Are you sure you want to delete this orders?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
                 foreach (object grid in stackPanel.Children)
                 {
@@ -405,10 +421,8 @@ namespace PLForms
                 }
             Restart(this, null);
         }
-        private void Edit_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (EditImg.Opacity == 0.7)
-                return;
             foreach (object grid in stackPanel.Children)
             {
                 if (grid.GetType() == typeof(Grid))
@@ -427,10 +441,8 @@ namespace PLForms
             }
             Restart(this, null);
         }
-        private void Send_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void SendBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (SendImg.Opacity == 0.7)
-                return;
             if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send all of this orders?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
                 foreach (object grid in stackPanel.Children)
                 {
@@ -450,10 +462,8 @@ namespace PLForms
                 }
             Restart(this, null);
         }
-        private void Arived_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void ArivedBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (ArivedImg.Opacity == 0.5)
-                return;
             foreach (object grid in stackPanel.Children)
             {
                 if (grid.GetType() == typeof(Grid))
@@ -472,14 +482,6 @@ namespace PLForms
             }
             Restart(this, null);
         }
-
-        private void LogOut_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to log out?", "Log out?", MessageBoxButton.YesNo))
-            {
-                new MainInterface().Show();
-                this.Close();
-            }
-        }
+        
     }
 }
