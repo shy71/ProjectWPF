@@ -71,9 +71,6 @@
     <Compile Include="OrderEditor.xaml.cs">
       <DependentUpon>OrderEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DishOrderManger.xaml.cs">
-      <DependentUpon>DishOrderManger.xaml</DependentUpon>
-    </Compile>
     <Compile Include="OrderDeiltes.xaml.cs">
       <DependentUpon>OrderDeiltes.xaml</DependentUpon>
     </Compile>
@@ -158,10 +155,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClientEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DishOrderManger.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
