@@ -66,9 +66,10 @@ namespace PLForms
         }
         public void SetBinding(object BindingObject, string PropertyName, BindingMode Mode = BindingMode.OneWay)
         {
+            var temp=BindingObject.GetType().GetProperty(PropertyName);
             myBind = new Binding();
             myBind.Source = BindingObject;
-            myBind.Path = new PropertyPath(BindingObject.GetType().GetProperty(PropertyName));
+            myBind.Path = new PropertyPath(temp);
             myBind.Mode = Mode;
             myBind.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
         }
