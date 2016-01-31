@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <Button x:Name="AddBranchButton" Grid.Row="1" Grid.Column="0" Content="Add a new branch" FontSize="20" Click="AddBranchButton_Click" >
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=DeleteBranchButton,Path=Visibility}" Value="Visible">
                             <Setter Property="Button.Visibility" Value="Visible"/>
@@ -31,7 +31,7 @@
         </Button>
         <Button x:Name="DeleteBranchButton" Grid.Row="2" Grid.Column="0" Content="Delete a branch" FontSize="20" Click="DeleteBranchButton_Click">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=UpdateBranchButton,Path=Visibility}" Value="Visible">
                             <Setter Property="Button.Visibility" Value="Visible"/>
@@ -45,7 +45,7 @@
         </Button>
         <Button x:Name="UpdateBranchButton" Grid.Row="3" Grid.Column="0" Content="Update a branch" FontSize="20" Click="UpdateUserButton_Click">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=AddNewBranchManagerButton,Path=Visibility}" Value="Visible">
                             <Setter Property="Button.Visibility" Value="Visible"/>
@@ -59,7 +59,7 @@
         </Button>
         <Button x:Name="AddNewBranchManagerButton" Grid.Row="1" Grid.Column="1" Content="Appoint a new branch manager" FontSize="17" Click="AddNewBranchManagerButton_Click">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Visible">
                             <Setter Property="Button.Visibility" Value="Visible"/>
@@ -73,7 +73,7 @@
         </Button>
         <Button x:Name="AddNewNetworkManagerButton" Content="Appoint the new network manager" Visibility="Hidden" FontSize="15" Click="AddNewNetworkManagerButton_Click" Grid.Column="1" Grid.Row="2">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                     <Setter Property="Button.Visibility" Value="Hidden"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=PrintDB ,Path=Visibility}" Value="Visible">
@@ -93,7 +93,7 @@
         <Button x:Name="PrintDB" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Show Data Base" FontSize="50" Click="PrintDB_Click"/>
         <!--Button x:Name="PrintAllClientsButton" Grid.Row="5" Grid.ColumnSpan="2" FontSize="20" Click="PrintAllClientsButton_Click">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                     <Setter Property="Button.Visibility" Value="Visible"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton ,Path=Visibility}" Value="Visible">
@@ -109,42 +109,42 @@
         </Button-->
         <Button x:Name="PrintBestDishButton" Grid.Row="2" Grid.Column="1" FontSize="20" Click="PrintBestDishButton_Click" Visibility="{Binding ElementName=PrintDB, Path=Visibility}">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
             </Button.Style>
             <TextBlock HorizontalAlignment="Center">Show the dish purchased<LineBreak/>the most in the network</TextBlock>
         </Button>
         <Button x:Name="PrintBestClientButton" Grid.Row="1" Grid.Column="1" FontSize="20" Click="PrintBestClientButton_Click"  Visibility="{Binding ElementName=PrintDB, Path=Visibility}">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
             </Button.Style>
             <TextBlock>Show the best client<LineBreak/>in all of the network</TextBlock>
         </Button>
         <Button x:Name="GetProfitDetails" Grid.Row="2" FontSize="20" Click="GetProfitDetails_Click" Visibility="{Binding ElementName=PrintDB, Path=Visibility}">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
             </Button.Style>
             <TextBlock>Show the profit details<LineBreak/>in all of the network</TextBlock>
         </Button>
         <Button x:Name="PrintBestBranchButton" Grid.Row="1" FontSize="20" Click="PrintBestBranchButton_Click" Visibility="{Binding ElementName=PrintDB, Path=Visibility}">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
             </Button.Style>
             <TextBlock>Show the best branch<LineBreak/>in the network</TextBlock>
         </Button>
         <!--Button x:Name="PrintAllDishesButton" Grid.Row="3" Grid.ColumnSpan="2" Content="Show all the dishes" FontSize="20" Click="PrintAllDishesButton_Click" Visibility="{Binding ElementName=PrintAllClientsButton, Path=Visibility}">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
             </Button.Style>
         </>
         <Button x:Name="PrintAllBranchesButton" Grid.Row="4" Grid.ColumnSpan="2" Content="Show all the Branches" FontSize="20" Click="PrintAllBranchesButton_Click" Visibility="{Binding ElementName=PrintAllClientsButton, Path=Visibility}">
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button"/>
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
             </Button.Style>
         </Button-->
         
         <Button x:Name="UpdateUserButton" Grid.RowSpan="3" Grid.Row="2" Content="Change your details" FontSize="50" Click="UpdateUserButton_Click" Grid.ColumnSpan="2" >
             <Button.Style>
-                <Style BasedOn="{StaticResource StyleButton}" TargetType="Button">
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                     <Setter Property="Button.Visibility" Value="Visible"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=PrintDB ,Path=Visibility}" Value="Visible">

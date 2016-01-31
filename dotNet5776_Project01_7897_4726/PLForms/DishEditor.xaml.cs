@@ -94,6 +94,7 @@ namespace PLForms
                 }
                 
                 MessageBox.Show("The dish " + dish.Name + " was " + ((IsUpdated) ? "Updated!" : "created!"), "Dish" + ((IsUpdated) ? "Updated!" : "created"), MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
             }
             catch (Exception exp)
             {

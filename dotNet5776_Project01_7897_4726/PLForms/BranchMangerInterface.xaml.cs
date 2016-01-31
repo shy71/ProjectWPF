@@ -28,7 +28,7 @@ namespace PLForms
         public BranchMangerInterface(BE.User user):this()
         {
 
-            branch = BL.FactoryBL.getBL().GetAllBranchs(item => user.ItemID == item.ID).First();
+            branch = BL.FactoryBL.getBL().GetAllBranchs(item => user.ItemID == item.ID).FirstOrDefault();
             if(branch==null)
             {
                 MessageBox.Show("Sorry, you dont have a branch assinged to you at the moment");
@@ -57,6 +57,11 @@ namespace PLForms
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             new UserEditor(user).ShowDialog();
+        }
+
+        private void addDish_Click(object sender, RoutedEventArgs e)
+        {
+            new DishEditor().ShowDialog();
         }
     }
 }

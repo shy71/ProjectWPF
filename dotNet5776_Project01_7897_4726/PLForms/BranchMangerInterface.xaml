@@ -7,7 +7,7 @@
             <RowDefinition Height="7*"/>
             <RowDefinition Height="47*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="deitles" HorizontalAlignment="Left" Loaded="deitles_Loaded"/>
+        <Label x:Name="deitles" HorizontalAlignment="Left" Loaded="deitles_Loaded" FontSize="24"/>
         <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" FontSize="14" Click="LogOut_Click"/>
         <Button x:Name="Edit" Content="Edit your profile" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Click="Edit_Click" Grid.Row="1"/>
         <StackPanel Grid.Row="1">
@@ -19,7 +19,7 @@
                 </Style>
             </StackPanel.Resources>
 
-            <Button x:Name="addDish"  Content="Add Dish!" />
+            <Button x:Name="addDish"  Content="Add Dish!" Click="addDish_Click" />
             <Button x:Name="mangeBtn"  Content="Fire/hire workers!"/>
             <Button x:Name="staticBtn" Content="Look at the Branch statics"/>
                 

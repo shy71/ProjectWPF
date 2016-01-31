@@ -53,6 +53,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BranchMangerInterface.xaml.cs">
+      <DependentUpon>BranchMangerInterface.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ClientInterface.xaml.cs">
       <DependentUpon>ClientInterface.xaml</DependentUpon>
     </Compile>
@@ -104,12 +107,19 @@
     <Compile Include="ShowUserControl.xaml.cs">
       <DependentUpon>ShowUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Stick Diagram.xaml.cs">
+      <DependentUpon>Stick Diagram.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TextControl.xaml.cs">
       <DependentUpon>TextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserEditor.xaml.cs">
       <DependentUpon>UserEditor.xaml</DependentUpon>
     </Compile>
+    <Page Include="BranchMangerInterface.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ClientInterface.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -205,6 +215,10 @@
     <Page Include="ShowUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Stick Diagram.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="TextControl.xaml">
       <SubType>Designer</SubType>

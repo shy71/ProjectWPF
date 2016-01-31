@@ -71,7 +71,7 @@ namespace PLForms
                                 new ClientInterface(user).Show();
                                 break;
                             case BE.UserType.BranchManger:
-                                //open branch manger window
+                                new BranchMangerInterface(user).Show();
                                 break;
                             case BE.UserType.NetworkManger:
                                 new NetworkManagerInterface(user).Show();
