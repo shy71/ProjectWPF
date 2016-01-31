@@ -10,119 +10,98 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PLForms
 {
     /// <summary>
-    /// Interaction logic for DishEditor.xaml
+    /// Interaction logic for DishOrder.xaml
     /// </summary>
-    public partial class DishEditor : Window
+    public partial class DishOrder : UserControl
     {
+        static EventHandler<BE.EventValue> Refresh;
+        public EventHandler<BE.EventValue> AmountChanged;
         BE.Dish dish;
-        BE.Kashrut kosher;
-        bool IsUpdated=false;
-        public DishEditor()
+        int DsID;
+        BE.Order order;
+        public DishOrder()
         {
             InitializeComponent();
         }
-        //public DishEditor(BE.Kashrut kosher)
-        //{
-        //    InitializeComponent();
-        //    KashrutCombo.ItemsSource = from item in typeof(BE.Kashrut).GetEnumValues().Cast<BE.Kashrut>()
-        //                         where item >= kosher
-        //                         select typeof(BE.Kashrut).GetEnumName(item);
-        //    SizeCombo.ItemsSource = Enum.GetValues(typeof(BE.Size));
-        //    dish = new BE.Dish();
-        //    this.kosher = kosher;
-        //}
-        //public DishEditor(BE.Dish dish)
-        //{
-        //    InitializeComponent();
-        //    KashrutCombo.ItemsSource =typeof(BE.Kashrut).GetEnumValues();
-        //    SizeCombo.ItemsSource = Enum.GetValues(typeof(BE.Size));
-        //    this.dish = dish;
-        //    IsUpdated = true;
-        //}
-
-        //private void nameBox_Changed(object sender, BE.EventValue e)
-        //{
-        //    dish.Name = e.Value.ToString();
-        //}
-
-        //private void priceBox_Changed(object sender, BE.EventValue e)
-        //{
-        //    float num;
-        //    if(priceBox.ForeG==Brushes.Gray)
-        //    {
-        //        return;
-        //    }
-        //    else if (float.TryParse(e.Value.ToString(), out num) && num > 0)
-        //    {
-        //        priceBox.SetText(num.ToString());
-        //        dish.Price = num;
-        //    }
-        //    else
-        //        priceBox.Clear();
-
-        //}
-
-        //private void dishCombo_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    dishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs(item2 => item2.Kosher >= kosher);
-        //    dishCombo.DisplayMemberPath = "Name";
-        //    dishCombo.SelectedValuePath = "ID";
-        //    if (dishCombo.Items.Count == 0)
-        //    {
-        //        dishCombo.IsEnabled = false;
-        //        dishCombo.ToolTip = "There isnt any dishs in this level to pick from!";
-        //    }
-        //}
-
-        //private void idBox_Changed(object sender, BE.EventValue e)
-        //{
-        //    int num;
-        //    if (idBox. ForeG == Brushes.Gray)
-        //    {
-        //        return;
-        //    }
-        //    else  if (priceBox.ForeG != Brushes.Gray && int.TryParse(e.Value.ToString(), out num) && num > 0)
-        //    {
-        //        idBox.SetText(num.ToString());
-        //        dish.ID = num;
-        //    }
-        //    else
-        //        idBox.Clear();
-
-        //}
-
-        //private void DoButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        dish.Size = (BE.Size)dishCombo.SelectedValue;
-        //        dish.Kosher = (BE.Kashrut)KashrutCombo.SelectedValue;
-        //        if (dish.Price == 0)
-        //            throw new Exception("The price cant be 0!");
-        //        if (idBox.IsEnabled == true && idBox.ForeG == Brushes.Gray)
-        //            throw new Exception("The ID cant be empty! fill it or check it to be assingend autmiticaly");
-        //        if (!IsUpdated)
-        //        {
-        //            BL.FactoryBL.getBL().AddDish(dish);
-        //        }
-        //        else
-        //            BL.FactoryBL.getBL().UpdateDish(dish);
-        //        MessageBox.Show("The dish " + dish.Name + " was " + ((IsUpdated) ? "Updated!" : "created!"), "Branch created", MessageBoxButton.OK, MessageBoxImage.Information);
-        //    }
-        //    catch(Exception exp)
-        //    {
-        //        MessageBox.Show(exp.Message);
-        //    }
-        //}
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
+        public DishOrder(BE.DishOrder ds,bool ReadOnly=false)
+        {
+            InitializeComponent();//eror dish doesnt exist
+            dish = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == ds.DishID).First();
+            DsID = ds.ID;    
+            this.DataContext = dish;
+            order = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ds.OrderID).First();
+            Amount.Text = ds.DishAmount.ToString();
+            AmountGrid.ToolTip = dish.Price * ds.DishAmount + "$";
+            //AmountGrid.DataContext = ds; doesnt work like that
+            Details.Text = dish.ToString().Substring(dish.ToString().IndexOf("\n")+2).Replace("\t","");
+            Refresh += RefreshBtn;
+            RefreshBtn(this, new BE.EventValue(BL.FactoryBL.getBL().PriceOfOrder(order), order.ID.ToString()));
+            if (ReadOnly)
+            {
+                PlusBtn.IsEnabled = false;
+                MinusBtn.IsEnabled = false;
+            }
+        }
+        private void RefreshBtn(object sender , BE.EventValue e)
+        {
+            if (e.pName != order.ID.ToString())
+                return;
+            if ((Convert.ToInt32(e.Value)) + dish.Price > BL.FactoryBL.getBL().MAX_PRICE)
+            {
+                (PlusBtn).IsEnabled = false;
+                (PlusBtn).ToolTip = "You cant add more from this dish! you will be above the aprooved price of an order";
+            }
+            else
+            {
+                (PlusBtn).IsEnabled = true;
+                (PlusBtn).ToolTip = "Add one dish to the order";
+            }
+        }
+        private void Plus_Click(object sender, RoutedEventArgs e)
+        {
+            //put price in temp integer?
+            //if(BL.FactoryBL.getBL().PriceOfOrder(order)+dish.Price>BL.FactoryBL.getBL().MAX_PRICE)
+            //    MessageBox.Show("Your price will exceed the Max price! please remove some dishs to add this one, or split your order.","Prcie above Max",MessageBoxButton.OK,MessageBoxImage.Error);
+            Amount.Text = (Convert.ToInt32(Amount.Text) + 1).ToString(); ;
+            if (!MinusBtn.IsEnabled)
+                MinusBtn.IsEnabled = true;
+            if (AmountChanged != null)
+                AmountChanged(this, new BE.EventValue(Convert.ToInt32(Amount.Text), DsID.ToString()));
+            if (Refresh != null)
+            Refresh(this, new BE.EventValue(BL.FactoryBL.getBL().PriceOfOrder(order), order.ID.ToString()));
+            AmountGrid.ToolTip = dish.Price * Convert.ToInt32(Amount.Text) + "$";
+        }
+        private void Minus_Click(object sender, RoutedEventArgs e)
+        {
+            //put price in temp integer?
+            //if(BL.FactoryBL.getBL().PriceOfOrder(order)+dish.Price>BL.FactoryBL.getBL().MAX_PRICE)
+            //    MessageBox.Show("Your price will exceed the Max price! please remove some dishs to add this one, or split your order.","Prcie above Max",MessageBoxButton.OK,MessageBoxImage.Error);
+            Amount.Text =(Convert.ToInt32( Amount.Text)-1).ToString();
+            if (Convert.ToInt32(Amount.Text) == 0)
+                MinusBtn.IsEnabled = false;
+            if (AmountChanged != null)
+                AmountChanged(this, new BE.EventValue(Convert.ToInt32(Amount.Text), DsID.ToString()));
+            if(Refresh!=null)
+            Refresh(this, new BE.EventValue(BL.FactoryBL.getBL().PriceOfOrder(order), order.ID.ToString()));
+            AmountGrid.ToolTip = dish.Price * Convert.ToInt32(Amount.Text) + "$";
+        }
+        private void WindowMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (PlusBtn.IsEnabled&&e.Delta > 0)
+                Plus_Click(this, null);
+            else if (MinusBtn.IsEnabled&& e.Delta < 0)
+                Minus_Click(this, null);
+            return;
+        }
+        public void Close()
+        {
+            Refresh-=RefreshBtn;
+        }
     }
 }
