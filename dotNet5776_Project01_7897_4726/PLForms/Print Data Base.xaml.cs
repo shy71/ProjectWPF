@@ -89,14 +89,17 @@ namespace PLForms
             {
                 if (SearchBing.GetText() == null || SearchBing.GetText() == "Search Bing for specifics")
                     AddText();
-                Dishes.Text = "";
-                Orders.Text = "";
-                Branches.Text = "";
-                Clients.Text = "";
-                PrintSearch<BE.Branch>(Branches);
-                PrintSearch<BE.Dish>(Dishes);
-                PrintSearch<BE.Client>(Clients);
-                PrintSearch<BE.Order>(Orders);
+                else
+                {
+                    Dishes.Text = "";
+                    Orders.Text = "";
+                    Branches.Text = "";
+                    Clients.Text = "";
+                    PrintSearch<BE.Branch>(Branches);
+                    PrintSearch<BE.Dish>(Dishes);
+                    PrintSearch<BE.Client>(Clients);
+                    PrintSearch<BE.Order>(Orders);
+                }
             }
         }
     }
