@@ -5,29 +5,32 @@
         Title="Print_Data_Base" Height="300" Width="489">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.4*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="2">
-            <StackPanel x:Name="MainStack">
-                <Expander x:Name="DishExp">
-                    <TextBlock x:Name="Dishes" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod"/>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel x:Name="MainStack" VerticalAlignment="Top">
+                <Expander x:Name="DishExp" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod">
+                    <StackPanel x:Name="DishStack" Margin="40,0,0,0">  
+                    </StackPanel>
                 </Expander>
-                <Expander x:Name="BranchExp">
-                    <TextBlock x:Name="Branches" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod"/>
+                <Expander x:Name="BranchExp" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod">
+                    <StackPanel x:Name="BranchStack"  Margin="40,0,0,0">
+                    </StackPanel>
                 </Expander>
-                <Expander x:Name="OrderExp">
-                    <TextBlock x:Name="Orders" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod"/>
+                <Expander x:Name="OrderExp" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod">
+                    <StackPanel x:Name="OrderStack" Margin="40,0,0,0">
+                    </StackPanel>
                 </Expander>
-                <Expander x:Name="ClientsExp">
-                    <TextBlock x:Name="Clients" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod"/>
+                <Expander x:Name="ClientExp" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod">
+                    <StackPanel x:Name="ClientStack" Margin="40,0,0,0">
+                    </StackPanel>
                 </Expander>
                 <!--TextBlock x:Name="DataBase" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod"/-->
             </StackPanel>
         </ScrollViewer>
-        <Button x:Name="Ok" Grid.Row="3" Content="OK" Click="Ok_Click" FontSize="20" Margin="80,0,80,0"/>
-        <local:TextControl x:Name="SearchBing" HorizontalAlignment="Left" Changed="SearchBing_Changed" Width="481" Height="40" Grid.Row="1" VerticalAlignment="Top"/>
+        <Button x:Name="Ok" Grid.Row="2" Content="OK" Click="Ok_Click" FontSize="20" Margin="80,0,80,0"/>
+        <local:TextControl x:Name="SearchBing" Str="Search Bing for specifics" Changed="SearchBing_Changed" Grid.Row="0"/>
     </Grid>
 </Window>

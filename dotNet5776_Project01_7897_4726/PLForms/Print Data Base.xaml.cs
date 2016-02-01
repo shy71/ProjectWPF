@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,45 +19,89 @@ namespace PLForms
     /// </summary>
     public partial class Print_Data_Base : Window
     {
-        internal void AddText()
+        internal void ClearToBase()
         {
-            Dishes.Text = "";
-            Branches.Text = "";
-            Orders.Text = "";
-            Clients.Text = "";
             BL.IBL myBL = BL.FactoryBL.getBL();
-            Orders.Text += "\nOrders\n";
-            IEnumerable<BE.Order> OrderList = myBL.GetAllOrders();
-            foreach (BE.Order item in OrderList)
+            RefreshDishs(myBL.GetAllDishs());
+            RefreshBranchs(myBL.GetAllBranchs());
+            RefreshClients(myBL.GetAllClients());
+            RefreshOrders(myBL.GetAllOrders());
+            Refresh();
+        }
+        void RefreshDishs(IEnumerable<BE.Dish> list)//לנסות להפוך לגנרי
+        {
+            Expander exp;
+            DishExp.Header = "Dishs";
+            DishStack.Children.Clear();
+            foreach (BE.Dish item in list)
             {
-                Orders.Text += (item.ToString() + "\n");
+                exp = new Expander();
+                exp.Content = item.ToString();
+                exp.Header = item.Name;
+                DishStack.Children.Add(exp);
             }
-            Dishes.Text += "\nDishes:\n";
-            IEnumerable<BE.Dish> DishList = myBL.GetAllDishs();
-            foreach (BE.Dish item in DishList)
+            if (DishStack.Children.Count == 0)
+                DishExp.Visibility = Visibility.Collapsed;
+            else
+                DishExp.Visibility = Visibility.Visible;
+        }
+        void RefreshOrders(IEnumerable<BE.Order> list)
+        {
+            Expander exp;
+            OrderExp.Header = "Orders";
+            OrderStack.Children.Clear();
+            foreach (BE.Order item in list)//פתרון לא הכי יעיל
             {
-                Dishes.Text += (item.ToString() + "\n");
+                exp = new Expander();
+                exp.Content = item.ToString();
+                exp.Header = item.Address + " - " + ((item.Date == DateTime.MinValue) ? "Not Sent" : item.Date.ToShortDateString());
+                OrderStack.Children.Add(exp);
             }
-            Branches.Text += "\nBranches:\n";
-            IEnumerable<BE.Branch> BranchList = myBL.GetAllBranchs();
-            foreach (BE.Branch item in BranchList)
+            if (OrderStack.Children.Count == 0)
+                OrderExp.Visibility = Visibility.Collapsed;
+            else
+                OrderExp.Visibility = Visibility.Visible;
+        }
+        void RefreshBranchs(IEnumerable<BE.Branch> list)
+        {
+            Expander exp;
+            BranchExp.Header = "Branchs";
+            BranchStack.Children.Clear();
+            foreach (BE.Branch item in list)
             {
-                Branches.Text += (item.ToString() + "\n");
+                exp = new Expander();
+                exp.Content = item.ToString();
+                exp.Header = item.Name;
+                BranchStack.Children.Add(exp);
             }
-            Clients.Text += "\nClients:\n";
-            IEnumerable<BE.Client> ClientList = myBL.GetAllClients();
-            foreach (BE.Client item in ClientList)
+            if (BranchStack.Children.Count == 0)
+                BranchExp.Visibility = Visibility.Collapsed;
+            else
+                BranchExp.Visibility = Visibility.Visible;
+        }
+        void RefreshClients(IEnumerable<BE.Client> list)
+        {
+            Expander exp;
+            ClientExp.Header = "Clients";
+            ClientStack.Children.Clear();
+            foreach (BE.Client item in list)
             {
-                Clients.Text += (item.ToString() + "\n");
+                exp = new Expander();
+                exp.Content = item.ToString();
+                exp.Header = item.Name;
+                ClientStack.Children.Add(exp);
             }
+            if (ClientStack.Children.Count == 0)
+                ClientExp.Visibility = Visibility.Collapsed;
+            else
+                ClientExp.Visibility = Visibility.Visible;
         }
         public Print_Data_Base()
         {
             InitializeComponent();
-            SearchBing.Str = "Search Bing for specifics";
             try
             {
-                AddText();
+                ClearToBase();
             }
             catch (Exception Exp)
             {
@@ -69,38 +113,51 @@ namespace PLForms
         {
             this.Close();
         }
-        internal void PrintSearch<T>(object sender)
-        {
-            IEnumerable<BE.InterID> list = from item1 in BL.FactoryBL.getBL().Search(SearchBing.GetText())
-                                           from item2 in (item1 as IEnumerable<BE.InterID>)
-                                           where item2.GetType().Name == typeof(T).Name
-                                           select item2;
-            foreach (BE.InterID var in list)
-            {
-                (sender as TextBlock).Text += var.ToString() + "\n";
-            }
-        }
-        private bool firstRound = true;
+        //internal void PrintSearch<T>(object sender)
+        //{
+        //    foreach (IEnumerable<BE.InterID> item in collection)
+        //    {
+                
+        //    } BL.FactoryBL.getBL().Search(SearchBing.GetText()); BL.FactoryBL.getBL().se
+        //    foreach (BE.InterID var in list)
+        //    {
+        //        (sender as TextBlock).Text += var.ToString() + "\n";
+        //    }
+        //}
         private void SearchBing_Changed(object sender, BE.EventValue e)
         {
-            if (firstRound)
-                firstRound = false;
-            else
+            string str = SearchBing.GetText();
+            if (SearchBing.ForeG != Brushes.Gray)
             {
-                if (SearchBing.GetText() == null || SearchBing.GetText() == "Search Bing for specifics")
-                    AddText();
+                if (SearchBing.GetText() == null || SearchBing.GetText() == "" || SearchBing.GetText() == SearchBing.Str)
+                    ClearToBase();
                 else
                 {
-                    Dishes.Text = "";
-                    Orders.Text = "";
-                    Branches.Text = "";
-                    Clients.Text = "";
-                    PrintSearch<BE.Branch>(Branches);
-                    PrintSearch<BE.Dish>(Dishes);
-                    PrintSearch<BE.Client>(Clients);
-                    PrintSearch<BE.Order>(Orders);
+                    RefreshBranchs(BL.FactoryBL.getBL().SearchBranchs(str));
+                    RefreshClients(BL.FactoryBL.getBL().SearchClients(str));
+                    RefreshDishs(BL.FactoryBL.getBL().SearchDishs(str));
+                    RefreshOrders(BL.FactoryBL.getBL().SearchOrders(str));
+                    Refresh();
                 }
             }
+            else
+                ClearToBase();
+        }
+        void Refresh()
+        {
+            if(DishStack.Children.Count+OrderStack.Children.Count+BranchStack.Children.Count+ClientStack.Children.Count<=5)
+                foreach (Expander item in MainStack.Children)
+                {
+                    item.IsExpanded = true;
+                    foreach (Expander item2 in (item.Content as StackPanel).Children)
+                        item2.IsExpanded = true;
+                }
+            if (SearchBing.ForeG != Brushes.Gray && SearchBing.GetText() != null && SearchBing.GetText()!="" && SearchBing.GetText() != SearchBing.Str)
+                foreach (Expander item in MainStack.Children)
+                    item.IsExpanded = true;
+            else
+                foreach (Expander item in MainStack.Children)
+                    item.IsExpanded = false;
         }
     }
 }

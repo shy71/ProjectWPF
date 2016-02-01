@@ -129,7 +129,7 @@ namespace PLForms
                 textBox.Foreground = Brushes.Gray;
                 ForeG = Brushes.Gray;
             }
-            if (textBox.Foreground == Brushes.Black && Changed != null)
+            if (textBox.Text!=Str &&textBox.Text!=null && Changed != null)//check affect! textBox.Foreground==Brushes.Black &&
                 Changed(this, new BE.EventValue(textBox.Text, pName));
         }
 
