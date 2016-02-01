@@ -509,7 +509,7 @@ namespace BL
         }
         public void DeleteBranch(int id)
         {
-            if (!myDal.GetAllOrders(item => item.BranchID == id).Any(item => item.Delivered == false))
+            if (!myDal.GetAllOrders(item => item.BranchID == id).Any(item => item.Delivered == false&&item.Date!=DateTime.MinValue))
                 myDal.DeleteBranch(id);
             else
                 throw new Exception("you cant delete a branch that has active orders from!");
