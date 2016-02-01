@@ -22,12 +22,12 @@ namespace PLForms
         BE.Kashrut minKashrut;
         public event EventHandler<BE.EventValue> Added;
         int orderID;
-        bool IsCtrlDown=false;
+        bool IsCtrlDown = false;
         public DishPicker()
         {
             InitializeComponent();
         }
-        public DishPicker(BE.Kashrut MinKashrut,int OrderID)
+        public DishPicker(BE.Kashrut MinKashrut, int OrderID)
         {
             InitializeComponent();
             minKashrut = MinKashrut;
@@ -44,17 +44,25 @@ namespace PLForms
         private void Refresh(object sender, RoutedEventArgs e)
         {
             TextBox text;
-            int NumOfDishs=0;
+            int NumOfDishs = 0;
             foreach (StackPanel item in MainGrid.Children)
             {
                 item.Children.RemoveRange(0, item.Children.Count);
             }
             var list = BL.FactoryBL.getBL().GetAllDishOrders(item => item.OrderID == orderID);
-            foreach (BE.Dish item in BL.FactoryBL.getBL().GetAllDishs(item => !list.Any(item2 => item2.DishID == item.ID) && item.Kosher>=minKashrut ))
+            var order = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == orderID).First();
+            var RecomndedDish = BL.FactoryBL.getBL().SuggestedDish(BL.FactoryBL.getBL().GetAllClients(item => item.ID == order.ClientID).First().ID);
+            foreach (BE.Dish item in BL.FactoryBL.getBL().GetAllDishs(item => !list.Any(item2 => item2.DishID == item.ID) && item.Kosher >= minKashrut))
             {
                 text = new TextBox();
-                text.Text = item.ToString().Replace("\t", "");
-                text.FontFamily=new FontFamily("Comic Sans MS");
+                if (RecomndedDish == item)
+                {
+                    text.Text = "Recommend Dish\n" + item.ToString().Replace("\t", "");//need checking
+                    text.Foreground = Brushes.Green;
+                }
+                else
+                    text.Text = item.ToString().Replace("\t", "");
+                text.FontFamily = new FontFamily("Comic Sans MS");
                 text.Opacity = 0.5;
                 text.Width = 100;
                 text.PreviewMouseUp += MouseClick;
@@ -90,7 +98,7 @@ namespace PLForms
                 (sender as TextBox).BorderThickness = new Thickness(2);
                 (sender as TextBox).BorderBrush = Brushes.LightBlue;
             }
-            else if(IsCtrlDown)
+            else if (IsCtrlDown)
             {
                 (sender as TextBox).Opacity = 0.5;
                 (sender as TextBox).BorderThickness = new Thickness(1);
@@ -112,15 +120,15 @@ namespace PLForms
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)//לשנות!!!
         {
-            List<int> listID=new List<int>();
+            List<int> listID = new List<int>();
             foreach (StackPanel stack in MainGrid.Children)
+            {
+                foreach (TextBox item in stack.Children)
                 {
-                    foreach (TextBox item in stack.Children)
-                    {
-                          if(item.Opacity ==1)
-                            listID.Add(Convert.ToInt32(item.Text.Substring(item.Text.IndexOf("ID: ") + 4, item.Text.IndexOf("\nName:") - item.Text.IndexOf("ID: ") - 4)));                    
-                    }
+                    if (item.Opacity == 1)
+                        listID.Add(Convert.ToInt32(item.Text.Substring(item.Text.IndexOf("ID: ") + 4, item.Text.IndexOf("\nName:") - item.Text.IndexOf("ID: ") - 4)));
                 }
+            }
             if (Added != null)
                 Added(this, new BE.EventValue(listID, orderID.ToString()));
             this.Close();
