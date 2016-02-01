@@ -226,6 +226,21 @@ namespace BL
         #region Profits Functions
 
         /// <summary>
+        /// Get Profits grouped by the sidh kashrut
+        /// </summary>
+        /// <returns>The Profits grouped by the Branch ID(Key for the grouping is the dish kashrut)</returns>
+        IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByBranchKashrut();
+        /// <summary>
+        /// Get Profits grouped by the sidh kashrut
+        /// </summary>
+        /// <returns>The Profits grouped by the Branch ID(Key for the grouping is the dish kashrut)</returns>
+        IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByDishKashrut();
+        /// <summary>
+        /// Get Profits grouped by the Branch id
+        /// </summary>
+        /// <returns>The Profits grouped by the Branch ID(Key for the grouping is the Branch ID)</returns>
+        IEnumerable<IGrouping<int, float>> GetProfitByBranches();
+        /// <summary>
         /// Get Profits grouped by the Dish id
         /// </summary>
         /// <returns>The Profits grouped by the Dish ID(Key for the grouping is the Dish ID)</returns>
@@ -734,8 +749,6 @@ namespace BL
         }
         #endregion
 
-
-
         #region ToString functions
         /// <summary>
         /// Return A string of the Entire DataBase ready to be print
@@ -775,6 +788,21 @@ namespace BL
         #endregion
 
         #region Profits Functions
+        public IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByBranchKashrut()
+        {
+            return from item in myDal.GetAllDishOrders()
+                   group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetAllBranchs(item2 => item2.ID == myDal.GetAllOrders(item1 => item1.ID == item.OrderID).First().BranchID).First().Kosher;
+        }
+        public IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByDishKashrut()
+        {
+            return from item in myDal.GetAllDishOrders()
+                   group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetAllDishs(item1 => item1.ID == item.DishID).First().Kosher;
+        }
+        public IEnumerable<IGrouping<int, float>> GetProfitByBranches()
+        {
+            return from item in myDal.GetAllDishOrders()
+                   group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetAllOrders(item1 => item1.ID == item.OrderID).First().BranchID;
+        }
         public IEnumerable<IGrouping<int, float>> GetProfitByDishs()
         {
             return from item in myDal.GetAllDishOrders()
@@ -967,11 +995,11 @@ namespace BL
         public void Inti()
         {
 
-            AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH, 957473));
-            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 15, Kashrut.HIGH, 19273));
-            AddDish(new Dish("Bamba", Size.SMALL, 5, Kashrut.HIGH, 1243));
-            AddDish(new Dish("Wings", Size.MEDIUM, 20, Kashrut.MEDIUM, 95840));
-            AddDish(new Dish("Stake", Size.LARGE, 34, Kashrut.LOW, 21));
+            AddDish(new Dish("Soup", Size.LARGE, 2, Kashrut.HIGH, 957473));
+            AddDish(new Dish("Hot Dogs", Size.MEDIUM, 7, Kashrut.HIGH, 19273));
+            AddDish(new Dish("Bamba", Size.SMALL, 2, Kashrut.HIGH, 1243));
+            AddDish(new Dish("Wings", Size.MEDIUM, 1, Kashrut.MEDIUM, 95840));
+            AddDish(new Dish("Stake", Size.LARGE, 3, Kashrut.LOW, 21));
             AddClient(new Client("Shay", "Sderot Hertzel 12", 45326, 23,1921));
             AddClient(new Client("ari", "Beit Shemesh", 78695, 65, 10934));
             AddClient(new Client("avia", "Giv'at Ze'ev", 1938, 18, 493));
@@ -994,27 +1022,27 @@ namespace BL
             AddBranch(new Branch("Jerusalem", "malcha 1", "026587463", "itai deykan @itai6", 3, 4, Kashrut.MEDIUM, 87465));
             AddBranch(new Branch("Bnei Brak", "sholm 7", "039872611", "itai deykan @itai2", 1, 5, Kashrut.HIGH, 18932));
             AddBranch(new Branch("Eilat", "freedom 98", "078496352", "itai deykan @itai3", 5, 3, Kashrut.LOW, 2));
-            AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "itai deykan @itai4", 10, 10, Kashrut.LOW, 0));
+            AddBranch(new Branch("Tel Aviv", "zion 6", "032648544", "itai deykan @itai4", 10, 10, Kashrut.LOW, 33));
             AddBranch(new Branch("Beit Shemesh", "Big Center 1", "073524121", "itai deykan @itai5", 2, 3, Kashrut.MEDIUM, 9873));
-            AddOrder(new Order(2, "Sdarot herzl 12", Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(2, "Sdarot herzl 12", Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 192334));
-            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 34567));
-            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 34567));
-            AddDishOrder(new DishOrder(192334, 957473, 3));
-            //AddDishOrder(new DishOrder(192334, 1243, 2));
-            //AddDishOrder(new DishOrder(192334, 19273,  55));
-            //AddDishOrder(new DishOrder(192334, 21, 2));
-            AddDishOrder(new DishOrder(34567, 19273, 3));
+            AddOrder(new Order(2, "Sdarot herzl 12", Kashrut.LOW, 10934, 1));
+            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 2));
+            AddOrder(new Order(18932, "Sdarot herzl 12", Kashrut.LOW, 10934, 3));
+            AddOrder(new Order(9873, "hall in beit shems", Kashrut.MEDIUM, 1921, 4));
+            AddOrder(new Order(33, "Sdarot herzl 12", Kashrut.LOW, 10934, 5));
+            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 6));
+            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 7));
+            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 8));
+            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 9));
+            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 10));
+            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 11));
+            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 12));
+            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 13));
+            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 14));
+            AddDishOrder(new DishOrder(1, 957473, 15));
+            AddDishOrder(new DishOrder(2, 1243, 34));
+            AddDishOrder(new DishOrder(3, 19273,  55));
+            AddDishOrder(new DishOrder(4, 95840, 5));
+            AddDishOrder(new DishOrder(5, 21, 3));
         }
     }
 }
