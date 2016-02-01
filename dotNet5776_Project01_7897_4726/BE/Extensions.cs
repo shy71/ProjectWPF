@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,29 +23,6 @@ namespace BE
             Value = value;
             this.pName = pName;
         }
-    }
-    public class GroupSum
-    {
-        public GroupSum(GroupingByType gtype, string str, double newsum)
-        {
-            StrKey = str;
-            Type = gtype;
-            Sum = newsum;
-        }
-        public GroupSum(int num, double newsum)
-        {
-            NumKey = num;
-            Type = GroupingByType.Dish;
-            Sum = newsum;
-        }
-        GroupingByType type;
-        public GroupingByType Type { get { return type; } set{type= value;}}
-        string strKey;
-        public string StrKey { get{return strKey;} set{strKey=value;} }
-        int numKey;
-        public int NumKey {get{return numKey;} set{numKey=value;} }
-        double sum;
-        public double Sum { get { return sum; } set { sum = value; } }
     }
     public class Extensions
     {
@@ -118,7 +95,58 @@ namespace BE
     public enum CurrentPlacing
     { Action,Info,Edit}
     public enum GroupingByType
-    {Address,Dish,Date }
+    {
+        Address,
+        Dish,
+        Date,
+        DishesAmount,
+        Branch,
+        DishKashrut,
+        BranchKashrut
+    }
+
+    public class GroupSum
+    {
+        public GroupSum(GroupingByType gtype,Kashrut kashrutlevel, double newsum)
+        {
+            Type = gtype;
+            Kashrut = kashrutlevel;
+            Sum = newsum;
+        }
+        public GroupSum(GroupingByType gtype, string str, double newsum)
+        {
+            StrKey = str;
+            Type = gtype;
+            Sum = newsum;
+        }
+        public GroupSum(GroupingByType gtype, int num, double newsum)
+        {
+            NumKey = num;
+            Type = gtype;
+            Sum = newsum;
+        }
+        public GroupSum(int num, int amount)
+        {
+            NumKey = num;
+            Type = GroupingByType.DishesAmount;
+            Sum = amount;
+        }
+        GroupingByType type;
+        private Kashrut kashrut;
+        public Kashrut Kashrut
+        {
+            get { return kashrut; }
+            set { kashrut = value; }
+        }
+        
+        public GroupingByType Type { get { return type; } set { type = value; } }
+        string strKey;
+        public string StrKey { get { return strKey; } set { strKey = value; } }
+        int numKey;
+        public int NumKey { get { return numKey; } set { numKey = value; } }
+        double sum;
+        public double Sum { get { return sum; } set { sum = value; } }
+    }
     ////כרגע לא בשימוש 
     ////אולי אחר כך
     //class MessageBoxException : Exception
