@@ -48,5 +48,23 @@
         </Button>
         <Label x:Name="timeLeft" Grid.Row="6" Grid.ColumnSpan="5" IsHitTestVisible="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="Hidden"/>
         <Button x:Name="ArrivedBtn" Content="Report delivery" ToolTip="press when the order has arived you you" Click="Arrived_Click" Grid.Row="6" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Visibility="{Binding ElementName=timeLeft,Path=Visibility}"/>
-    </Grid>
+        <TextBlock x:Name="priceOrder" Grid.Row="6" Grid.ColumnSpan="5" Foreground="GreenYellow" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style>
+                    <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=ArrivedBtn,Path=Visibility}" Value="Collapsed"/>
+                                <Condition Binding="{Binding ElementName=DeleteBtn,Path=Visibility}" Value="Collapsed"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                            <Setter Property="TextBlock.Visibility" Value="Visible"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </Grid> 
 </UserControl>

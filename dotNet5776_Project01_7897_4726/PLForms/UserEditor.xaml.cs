@@ -45,8 +45,6 @@ namespace PLForms
             nameBox.SetBinding(user, "Name", BindingMode.TwoWay);
             usernameBox.SetText(user.UserName);
             nameBox.SetText(user.Name);
-            
-
         }
 
         private void nextButton_Click(object sender, RoutedEventArgs e)

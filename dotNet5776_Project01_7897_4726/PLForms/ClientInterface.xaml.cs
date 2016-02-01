@@ -90,7 +90,7 @@ namespace PLForms
         {
             Grid g;
             ColumnDefinition a, b, c, d;
-            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && predicate(item)))
+            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && predicate(item)).OrderBy(item=>-BL.FactoryBL.getBL().PriceOfOrder(item.ID)))
             {
                 if (numOfOrders % 4 == 0)
                 {
@@ -110,12 +110,12 @@ namespace PLForms
                     g.ColumnDefinitions.Add(d);
                     stackPanel.Children.Add(g);
                 }
-                var orderD = new OrderDeiltes(item, true);
+                var orderD = new OrderDeiltes(item, false);
                 orderD.HorizontalAlignment = HorizontalAlignment.Center;
-                orderD.Deleted += Restart;
-                orderD.Sended += Restart;
-                orderD.Updated += Restart;
-                orderD.Arived += Restart;
+                //orderD.Deleted += Restart;
+                //orderD.Sended += Restart;
+                //orderD.Updated += Restart;
+                //orderD.Arived += Restart;
                 orderD.Opacity = 0.7;
                 orderD.PreviewMouseDown += MouseClick;
                 var ChildEnumrator = stackPanel.Children.GetEnumerator();
@@ -226,7 +226,7 @@ namespace PLForms
                 StackPanel temp;
                 TextBox text;
                 Button btn;
-                foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && GetPredicte()(item)))
+                foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && GetPredicte()(item)).OrderBy(item => -BL.FactoryBL.getBL().PriceOfOrder(item.ID)))
                 {
                     exp = new Expander();
                     text = new TextBox();
@@ -236,7 +236,7 @@ namespace PLForms
                     text.Background = Brushes.DarkRed;
                     text.Text = item.ToString();
                     exp.Header = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ID == item.BranchID).First().Name + " " + item.Address;
-                    exp.ToolTip = (item.Date == DateTime.MinValue) ? "Not sended" : item.Date.ToShortDateString();
+                    exp.ToolTip = ((item.Date == DateTime.MinValue) ? "Not sended" : item.Date.ToShortDateString()) + " - " + BL.FactoryBL.getBL().PriceOfOrder(item.ID).ToString() + "$";
                     btn = new Button();
                     btn.Content = "Open Order";
                     btn.Click += OpenOrder;
