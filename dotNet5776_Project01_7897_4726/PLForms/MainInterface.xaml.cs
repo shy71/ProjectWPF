@@ -140,12 +140,12 @@ namespace PLForms
 
         private void Button_Click(object sender, RoutedEventArgs e)//delete
         {
-            //new Profit_By().Show();
+            new Profit_Details().ShowDialog();
             //new ShowUserControl(new DishOrder(BL.FactoryBL.getBL().GetAllDishOrders().First())).Show();
             //new ShowUserControl(new DishOrder(BL.FactoryBL.getBL().GetAllDishOrders().ElementAt(2))).Show();
             //new OrderEditor1(BL.FactoryBL.getBL().GetAllClients().First()).Show();
             //new DishPicker(BE.Kashrut.LOW, BL.FactoryBL.getBL().GetAllOrders().First().ID).Show();
-            new DishEditor(BL.FactoryBL.getBL().GetAllDishs().First()).Show();
+            //new DishEditor(BL.FactoryBL.getBL().GetAllDishs().First()).Show();
             this.Close();
         }
 
