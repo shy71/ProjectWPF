@@ -63,5 +63,10 @@ namespace PLForms
         {
             new DishEditor().ShowDialog();
         }
+
+        private void mangeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new BranchEditor(branch, false).ShowDialog();
+        }
     }
 }

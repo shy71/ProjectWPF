@@ -41,6 +41,17 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Label Content="Fire/Hire Emplyes:" FontSize="24" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Top">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=MangerCombo,Path=Visibility}" Value="Hidden">
+                            <Setter Property="Label.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
         <ComboBox x:Name="MangerCombo" Grid.Row="7" ToolTip="Chose the manger that will be assigned to the branch." Loaded="MangerComboBox_Loaded" SelectionChanged="MangerCombo_SelectionChanged"/>
         <TextBlock Text="Select Manger for the branch" IsHitTestVisible="False" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,10,15,10">
             <TextBlock.Style>
@@ -71,7 +82,6 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-
         <Button x:Name="DoButton" Content="Create!" Grid.Column="1" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="13" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24" Click="Button_Click">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -98,7 +108,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Copy Branch" Grid.Column="2" FontWeight="Bold" ToolTip="Copy branch details into the new branch." HorizontalAlignment="Center" Click="CopyBranch">
+        <Button Content="Copy Branch" Grid.Column="2" FontWeight="Bold" ToolTip="Copy branch details into the new branch." HorizontalAlignment="Center" Click="CopyBranch"  Visibility="{Binding ElementName=branchCombo,Path=Visibility}">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>
@@ -110,7 +120,7 @@
             </Button.Style>
         </Button>
         <ComboBox x:Name="branchCombo" Grid.Column="1" Loaded="ComboBox_Loaded" ToolTipService.ShowOnDisabled="True"/>
-        <TextBlock Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="{Binding ElementName=branchCombo,Path=Visibility}">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Setter Property="Visibility" Value="Hidden"/>

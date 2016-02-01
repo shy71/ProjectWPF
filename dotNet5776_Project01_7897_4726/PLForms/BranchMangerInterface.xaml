@@ -20,7 +20,7 @@
             </StackPanel.Resources>
 
             <Button x:Name="addDish"  Content="Add Dish!" Click="addDish_Click" />
-            <Button x:Name="mangeBtn"  Content="Fire/hire workers!"/>
+            <Button x:Name="mangeBtn"  Content="Edit Branch details" Click="mangeBtn_Click"/>
             <Button x:Name="staticBtn" Content="Look at the Branch statics"/>
                 
         </StackPanel>

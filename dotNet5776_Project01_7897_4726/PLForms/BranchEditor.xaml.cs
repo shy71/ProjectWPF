@@ -27,7 +27,7 @@ namespace PLForms
             branch = new BE.Branch();
 
         }
-        public BranchEditor(BE.Branch bra)
+        public BranchEditor(BE.Branch bra,bool IsNetworkManger=true)
         {
             InitializeComponent();
             nameBox.SetText(bra.Name);
@@ -39,8 +39,15 @@ namespace PLForms
                        branch = bra;
             IsUpadte = true;
             DoButton.Content = "Update!";
-            
-        }
+            if(!IsNetworkManger)
+            {
+                nameBox.IsEnabled = false;
+                addressBox.IsEnabled = false;
+                MangerCombo.Visibility = Visibility.Hidden;
+                KashrutCombo.Visibility = Visibility.Hidden;
+                branchCombo.Visibility = Visibility.Hidden;
+            }
+            }
 
         private void CreateBranchManagerButton_Click(object sender, RoutedEventArgs e)
         {
@@ -69,7 +76,10 @@ namespace PLForms
             try
             {
                 if (IsUpadte)
+                {
+                    
                     BL.FactoryBL.getBL().UpdateBranch(branch);
+                }
                 else
                     BL.FactoryBL.getBL().AddBranch(branch);
                 MessageBox.Show("The branch " + branch.Name + " was " + ((IsUpadte) ? "Updated!" : "created!"), "Branch created", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -112,7 +122,7 @@ namespace PLForms
                 CreateBranchManagerButton.IsEnabled = true;
             else if(MangerCombo.SelectedIndex!=0)
                 CreateBranchManagerButton.IsEnabled = false;
-            if (MangerCombo.SelectedIndex > 0)
+            if (MangerCombo.SelectedIndex > 0&&((!IsUpadte)||MangerCombo.SelectedIndex>1))
                 branch.Boss =( MangerCombo.Items.GetItemAt(MangerCombo.SelectedIndex) as ComboBoxItem).Content.ToString();
         }
 

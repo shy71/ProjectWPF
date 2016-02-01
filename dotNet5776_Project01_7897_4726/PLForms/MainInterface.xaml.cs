@@ -52,6 +52,10 @@ namespace PLForms
                     {
                         if (MessageBox.Show("Sorry, There isn't such username in our datdbase\n\n would you like to create a new client with that username?", "Incorrect username", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
                             new ClientEditor(InputBox.GetText()).ShowDialog();
+                        user = BL.FactoryBL.getBL().GetUser(InputBox.GetText());
+                        if(user!=null)
+                            new ClientInterface(user).Show();
+                        Keyboard.ClearFocus();
                     }
                     else
                     {
