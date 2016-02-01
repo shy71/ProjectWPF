@@ -70,6 +70,12 @@ namespace PLForms
                 text.Width = MainGrid.ActualWidth / (2 * Heights.Count());
                 switch(Heights[0].Type)
                 {
+                    case BE.GroupingByType.DishAmountbyWeekDays:
+                        name.Text = Heights[counter].Day.ToString();
+                        break;
+                    case BE.GroupingByType.WeekDays:
+                        name.Text = Heights[counter].Day.ToString();
+                        break;
                     case BE.GroupingByType.BranchKashrut:
                         name.Text = Heights[counter].Kashrut.ToString();
                         break;
@@ -79,8 +85,11 @@ namespace PLForms
                     case BE.GroupingByType.Branch:
                         name.Text = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
                         break;
-                    case BE.GroupingByType.DishesAmount:
+                    case BE.GroupingByType.DishesAmountbyDish:
                         name.Text = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
+                        break;
+                    case BE.GroupingByType.DishesAmountbyBranch:
+                        name.Text = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
                         break;
                     case BE.GroupingByType.Address:
                         name.Text = Heights[counter].StrKey;
