@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,27 +38,23 @@ namespace PLForms
         public void Refresh()
         {
             TextBlock text;
+            TextBlock numberText;
+            StackPanel stack;
             for (int i = 0; i < Heights.Count(); i++)
                 MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
             int counter = 0;
             foreach (ColumnDefinition column in MainGrid.ColumnDefinitions)
             {
+                stack = new StackPanel();
+                stack.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
                 column.Width = new System.Windows.GridLength(1, GridUnitType.Star);
                 text = new TextBlock();
                 text.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
                 text.Height = getHeight(Heights[counter].Sum, Heights);
-                switch(Heights[0].Type)
-                {
-                    case BE.GroupingByType.Address:
-                        text.ToolTip = "Amount: " + Heights[counter].Sum + "\nAddress: " + Heights[counter].StrKey;
-                        break;
-                    case BE.GroupingByType.Date:
-                        text.ToolTip = "Amount: " + Heights[counter].Sum + "\nDate: " + Heights[counter].StrKey;
-                        break;
-                    case BE.GroupingByType.Dish:
-                        text.ToolTip = "Amount: " + Heights[counter].Sum + "\nDish: " + BL.FactoryBL.getBL().GetAllDishs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
-                        break;
-                }
+                numberText = new TextBlock();
+                numberText.TextAlignment = TextAlignment.Center;
+                numberText.Text = Heights[counter].Sum.ToString();
+                //numberText.Margin.Bottom = text.Height;
                 if (text.Height / (0.9 * MainGrid.ActualHeight) < 0.05)
                     text.Background = Brushes.Red;
                 else if (text.Height / (0.9*MainGrid.ActualHeight) < 0.2)
@@ -67,8 +63,38 @@ namespace PLForms
                     text.Background = Brushes.Yellow;
                 else
                     text.Background = Brushes.Green;
-                MainGrid.Children.Add(text);
-                Grid.SetColumn(text, counter);
+                stack.Children.Add(numberText);
+                stack.Children.Add(text);
+                TextBlock name = new TextBlock();
+                name.TextAlignment = TextAlignment.Center;
+                text.Width = MainGrid.ActualWidth / (2 * Heights.Count());
+                switch(Heights[0].Type)
+                {
+                    case BE.GroupingByType.BranchKashrut:
+                        name.Text = Heights[counter].Kashrut.ToString();
+                        break;
+                    case BE.GroupingByType.DishKashrut:
+                        name.Text = Heights[counter].Kashrut.ToString();
+                        break;
+                    case BE.GroupingByType.Branch:
+                        name.Text = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
+                        break;
+                    case BE.GroupingByType.DishesAmount:
+                        name.Text = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
+                        break;
+                    case BE.GroupingByType.Address:
+                        name.Text = Heights[counter].StrKey;
+                        break;
+                    case BE.GroupingByType.Date:
+                        name.Text = Heights[counter].StrKey;
+                        break;
+                    case BE.GroupingByType.Dish:
+                        name.Text = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
+                        break;
+                }
+                stack.Children.Add(name);
+                MainGrid.Children.Add(stack);
+                Grid.SetColumn(stack, counter);
                 counter++;
             }
         }
