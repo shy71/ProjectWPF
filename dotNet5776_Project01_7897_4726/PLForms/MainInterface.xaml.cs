@@ -22,6 +22,7 @@ namespace PLForms
     public partial class MainInterface : Window
     {
         BE.User user;
+        bool IsLostPassword;
         public MainInterface()
         {
             try
@@ -53,8 +54,11 @@ namespace PLForms
                         if (MessageBox.Show("Sorry, There isn't such username in our datdbase\n\n would you like to create a new client with that username?", "Incorrect username", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
                             new ClientEditor(InputBox.GetText()).ShowDialog();
                         user = BL.FactoryBL.getBL().GetUser(InputBox.GetText());
-                        if(user!=null)
+                        if (user != null)
+                        {
                             new ClientInterface(user).Show();
+                            this.Close();
+                        }
                         Keyboard.ClearFocus();
                     }
                     else
@@ -85,9 +89,31 @@ namespace PLForms
                     }
                     else
                     {
-                        //enter Type Window
-                        MessageBox.Show("The username and password you entered don't match.", "Incorrect password", MessageBoxButton.OK, MessageBoxImage.Error);
-                        InputPassword.Clear();
+                        if(IsLostPassword==true)
+                        {
+                            if (InputPassword.GetPassword() == BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First().CreditCard.ToString())
+                            {
+                                MessageBox.Show("You will be redirect to save a new password, please try not to forget her");
+                                new UserEditor(user).ShowDialog();
+                                IsLostPassword = false;
+                                backButton_Click(this,null);
+                                return;
+                            }
+                            else
+                                MessageBox.Show("The username and CreditCard you entered don't match. Please try again or contact a staff member");
+                        }
+                        if ((!IsLostPassword)&&MessageBoxResult.Yes == MessageBox.Show("The username and password you entered don't match.\nDid you forgot your password?", "Incorrect password", MessageBoxButton.YesNo, MessageBoxImage.Error))
+                        {
+                            if (user.Type == BE.UserType.Client)
+                            {
+                                MessageBox.Show("Enter your credit card number in the password filed below", "Password Recovry");
+                                IsLostPassword = true;
+                            }
+                            else
+                                MessageBox.Show("We cant do anything for you, please try to contact your superior");
+                        }
+
+                            InputPassword.Clear();
                     }
                     #endregion
                     break;
@@ -131,6 +157,7 @@ namespace PLForms
             InputPassword.Clear();
             InputPassword.Visibility = Visibility.Hidden;
             Keyboard.Focus(SignInButton);
+            IsLostPassword = false;
         }
 
         private void InputPreviewKeyDown(object sender, KeyEventArgs e)

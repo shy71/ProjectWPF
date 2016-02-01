@@ -21,10 +21,10 @@
         </Grid.RowDefinitions>
 
         <Label Content="Update User Delitles!" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-        <dc:TextControl x:Name="usernameBox" Grid.Row="1" Str="Username" FontS="12" Changed="usernameBox_Changed"/>
+        <dc:TextControl x:Name="usernameBox" Grid.Row="1" Str="Username" FontS="12" ToolTipService.ShowOnDisabled="True"/>
         <dc:PasswordControl x:Name="passwordBox1" Grid.Row="3" Str="Password"/>
         <dc:PasswordControl x:Name="passwordBox2" Grid.Row="5" Str="Password Conformation"/>
-        <dc:TextControl x:Name="nameBox" Grid.Row="7" Str="Full Name" Changed="nameBox_Changed"/>
+        <dc:TextControl x:Name="nameBox" Grid.Row="7" Str="Full Name"/>
 
             <dc:TextControl x:Name="idBox" Grid.Row="9" HorizontalAlignment="Center" MinWidth="70" Str="Branch ID" Visibility="Collapsed" IsEnabled="False" />
 

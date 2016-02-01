@@ -26,26 +26,27 @@ namespace PLForms
             InitializeComponent();
             user = new BE.User();
             user.Type = type;
+            usernameBox.SetBinding(user, "UserName", BindingMode.TwoWay);
+            nameBox.SetBinding(user, "Name", BindingMode.TwoWay);
         }
         public UserEditor(BE.User user):this(user.Type)
         {
             IsUpdated = true;
             this.user = user;
+            usernameBox.IsEnabled = false;
+            usernameBox.ToolTip = "You cant change your username!";
             if (user.ItemID == 0)
                 idBox.Str = "Doesnt have a branch";
-            if (user.ItemID != 0)
+            else
+            {
+                idBox.SetText(user.ItemID.ToString());
                 idBox.Visibility = Visibility.Visible;
+            }
+            nameBox.SetBinding(user, "Name", BindingMode.TwoWay);
+            usernameBox.SetText(user.UserName);
+            nameBox.SetText(user.Name);
             
 
-        }
-        private void usernameBox_Changed(object sender, BE.EventValue e)
-        {
-            user.UserName = e.Value.ToString();
-        }
-
-        private void nameBox_Changed(object sender, BE.EventValue e)
-        {
-            user.Name = e.Value.ToString();
         }
 
         private void nextButton_Click(object sender, RoutedEventArgs e)
