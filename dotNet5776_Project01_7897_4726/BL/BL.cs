@@ -224,12 +224,27 @@ namespace BL
         #endregion
 
         #region Profits Functions
-
+        
         /// <summary>
-        /// Get Profits grouped by the sidh kashrut
+        /// Get dish amount grouped by the week day
         /// </summary>
-        /// <returns>The Profits grouped by the Branch ID(Key for the grouping is the dish kashrut)</returns>
+        /// <returns>The dish amount grouped by the week day(Key for the grouping is the wekk day)</returns>
+        IEnumerable<IGrouping<DayOfWeek, int>> GetDishAmountByWeekDay();
+        /// <summary>
+        /// Get dish amount grouped by the branch
+        /// </summary>
+        /// <returns>The dish amount grouped by the Branch ID(Key for the grouping is the branch)</returns>
+        IEnumerable<IGrouping<int, int>> GetDishAmountByBranch();
+        /// <summary>
+        /// Get Profits grouped by the branch kashrut
+        /// </summary>
+        /// <returns>The Profits grouped by the Branch ID(Key for the grouping is the branch kashrut)</returns>
         IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByBranchKashrut();
+        /// <summary>
+        /// Get Profits grouped by the week day
+        /// </summary>
+        /// <returns>The Profits grouped by the week day(Key for the grouping is the wekk day)</returns>
+        IEnumerable<IGrouping<DayOfWeek, float>> GetProfitByWeekDay();
         /// <summary>
         /// Get Profits grouped by the sidh kashrut
         /// </summary>
@@ -788,6 +803,21 @@ namespace BL
         #endregion
 
         #region Profits Functions
+        public IEnumerable<IGrouping<DayOfWeek, float>> GetProfitByWeekDay()
+        {
+            return from item in myDal.GetAllDishOrders()
+                   group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Date.DayOfWeek;
+        }
+        public IEnumerable<IGrouping<DayOfWeek, int>> GetDishAmountByWeekDay()
+        {
+            return from item in myDal.GetAllDishOrders()
+                   group item.DishAmount by myDal.GetOrder(item.OrderID).Date.DayOfWeek;
+        }
+        public IEnumerable<IGrouping<int, int>> GetDishAmountByBranch()
+        {
+            return from item in myDal.GetAllDishOrders()
+                   group item.DishAmount by myDal.GetAllOrders(item1 => item1.ID == item.OrderID).FirstOrDefault().BranchID;
+        }
         public IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByBranchKashrut()
         {
             return from item in myDal.GetAllDishOrders()
