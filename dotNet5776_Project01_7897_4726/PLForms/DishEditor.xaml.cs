@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,124 +15,131 @@ using System.Windows.Shapes;
 namespace PLForms
 {
     /// <summary>
-    /// Interaction logic for DishEditor.xaml
+    /// Interaction logic for DishPicker.xaml
     /// </summary>
-    public partial class DishEditor : Window
+    public partial class DishPicker : Window
     {
-        BE.Dish dish;
-        BE.Kashrut kosher;
-        bool IsUpdated=false;
-        public DishEditor(BE.Kashrut kosher=BE.Kashrut.LOW)
+        BE.Kashrut minKashrut;
+        public event EventHandler<BE.EventValue> Added;
+        int orderID;
+        bool IsCtrlDown=false;
+        public DishPicker()
         {
             InitializeComponent();
-            KashrutCombo.ItemsSource = from item in typeof(BE.Kashrut).GetEnumValues().Cast<BE.Kashrut>()
-                                       where item >= kosher
-                                       select typeof(BE.Kashrut).GetEnumName(item);
-            SizeCombo.ItemsSource = Enum.GetNames(typeof(BE.Size));
-            dish = new BE.Dish();
-            this.kosher = kosher;
-            nameBox.SetBinding(dish, "Name", BindingMode.TwoWay);
-            priceBox.SetBinding(dish, "Price",BindingMode.TwoWay);
-            idBox.SetBinding(dish, "ID", BindingMode.TwoWay);
         }
-        public DishEditor(BE.Dish dish,BE.Kashrut kosher=BE.Kashrut.LOW)
+        public DishPicker(BE.Kashrut MinKashrut,int OrderID)
         {
             InitializeComponent();
-            KashrutCombo.ItemsSource = from item in typeof(BE.Kashrut).GetEnumValues().Cast<BE.Kashrut>()
-                                       where item >= kosher
-                                       select typeof(BE.Kashrut).GetEnumName(item);
-            SizeCombo.ItemsSource = Enum.GetNames(typeof(BE.Size));
-            this.dish = dish;
-            IsUpdated = true;
-            this.kosher = kosher;
-            DoButton.Content = "Update!";
-            nameBox.SetBinding(dish, "Name", BindingMode.TwoWay);
-            priceBox.SetBinding(dish, "Price", BindingMode.TwoWay);
-            idBox.SetBinding(dish, "ID", BindingMode.TwoWay);
-            nameBox.SetText(dish.Name);
-            priceBox.SetText(dish.Price.ToString());
-            idBox.SetText(dish.ID.ToString());
-            checkBox.IsEnabled = false;
-            checkBox.Foreground = Brushes.Black;
-            idBox.ToolTip = "You cant change an ID of a dish!";
-            KashrutCombo.SelectedItem = dish.Kosher.ToString();
-            SizeCombo.SelectedItem = dish.Size.ToString();
-        }
-        private void priceBox_Changed(object sender, BE.EventValue e)
-        {
-            float num;
-            if (!float.TryParse(e.Value.ToString(), out num))
-                dish.Price = 0;
+            minKashrut = MinKashrut;
+            orderID = OrderID;
         }
 
-        private void dishCombo_Loaded(object sender, RoutedEventArgs e)
+        private void Kosher_Loaded(object sender, RoutedEventArgs e)
         {
-            dishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs(item => item.Kosher >= kosher && dish.ID != item.ID);
-            dishCombo.DisplayMemberPath = "Name";
-            dishCombo.SelectedValuePath = "ID";
-            if (dishCombo.Items.Count == 0)
-            {
-                dishCombo.IsEnabled = false;
-                dishCombo.ToolTip = "There isnt any dishs in this level to pick from!";
-            }
+            Kosher.ItemsSource = from item in typeof(BE.Kashrut).GetEnumValues().Cast<BE.Kashrut>()
+                                 where item >= minKashrut
+                                 select typeof(BE.Kashrut).GetEnumName(item);
         }
-        private void DoButton_Click(object sender, RoutedEventArgs e)
+
+        private void Refresh(object sender, RoutedEventArgs e)
         {
-            try
+            TextBox text;
+            int NumOfDishs=0;
+            foreach (StackPanel item in MainGrid.Children)
             {
-                if (dish.Price <= 0)
-                    throw new Exception("The price must be a number above zero, not letters or negitive number");
-                if(dish.ID<0)
-                    throw new Exception("The ID must be a number above zero, not letters or negitive number");
-                if(IsUpdated)
+                item.Children.RemoveRange(0, item.Children.Count);
+            }
+            var list = BL.FactoryBL.getBL().GetAllDishOrders(item => item.OrderID == orderID);
+            var order=BL.FactoryBL.getBL().GetAllOrders(item=>item.ID==orderID).First();
+            var RecomndedDish = BL.FactoryBL.getBL().SuggestedDish(BL.FactoryBL.getBL().GetAllClients(item => item.ID == order.ClientID).First().ID);
+                foreach (BE.Dish item in BL.FactoryBL.getBL().GetAllDishs(item => !list.Any(item2 => item2.DishID == item.ID) && item.Kosher>=minKashrut ))
+            {
+                text = new TextBox();
+                if (RecomndedDish == item)
                 {
-                    BL.FactoryBL.getBL().UpdateDish(dish);
+                    text.Text = "Recommend Dish\n" + item.ToString().Replace("\t", "");//need checking
+                    text.Foreground = Brushes.Green;
                 }
                 else
-                {
-                    BL.FactoryBL.getBL().AddDish(dish);
-                }
-                
-                MessageBox.Show("The dish " + dish.Name + " was " + ((IsUpdated) ? "Updated!" : "created!"), "Dish" + ((IsUpdated) ? "Updated!" : "created"), MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                    text.Text = item.ToString().Replace("\t", "");
+                text.FontFamily = new FontFamily("Comic Sans MS");
+                text.Opacity = 0.5;
+                text.Width = 100;
+                text.PreviewMouseUp += MouseClick;
+                text.IsReadOnly = true;
+                if (NumOfDishs % 3 == 0)
+                    Stack1.Children.Add(text);
+                else if (NumOfDishs % 3 == 1)
+                    Stack2.Children.Add(text);
+                else
+                    Stack3.Children.Add(text);
+                NumOfDishs++;
             }
-            catch (Exception exp)
+        }
+
+        void MouseClick(object sender, MouseButtonEventArgs e)
+        {
+            bool WasSelected = (sender as TextBox).Opacity == 1;
+            if (!IsCtrlDown)
             {
-                MessageBox.Show(exp.Message,"Warning!");
+                foreach (StackPanel stack in MainGrid.Children)
+                {
+                    foreach (TextBox item in stack.Children)
+                    {
+                        item.Opacity = 0.5;
+                        item.BorderThickness = new Thickness(1);
+                        item.BorderBrush = Brushes.Black;
+                    }
+                }
+            }
+            if (!WasSelected)
+            {
+                (sender as TextBox).Opacity = 1;
+                (sender as TextBox).BorderThickness = new Thickness(2);
+                (sender as TextBox).BorderBrush = Brushes.LightBlue;
+            }
+            else if(IsCtrlDown)
+            {
+                (sender as TextBox).Opacity = 0.5;
+                (sender as TextBox).BorderThickness = new Thickness(1);
+                (sender as TextBox).BorderBrush = Brushes.Black;
             }
         }
 
-        private void idBox_Changed(object sender, BE.EventValue e)
+        private void KeyDownCheck(object sender, KeyEventArgs e)
         {
-            int num;
-            if (!int.TryParse(e.Value.ToString(), out num))
-                dish.ID = -1;
-            if (idBox.ForeG == Brushes.Gray)
-                dish.ID = 0;
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                IsCtrlDown = true;
         }
 
-        private void SizeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void KeyUpCheck(object sender, KeyEventArgs e)
         {
-            dish.Size = BE.Extensions.ToSize(SizeCombo.SelectedItem.ToString());
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                IsCtrlDown = false;
         }
 
-        private void KashrutCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AddBtn_Click(object sender, RoutedEventArgs e)//לשנות!!!
         {
-            dish.Kosher = BE.Extensions.ToKashrut(KashrutCombo.SelectedItem.ToString());
+            List<int> listID=new List<int>();
+            foreach (StackPanel stack in MainGrid.Children)
+                {
+                    foreach (TextBox item in stack.Children)
+                    {
+                          if(item.Opacity ==1)
+                            listID.Add(Convert.ToInt32(item.Text.Substring(item.Text.IndexOf("ID: ") + 4, item.Text.IndexOf("\nName:") - item.Text.IndexOf("ID: ") - 4)));                    
+                    }
+                }
+            if (Added != null)
+                Added(this, new BE.EventValue(listID, orderID.ToString()));
+            this.Close();
         }
-        private void Copy_Click(object sender, RoutedEventArgs e)
+
+        private void Kosher_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BE.Dish copyDish = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == (int)dishCombo.SelectedValue).First();
-            KashrutCombo.SelectedItem = copyDish.Kosher.ToString();
-            SizeCombo.SelectedItem = copyDish.Size.ToString();
-            nameBox.SetText(copyDish.Name);
-            priceBox.SetText(copyDish.Price.ToString());
+            minKashrut = BE.Extensions.ToKashrut(Kosher.SelectedItem.ToString());
+            Refresh(this, null);
         }
-        ////}
 
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
 
-        //}
     }
 }
