@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,43 +21,34 @@ namespace PLForms
     {
         internal void AddText()
         {
-            DataBase.Text = "";
+            Dishes.Text = "";
+            Branches.Text = "";
+            Orders.Text = "";
+            Clients.Text = "";
             BL.IBL myBL = BL.FactoryBL.getBL();
-            if (collapseOrders.IsChecked == false)
+            Orders.Text += "\nOrders\n";
+            IEnumerable<BE.Order> OrderList = myBL.GetAllOrders();
+            foreach (BE.Order item in OrderList)
             {
-                DataBase.Text += "\nOrders\n";
-                IEnumerable<BE.Order> OrderList = myBL.GetAllOrders();
-                foreach (BE.Order item in OrderList)
-                {
-                    DataBase.Text += (item.ToString() + "\n");
-                }
+                Orders.Text += (item.ToString() + "\n");
             }
-            if (collapseDishes.IsChecked == false)
+            Dishes.Text += "\nDishes:\n";
+            IEnumerable<BE.Dish> DishList = myBL.GetAllDishs();
+            foreach (BE.Dish item in DishList)
             {
-                DataBase.Text += "\nDishes:\n";
-                IEnumerable<BE.Dish> DishList = myBL.GetAllDishs();
-                foreach (BE.Dish item in DishList)
-                {
-                    DataBase.Text += (item.ToString() + "\n");
-                }
+                Dishes.Text += (item.ToString() + "\n");
             }
-            if (collapseBranches.IsChecked == false)
+            Branches.Text += "\nBranches:\n";
+            IEnumerable<BE.Branch> BranchList = myBL.GetAllBranchs();
+            foreach (BE.Branch item in BranchList)
             {
-                DataBase.Text += "\nBranches:\n";
-                IEnumerable<BE.Branch> BranchList = myBL.GetAllBranchs();
-                foreach (BE.Branch item in BranchList)
-                {
-                    DataBase.Text += (item.ToString() + "\n");
-                }
+                Branches.Text += (item.ToString() + "\n");
             }
-            if (collapseClients.IsChecked == false)
+            Clients.Text += "\nClients:\n";
+            IEnumerable<BE.Client> ClientList = myBL.GetAllClients();
+            foreach (BE.Client item in ClientList)
             {
-                DataBase.Text += "\nClients:\n";
-                IEnumerable<BE.Client> ClientList = myBL.GetAllClients();
-                foreach (BE.Client item in ClientList)
-                {
-                    DataBase.Text += (item.ToString() + "\n");
-                }
+                Clients.Text += (item.ToString() + "\n");
             }
         }
         public Print_Data_Base()
@@ -70,7 +61,7 @@ namespace PLForms
             }
             catch (Exception Exp)
             {
-                DataBase.Text = Exp.ToString();
+                MessageBox.Show(Exp.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -78,19 +69,7 @@ namespace PLForms
         {
             this.Close();
         }
-
-        private void CheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                AddText();
-            }
-            catch (Exception Exp)
-            {
-                DataBase.Text = Exp.ToString();
-            }
-        }
-        internal void PrintSearch<T>()
+        internal void PrintSearch<T>(object sender)
         {
             IEnumerable<BE.InterID> list = from item1 in BL.FactoryBL.getBL().Search(SearchBing.GetText())
                                            from item2 in (item1 as IEnumerable<BE.InterID>)
@@ -98,9 +77,8 @@ namespace PLForms
                                            select item2;
             foreach (BE.InterID var in list)
             {
-                DataBase.Text += var.ToString() + "\n";
+                (sender as TextBlock).Text += var.ToString() + "\n";
             }
-            DataBase.Text += "\n\n";
         }
         private bool firstRound = true;
         private void SearchBing_Changed(object sender, BE.EventValue e)
@@ -109,15 +87,16 @@ namespace PLForms
                 firstRound = false;
             else
             {
-                DataBase.Text = "";
-                if (collapseBranches.IsChecked == false)
-                    PrintSearch<BE.Branch>();
-                if (collapseDishes.IsChecked == false)
-                    PrintSearch<BE.Dish>();
-                if (collapseClients.IsChecked == false)
-                    PrintSearch<BE.Client>();
-                if (collapseOrders.IsChecked == false)
-                    PrintSearch<BE.Order>();
+                if (SearchBing.GetText() == null || SearchBing.GetText() == "Search Bing for specifics")
+                    AddText();
+                Dishes.Text = "";
+                Orders.Text = "";
+                Branches.Text = "";
+                Clients.Text = "";
+                PrintSearch<BE.Branch>(Branches);
+                PrintSearch<BE.Dish>(Dishes);
+                PrintSearch<BE.Client>(Clients);
+                PrintSearch<BE.Order>(Orders);
             }
         }
     }
