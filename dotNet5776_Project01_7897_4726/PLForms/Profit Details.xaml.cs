@@ -32,7 +32,17 @@ namespace PLForms
 
         private void ProfitByChoice_Loaded(object sender, RoutedEventArgs e)
         {
-            (sender as ComboBox).ItemsSource = new String[] { "Profit by dishes", "Profit by date", "Profit by address", "Dish amount ordered", "Profit by branches", "Profit by Kashrut of the dish", "Profit by Kashrut of the branch" };
+            (sender as ComboBox).ItemsSource = new String[] { "Profit by dishes", 
+                                                              "Profit by date", 
+                                                              "Profit by address", 
+                                                              "Profit by branches", 
+                                                              "Profit by Kashrut of the dish", 
+                                                              "Profit by Kashrut of the branch",
+                                                              "Profit by day of the week",
+                                                              "Dish amount ordered by dish profit",
+                                                              "Dish amount ordered by branch profit",
+                                                              "Dish amount by day of the week"
+                                                            };
         }
 
         private void ProfitByChoice_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -40,6 +50,14 @@ namespace PLForms
             Stick_Diagram Diagram;
             switch((sender as ComboBox).SelectedItem as String)
             {
+                case "Profit by day of the week":
+                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByWeekDay()
+                                                 select new BE.GroupSum(BE.GroupingByType.WeekDays,item.Key,item.Sum())).ToArray());
+                    break;
+                case "Dish amount by day of the week":
+                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByWeekDay()
+                                                 select new BE.GroupSum(BE.GroupingByType.DishAmountbyWeekDays, item.Key, item.Sum())).ToArray());
+                    break;
                 case "Profit by Kashrut of the branch":
                     Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByBranchKashrut()
                                                  select new BE.GroupSum(BE.GroupingByType.BranchKashrut, item.Key, item.Sum())).ToArray());
@@ -56,10 +74,15 @@ namespace PLForms
                     Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByAddress()
                                                  select new BE.GroupSum(BE.GroupingByType.Address, item.Key, item.Sum())).ToArray());
                     break;
-                case "Dish amount ordered":
+                case "Dish amount ordered by dish profit":
                     Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDishs()
-                                                 select new BE.GroupSum(item.Key
+                                                 select new BE.GroupSum(BE.GroupingByType.DishesAmountbyDish,item.Key
                                                      , Convert.ToInt32(item.Sum() / (BL.FactoryBL.getBL().GetAllDishs(item2 => item.Key == item2.ID).First().Price)))).ToArray());
+                    break;
+                case "Dish amount ordered by branch profit":
+                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByBranch()
+                                                 select new BE.GroupSum(BE.GroupingByType.DishesAmountbyBranch, item.Key
+                                                     , item.Sum())).ToArray());
                     break;
                 case "Profit by branches":
                     Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByBranches()

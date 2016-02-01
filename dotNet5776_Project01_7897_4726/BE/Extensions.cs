@@ -99,10 +99,13 @@ namespace BE
         Address,
         Dish,
         Date,
-        DishesAmount,
         Branch,
         DishKashrut,
-        BranchKashrut
+        BranchKashrut,
+        WeekDays,
+        DishesAmountbyDish,
+        DishesAmountbyBranch,
+        DishAmountbyWeekDays
     }
 
     public class GroupSum
@@ -125,13 +128,33 @@ namespace BE
             Type = gtype;
             Sum = newsum;
         }
-        public GroupSum(int num, int amount)
+        public GroupSum(GroupingByType gtype,int num, int amount)
         {
             NumKey = num;
-            Type = GroupingByType.DishesAmount;
+            Type = gtype;
             Sum = amount;
         }
+        public GroupSum(GroupingByType gtype, DayOfWeek theDay,int amount)
+        {
+            Day = theDay;
+            Type = gtype;
+            Sum = amount;
+        }
+        public GroupSum(GroupingByType gtype, DayOfWeek theDay, float newsum)
+        {
+            Day = theDay;
+            Type = gtype;
+            Sum = newsum;
+        }
         GroupingByType type;
+        private DayOfWeek day;
+
+        public DayOfWeek Day
+        {
+            get { return day; }
+            set { day = value; }
+        }
+        
         private Kashrut kashrut;
         public Kashrut Kashrut
         {
