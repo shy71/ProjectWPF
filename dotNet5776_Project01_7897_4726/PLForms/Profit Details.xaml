@@ -4,15 +4,11 @@
         xmlns:local="clr-namespace:PLForms" x:Class="PLForms.Profit_Details"
         Title="Profit_Details" Height="1000" Width="1000">
     <Grid x:Name="MainGrid">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <ScrollViewer>
-            <TextBlock x:Name="ProfitDetails" Grid.Row="0"/>
-        </ScrollViewer>
         <ComboBox x:Name="ProfitByChoice" Loaded="ProfitByChoice_Loaded" Foreground="Maroon" FontFamily="Comic Sans MS" FontSize="20" SelectionChanged="ProfitByChoice_SelectionChanged"/>
         <TextBlock Text="Profit by" IsHitTestVisible="False" Foreground="Maroon" FontFamily="Comic Sans MS" FontSize="20" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
             <TextBlock.Style>
@@ -26,6 +22,7 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
+        <ComboBox x:Name="DateCombo" Loaded="DateCombo_Loaded" Foreground="Maroon" FontFamily="Comic Sans MS" FontSize="20" SelectionChanged="DateCombo_SelectionChanged" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Collapsed"/>
         <Button x:Name="Ok" Grid.Row="2" Content="OK" Click="Ok_Click" FontSize="20" Margin="300,0,300,0"/>
         <!--local:Stick_Diagram x:Name="Diagram" HorizontalAlignment="Left" Height="264" Grid.Row="1" VerticalAlignment="Top" Width="392"/-->
     </Grid>
