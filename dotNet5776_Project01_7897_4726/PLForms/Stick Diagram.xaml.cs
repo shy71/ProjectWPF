@@ -40,14 +40,17 @@ namespace PLForms
             TextBlock text;
             TextBlock numberText;
             StackPanel stack;
-            for (int i = 0; i < Heights.Count(); i++)
-                MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
-            int counter = 0;
-            foreach (ColumnDefinition column in MainGrid.ColumnDefinitions)
+            //for (int i = 0; i < Heights.Count(); i++)
+            //    MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            //int counter = 0;
+            //foreach (ColumnDefinition column in MainList.ColumnDefinitions)
+            MainStack.Children.Clear();
+            for (int counter = 0; counter < Heights.Count(); counter++)
             {
+                
                 stack = new StackPanel();
                 stack.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
-                column.Width = new System.Windows.GridLength(1, GridUnitType.Star);
+                //column.Width = new System.Windows.GridLength(30, GridUnitType.Pixel);
                 text = new TextBlock();
                 text.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
                 text.Height = getHeight(Heights[counter].Sum, Heights);
@@ -55,56 +58,62 @@ namespace PLForms
                 numberText.TextAlignment = TextAlignment.Center;
                 numberText.Text = Heights[counter].Sum.ToString();
                 //numberText.Margin.Bottom = text.Height;
-                if (text.Height / (0.9 * MainGrid.ActualHeight) < 0.05)
+                if (text.Height / (0.9 * MainStack.ActualHeight) < 0.05) 
                     text.Background = Brushes.Red;
-                else if (text.Height / (0.9*MainGrid.ActualHeight) < 0.2)
+                else if (text.Height / (0.9 * MainStack.ActualHeight) < 0.2)
                     text.Background = Brushes.Orange;
-                else if (text.Height / (0.9 * MainGrid.ActualHeight) < 0.6)
+                else if (text.Height / (0.9 * MainStack.ActualHeight) < 0.6)
                     text.Background = Brushes.Yellow;
                 else
                     text.Background = Brushes.Green;
                 stack.Children.Add(numberText);
+                text.Width = 75;
                 stack.Children.Add(text);
                 TextBlock name = new TextBlock();
                 name.TextAlignment = TextAlignment.Center;
-                text.Width = MainGrid.ActualWidth / (2 * Heights.Count());
-                switch(Heights[0].Type)
-                {
-                    case BE.GroupingByType.DishAmountbyWeekDays:
-                        name.Text = Heights[counter].Day.ToString();
-                        break;
-                    case BE.GroupingByType.WeekDays:
-                        name.Text = Heights[counter].Day.ToString();
-                        break;
-                    case BE.GroupingByType.BranchKashrut:
-                        name.Text = Heights[counter].Kashrut.ToString();
-                        break;
-                    case BE.GroupingByType.DishKashrut:
-                        name.Text = Heights[counter].Kashrut.ToString();
-                        break;
-                    case BE.GroupingByType.Branch:
-                        name.Text = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
-                        break;
-                    case BE.GroupingByType.DishesAmountbyDish:
-                        name.Text = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
-                        break;
-                    case BE.GroupingByType.DishesAmountbyBranch:
-                        name.Text = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
-                        break;
-                    case BE.GroupingByType.Address:
-                        name.Text = Heights[counter].StrKey;
-                        break;
-                    case BE.GroupingByType.Date:
-                        name.Text = Heights[counter].StrKey;
-                        break;
-                    case BE.GroupingByType.Dish:
-                        name.Text = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
-                        break;
-                }
+
+                //text.Width = MainGrid.ActualWidth / (2 * Heights.Count());
+                //switch(Heights[0].Type)
+                //{
+                //    case BE.GroupingByType.DishAmountbyWeekDays:
+                //        name.Text = Heights[counter].Day.ToString();
+                //        break;
+                //    case BE.GroupingByType.WeekDays:
+                //        name.Text = Heights[counter].Day.ToString();
+                //        break;
+                //    case BE.GroupingByType.BranchKashrut:
+                //        name.Text = Heights[counter].Kashrut.ToString();
+                //        break;
+                //    case BE.GroupingByType.DishKashrut:
+                //        name.Text = Heights[counter].Kashrut.ToString();
+                //        break;
+                //    case BE.GroupingByType.Branch:
+                //        name.Text = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
+                //        break;
+                //    case BE.GroupingByType.DishesAmountbyDish:
+                //        name.Text = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
+                //        break;
+                //    case BE.GroupingByType.DishesAmountbyBranch:
+                //        name.Text = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
+                //        break;
+                //    case BE.GroupingByType.Address:
+                //        name.Text = Heights[counter].StrKey;
+                //        break;
+                //    case BE.GroupingByType.Date:
+                //        name.Text = Heights[counter].StrKey;
+                //        break;
+                //    case BE.GroupingByType.Dish:
+                //        name.Text = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
+                //        break;
+                //}
+                name.Text = Heights[counter].LowerHeadr;
                 stack.Children.Add(name);
-                MainGrid.Children.Add(stack);
+               // MainList.Children.Add(stack);
+                MainStack.Children.Add(stack);
+                text = new TextBlock();
+                text.Width = 25;
+                MainStack.Children.Add(text);
                 Grid.SetColumn(stack, counter);
-                counter++;
             }
         }
 
