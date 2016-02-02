@@ -94,59 +94,46 @@ namespace BE
 
     public enum CurrentPlacing
     { Action,Info,Edit}
-    public enum GroupingByType
-    {
-        Address,
-        Dish,
-        Date,
-        Branch,
-        DishKashrut,
-        BranchKashrut,
-        WeekDays,
-        DishesAmountbyDish,
-        DishesAmountbyBranch,
-        DishAmountbyWeekDays
-    }
 
     public class GroupSum
     {
-        public GroupSum(GroupingByType gtype,Kashrut kashrutlevel, double newsum)
+        public GroupSum(Kashrut kashrutlevel, double newsum,string LowHeadr)
         {
-            Type = gtype;
             Kashrut = kashrutlevel;
             Sum = newsum;
+            LowerHeadr = LowHeadr;
         }
-        public GroupSum(GroupingByType gtype, string str, double newsum)
+        public GroupSum(string str, double newsum, string LowHeadr)
         {
             StrKey = str;
-            Type = gtype;
             Sum = newsum;
+            LowerHeadr = LowHeadr;
         }
-        public GroupSum(GroupingByType gtype, int num, double newsum)
+        public GroupSum( int num, double newsum, string LowHeadr)
         {
             NumKey = num;
-            Type = gtype;
             Sum = newsum;
+            LowerHeadr = LowHeadr;
         }
-        public GroupSum(GroupingByType gtype,int num, int amount)
+        public GroupSum(int num, int amount,string LowHeadr)
         {
             NumKey = num;
-            Type = gtype;
-            Sum = amount;
+       Sum = amount;
+            LowerHeadr = LowHeadr;
         }
-        public GroupSum(GroupingByType gtype, DayOfWeek theDay,int amount)
+        public GroupSum(DayOfWeek theDay,int amount,string LowHeadr)
         {
             Day = theDay;
-            Type = gtype;
             Sum = amount;
+            LowerHeadr = LowHeadr;
         }
-        public GroupSum(GroupingByType gtype, DayOfWeek theDay, float newsum)
+        public GroupSum(DayOfWeek theDay, float newsum, string LowHeadr)
         {
             Day = theDay;
-            Type = gtype;
-            Sum = newsum;
+        Sum = newsum;
+            LowerHeadr = LowHeadr;
         }
-        GroupingByType type;
+     
         private DayOfWeek day;
 
         public DayOfWeek Day
@@ -161,8 +148,15 @@ namespace BE
             get { return kashrut; }
             set { kashrut = value; }
         }
+
+        private string lowerHeadr;
+
+        public string LowerHeadr
+        {
+            get { return lowerHeadr; }
+            set { lowerHeadr = value; }
+        }
         
-        public GroupingByType Type { get { return type; } set { type = value; } }
         string strKey;
         public string StrKey { get { return strKey; } set { strKey = value; } }
         int numKey;

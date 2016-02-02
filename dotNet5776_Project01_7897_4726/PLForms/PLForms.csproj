@@ -83,15 +83,6 @@
     <Compile Include="PasswordControl.xaml.cs">
       <DependentUpon>PasswordControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Print All Branches.xaml.cs">
-      <DependentUpon>Print All Branches.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Print All Clients.xaml.cs">
-      <DependentUpon>Print All Clients.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Print All Dishes.xaml.cs">
-      <DependentUpon>Print All Dishes.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Print Data Base.xaml.cs">
       <DependentUpon>Print Data Base.xaml</DependentUpon>
     </Compile>
@@ -181,18 +172,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PlusMinusTextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Print All Branches.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Print All Clients.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Print All Dishes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -297,7 +276,7 @@
     <Resource Include="Images\Delete1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\19273.png" />
+    <Resource Include="Images\NewFolder1\19273.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Order1.jpg" />

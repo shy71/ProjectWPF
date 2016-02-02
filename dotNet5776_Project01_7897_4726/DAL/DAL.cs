@@ -752,7 +752,7 @@ namespace DAL
                 }
                 return res;
             }
-            catch (Exception exp)
+            catch (Exception)
             {
                 throw new Exception("Failed to load item.");
             }

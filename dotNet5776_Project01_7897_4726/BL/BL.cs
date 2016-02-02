@@ -62,7 +62,6 @@ namespace BL
         /// <returns></returns>
         IEnumerable<Dish> SearchDishs(string str);
         #endregion
-        event EventHandler<EventValue> Deliverd;
 
         #region Branch Functions
         /// <summary>
@@ -270,6 +269,7 @@ namespace BL
         /// </summary>
         /// <returns>The Profits grouped by the date of the order(Key for the grouping is the date(dd/mm/yy) </returns>
         IEnumerable<IGrouping<string, float>> GetProfitByDates();
+        IEnumerable<IGrouping<string,int>> GetDishAmountByDate();
 
         #endregion
 
@@ -335,7 +335,6 @@ namespace BL
 
     public class BL : IBL
     {
-        public event EventHandler<EventValue> Deliverd;
         Random rand1 = new Random();
         //New
         public void DeleteDataBase()
@@ -803,6 +802,12 @@ namespace BL
         #endregion
 
         #region Profits Functions
+        
+             public IEnumerable<IGrouping<string, int>> GetDishAmountByDate()
+        {
+            return from item in myDal.GetAllDishOrders()
+                   group item.DishAmount by myDal.GetOrder(item.OrderID).Date.ToShortDateString();
+        }
         public IEnumerable<IGrouping<DayOfWeek, float>> GetProfitByWeekDay()
         {
             return from item in myDal.GetAllDishOrders()
