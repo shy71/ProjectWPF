@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace tOD_FFD
     { }
     class Dish : Inta
     {
-        public string S{get;set;}
+        public string S { get; set; }
         public Dish(string s, int a)
         {
             S = s;
@@ -25,30 +26,41 @@ namespace tOD_FFD
     }
     class MyClass
     {
-        static public IEnumerable<T> shy<T>()
+        delegate string mydel(int a);
+        public MyClass()
         {
-            var s = new { Id = 4, Name = "a" };
-
-            List<object> temp = new List<object>();
-            temp.Add(s);
-            return temp;
+            Console.WriteLine("a");
         }
-    }
-    class Program
-    {
-        public static void Main()
+        class Program
         {
-            //לעזרא 
-            float x = Convert.ToSingle("4.234");
-            Console.WriteLine( x);
-            Console.ReadKey();
-            return;
-            Dish d = new Dish("Hot dogs", 0);
-            new XElement("Dish", from item in d.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
-                                 select new XElement(item.Name, item.GetValue(d))).Save(@"Dish.xml");
-            var s = MyClass.shy<object>();
-            s.
-        }
+            public static int f1(ref int a)
+            {
+                return 2;
+            }
+            public static void Main()
+            {
+                MyClass[] arr = new MyClass[4];
+                arr[0] = new MyClass();
+                List<int> list = new List<int> { 2, 1, 5, 3 };
+                int x = 0;
+                IEnumerable<int> v = from item in list
+                                     where item == x++
+                                     select item;
+                Console.WriteLine("x is : "+x);
+                foreach (var item in v)
+                {
+                    Console.WriteLine("{0}:{1}",x,item);
+                    
+                }
+                foreach (var item in v)
+                {
+                    Console.WriteLine("{0}:{1}", x, item);
+                }
+                f1(ref x);
+                mydel temp = item => item.ToString();
+                Console.WriteLine(DateTime.Parse(DateTime.Now.ToString()).ToString());
 
+            }
+        }
     }
 }
