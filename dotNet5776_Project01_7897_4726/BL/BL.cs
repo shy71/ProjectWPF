@@ -426,19 +426,28 @@ namespace BL
         }
         public void DeleteDish(int id)
         {
-            if (!myDal.GetAllDishOrders(item => item.DishID == id).Any(item => myDal.GetOrder(item.OrderID).Delivered == false))
+            if (!myDal.GetAllDishOrders(item => item.DishID == id).Any(item => myDal.GetOrder(item.OrderID).Delivered == false && myDal.GetOrder(item.OrderID).Date != DateTime.MinValue))
+            {
                 myDal.DeleteDish(id);
+            }
             else
                 throw new Exception("You can't delete a dish which is being ordered");
         }
-        public void DeleteDish(Dish item)
+        public void DeleteDish(Dish dish)
         {
-            DeleteDish(item.ID);
+            if (!myDal.GetAllDishOrders(item => item.DishID == dish.ID).Any(item => myDal.GetOrder(item.OrderID).Delivered == false && myDal.GetOrder(item.OrderID).Date!=DateTime.MinValue))
+            {
+                dish.Active=false;
+                myDal.UpdateDish(dish);
+            }
+            else
+                throw new Exception("You can't delete a dish which is being ordered");
+
         }
         public void UpdateDish(Dish item)
         {
             Dish temp = myDal.GetDish(item.ID);
-            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => (myDal.GetOrder(var.OrderID).Kosher > item.Kosher || temp.Price != item.Price || temp.Size != item.Size) && myDal.GetOrder(var.OrderID).Delivered == false))
+            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => (myDal.GetOrder(var.OrderID).Kosher > item.Kosher || temp.Price != item.Price || temp.Size != item.Size) && (myDal.GetOrder(var.OrderID).Delivered == false && myDal.GetOrder(var.OrderID).Date!=DateTime.MinValue)))
             {
                 CompatibleDish(item, "The Updated Dish you sended to upadte the old one is incompatible:");
                 myDal.UpdateDish(item);
@@ -508,8 +517,13 @@ namespace BL
         }
         public void DeleteBranch(int id)
         {
-            if (!myDal.GetAllOrders(item => item.BranchID == id).Any(item => item.Delivered == false&&item.Date!=DateTime.MinValue))
+            var list=myDal.GetAllOrders(item => item.BranchID == id);
+            if (!list.Any(item => item.Delivered == false && item.Date != DateTime.MinValue))
+            {
+                foreach(Order item in (list.Where(item=>item.Delivered==true)))
+                    DeleteOrder(item);
                 myDal.DeleteBranch(id);
+            }
             else
                 throw new Exception("you cant delete a branch that has active orders from!");
         }
@@ -521,7 +535,7 @@ namespace BL
         }
         public void UpdateBranch(Branch myBranch)
         {
-            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher && item.Delivered == false))
+            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher && item.Delivered == false && item.Date != DateTime.MinValue))
             {
                 CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible.");
                 if (myBranch.Boss != myDal.GetBranch(myBranch.ID).Boss)
@@ -699,7 +713,7 @@ namespace BL
             Client temp = myDal.GetClient(item.ID);
             if (temp.Address != item.Address)
             {
-                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.Delivered == false).Count() > 0)
+                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.Delivered == false && var.Date != DateTime.MinValue).Count() > 0)
                     throw new Exception("You cant upadte a client address when he has an order to that address!");
             }
             CompatibleClient(item, "The Updated Client you sended to upadte the old one is incompatible:");

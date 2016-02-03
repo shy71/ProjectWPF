@@ -215,7 +215,7 @@ namespace Console_UI
                             #region Print all Undelivered orders
                             temp = 0;
                             temp2 = 0;
-                            foreach (Order item in myBL.GetAllOrders(item => item.Delivered == false))
+                            foreach (Order item in myBL.GetAllOrders(item => item.Delivered == false && item.Date != DateTime.MinValue))
                             {
                                 Console.WriteLine(item);
                                 Console.WriteLine("Dishs in the Order:");

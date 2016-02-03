@@ -51,11 +51,11 @@ namespace PLForms
             }
             var list = BL.FactoryBL.getBL().GetAllDishOrders(item => item.OrderID == orderID);
             var order = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == orderID).First();
-            var RecomndedDish = BL.FactoryBL.getBL().SuggestedDish(BL.FactoryBL.getBL().GetAllClients(item => item.ID == order.ClientID).First().ID);
-            foreach (BE.Dish item in BL.FactoryBL.getBL().GetAllDishs(item => !list.Any(item2 => item2.DishID == item.ID) && item.Kosher >= minKashrut))
+            BE.Dish RecomndedDish = BL.FactoryBL.getBL().SuggestedDish(BL.FactoryBL.getBL().GetAllClients(item => item.ID == order.ClientID).First().ID);
+            foreach (BE.Dish item in BL.FactoryBL.getBL().GetAllDishs(item => !list.Any(item2 => item2.DishID == item.ID) && item.Kosher >= minKashrut&& item.Active==true))
             {
                 text = new TextBox();
-                if (RecomndedDish == item)
+                if (RecomndedDish.ID == item.ID)
                 {
                     text.Text = "Recommend Dish\n" + item.ToString().Replace("\t", "");//need checking
                     text.Foreground = Brushes.Green;

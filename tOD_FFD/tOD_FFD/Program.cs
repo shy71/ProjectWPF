@@ -23,6 +23,17 @@ namespace tOD_FFD
         }
         public int DishID { get; set; }
     }
+    class MyClass
+    {
+        static public IEnumerable<T> shy<T>()
+        {
+            var s = new { Id = 4, Name = "a" };
+
+            List<object> temp = new List<object>();
+            temp.Add(s);
+            return temp;
+        }
+    }
     class Program
     {
         public static void Main()
@@ -35,6 +46,8 @@ namespace tOD_FFD
             Dish d = new Dish("Hot dogs", 0);
             new XElement("Dish", from item in d.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
                                  select new XElement(item.Name, item.GetValue(d))).Save(@"Dish.xml");
+            var s = MyClass.shy<object>();
+            s.
         }
 
     }

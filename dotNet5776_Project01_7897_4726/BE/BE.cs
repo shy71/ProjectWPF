@@ -9,13 +9,14 @@ namespace BE
     public class Dish : InterID
     {
         public Dish() { }
-        public Dish(string name, Size size, float price, Kashrut kosher, int id = 0)
+        public Dish(string name, Size size, float price, Kashrut kosher, int id = 0, bool active = true)
         {
             ID = id;
             Name = name;
             Size = size;
             Price = price;
             Kosher = kosher;
+            Active = active;
         }
 
         int id;
@@ -27,7 +28,7 @@ namespace BE
         string name;
         public string Name
         {
-            get { return name; }
+            get { return name+((name.Any(item=>item=='|'))?"":(((Active)?"":"|Unactive"))); }
             set { name = value; }
         }
         Size size;
@@ -48,18 +49,27 @@ namespace BE
             get { return kosher; }
             set { kosher = value; }
         }
+        private bool active;
+
+        public bool Active
+        {
+            get { return active; }
+            set { active = value; }
+        }
+        
         /// <summary>
         /// ממיר את המנה למחרוזת
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return "Dish " + Name + ":"
+            return "Dish " + Name
                  + "\n\tID: " + ID
-                 + "\n\tName: " + Name
+                 + "\n\tName: " + name
                  + "\n\tSize: " + Size
                  + "\n\tPrice: " + Price
-                 + "\n\tKashrut: " + kosher;
+                 + "\n\tKashrut: " + kosher
+            +"\n\tActive: " + Active;
         }
         /// <summary>
         /// Generates a unique ID based on the strings in the class
