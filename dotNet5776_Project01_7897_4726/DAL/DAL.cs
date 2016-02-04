@@ -170,6 +170,7 @@ namespace DAL
         /// <param name="predicate">the predicate test</param>
         /// <returns>An Enumerable of all of the DishOrders that pass the predicate</returns>
         IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null);
+        IEnumerable<DishOrder> GetAllDishOrders(Predicate<int> predicate);
         #endregion
 
         #region Client Functions
@@ -657,6 +658,13 @@ namespace DAL
         {
             return GetAll(predicate);
         }
+        public IEnumerable<DishOrder> GetAllDishOrders(Predicate<int> predicate)
+        {
+            return from item in GetAll<DishOrder>()
+                   let order = GetOrder(item.OrderID)
+                   where predicate(order.ID)
+                   select item;
+        }
         #endregion
 
         #region Client Functions
@@ -1079,6 +1087,13 @@ namespace DAL
         public IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null)
         {
             return GetAll(predicate);
+        }
+        public IEnumerable<DishOrder> GetAllDishOrders(Predicate<int> predicate)
+        {
+            return from item in GetAll<DishOrder>()
+                   let order = GetOrder(item.OrderID)
+                   where predicate(order.BranchID)
+                   select item;
         }
         #endregion
 

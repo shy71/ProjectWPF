@@ -78,15 +78,14 @@ namespace PLForms
                     temp.ItemID = 0;
                     BL.FactoryBL.getBL().UpdateUser(temp);
                     BL.FactoryBL.getBL().DeleteBranch(branchID);
-                }
-                ).Show();
+                },"Delete").Show();
         }
         private void EditBranch(object sender, RoutedEventArgs e)
         {
             new Delete_Branch(delegate(int branchID)
                 {
                     new BranchEditor(BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == branchID).First(),true).ShowDialog();
-                }
+                },"Edit"
                 ).Show();
         }
         private void NetWorkCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -106,6 +105,14 @@ namespace PLForms
             if (MessageBoxResult.Yes == MessageBox.Show("Are You Sure You want to delete this Network Manger?", "Delete Conformtion", MessageBoxButton.YesNo))
                 BL.FactoryBL.getBL().RemoveUser(BranchMangerCombo.SelectedValue as string);
             BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger &&item.ItemID==0);
+        }
+
+        private void BranchStatic_Click(object sender, RoutedEventArgs e)
+        {
+            new Delete_Branch(delegate(int branchID)
+                {
+                    new Profit_Details(x=>x == branchID).Show();
+                },"See Statics").Show();
         }
     }
 }

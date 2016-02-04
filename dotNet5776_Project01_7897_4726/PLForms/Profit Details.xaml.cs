@@ -19,10 +19,22 @@ namespace PLForms
     /// </summary>
     public partial class Profit_Details : Window
     {
+        Predicate<int> IsBranch;
+        bool IsOnlyBranch=false;
         public Profit_Details()
         {
             InitializeComponent();
-
+            IsBranch = x => true;
+            BranchLabel.Content = "Statics from all the branchs:";
+            BranchLabel.ToolTip = BL.FactoryBL.getBL().GetAllBranchs().Count();
+        }
+        public Profit_Details(Predicate<int> predicate)
+        {
+            InitializeComponent();
+                IsBranch = predicate;
+                IsOnlyBranch = true;
+            BE.Branch temp=BL.FactoryBL.getBL().GetAllBranchs(item => predicate(item.ID)).First();
+            this.DataContext = new { Name = temp.Name, toolTip = temp.ToString() };
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)
@@ -32,19 +44,17 @@ namespace PLForms
 
         private void ProfitByChoice_Loaded(object sender, RoutedEventArgs e)
         {
-            (sender as ComboBox).ItemsSource = new String[] { "Profit by dishes", 
-                                                              "Profit by date", 
-                                                              "Profit by address", 
-                                                              "Profit by branches", 
-                                                              "Profit by Kashrut of the dish", 
-                                                              "Profit by Kashrut of the branch",
-                                                              "Profit by day of the week",
-                                                             "Dish amount ordered by date",
-                                                              "Dish amount ordered by dish",
-                                                              "Dish amount ordered by branch",
-                                                              "Dish amount by day of the week",
-                                                              "bbb"
-                                                            };
+            var arr = new List<string> { "Profit by dishes","Dish amount ordered by dish","Profit by Kashrut of the dish", 
+                                         "Profit by date", "Dish amount ordered by date",
+                                         "Profit by day of the week","Dish amount by day of the week",
+                                         "Profit by address"};
+            if (!IsOnlyBranch)
+            {
+                arr.Add("Dish amount ordered by branchs");
+                arr.Add("Profit by Kashrut of the branchs");
+                arr.Add("Profit by branches");
+            }
+            (sender as ComboBox).ItemsSource = arr;
         }
 
         private void ProfitByChoice_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,44 +72,51 @@ namespace PLForms
             switch((sender as ComboBox).SelectedItem as String)
             {
                 case "Profit by day of the week":
-                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByWeekDay()
+                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByWeekDay(IsBranch)
                                                  select new BE.GroupSum(item.Key,item.Sum(),item.Key.ToString())).ToArray());
                     break;
                 case "Dish amount by day of the week":
-                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByWeekDay()
+                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByWeekDay(IsBranch)
                                                  select new BE.GroupSum( item.Key, item.Sum(),item.Key.ToString())).ToArray());
                     break;
-                case "Profit by Kashrut of the branch":
-                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByBranchKashrut().OrderBy(item=>item.Key)
+                case "Profit by Kashrut of the branchs":
+                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByBranchsKashrut().OrderBy(item => item.Key)
                                                  select new BE.GroupSum(item.Key, item.Sum(),item.Key.ToString())).ToArray());
                     break;
                 case "Profit by Kashrut of the dish":
-                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDishKashrut()
+                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDishKashrut(IsBranch)
                                                  select new BE.GroupSum( item.Key, item.Sum(),item.Key.ToString())).ToArray());
                     break;
                 case "Profit by date":
                     ///
                     DateCombo.Visibility = Visibility.Visible;
-                    DateCombo.SelectedIndex = 0;
+                    if (DateCombo.SelectedIndex == 0)
+                        DateCombo_SelectionChanged(DateCombo, null);
+                    else
+                        DateCombo.SelectedIndex = 0;
                     return;
                 case  "Dish amount ordered by date":
                     ///
                     DateCombo.Visibility = Visibility.Visible;
-                    DateCombo.SelectedIndex = 0;
+                    if(DateCombo.SelectedIndex==0)
+                        DateCombo_SelectionChanged(DateCombo, null);
+                    else
+                                        DateCombo.SelectedIndex = 0;
+                                        
+
                     return;
                 case "Profit by address":
-                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByAddress()
+                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByAddress(IsBranch)
                                                  select new BE.GroupSum( item.Key, item.Sum(),item.Key)).ToArray());
                     break;
                 case "Dish amount ordered by dish":
-                    var temp = BL.FactoryBL.getBL().GetAllDishs();
-                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDishs()
-                                                 select new BE.GroupSum(item.Key
-                                                     , Convert.ToInt32(item.Sum() / (temp.First(item2 => item.Key == item2.ID).Price)),temp.First(item2=>item2.ID==item.Key).Name)).ToArray());
+                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDishs(IsBranch)
+                                                 let dish = BL.FactoryBL.getBL().GetAllDishs().First(item2 => item.Key == item2.ID)
+                                                 select new BE.GroupSum(item.Key,(int)item.Sum() / dish.Price, dish.Name)).ToArray());
                     break;
-                case "Dish amount ordered by branch":
+                case "Dish amount ordered by branchs":
                     var temp1=BL.FactoryBL.getBL().GetAllBranchs();
-                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByBranch()
+                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByBranchs()
                                                  select new BE.GroupSum(item.Key
                                                      , item.Sum(),temp1.First(item2=>item2.ID==item.Key).Name)).ToArray());
                     break;
@@ -109,20 +126,20 @@ namespace PLForms
                                                  select new BE.GroupSum(item.Key, item.Sum(),temp1.First(item2=>item2.ID==item.Key).Name)).ToArray());
                     break;
                 default://"Dishes"
-                    temp = BL.FactoryBL.getBL().GetAllDishs();
-                    Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDishs()
+                   var temp = BL.FactoryBL.getBL().GetAllDishs();
+                   Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDishs(IsBranch)
                                                  select new BE.GroupSum(item.Key, item.Sum(),temp.First(item2 => item2.ID == item.Key).Name)).ToArray());
                     break;
             }
             Diagram.Height = 670;
             Diagram.Width = 992;
             MainGrid.Children.Add(Diagram);
-            Grid.SetRow(Diagram, 1);
+            Grid.SetRow(Diagram, 2);
         }
 
         private void DateCombo_Loaded(object sender, RoutedEventArgs e)
         {
-            DateCombo.ItemsSource = new String[] {"Days(last 30 days)","Months","Years"};
+            DateCombo.ItemsSource = new String[] {"Days","Months","Years"};
         }
 
         private void DateCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -139,48 +156,44 @@ namespace PLForms
             if ((ProfitByChoice.SelectedItem as String) == "Profit by date")
                 switch ((sender as ComboBox).SelectedItem as String)
                 {
-                    case "Days(last 30 days)":
-                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDates()
-                                                     select new BE.GroupSum(item.Key, item.Sum(), item.Key)).ToArray());
-                        break;
                     case "Months":
-                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDates()
+                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDates(IsBranch)
                                                      group item.Sum() by DateTime.Parse(item.Key).Month + "/" + DateTime.Parse(item.Key).Year into item3
                                                      select new BE.GroupSum(item3.Key, item3.Sum(), item3.Key)).ToArray());
                         break;
                     case "Years":
-                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDates()
+                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDates(IsBranch)
                                                      group item.Sum() by DateTime.Parse(item.Key).Year into item3
                                                      select new BE.GroupSum(item3.Key, item3.Sum(), item3.Key.ToString())).ToArray());
                         break;
-                    default://"Dishes"
-                        return;
+                    default://"Days(last 30 days)"
+                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDates(IsBranch)
+                                                     select new BE.GroupSum(item.Key, item.Sum(), item.Key)).ToArray());
+                        break;
                 }
             else
                 switch ((sender as ComboBox).SelectedItem as String)
                 {
-                    case "Days(last 30 days)":
-                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByDate()
-                                                     select new BE.GroupSum( item.Key, item.Sum(), item.Key)).ToArray());
-                        break;
                     case "Months":
-                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByDate()
+                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByDate(IsBranch)
                                                      group item.Sum() by DateTime.Parse(item.Key).Month + "/" + DateTime.Parse(item.Key).Year into item3
                                                      select new BE.GroupSum(item3.Key, item3.Sum(), item3.Key)).ToArray());
                         break;
                     case "Years":
-                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByDate()
+                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByDate(IsBranch)
                                                      group item.Sum() by DateTime.Parse(item.Key).Year into item3
                                                      select new BE.GroupSum(item3.Key,item3.Sum(), item3.Key.ToString())).ToArray());
                         break;
-                    default://"Dishes"
-                        return;
+                    default://"Days(last 30 days)"
+                        Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByDate(IsBranch)
+                                                     select new BE.GroupSum( item.Key, item.Sum(), item.Key)).ToArray());
+                        break;
                 }
 
             Diagram.Height = 670;
             Diagram.Width = 992;
             MainGrid.Children.Add(Diagram);
-            Grid.SetRow(Diagram, 1);
+            Grid.SetRow(Diagram, 2);
         }
     }
 }

@@ -68,5 +68,10 @@ namespace PLForms
         {
             new BranchEditor(branch, false).ShowDialog();
         }
+
+        private void staticBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new Profit_Details(x=>x==branch.ID).ShowDialog();
+        }
     }
 }

@@ -115,6 +115,13 @@ namespace PLForms
                 MainStack.Children.Add(text);
                 Grid.SetColumn(stack, counter);
             }
+            if(MainStack.Children.Count==0)
+            {
+                text=new TextBlock();
+                text.Text="No Diagram To Show for this Data";
+                MainStack.Children.Add(text);
+            }
+
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

@@ -5,7 +5,7 @@
     <Grid Background="#FFA50221">
         <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="24" Click="LogOut_Click"/>
         <Button Content="Edit your profile" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Click="Edit_Click"/>
-        <TabControl Height="200">
+        <TabControl Height="220">
             <TabItem Header="Manege Branches">
                 <Grid Background="#FFA50221">
                     <StackPanel>
@@ -18,7 +18,8 @@
             <TabItem Header="Other Options">
                 <Grid Background="#FFA50221">
                     <StackPanel>
-                        <Button Content="Statics Info" FontSize="20" Click="Static_Click"/>
+                        <Button Content="Statics Info for the entire network" FontSize="20" Click="Static_Click"/>
+                        <Button Content="Statics Info for one of the branchs" FontSize="20" Click="BranchStatic_Click"/>
                         <Grid>
                             <ComboBox x:Name="BranchMangerCombo" SelectionChanged="BranchMangerCombo_SelectionChanged"/>
                             <TextBlock Text="DeleteManger" IsHitTestVisible="False"  FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center">

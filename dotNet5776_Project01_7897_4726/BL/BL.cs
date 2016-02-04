@@ -228,27 +228,27 @@ namespace BL
         /// Get dish amount grouped by the week day
         /// </summary>
         /// <returns>The dish amount grouped by the week day(Key for the grouping is the wekk day)</returns>
-        IEnumerable<IGrouping<DayOfWeek, int>> GetDishAmountByWeekDay();
+        IEnumerable<IGrouping<DayOfWeek, int>> GetDishAmountByWeekDay(Predicate<int> predicate);
         /// <summary>
         /// Get dish amount grouped by the branch
         /// </summary>
         /// <returns>The dish amount grouped by the Branch ID(Key for the grouping is the branch)</returns>
-        IEnumerable<IGrouping<int, int>> GetDishAmountByBranch();
+        IEnumerable<IGrouping<int, int>> GetDishAmountByBranchs();
         /// <summary>
         /// Get Profits grouped by the branch kashrut
         /// </summary>
         /// <returns>The Profits grouped by the Branch ID(Key for the grouping is the branch kashrut)</returns>
-        IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByBranchKashrut();
+        IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByBranchsKashrut();
         /// <summary>
         /// Get Profits grouped by the week day
         /// </summary>
         /// <returns>The Profits grouped by the week day(Key for the grouping is the wekk day)</returns>
-        IEnumerable<IGrouping<DayOfWeek, float>> GetProfitByWeekDay();
+        IEnumerable<IGrouping<DayOfWeek, float>> GetProfitByWeekDay(Predicate<int> predicate);
         /// <summary>
         /// Get Profits grouped by the sidh kashrut
         /// </summary>
         /// <returns>The Profits grouped by the Branch ID(Key for the grouping is the dish kashrut)</returns>
-        IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByDishKashrut();
+        IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByDishKashrut(Predicate<int> predicate);
         /// <summary>
         /// Get Profits grouped by the Branch id
         /// </summary>
@@ -258,18 +258,18 @@ namespace BL
         /// Get Profits grouped by the Dish id
         /// </summary>
         /// <returns>The Profits grouped by the Dish ID(Key for the grouping is the Dish ID)</returns>
-        IEnumerable<IGrouping<int, float>> GetProfitByDishs();
+        IEnumerable<IGrouping<int, float>> GetProfitByDishs(Predicate<int> predicate);
         /// <summary>
         /// Get Profits grouped by the Address order
         /// </summary>
         /// <returns>The Profits grouped by the Address order(Key for the grouping is the Address)</returns>
-        IEnumerable<IGrouping<string, float>> GetProfitByAddress();
+        IEnumerable<IGrouping<string, float>> GetProfitByAddress(Predicate<int> predicate);
         /// <summary>
         /// Get Profits grouped by the date of the order
         /// </summary>
         /// <returns>The Profits grouped by the date of the order(Key for the grouping is the date(dd/mm/yy) </returns>
-        IEnumerable<IGrouping<string, float>> GetProfitByDates();
-        IEnumerable<IGrouping<string, int>> GetDishAmountByDate();
+        IEnumerable<IGrouping<string, float>> GetProfitByDates(Predicate<int> predicate);
+        IEnumerable<IGrouping<string, int>> GetDishAmountByDate(Predicate<int> predicate);
 
         #endregion
 
@@ -889,34 +889,34 @@ namespace BL
 
         #region Profits Functions
 
-        public IEnumerable<IGrouping<string, int>> GetDishAmountByDate()
+        public IEnumerable<IGrouping<string, int>> GetDishAmountByDate(Predicate<int> predicate)
         {
-            return from item in myDal.GetAllDishOrders()
+            return from item in myDal.GetAllDishOrders(predicate)
                    group item.DishAmount by myDal.GetOrder(item.OrderID).Date.ToShortDateString();
         }
-        public IEnumerable<IGrouping<DayOfWeek, float>> GetProfitByWeekDay()
+        public IEnumerable<IGrouping<DayOfWeek, float>> GetProfitByWeekDay(Predicate<int> predicate)
         {
-            return from item in myDal.GetAllDishOrders()
+            return from item in myDal.GetAllDishOrders(predicate)
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Date.DayOfWeek;
         }
-        public IEnumerable<IGrouping<DayOfWeek, int>> GetDishAmountByWeekDay()
+        public IEnumerable<IGrouping<DayOfWeek, int>> GetDishAmountByWeekDay(Predicate<int> predicate)
         {
-            return from item in myDal.GetAllDishOrders()
+            return from item in myDal.GetAllDishOrders(predicate)
                    group item.DishAmount by myDal.GetOrder(item.OrderID).Date.DayOfWeek;
         }
-        public IEnumerable<IGrouping<int, int>> GetDishAmountByBranch()
+        public IEnumerable<IGrouping<int, int>> GetDishAmountByBranchs()
         {
             return from item in myDal.GetAllDishOrders()
                    group item.DishAmount by myDal.GetAllOrders(item1 => item1.ID == item.OrderID).FirstOrDefault().BranchID;
         }
-        public IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByBranchKashrut()
+        public IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByBranchsKashrut()
         {
             return from item in myDal.GetAllDishOrders()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetAllBranchs(item2 => item2.ID == myDal.GetAllOrders(item1 => item1.ID == item.OrderID).First().BranchID).First().Kosher;
         }
-        public IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByDishKashrut()
+        public IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByDishKashrut(Predicate<int> predicate)
         {
-            return from item in myDal.GetAllDishOrders()
+            return from item in myDal.GetAllDishOrders(predicate)
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetAllDishs(item1 => item1.ID == item.DishID).First().Kosher;
         }
         public IEnumerable<IGrouping<int, float>> GetProfitByBranches()
@@ -924,19 +924,19 @@ namespace BL
             return from item in myDal.GetAllDishOrders()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetAllOrders(item1 => item1.ID == item.OrderID).First().BranchID;
         }
-        public IEnumerable<IGrouping<int, float>> GetProfitByDishs()
+        public IEnumerable<IGrouping<int, float>> GetProfitByDishs(Predicate<int> predicate)
         {
-            return from item in myDal.GetAllDishOrders()
+            return from item in myDal.GetAllDishOrders(predicate)
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by item.DishID;
         }
-        public IEnumerable<IGrouping<string, float>> GetProfitByAddress()
+        public IEnumerable<IGrouping<string, float>> GetProfitByAddress(Predicate<int> predicate)
         {
-            return from item in myDal.GetAllDishOrders()
+            return from item in myDal.GetAllDishOrders(predicate)
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Address;
         }
-        public IEnumerable<IGrouping<string, float>> GetProfitByDates()
+        public IEnumerable<IGrouping<string, float>> GetProfitByDates(Predicate<int> predicate)
         {
-            return from item in myDal.GetAllDishOrders()
+            return from item in myDal.GetAllDishOrders(predicate)
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Date.ToShortDateString();
         }
         #endregion

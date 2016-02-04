@@ -34,11 +34,11 @@ namespace PLForms
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
                 IsCtrlDown = false;
         }
-        public Delete_Branch(Action<int> func)
+        public Delete_Branch(Action<int> func, string str)
         {
             InitializeComponent();
             choiceBtn.IsEnabled = false;
-            choiceBtn.DataContext = theBranchesIDs;
+           // choiceBtn.DataContext = theBranchesIDs;
             theBranchesIDs = new List<int>();
             TextBox text;
             int NumOfBranches = 0;
@@ -65,6 +65,7 @@ namespace PLForms
                 NumOfBranches++;
             }
             this.func = func;
+            this.DataContext = new {Name=str,Header="Chose the branch you want to "+str.ToLower()+":" };
 
         }
         private void Refresh(object sender, RoutedEventArgs e)

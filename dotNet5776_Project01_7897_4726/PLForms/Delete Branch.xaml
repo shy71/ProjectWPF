@@ -8,7 +8,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Chose the branch you want to:" IsHitTestVisible="False" Grid.Row="1" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"/>
+        <TextBlock Text="{Binding Header}" IsHitTestVisible="False" Grid.Row="1" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"/>
         <ScrollViewer Grid.Row="2" Loaded="Refresh" VerticalScrollBarVisibility="Auto">
             <Grid x:Name="MainGrid">
                 <Grid.Resources>
@@ -31,6 +31,6 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-        <Button x:Name="choiceBtn" Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="3" Width="75" Height="35" Click="choiceBtn_Click"/>
+        <Button x:Name="choiceBtn" Content="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="3" Width="75" Height="35" Click="choiceBtn_Click"/>
     </Grid>
 </Window>
