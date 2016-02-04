@@ -449,7 +449,6 @@ namespace BL
                 myDal.DeleteClient(user.ItemID);
             myDal.DeleteUser(user.UserName);
         }
-
         /// <summary>
         /// Max Price for an order
         /// </summary>
@@ -490,7 +489,7 @@ namespace BL
         }
         public void DeleteDish(int id)
         {
-            if (!myDal.GetAllDishOrders(item => item.DishID == id).Any(item => myDal.GetOrder(item.OrderID).Delivered == false && myDal.GetOrder(item.OrderID).Date != DateTime.MinValue))
+            if (!myDal.GetAllDishOrders(item => item.DishID == id).Any((item) => myDal.GetOrder(item.OrderID).IsActive()))
             {
                 myDal.DeleteDish(id);
             }
@@ -499,7 +498,7 @@ namespace BL
         }
         public void DeleteDish(Dish dish)
         {
-            if (!myDal.GetAllDishOrders(item => item.DishID == dish.ID).Any(item => myDal.GetOrder(item.OrderID).Delivered == false && myDal.GetOrder(item.OrderID).Date != DateTime.MinValue))
+            if (!myDal.GetAllDishOrders(item => item.DishID == dish.ID).Any(item => myDal.GetOrder(item.OrderID).IsActive()))
             {
                 dish.Active = false;
                 myDal.UpdateDish(dish);
@@ -511,7 +510,7 @@ namespace BL
         public void UpdateDish(Dish item)
         {
             Dish temp = myDal.GetDish(item.ID);
-            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => (myDal.GetOrder(var.OrderID).Kosher > item.Kosher || temp.Price != item.Price || temp.Size != item.Size) && (myDal.GetOrder(var.OrderID).Delivered == false && myDal.GetOrder(var.OrderID).Date != DateTime.MinValue)))
+            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => (myDal.GetOrder(var.OrderID).Kosher > item.Kosher || temp.Price != item.Price || temp.Size != item.Size) && (myDal.GetOrder(var.OrderID).IsActive())))
             {
                 CompatibleDish(item, "The Updated Dish you sended to upadte the old one is incompatible:");
                 myDal.UpdateDish(item);
@@ -587,7 +586,7 @@ namespace BL
         public void DeleteBranch(int id)
         {
             var list = myDal.GetAllOrders(item => item.BranchID == id);
-            if (!list.Any(item => item.Delivered == false && item.Date != DateTime.MinValue))
+            if (!list.Any(item => item.IsActive()))
             {
                 foreach (Order item in (list.Where(item => item.Delivered == true)))
                     DeleteOrder(item);
@@ -604,7 +603,7 @@ namespace BL
         }
         public void UpdateBranch(Branch myBranch)
         {
-            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher && item.Delivered == false && item.Date != DateTime.MinValue))
+            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher && item.IsActive()))
             {
                 CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible.");
                 if (myBranch.Boss != myDal.GetBranch(myBranch.ID).Boss)
@@ -773,7 +772,7 @@ namespace BL
         }
         public void DeleteClient(int id)
         {
-            if (myDal.GetAllOrders(item => item.ClientID == id).Any(item => item.Delivered == false))
+            if (myDal.GetAllOrders(item => item.ClientID == id).Any(item => item.IsActive()))
                 throw new Exception("You cant delete a Client that has active orders");
             myDal.DeleteClient(id);
         }
@@ -786,7 +785,7 @@ namespace BL
             Client temp = myDal.GetClient(item.ID);
             if (temp.Address != item.Address)
             {
-                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.Delivered == false && var.Date != DateTime.MinValue).Count() > 0)
+                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.IsActive()).Count() > 0)
                     throw new Exception("You cant upadte a client address when he has an order to that address!");
             }
             CompatibleClient(item, "The Updated Client you sended to upadte the old one is incompatible:");
@@ -1067,36 +1066,8 @@ namespace BL
         bool Include<T>(T item, string str)
         {
             foreach (PropertyInfo p in item.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                if (Compares(p.GetValue(item), (p.PropertyType.Name == "String"), (p.PropertyType.Name == "Int32"), (p.PropertyType.Name == "Single"), (p.PropertyType.Name == "DateTime"), str))
-                {
+                if (p.GetValue(item).ToString().Contains(str))
                     return true;
-                }
-            }
-            return false;
-        }
-        /// <summary>
-        /// Compares between an object and a string and see return whether the object equal or contain the string
-        /// </summary>
-        /// <param name="obj">The object</param>
-        /// <param name="IsString">Does the object is string</param>
-        /// <param name="IsInt">Does the object is int</param>
-        /// <param name="IsFloat">Does the object is float</param>
-        /// <param name="IsDate">Does the object is Date</param>
-        /// <param name="subStr">The string</param>
-        /// <returns>a bool that says whether the object equal or contain the string</returns>
-        bool Compares(object obj, bool IsString, bool IsInt, bool IsFloat, bool IsDate, string subStr)
-        {
-            int temp;
-            float temp2;
-            if (IsString)
-                return (obj as string).ToLower().Contains(subStr.ToLower());
-            else if (IsInt && int.TryParse(subStr, out temp))
-                return ((int)obj).ToString().Contains(temp.ToString());
-            else if (IsDate)
-                return ((DateTime)obj).ToShortDateString().Contains(subStr);
-            else if (IsFloat && float.TryParse(subStr, out temp2))
-                return ((float)obj).ToString().Contains((temp2.ToString()));
             return false;
         }
         #endregion
@@ -1112,11 +1083,8 @@ namespace BL
         }
         public float PriceOfOrder(int orderID)
         {
-            float result = 0;
-            List<DishOrder> list = myDal.GetAllDishOrders(item => item.OrderID == orderID).ToList<DishOrder>();
-            foreach (DishOrder item in list)
-                result += item.DishAmount * myDal.GetDish(item.DishID).Price;
-            return result;
+            return (from item in myDal.GetAllDishOrders(item => item.OrderID == orderID)
+                   select item.DishAmount * myDal.GetDish(item.DishID).Price).Sum();
         }
         public void Inti()
         {

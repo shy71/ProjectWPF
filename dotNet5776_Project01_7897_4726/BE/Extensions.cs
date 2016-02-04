@@ -33,7 +33,7 @@ namespace BE
             this.pName = pName;
         }
     }
-    public class Extensions
+    public static class Extensions
     {
         /// <summary>
         /// Make a unique ID from any numbers of strings
@@ -100,6 +100,10 @@ namespace BE
                 default:
                     throw new Exception("Invalid size level.");
             }
+        }
+        public static bool IsActive(this Order order)
+        {
+            return (order.Delivered == false || order.Date != DateTime.MinValue);
         }
     }
 
