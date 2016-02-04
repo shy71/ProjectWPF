@@ -429,7 +429,7 @@ namespace DAL
                     else if (item.PropertyType == typeof(bool))
                         item.SetValue(res, Convert.ToBoolean(s.Element(item.Name).Value));
                     else if (item.PropertyType == typeof(float))
-                        item.SetValue(res, ConvertStringToFloat(Convert.ToString(s.Element(item.Name).Value)));
+                        item.SetValue(res, (float.Parse(s.Element(item.Name).Value)));
                     else if (item.PropertyType.Name == typeof(string).Name)
                         item.SetValue(res, s.Element(item.Name).Value);
                     else if (item.PropertyType.Name == typeof(Size).Name)
@@ -868,10 +868,9 @@ namespace DAL
         /// <param name="list">הרשימה ממנה נמחוק אותו</param>
         void Delete<T>(int id) where T : InterID
         {
-            List<T> list = getList<T>();
             if (ContainID<T>(id) == false)
                 throw new Exception("There isnt any item in the list with this id...");
-            list.Remove(list.FirstOrDefault(item => item.ID == id));
+            getList<T>().Remove(getList<T>().FirstOrDefault(item => item.ID == id));
 
         }
         /// <summary>
@@ -890,9 +889,7 @@ namespace DAL
         void Update<T>(T item) where T : InterID
         {
             List<T> list = getList<T>();
-            if (ContainID<T>(item.ID) == false)
-                throw new Exception("There isnt any item in the list with this id...");
-            list.Remove(list.FirstOrDefault(var => var.ID == item.ID));
+            list.Remove(Get<T>(item.ID));
             list.Add(item);
 
         }
