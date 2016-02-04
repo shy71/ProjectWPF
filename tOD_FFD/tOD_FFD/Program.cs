@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,30 +12,51 @@ namespace tOD_FFD
     {
         LOW, MED, HIGH
     }
-    interface Inta
-    { }
+    class Inta
+    {
+        public virtual void aa()
+        {
+            Console.WriteLine("a");
+        }
+    }
+    class grandfather { public virtual string hello() { return "i am grandfather"; } }
+    class father : grandfather { public virtual string hello() { return "i am father"; } }
+    class son : father { public override string hello() { return "i am son"; } }
     class Dish : Inta
     {
-        public string S{get;set;}
+        public string S { get; set; }
+        public Dish a;
         public Dish(string s, int a)
         {
             S = s;
             DishID = a;
         }
+        public Dish()
+            : this("aa", 5)
+        { }
         public int DishID { get; set; }
+        override public void aa()
+        {
+            Console.WriteLine("aaaaaa");
+        }
+        public string this[string s]
+        {
+            get { return S; }
+        }
     }
     class Program
-    {
-        public static void Main()
+    { 
+        static void Main(string[] args)
         {
-            //לעזרא 
-            float x = Convert.ToSingle("4.234");
-            Console.WriteLine( x);
-            Console.ReadKey();
-            return;
-            Dish d = new Dish("Hot dogs", 0);
-            new XElement("Dish", from item in d.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
-                                 select new XElement(item.Name, item.GetValue(d))).Save(@"Dish.xml");
+            int s=5;
+            Console.WriteLine(s is 7);
+        }  
+
+        static public IEnumerable<T> func<T>(T shy, T ezra, T itai)
+        {
+            yield return shy;
+            yield return ezra;
+            yield return itai;
         }
 
     }
