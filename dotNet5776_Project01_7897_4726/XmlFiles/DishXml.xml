@@ -6,6 +6,7 @@
     <Size>LARGE</Size>
     <Price>2</Price>
     <Kosher>HIGH</Kosher>
+    <Active>true</Active>
   </Dish>
   <Dish>
     <ID>19273</ID>
@@ -13,6 +14,7 @@
     <Size>MEDIUM</Size>
     <Price>7</Price>
     <Kosher>HIGH</Kosher>
+    <Active>true</Active>
   </Dish>
   <Dish>
     <ID>1243</ID>
@@ -20,6 +22,7 @@
     <Size>SMALL</Size>
     <Price>2</Price>
     <Kosher>HIGH</Kosher>
+    <Active>true</Active>
   </Dish>
   <Dish>
     <ID>95840</ID>
@@ -27,6 +30,7 @@
     <Size>MEDIUM</Size>
     <Price>1</Price>
     <Kosher>MEDIUM</Kosher>
+    <Active>true</Active>
   </Dish>
   <Dish>
     <ID>21</ID>
@@ -34,5 +38,6 @@
     <Size>LARGE</Size>
     <Price>3</Price>
     <Kosher>LOW</Kosher>
+    <Active>true</Active>
   </Dish>
 </Dishes>

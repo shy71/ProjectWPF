@@ -19,119 +19,93 @@ namespace PLForms
     /// </summary>
     public partial class NetworkManagerInterface : Window
     {
-        BE.CurrentPlacing? placing = null;
         BE.User manger;
         public NetworkManagerInterface(BE.User manger)
         {
             InitializeComponent();
             this.manger = manger;
-            this.DataContext = placing;
+            NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger&&item.UserName!=manger.UserName);
+            NetWorkCombo.DisplayMemberPath = "UserName";//check
+            NetWorkCombo.SelectedValuePath = "UserName";
+            BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger && item.ItemID == 0);
+            BranchMangerCombo.DisplayMemberPath = "UserName";//check
+            BranchMangerCombo.SelectedValuePath = "UserName";
         }
 
-        private void AddBranchButton_Click(object sender, RoutedEventArgs e)
+        private void LogOut_Click(object sender, RoutedEventArgs e)
         {
-            new BranchEditor().ShowDialog();
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to log out?", "Log out?", MessageBoxButton.YesNo))
+            {
+                new MainInterface().Show();
+                this.Close();
+            }
         }
 
-        private void AddNewBranchManagerButton_Click(object sender, RoutedEventArgs e)
+        private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            //open window for adding branch manager user.
+            new ClientEditor(manger).ShowDialog();
         }
 
-        private void AddNewNetworkManagerButton_Click(object sender, RoutedEventArgs e)
-        {
-            //open window for adding network manager user.
-        }
-
-        private void UpdateUserButton_Click(object sender, RoutedEventArgs e)
-        {
-            //open window for updating the manager's details
-        }
-
-        private void DeleteBranchButton_Click(object sender, RoutedEventArgs e)
-        {
-            new Delete_Branch().Show();
-        }
-
-        private void LogOutButton_Click(object sender, RoutedEventArgs e)
-        {
-            new MainInterface().Show();
-            this.Close();
-        }
-
-        private void ActionButton_Click(object sender, RoutedEventArgs e)
-        {
-            PrintDB.Visibility = Visibility.Hidden;
-            UpdateUserButton.Visibility = Visibility.Hidden;
-            AddNewNetworkManagerButton.Visibility = Visibility.Visible;
-            placing = BE.CurrentPlacing.Action;
-            //Bind between placing and AddNewNetworkManagerButton visibilty
-        }
-
-        private void InfoButton_Click(object sender, RoutedEventArgs e)
-        {
-            placing = BE.CurrentPlacing.Info;
-            PrintDB.Visibility = Visibility.Visible;
-            UpdateUserButton.Visibility = Visibility.Hidden;
-            AddNewNetworkManagerButton.Visibility = Visibility.Hidden;
-        }
-
-        private void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-            placing = BE.CurrentPlacing.Edit;
-            PrintDB.Visibility = Visibility.Hidden;
-            UpdateUserButton.Visibility = Visibility.Visible;
-            AddNewNetworkManagerButton.Visibility = Visibility.Hidden;
-        }
-
-        #region Information Functions
-
-
-        private void PrintBestDishButton_Click(object sender, RoutedEventArgs e)
-        {
-            new ShowBest("Dish").Show();
-        }
-
-        private void PrintBestClientButton_Click(object sender, RoutedEventArgs e)
-        {
-            new ShowBest("Client").Show();
-        }
-
-        private void PrintBestBranchButton_Click(object sender, RoutedEventArgs e)
-        {
-            new ShowBest("Branch").Show();
-        }
-
-        private void GetProfitDetails_Click(object sender, RoutedEventArgs e)
+        private void Static_Click(object sender, RoutedEventArgs e)
         {
             new Profit_Details().Show();
         }
 
-        /*
-        private void PrintAllClientsButton_Click(object sender, RoutedEventArgs e)
+        private void Quit_Click(object sender, RoutedEventArgs e)
         {
-            new Print_All_Clients().Show();
-        }
-        private void PrintAllDishesButton_Click(object sender, RoutedEventArgs e)
-        {
-            new Print_All_Dishes().Show();
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to Quit?", "Log out?", MessageBoxButton.YesNo))
+            {
+                BL.FactoryBL.getBL().RemoveUser(manger);
+                new MainInterface().Show();
+                this.Close();
+            }
+
+            
         }
 
-        private void PrintAllBranchesButton_Click(object sender, RoutedEventArgs e)
+        private void AddNetworkManger_Click(object sender, RoutedEventArgs e)
         {
-            new Print_All_Branches().Show();
-        }*/
-        private void PrintDB_Click(object sender, RoutedEventArgs e)
-        {
-            //new PrintSegments().ShowDialog();
-            new Print_Data_Base().Show();
-        }
-        #endregion
+            new UserEditor(BE.UserType.NetworkManger).ShowDialog();
+            NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger && item.UserName != manger.UserName);
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            new Print_Data_Base().Show();
         }
 
+        private void DeleteBranch_Click(object sender, RoutedEventArgs e)
+        {
+            new Delete_Branch(delegate(int branchID)
+                {
+                    var temp = BL.FactoryBL.getBL().GetAllUsers(item => item.ItemID == branchID).First();
+                    temp.ItemID = 0;
+                    BL.FactoryBL.getBL().UpdateUser(temp);
+                    BL.FactoryBL.getBL().DeleteBranch(branchID);
+                }
+                ).Show();
+        }
+        private void EditBranch(object sender, RoutedEventArgs e)
+        {
+            new Delete_Branch(delegate(int branchID)
+                {
+                    new BranchEditor(BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == branchID).First(),true).ShowDialog();
+                }
+                ).Show();
+        }
+        private void NetWorkCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MessageBoxResult.Yes == MessageBox.Show("Are You Sure You want to delete this Network Manger?", "Delete Conformtion", MessageBoxButton.YesNo))
+                BL.FactoryBL.getBL().RemoveUser(NetWorkCombo.SelectedValue as string);
+            NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger && item.UserName != manger.UserName);
+        }
+
+        private void AddButton(object sender, RoutedEventArgs e)
+        {
+            new BranchEditor().Show();
+        }
+
+        private void BranchMangerCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MessageBoxResult.Yes == MessageBox.Show("Are You Sure You want to delete this Network Manger?", "Delete Conformtion", MessageBoxButton.YesNo))
+                BL.FactoryBL.getBL().RemoveUser(BranchMangerCombo.SelectedValue as string);
+            BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger &&item.ItemID==0);
+        }
     }
 }

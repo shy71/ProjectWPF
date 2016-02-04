@@ -43,7 +43,8 @@
         </Button>
         <Label Content="Fire/Hire Emplyes:" FontSize="24" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Top">
             <Label.Style>
-                <Style>
+                <Style TargetType="Label">
+                    <Setter Property="Visibility" Value="Hidden"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=MangerCombo,Path=Visibility}" Value="Hidden">
                             <Setter Property="Label.Visibility" Value="Visible"/>

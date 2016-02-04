@@ -223,7 +223,7 @@ namespace BL
         #endregion
 
         #region Profits Functions
-        
+
         /// <summary>
         /// Get dish amount grouped by the week day
         /// </summary>
@@ -269,7 +269,7 @@ namespace BL
         /// </summary>
         /// <returns>The Profits grouped by the date of the order(Key for the grouping is the date(dd/mm/yy) </returns>
         IEnumerable<IGrouping<string, float>> GetProfitByDates();
-        IEnumerable<IGrouping<string,int>> GetDishAmountByDate();
+        IEnumerable<IGrouping<string, int>> GetDishAmountByDate();
 
         #endregion
 
@@ -312,6 +312,11 @@ namespace BL
         /// <param name="order">Order being priced</param>
         /// <returns>Price</returns>
         float PriceOfOrder(Order order);
+        /// <summary>
+        /// Returns Price of the order
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
         float PriceOfOrder(int orderID);
 
         /// <summary>
@@ -320,15 +325,39 @@ namespace BL
         void Inti();
 
 
-
-        //New
+        /// <summary>
+        /// Gets all users that pass the predicate test
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null);
+        /// <summary>
+        /// Gets a specific user by its name
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
         User GetUser(string UserName);
+        /// <summary>
+        /// Adds a new user
+        /// </summary>
+        /// <param name="user"></param>
         void AddUser(User user);
+        /// <summary>
+        /// updates a user
+        /// </summary>
+        /// <param name="user"></param>
         void UpdateUser(User user);
-
+        /// <summary>
+        /// Deletes a user by its name
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="DeleteClient"></param>
         void RemoveUser(string username, bool DeleteClient = false);
-
+        /// <summary>
+        /// deletes a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="DeleteClient"></param>
         void RemoveUser(BE.User user, bool DeleteClient = false);
 
     }
@@ -336,53 +365,88 @@ namespace BL
     public class BL : IBL
     {
         Random rand1 = new Random();
-        //New
+        /// <summary>
+        /// deletes the database
+        /// </summary>
         public void DeleteDataBase()
         {
             myDal.DeleteDataBase();
         }
+        /// <summary>
+        /// checks if the user is compatible 
+        /// </summary>
+        /// <param name="myUser"></param>
+        /// <param name="str"></param>
         internal void CompatibleUser(User myUser, string str)
         {
             if (myUser.Password == "")
                 throw new Exception(str + "The password cant be empty!");
-            else if(myUser.Name=="")
+            else if (myUser.Name == "")
                 throw new Exception(str + "The name cant be empty!");
-            else if(myUser.UserName=="")
+            else if (myUser.UserName == "")
                 throw new Exception(str + "The username cant be empty!");
-            else if(myUser.Type==UserType.Client&&!myDal.ContainID<Client>(myUser.ItemID))
+            else if (myUser.Type == UserType.Client && !myDal.ContainID<Client>(myUser.ItemID))
                 throw new Exception(str + "There isnt a client that connected to this user!");
-            else if(myUser.Type==UserType.BranchManger&& myUser.ItemID!=0)
+            else if (myUser.Type == UserType.BranchManger && myUser.ItemID != 0)
                 throw new Exception(str + "There is an uncorrected Branch that is connected to this user!");
         }
-       public IEnumerable<User> GetAllUsers(Func<User,bool> predicate=null)
+        /// <summary>
+        /// gets all the users that pass the predicate test
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null)
         {
             return myDal.GetAllUsers(predicate);
         }
-       public void AddUser(User user)
+        /// <summary>
+        /// adds a user
+        /// </summary>
+        /// <param name="user"></param>
+        public void AddUser(User user)
         {
             myDal.AddUser(user);
         }
+        /// <summary>
+        /// gets a specific user by its name
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
         public User GetUser(string UserName)
         {
-           return myDal.GetUser(UserName);
+            return myDal.GetUser(UserName);
         }
+        /// <summary>
+        /// updates a user
+        /// </summary>
+        /// <param name="user"></param>
         public void UpdateUser(User user)
         {
-            if (myDal.GetUser(user.UserName).ItemID != user.ItemID)
+            if (myDal.GetUser(user.UserName).ItemID != user.ItemID&&user.Type==BE.UserType.Client)
                 throw new Exception("You cant change the item that is linked to a user!");
             CompatibleUser(user, "The updated user you sended to upadte the old one is incompatible.");
             myDal.UpdateUser(user);
         }
-        public void RemoveUser(string username,bool DeleteClient=false)
+        /// <summary>
+        /// removes a user by its name
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="DeleteClient"></param>
+        public void RemoveUser(string username, bool DeleteClient = false)
         {
             if (DeleteClient)
                 myDal.DeleteClient(myDal.GetUser(username).ItemID);
             myDal.DeleteUser(username);
         }
+        /// <summary>
+        /// removes a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="DeleteClient"></param>
         public void RemoveUser(BE.User user, bool DeleteClient = false)
         {
             if (DeleteClient)
-                myDal.DeleteClient(myDal.GetUser(user.UserName).ItemID);
+                myDal.DeleteClient(user.ItemID);
             myDal.DeleteUser(user.UserName);
         }
 
@@ -426,19 +490,28 @@ namespace BL
         }
         public void DeleteDish(int id)
         {
-            if (!myDal.GetAllDishOrders(item => item.DishID == id).Any(item => myDal.GetOrder(item.OrderID).Delivered == false))
+            if (!myDal.GetAllDishOrders(item => item.DishID == id).Any(item => myDal.GetOrder(item.OrderID).Delivered == false && myDal.GetOrder(item.OrderID).Date != DateTime.MinValue))
+            {
                 myDal.DeleteDish(id);
+            }
             else
                 throw new Exception("You can't delete a dish which is being ordered");
         }
-        public void DeleteDish(Dish item)
+        public void DeleteDish(Dish dish)
         {
-            DeleteDish(item.ID);
+            if (!myDal.GetAllDishOrders(item => item.DishID == dish.ID).Any(item => myDal.GetOrder(item.OrderID).Delivered == false && myDal.GetOrder(item.OrderID).Date != DateTime.MinValue))
+            {
+                dish.Active = false;
+                myDal.UpdateDish(dish);
+            }
+            else
+                throw new Exception("You can't delete a dish which is being ordered");
+
         }
         public void UpdateDish(Dish item)
         {
             Dish temp = myDal.GetDish(item.ID);
-            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => (myDal.GetOrder(var.OrderID).Kosher > item.Kosher || temp.Price != item.Price || temp.Size != item.Size) && myDal.GetOrder(var.OrderID).Delivered == false))
+            if (!myDal.GetAllDishOrders(var => var.DishID == item.ID).Any(var => (myDal.GetOrder(var.OrderID).Kosher > item.Kosher || temp.Price != item.Price || temp.Size != item.Size) && (myDal.GetOrder(var.OrderID).Delivered == false && myDal.GetOrder(var.OrderID).Date != DateTime.MinValue)))
             {
                 CompatibleDish(item, "The Updated Dish you sended to upadte the old one is incompatible:");
                 myDal.UpdateDish(item);
@@ -487,6 +560,11 @@ namespace BL
             SetBranchManger(newBranch, newBranch.Boss);
 
         }
+        /// <summary>
+        /// sets the boss of a branch as the manager
+        /// </summary>
+        /// <param name="branch"></param>
+        /// <param name="boss"></param>
         void SetBranchManger(Branch branch, string boss)
         {
             string username = boss.Substring(boss.IndexOf('@') + 1);
@@ -499,8 +577,8 @@ namespace BL
                     myDal.UpdateUser(temp);
                 }
             }
-            var temp2 = myDal.GetAllUsers(item => item.ItemID == branch.ID&&item.Type==BE.UserType.BranchManger&&item.UserName!=username).FirstOrDefault();
-            if(temp2!=null)
+            var temp2 = myDal.GetAllUsers(item => item.ItemID == branch.ID && item.Type == BE.UserType.BranchManger && item.UserName != username).FirstOrDefault();
+            if (temp2 != null)
             {
                 temp2.ItemID = 0;
                 myDal.UpdateUser(temp2);
@@ -508,8 +586,13 @@ namespace BL
         }
         public void DeleteBranch(int id)
         {
-            if (!myDal.GetAllOrders(item => item.BranchID == id).Any(item => item.Delivered == false&&item.Date!=DateTime.MinValue))
+            var list = myDal.GetAllOrders(item => item.BranchID == id);
+            if (!list.Any(item => item.Delivered == false && item.Date != DateTime.MinValue))
+            {
+                foreach (Order item in (list.Where(item => item.Delivered == true)))
+                    DeleteOrder(item);
                 myDal.DeleteBranch(id);
+            }
             else
                 throw new Exception("you cant delete a branch that has active orders from!");
         }
@@ -521,7 +604,7 @@ namespace BL
         }
         public void UpdateBranch(Branch myBranch)
         {
-            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher && item.Delivered == false))
+            if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher && item.Delivered == false && item.Date != DateTime.MinValue))
             {
                 CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible.");
                 if (myBranch.Boss != myDal.GetBranch(myBranch.ID).Boss)
@@ -542,7 +625,11 @@ namespace BL
         #endregion
 
         #region Order Functions
-
+        /// <summary>
+        /// checks if the order is compatible
+        /// </summary>
+        /// <param name="myOrder"></param>
+        /// <param name="str"></param>
         internal void CompatibleOrder(Order myOrder, string str)
         {
             if (myOrder.Address == null)
@@ -560,7 +647,7 @@ namespace BL
         }
         public void DeliveredOrder(Order item)
         {
-            var temp=myDal.GetBranch(item.BranchID);
+            var temp = myDal.GetBranch(item.BranchID);
             temp.AvailableMessangers++;
             myDal.UpdateBranch(temp);
             myDal.DeliveredOrder(item.ID);
@@ -604,20 +691,16 @@ namespace BL
         {
             return Search(str, myDal.GetAllOrders());
         }
-        //void Timer(int NumberOFsec,int id)
-        //{
-        //    Stopwatch s= new Stopwatch();
-        //    s.Start();
-        //    while (s.Elapsed.Seconds <= NumberOFsec);
-        //    DeliveredOrder(myDal.GetOrder(id));
-        //    if (Deliverd != null)
-        //        Deliverd(null, new EventValue(id));
-
-        //}
 
         #endregion
 
         #region DishOrder Functions
+        /// <summary>
+        /// check if the DishOrder is compatible
+        /// </summary>
+        /// <param name="theDishOrder"></param>
+        /// <param name="str"></param>
+        /// <param name="IsNewDishOrder"></param>
         internal void CompatibleDishOrder(DishOrder theDishOrder, string str = null, bool IsNewDishOrder = true)
         {
             if (theDishOrder.DishAmount <= 0)
@@ -626,11 +709,11 @@ namespace BL
                 throw new Exception(str + " the Dish you are trying to order does not exists!");
             else if (!myDal.ContainID<Order>(theDishOrder.OrderID))
                 throw new Exception(str + " The order you are trying to add dishs to does not exists!");
-            else if (IsNewDishOrder&& myDal.GetAllDishOrders(item => item.DishID == theDishOrder.DishID && item.OrderID == theDishOrder.OrderID).FirstOrDefault() != null)
+            else if (IsNewDishOrder && myDal.GetAllDishOrders(item => item.DishID == theDishOrder.DishID && item.OrderID == theDishOrder.OrderID).FirstOrDefault() != null)
                 throw new Exception("You cant Create a dish order for a dish and order that already has dish order");//Think
             else if (IsNewDishOrder && (PriceOfOrder(theDishOrder.OrderID) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price) > MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
                 throw new Exception(str + " with those dishes the order price will be above the approved limit!");
-            else if (myDal.GetDish(theDishOrder.DishID).Kosher <myDal.GetBranch(myDal.GetOrder(theDishOrder.OrderID).BranchID).Kosher)
+            else if (myDal.GetDish(theDishOrder.DishID).Kosher < myDal.GetBranch(myDal.GetOrder(theDishOrder.OrderID).BranchID).Kosher)
                 throw new Exception(str + " you cant add a dish without the sufficient Kashrut for the order");
         }
         public void AddDishOrder(DishOrder newDishOrder)
@@ -666,7 +749,11 @@ namespace BL
         #endregion
 
         #region Client Functions
-
+        /// <summary>
+        /// Checks if the client is compatible
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="str"></param>
         internal void CompatibleClient(Client client, string str = null)
         {
             if (client.Address == null)
@@ -699,7 +786,7 @@ namespace BL
             Client temp = myDal.GetClient(item.ID);
             if (temp.Address != item.Address)
             {
-                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.Delivered == false).Count() > 0)
+                if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.Delivered == false && var.Date != DateTime.MinValue).Count() > 0)
                     throw new Exception("You cant upadte a client address when he has an order to that address!");
             }
             CompatibleClient(item, "The Updated Client you sended to upadte the old one is incompatible:");
@@ -734,12 +821,12 @@ namespace BL
                     mostSimilarClients.Clear();
                     mostSimilarClients.Add(var);
                 }
-                else if (similarityCount == maxSimilarities && maxSimilarities!=0)
+                else if (similarityCount == maxSimilarities && maxSimilarities != 0)
                 {
                     mostSimilarClients.Add(var);
                 }
             }
-            if (mostSimilarClients != null && mostSimilarClients.Count >0)
+            if (mostSimilarClients != null && mostSimilarClients.Count > 0)
             {
                 //finding the most common dish from all the similar clients
                 int maxUsedDish = 0;
@@ -773,7 +860,7 @@ namespace BL
             int temp = 0;
             string res = "\n The DataBase:\n" + "Dishs:\n\t";
             foreach (Dish item in myDal.GetAllDishs())
-                res += "|"+(++temp)+"| "+item + "\n\n\t";
+                res += "|" + (++temp) + "| " + item + "\n\n\t";
             res = res.Substring(0, res.Length - 1) + "Branchs:\n\t";
             temp = 0;
             foreach (Branch item in myDal.GetAllBranchs())
@@ -802,8 +889,8 @@ namespace BL
         #endregion
 
         #region Profits Functions
-        
-             public IEnumerable<IGrouping<string, int>> GetDishAmountByDate()
+
+        public IEnumerable<IGrouping<string, int>> GetDishAmountByDate()
         {
             return from item in myDal.GetAllDishOrders()
                    group item.DishAmount by myDal.GetOrder(item.OrderID).Date.ToShortDateString();
@@ -856,6 +943,10 @@ namespace BL
         #endregion
 
         #region Statistics Functions
+        /// <summary>
+        /// returns the customer
+        /// </summary>
+        /// <returns></returns>
         public Client BestCustomer()
         {
             Client bestClient = null;
@@ -926,7 +1017,7 @@ namespace BL
             foreach (Dish curDish in myDal.GetAllDishs())
             {
                 int count = 0;
-                foreach (DishOrder item in myDal.GetAllDishOrders(item2=> item2.DishID==curDish.ID))
+                foreach (DishOrder item in myDal.GetAllDishOrders(item2 => item2.DishID == curDish.ID))
                 {
                     if (myDal.GetOrder(item.OrderID).BranchID == myBranch.ID)
                     {
@@ -1035,7 +1126,7 @@ namespace BL
             AddDish(new Dish("Bamba", Size.SMALL, 2, Kashrut.HIGH, 1243));
             AddDish(new Dish("Wings", Size.MEDIUM, 1, Kashrut.MEDIUM, 95840));
             AddDish(new Dish("Stake", Size.LARGE, 3, Kashrut.LOW, 21));
-            AddClient(new Client("Shay", "Sderot Hertzel 12", 45326, 23,1921));
+            AddClient(new Client("Shay", "Sderot Hertzel 12", 45326, 23, 1921));
             AddClient(new Client("ari", "Beit Shemesh", 78695, 65, 10934));
             AddClient(new Client("avia", "Giv'at Ze'ev", 1938, 18, 493));
             AddClient(new Client("zvi", "Alon Shvut", 91731, 20, 1313));
@@ -1064,18 +1155,18 @@ namespace BL
             AddOrder(new Order(18932, "Sdarot herzl 12", Kashrut.LOW, 10934, 3));
             AddOrder(new Order(9873, "hall in beit shems", Kashrut.MEDIUM, 1921, 4));
             AddOrder(new Order(33, "Sdarot herzl 12", Kashrut.LOW, 10934, 5));
-            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 6));
-            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 7));
-            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 8));
-            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 9));
-            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 10));
+            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 6));
+            AddOrder(new Order(2, "Sdarot herzl 12", Kashrut.LOW, 10934, 7));
+            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 8));
+            AddOrder(new Order(2, "Sdarot herzl 12", Kashrut.LOW, 10934, 9));
+            AddOrder(new Order(2, "Sdarot herzl 12", Kashrut.LOW, 10934, 10));
             AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 11));
-            AddOrder(new Order(2, "Sdarot herzl 12",  Kashrut.LOW, 10934, 12));
-            AddOrder(new Order(87465, "hall in beit shems",  Kashrut.MEDIUM, 1921, 13));
+            AddOrder(new Order(2, "Sdarot herzl 12", Kashrut.LOW, 10934, 12));
+            AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 13));
             AddOrder(new Order(87465, "hall in beit shems", Kashrut.MEDIUM, 1921, 14));
             AddDishOrder(new DishOrder(1, 957473, 15));
             AddDishOrder(new DishOrder(2, 1243, 34));
-            AddDishOrder(new DishOrder(3, 19273,  55));
+            AddDishOrder(new DishOrder(3, 19273, 55));
             AddDishOrder(new DishOrder(4, 95840, 5));
             AddDishOrder(new DishOrder(5, 21, 3));
         }

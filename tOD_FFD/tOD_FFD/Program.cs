@@ -12,52 +12,55 @@ namespace tOD_FFD
     {
         LOW, MED, HIGH
     }
-    class Inta
-    {
-        public virtual void aa()
-        {
-            Console.WriteLine("a");
-        }
-    }
-    class grandfather { public virtual string hello() { return "i am grandfather"; } }
-    class father : grandfather { public virtual string hello() { return "i am father"; } }
-    class son : father { public override string hello() { return "i am son"; } }
+    interface Inta
+    { }
     class Dish : Inta
     {
         public string S { get; set; }
-        public Dish a;
         public Dish(string s, int a)
         {
             S = s;
             DishID = a;
         }
-        public Dish()
-            : this("aa", 5)
-        { }
         public int DishID { get; set; }
-        override public void aa()
-        {
-            Console.WriteLine("aaaaaa");
-        }
-        public string this[string s]
-        {
-            get { return S; }
-        }
     }
-    class Program
-    { 
-        static void Main(string[] args)
+    class MyClass
+    {
+        delegate string mydel(int a);
+        public MyClass()
         {
-            int s=5;
-            Console.WriteLine(s is 7);
-        }  
-
-        static public IEnumerable<T> func<T>(T shy, T ezra, T itai)
-        {
-            yield return shy;
-            yield return ezra;
-            yield return itai;
+            Console.WriteLine("a");
         }
+        class Program
+        {
+            public static int f1(ref int a)
+            {
+                return 2;
+            }
+            public static void Main()
+            {
+                MyClass[] arr = new MyClass[4];
+                arr[0] = new MyClass();
+                List<int> list = new List<int> { 2, 1, 5, 3 };
+                int x = 0;
+                IEnumerable<int> v = from item in list
+                                     where item == x++
+                                     select item;
+                Console.WriteLine("x is : "+x);
+                foreach (var item in v)
+                {
+                    Console.WriteLine("{0}:{1}",x,item);
+                    
+                }
+                foreach (var item in v)
+                {
+                    Console.WriteLine("{0}:{1}", x, item);
+                }
+                f1(ref x);
+                mydel temp = item => item.ToString();
+                Console.WriteLine(DateTime.Parse(DateTime.Now.ToString()).ToString());
 
+            }
+        }
     }
 }

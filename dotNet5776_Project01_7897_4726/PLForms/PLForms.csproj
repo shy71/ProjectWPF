@@ -89,9 +89,6 @@
     <Compile Include="Profit Details.xaml.cs">
       <DependentUpon>Profit Details.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Search Bing.xaml.cs">
-      <DependentUpon>Search Bing.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ShowBest.xaml.cs">
       <DependentUpon>ShowBest.xaml</DependentUpon>
     </Compile>
@@ -180,10 +177,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Profit Details.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Search Bing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,9 +269,6 @@
     <Resource Include="Images\Delete1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\NewFolder1\19273.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Order1.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -317,6 +307,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Editors\" />
+    <Folder Include="Images\NewFolder1\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Print\" />
     <Folder Include="UserControls\" />
