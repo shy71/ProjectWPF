@@ -12,12 +12,21 @@ namespace BE
     public interface InterID
     {
         int ID { get; set; }
+        /// <summary>
+        /// creates an ID
+        /// </summary>
+        /// <returns></returns>
         int MakeID();
     }
     public class EventValue : EventArgs
     {
         public object Value { get; set; }
         public string pName { get; set; }
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="pName"></param>
         public EventValue(object value, string pName = null)
         {
             Value = value;
@@ -35,6 +44,11 @@ namespace BE
         {
             return str.Select((item, index) => (item.Sum(r => (int)r)) * (int)Math.Pow(10, index)).Sum() % 100000000;
         }
+        /// <summary>
+        /// changes a string to a kashrut level
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static Kashrut ToKashrut(string str)
         {
             switch (str.ToUpper())
@@ -49,6 +63,11 @@ namespace BE
                     throw new Exception("Invalid kashrut level.");
             }
         }
+        /// <summary>
+        /// changes a string to a Size level
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static Size ToSize(string str)
         {
             switch (str.ToUpper())
@@ -63,6 +82,11 @@ namespace BE
                     throw new Exception("Invalid size level.");
             }
         }
+        /// <summary>
+        /// changes a string to a userType 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static UserType ToUserType(string str)
         {
             switch (str.ToUpper())
@@ -164,21 +188,4 @@ namespace BE
         double sum;
         public double Sum { get { return sum; } set { sum = value; } }
     }
-    ////כרגע לא בשימוש 
-    ////אולי אחר כך
-    //class MessageBoxException : Exception
-    //{
-    //    string text, caption;
-    //    MessageBoxButton button;
-    //    MessageBoxImage icon;
-    //    public MessageBoxException(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon)
-    //        : base()
-    //    {
-    //        text = messageBoxText;
-    //        this.caption = caption;
-    //        this.button = button;
-    //        this.icon = icon;
-    //    }
-    //}
-
 }
