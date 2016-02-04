@@ -3,164 +3,57 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NetworkManagerWindow" Height="500" Width="500">
     <Grid Background="#FFA50221">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.4*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Button x:Name="AddBranchButton" Grid.Row="1" Grid.Column="0" Content="Add a new branch" FontSize="20" Click="AddBranchButton_Click" >
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=DeleteBranchButton,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=DeleteBranchButton,Path=Visibility}" Value="Hidden">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button x:Name="DeleteBranchButton" Grid.Row="2" Grid.Column="0" Content="Delete a branch" FontSize="20" Click="DeleteBranchButton_Click">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=UpdateBranchButton,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=UpdateBranchButton,Path=Visibility}" Value="Hidden">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button x:Name="UpdateBranchButton" Grid.Row="3" Grid.Column="0" Content="Update a branch" FontSize="20" Click="UpdateUserButton_Click">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=AddNewBranchManagerButton,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=AddNewBranchManagerButton,Path=Visibility}" Value="Hidden">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button x:Name="AddNewBranchManagerButton" Grid.Row="1" Grid.Column="1" Content="Appoint a new branch manager" FontSize="17" Click="AddNewBranchManagerButton_Click">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Hidden">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button x:Name="AddNewNetworkManagerButton" Content="Appoint the new network manager" Visibility="Hidden" FontSize="15" Click="AddNewNetworkManagerButton_Click" Grid.Column="1" Grid.Row="2">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-                    <Setter Property="Button.Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=PrintDB ,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=UpdateUserButton ,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding}" Value="BE.CurrentPlacing.Actions">
-                            <Setter Property="Button.Visibility" Value="Visible"/>
-                        </DataTrigger>
-                        <!-- find out why this doesn't work (trigger on top)/-->
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button x:Name="PrintDB" Grid.Row="3" Grid.RowSpan="3" Grid.ColumnSpan="2" Content="Show Data Base" FontSize="50" Click="PrintDB_Click"/>
-        <!--Button x:Name="PrintAllClientsButton" Grid.Row="5" Grid.ColumnSpan="2" FontSize="20" Click="PrintAllClientsButton_Click">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-                    <Setter Property="Button.Visibility" Value="Visible"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton ,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-            <TextBlock>Show all of the clients in all of the network</TextBlock>
-        </Button-->
-        <Button x:Name="PrintBestDishButton" Grid.Row="2" Grid.Column="1" FontSize="20" Click="PrintBestDishButton_Click" Visibility="{Binding ElementName=PrintDB, Path=Visibility}">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
-            </Button.Style>
-            <TextBlock HorizontalAlignment="Center">Show the dish purchased<LineBreak/>the most in the network</TextBlock>
-        </Button>
-        <Button x:Name="PrintBestClientButton" Grid.Row="1" Grid.Column="1" FontSize="20" Click="PrintBestClientButton_Click"  Visibility="{Binding ElementName=PrintDB, Path=Visibility}">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
-            </Button.Style>
-            <TextBlock>Show the best client<LineBreak/>in all of the network</TextBlock>
-        </Button>
-        <Button x:Name="GetProfitDetails" Grid.Row="2" FontSize="20" Click="GetProfitDetails_Click" Visibility="{Binding ElementName=PrintDB, Path=Visibility}">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
-            </Button.Style>
-            <TextBlock>Show the profit details<LineBreak/>in all of the network</TextBlock>
-        </Button>
-        <Button x:Name="PrintBestBranchButton" Grid.Row="1" FontSize="20" Click="PrintBestBranchButton_Click" Visibility="{Binding ElementName=PrintDB, Path=Visibility}">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
-            </Button.Style>
-            <TextBlock>Show the best branch<LineBreak/>in the network</TextBlock>
-        </Button>
-        <!--Button x:Name="PrintAllDishesButton" Grid.Row="3" Grid.ColumnSpan="2" Content="Show all the dishes" FontSize="20" Click="PrintAllDishesButton_Click" Visibility="{Binding ElementName=PrintAllClientsButton, Path=Visibility}">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
-            </Button.Style>
-        </>
-        <Button x:Name="PrintAllBranchesButton" Grid.Row="4" Grid.ColumnSpan="2" Content="Show all the Branches" FontSize="20" Click="PrintAllBranchesButton_Click" Visibility="{Binding ElementName=PrintAllClientsButton, Path=Visibility}">
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button"/>
-            </Button.Style>
-        </Button-->
-        
-        <Button x:Name="UpdateUserButton" Grid.RowSpan="3" Grid.Row="2" Content="Change your details" FontSize="50" Click="UpdateUserButton_Click" Grid.ColumnSpan="2" >
-            <Button.Style>
-                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-                    <Setter Property="Button.Visibility" Value="Visible"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=PrintDB ,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=AddNewNetworkManagerButton,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <Button x:Name="SignOutButton" Grid.Row="0" Grid.Column="0" Content="Sign out" Click="LogOutButton_Click" Margin="0,0,120,0" Background="Beige"/>
-        <Button x:Name="SearchButton" Grid.Row="0" Grid.Column="0" Content="Search Bing!" Margin="123,0,0,0" Background="Beige" Click="SearchButton_Click"/>
-        <Button x:Name="ActionButton" Content="Action" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" VerticalAlignment="Top" Width="80" Height="35" Click="ActionButton_Click"/>
-        <Button x:Name="InfoButton" Content="Information" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="80,0,0,0" VerticalAlignment="Top" Width="80" Height="35" Click="InfoButton_Click"/>
-        <Button x:Name="EditButton" Content="Edit" Grid.Column="1" HorizontalAlignment="Left" Background ="Beige" Margin="160,0,0,0" VerticalAlignment="Top" Width="86" Height="35" Click="EditButton_Click"/>
+        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="24" Click="LogOut_Click"/>
+        <Button Content="Edit your profile" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Click="Edit_Click"/>
+        <TabControl Height="200">
+            <TabItem Header="Manege Branches">
+                <Grid Background="#FFA50221">
+                    <StackPanel>
+                        <Button Content="Add Branch" FontSize="20" Click="AddButton"/>
+                        <Button Content="Delete Branch"  FontSize="20" Click="DeleteBranch_Click"/>
+                        <Button Content="Edit Branch"  FontSize="20" Click="EditBranch"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Other Options">
+                <Grid Background="#FFA50221">
+                    <StackPanel>
+                        <Button Content="Statics Info" FontSize="20" Click="Static_Click"/>
+                        <Grid>
+                            <ComboBox x:Name="BranchMangerCombo" SelectionChanged="BranchMangerCombo_SelectionChanged"/>
+                            <TextBlock Text="DeleteManger" IsHitTestVisible="False"  FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=BranchMangerCombo,Path=SelectedItem}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        <Button Content="Add Network Manger"  FontSize="20" Click="AddNetworkManger_Click"/>
+                        <Grid>
+                            <ComboBox x:Name="NetWorkCombo" SelectionChanged="NetWorkCombo_SelectionChanged"/>
+                            <TextBlock Text="Delete NetworkManger" IsHitTestVisible="False"  FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=NetWorkCombo,Path=SelectedItem}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        <Button Content="Quit!"  FontSize="20" Click="Quit_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

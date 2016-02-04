@@ -21,6 +21,8 @@ namespace PLForms
     {
         List<int> theBranchesIDs;
         bool IsCtrlDown = false;
+        Action<int> func;
+
         private void KeyDownCheck(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
@@ -32,7 +34,7 @@ namespace PLForms
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
                 IsCtrlDown = false;
         }
-        public Delete_Branch()
+        public Delete_Branch(Action<int> func)
         {
             InitializeComponent();
             choiceBtn.IsEnabled = false;
@@ -62,6 +64,8 @@ namespace PLForms
                     Stack3.Children.Add(text);
                 NumOfBranches++;
             }
+            this.func = func;
+
         }
         private void Refresh(object sender, RoutedEventArgs e)
         {
@@ -142,13 +146,14 @@ namespace PLForms
                     }
                 }
                 if (theBranchesIDs.Count == 0)
-                    MessageBox.Show("No branch has been chosen to be deleted.", "Information", MessageBoxButton.OK);
+                    MessageBox.Show("No branch has been chosen.", "Information", MessageBoxButton.OK);
                 else
                 {
                     foreach (int item in theBranchesIDs)
                     {
-                        BL.FactoryBL.getBL().GetAllUsers(var => var.ItemID == item).FirstOrDefault().ItemID = 0;
-                        BL.FactoryBL.getBL().DeleteBranch(item);
+                        func(item);
+                        //BL.FactoryBL.getBL().GetAllUsers(var => var.ItemID == item).FirstOrDefault().ItemID = 0;
+                        //BL.FactoryBL.getBL().DeleteBranch(item);
                     }
                 }
                 this.Close();
@@ -158,6 +163,15 @@ namespace PLForms
                 MessageBox.Show(exp.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 theBranchesIDs.Clear();
                 choiceBtn.IsEnabled = false;
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Stack1.Children.Count == 0)
+            {
+                MessageBox.Show("You dont have any branch to pick from!");
+                this.Close();
             }
         }
     }

@@ -211,8 +211,6 @@ namespace PLForms
                 UnsentButton.IsChecked = true;
             else
                 UnsentButton_Checked(UnsentButton, null);
-
-
         }
 
         private void Expender_Expanded(object sender, RoutedEventArgs e)

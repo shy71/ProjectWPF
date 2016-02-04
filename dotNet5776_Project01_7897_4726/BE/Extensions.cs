@@ -92,9 +92,7 @@ namespace BE
     public enum UserType
     { Client,BranchManger,NetworkManger }
 
-    public enum CurrentPlacing
-    { Action,Info,Edit}
-
+  
     public class GroupSum
     {
         public GroupSum(Kashrut kashrutlevel, double newsum,string LowHeadr)

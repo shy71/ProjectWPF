@@ -368,7 +368,7 @@ namespace BL
         }
         public void UpdateUser(User user)
         {
-            if (myDal.GetUser(user.UserName).ItemID != user.ItemID)
+            if (myDal.GetUser(user.UserName).ItemID != user.ItemID&&user.Type==BE.UserType.Client)
                 throw new Exception("You cant change the item that is linked to a user!");
             CompatibleUser(user, "The updated user you sended to upadte the old one is incompatible.");
             myDal.UpdateUser(user);
@@ -382,7 +382,7 @@ namespace BL
         public void RemoveUser(BE.User user, bool DeleteClient = false)
         {
             if (DeleteClient)
-                myDal.DeleteClient(myDal.GetUser(user.UserName).ItemID);
+                myDal.DeleteClient(user.ItemID);
             myDal.DeleteUser(user.UserName);
         }
 
