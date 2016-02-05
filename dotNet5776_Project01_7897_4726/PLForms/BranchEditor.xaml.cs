@@ -46,6 +46,7 @@ namespace PLForms
                 MangerCombo.Visibility = Visibility.Hidden;
                 KashrutCombo.Visibility = Visibility.Hidden;
                 branchCombo.Visibility = Visibility.Hidden;
+                branchComboText.Visibility = Visibility.Hidden;
             }
         }
 
