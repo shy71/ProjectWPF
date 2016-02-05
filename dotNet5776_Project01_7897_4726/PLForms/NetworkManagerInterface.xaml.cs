@@ -28,7 +28,7 @@ namespace PLForms
             NetWorkCombo.DisplayMemberPath = "UserName";//check
             NetWorkCombo.SelectedValuePath = "UserName";
             BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger && item.ItemID == 0);
-            BranchMangerCombo.DisplayMemberPath = "UserName";//check
+            BranchMangerCombo.ItemStringFormat ="UserName";//check
             BranchMangerCombo.SelectedValuePath = "UserName";
         }
 
@@ -88,17 +88,12 @@ namespace PLForms
                 }, "Edit"
                 ).Show();
         }
-        bool EndChange = false;
         private void NetWorkCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(EndChange==true)
-            {
-                EndChange = false;
+            if (NetWorkCombo.SelectedItem == null)
                 return;
-            }
             if (MessageBoxResult.Yes == MessageBox.Show("Are You Sure You want to delete this Network Manger?", "Delete Conformtion", MessageBoxButton.YesNo))
                 BL.FactoryBL.getBL().RemoveUser(NetWorkCombo.SelectedValue as string);
-            EndChange = true;
             NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger && item.UserName != manger.UserName);
         }
 
