@@ -88,10 +88,17 @@ namespace PLForms
                 }, "Edit"
                 ).Show();
         }
+        bool EndChange = false;
         private void NetWorkCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(EndChange==true)
+            {
+                EndChange = false;
+                return;
+            }
             if (MessageBoxResult.Yes == MessageBox.Show("Are You Sure You want to delete this Network Manger?", "Delete Conformtion", MessageBoxButton.YesNo))
                 BL.FactoryBL.getBL().RemoveUser(NetWorkCombo.SelectedValue as string);
+            EndChange = true;
             NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger && item.UserName != manger.UserName);
         }
 
