@@ -1,8 +1,8 @@
 ﻿<Window x:Class="PLForms.NetworkManagerInterface"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="NetworkManagerWindow" Height="500" Width="500">
-    <Grid Background="#FFA50221">
+        Title="NetworkManagerWindow" Height="500" Width="500" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
+    <Grid>
         <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="24" Click="LogOut_Click"/>
         <Button Content="Edit your profile" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Click="Edit_Click"/>
         <TabControl Height="220">

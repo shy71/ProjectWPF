@@ -59,8 +59,8 @@
     <Compile Include="ClientInterface.xaml.cs">
       <DependentUpon>ClientInterface.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Delete Branch.xaml.cs">
-      <DependentUpon>Delete Branch.xaml</DependentUpon>
+    <Compile Include="Branch Picker.xaml.cs">
+      <DependentUpon>Branch Picker.xaml</DependentUpon>
     </Compile>
     <Compile Include="DishEditor.xaml.cs">
       <DependentUpon>DishEditor.xaml</DependentUpon>
@@ -112,7 +112,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Delete Branch.xaml">
+    <Page Include="Branch Picker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -251,66 +251,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Big logo.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Sign In logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Red.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Small logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Arrow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Delete1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Order1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Delete.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\delete-b.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Order1 - Copy1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Send.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\recycle_bin1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\text-edit-2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\send2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Order1 - Copy - Copy.jpg" />
-    <Resource Include="Images\data_arrived1.png" />
-    <Content Include="Images\send3.jpg" />
-    <Resource Include="Images\Send Order.png" />
-    <Resource Include="Images\send5.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Editors\" />
-    <Folder Include="Images\NewFolder1\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Print\" />
     <Folder Include="UserControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Add Order.png" />
+    <Resource Include="Images\Arrived Order.png" />
+    <Resource Include="Images\Back Arrow.png" />
+    <Resource Include="Images\Delete Order.png" />
+    <Resource Include="Images\Delete.jpg" />
+    <Resource Include="Images\Edit Order.png" />
+    <Resource Include="Images\Edit.png" />
+    <Resource Include="Images\Logo.png" />
+    <Resource Include="Images\Next.jpg" />
+    <Resource Include="Images\Order Details.jpg" />
+    <Resource Include="Images\Send Order.png" />
+    <Resource Include="Images\Send.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

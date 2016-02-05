@@ -17,7 +17,7 @@ namespace PLForms
     /// <summary>
     /// Interaction logic for Delete_Branch.xaml
     /// </summary>
-    public partial class Delete_Branch : Window
+    public partial class BranchPicker : Window
     {
         List<int> theBranchesIDs;
         bool IsCtrlDown = false;
@@ -34,7 +34,7 @@ namespace PLForms
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
                 IsCtrlDown = false;
         }
-        public Delete_Branch(Action<int> func, string str)
+        public BranchPicker(Action<int> func, string str)
         {
             InitializeComponent();
             choiceBtn.IsEnabled = false;

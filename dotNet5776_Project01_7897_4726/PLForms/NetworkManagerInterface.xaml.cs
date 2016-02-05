@@ -72,7 +72,7 @@ namespace PLForms
 
         private void DeleteBranch_Click(object sender, RoutedEventArgs e)
         {
-            new Delete_Branch(delegate(int branchID)
+            new BranchPicker(delegate(int branchID)
                 {
                     var temp = BL.FactoryBL.getBL().GetAllUsers(item => item.ItemID == branchID).First();
                     temp.ItemID = 0;
@@ -82,7 +82,7 @@ namespace PLForms
         }
         private void EditBranch(object sender, RoutedEventArgs e)
         {
-            new Delete_Branch(delegate(int branchID)
+            new BranchPicker(delegate(int branchID)
                 {
                     new BranchEditor(BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == branchID).First(),true).ShowDialog();
                 },"Edit"
@@ -109,7 +109,7 @@ namespace PLForms
 
         private void BranchStatic_Click(object sender, RoutedEventArgs e)
         {
-            new Delete_Branch(delegate(int branchID)
+            new BranchPicker(delegate(int branchID)
                 {
                     new Profit_Details(x=>x == branchID).Show();
                 },"See Statics").Show();

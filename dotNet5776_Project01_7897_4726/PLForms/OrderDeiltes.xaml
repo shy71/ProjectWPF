@@ -23,7 +23,7 @@
             <RowDefinition Height="37*"/>
             <RowDefinition Height="57*"/>
         </Grid.RowDefinitions>
-        <Image Source="Images\Order1 - Copy1.jpg" Grid.RowSpan="7" VerticalAlignment="Top" Grid.ColumnSpan="5" Margin="0,0,0,-2"/>
+        <Image Source="Images\Order Details.jpg" Grid.RowSpan="7" VerticalAlignment="Top" Grid.ColumnSpan="5" Margin="0,0,0,-2"/>
         <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3" Margin="0,2,0,1">
             <TextBlock x:Name="ShortAddress" TextAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Foreground="Green"/>
         </ScrollViewer>
@@ -33,17 +33,17 @@
         <Label x:Name="Date" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Column="1" Grid.Row="5" FontSize="20" FontFamily="Comic Sans MS" Foreground="Green" Grid.ColumnSpan="3" Margin="0,2" />
         <Button x:Name="DeleteBtn" Grid.Row="6" Background="Transparent" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="44" Height="56" Grid.Column="3" ToolTip="Delete the order!" Click="Delete_Click">
             <Button.Content>
-                <Image  Source="Images\recycle_bin1.png"/>
+                <Image  Source="Images\Delete Order.png"/>
             </Button.Content>
         </Button>
         <Button x:Name="EditBtn"  Background="Transparent"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom"  Grid.Column="2" ToolTip="Edit the order!" Click="Update_Click">
             <Button.Content>
-                <Image Source="Images\text-edit-2.png"/>
+                <Image Source="Images\Edit Order.png"/>
             </Button.Content>
         </Button>
         <Button x:Name="SendBtn"   Background="Transparent"  Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="46" Height="46" Grid.Column="0" Grid.ColumnSpan="2" ToolTip="Send the order!" Click="Send_Click" >
             <Button.Content>
-                <Image Source="Images\send5.jpg"/>
+                <Image Source="Images\Next.jpg"/>
             </Button.Content>
         </Button>
         <Label x:Name="timeLeft" Grid.Row="6" Grid.ColumnSpan="5" IsHitTestVisible="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="Hidden"/>

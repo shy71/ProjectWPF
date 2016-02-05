@@ -24,11 +24,11 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
-        <Image x:Key="AddOrders" Source="Images/Add.png"/>
-        <Image x:Key="DeleteOrders" Source="Images/delete-b.jpg"/>
+        <Image x:Key="AddOrders" Source="Images/Add Order.png"/>
+        <Image x:Key="DeleteOrders" Source="Images/Delete.jpg"/>
         <Image x:Key="EditOrders" Source="Images/Edit.png" Stretch="Uniform"/>
-        <Image x:Key="SendOrders" Source="Images/Send2.jpg" Stretch="Uniform"/>
-        <Image x:Key="ArrivedOrders" Source="Images/data_arrived1.png" Stretch="Uniform"/>
+        <Image x:Key="SendOrders" Source="Images/Send.jpg" Stretch="Uniform"/>
+        <Image x:Key="ArrivedOrders" Source="Images/Arrived Order.png" Stretch="Uniform"/>
 
     </Application.Resources>
 </Application>

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                          xmlns:clr="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:PLForms"
-        Title="Freddy's BBQ Joint" Icon="Images/Small logo.png" MinWidth="300" MinHeight="500" Height="500" Width="300" FontWeight="Bold" Background="#FFA50221">
+        Title="Freddy's BBQ Joint" MinWidth="300" MinHeight="500" Height="500" Width="300" FontWeight="Bold" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
     <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="167*"/>
@@ -11,7 +11,7 @@
             <RowDefinition Height="46*"/>
             <RowDefinition Height="121*"/>
         </Grid.RowDefinitions>
-        <Image Grid.Row="0" Source="Images\Small logo.png"/>
+        <Image Grid.Row="0" Source="Images\Logo.png"/>
         <local:TextControl x:Name="InputBox" FontS="20" Str="Enter your Username" Grid.Row="2" Height="35" VerticalAlignment="Center" PreviewKeyDown="InputPreviewKeyDown" Width="217"/>
         <Button x:Name="SignInButton" Grid.Row="3" VerticalAlignment="Top" Height="40" FontSize="20" Margin="47,24,47,0" Click="NextLogin">
             <Button.Style>
@@ -67,7 +67,7 @@
             <Label x:Name="typeLabel" Content="{Binding Type}" Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Center"  FontWeight="Bold" FontSize="25" Height="48" Width="294" Grid.ColumnSpan="2"/>
             <Label x:Name="nameLabel" Content="{Binding Name}" Grid.Row="1" HorizontalContentAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold" FontSize="20"  Height="41" Grid.ColumnSpan="2" />
             <Label x:Name="UsernameLabel" Content="{Binding UserName}" Grid.Row="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="26" Grid.ColumnSpan="2" />
-            <Image x:Name="backArrow" Source="Images\Arrow.png" Grid.Column="1" Grid.Row="0" Visibility="Hidden" />
+            <Image x:Name="backArrow" Source="Images\Back Arrow.png" Grid.Column="1" Grid.Row="0" Visibility="Hidden" />
             <Button x:Name="backButton" Opacity="0.2" Grid.Column="1" Click="backButton_Click" Grid.Row="0">
                 <Button.Style>
                     <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
