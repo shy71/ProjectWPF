@@ -88,18 +88,7 @@
             </Button.Style>
         </Button>
         <ComboBox x:Name="branchCombo" Grid.Column="1" Loaded="ComboBox_Loaded" ToolTipService.ShowOnDisabled="True"/>
-        <TextBlock Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="{Binding ElementName=branchCombo,Path=Visibility}">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=branchCombo,Path=SelectedItem}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+        <TextBlock x:Name="branchComboText" Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=branchCombo ,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
 
     </Grid>
 </Window>
