@@ -43,7 +43,7 @@ namespace PLForms
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            new ClientEditor(manger).ShowDialog();
+            new UserEditor(manger).ShowDialog();
         }
 
         private void Static_Click(object sender, RoutedEventArgs e)
@@ -104,6 +104,8 @@ namespace PLForms
 
         private void BranchMangerCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (BranchMangerCombo.SelectedItem == null)
+                return;
             if (MessageBoxResult.Yes == MessageBox.Show("Are You Sure You want to delete this Network Manger?", "Delete Conformtion", MessageBoxButton.YesNo))
                 BL.FactoryBL.getBL().RemoveUser(BranchMangerCombo.SelectedValue as string);
             BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger && item.ItemID == 0);

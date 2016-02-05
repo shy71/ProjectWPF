@@ -22,13 +22,6 @@
     <ItemID>0</ItemID>
   </User>
   <User>
-    <Type>BranchManger</Type>
-    <UserName>itai111</UserName>
-    <Password>123456</Password>
-    <Name>itai deykan</Name>
-    <ItemID>0</ItemID>
-  </User>
-  <User>
     <Type>Client</Type>
     <UserName>shay</UserName>
     <Password>123456</Password>
