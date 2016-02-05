@@ -25,11 +25,12 @@ namespace PLForms
         {
             InitializeComponent();
         }
-        public BranchMangerInterface(BE.User user):this()
+        public BranchMangerInterface(BE.User user)
+            : this()
         {
 
             branch = BL.FactoryBL.getBL().GetAllBranchs(item => user.ItemID == item.ID).FirstOrDefault();
-            if(branch==null)
+            if (branch == null)
             {
                 MessageBox.Show("Sorry, you dont have a branch assinged to you at the moment");
                 new MainInterface().Show();
@@ -71,7 +72,7 @@ namespace PLForms
 
         private void staticBtn_Click(object sender, RoutedEventArgs e)
         {
-            new Profit_Details(x=>x==branch.ID).ShowDialog();
+            new Profit_Details(x => x == branch.ID).ShowDialog();
         }
     }
 }

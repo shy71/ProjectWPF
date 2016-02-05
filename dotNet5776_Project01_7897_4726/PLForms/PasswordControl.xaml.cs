@@ -19,7 +19,7 @@ namespace PLForms
     /// <summary>
     /// Interaction logic for PasswordControl.xaml
     /// </summary>
-    public partial class PasswordControl : UserControl,INotifyPropertyChanged
+    public partial class PasswordControl : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
@@ -38,7 +38,7 @@ namespace PLForms
         public string Str { get; set; }
         public double FontS { get; set; }
         Brush foreG;
-        public Brush ForeG 
+        public Brush ForeG
         {
             get
             {
@@ -109,7 +109,7 @@ namespace PLForms
         }
         private void PasswordInput(object sender, TextCompositionEventArgs e)
         {
-            if (passwordBox.Foreground == Brushes.Gray && passwordBox.Password == "" && e.Text!="")
+            if (passwordBox.Foreground == Brushes.Gray && passwordBox.Password == "" && e.Text != "")
             {
                 passwordBox.Foreground = Brushes.Black;
                 ForeG = Brushes.Black;
@@ -118,7 +118,7 @@ namespace PLForms
 
         private void passwordBox_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.Key==Key.Back&& passwordBox.Password.Length==0)
+            if (e.Key == Key.Back && passwordBox.Password.Length == 0)
             {
                 passwordBox.Foreground = Brushes.Gray;
                 ForeG = Brushes.Gray;

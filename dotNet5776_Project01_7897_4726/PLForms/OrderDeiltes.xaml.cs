@@ -33,21 +33,21 @@ namespace PLForms
         {
             InitializeComponent();
         }
-        public OrderDeiltes(BE.Order order,bool IsWindowMode=true)
+        public OrderDeiltes(BE.Order order, bool IsWindowMode = true)
         {
             InitializeComponent();//error if branch does not exsist
             BE.Branch temp = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == order.BranchID).FirstOrDefault();
-            if(temp==null)
+            if (temp == null)
                 throw new Exception("There isn't a branch that matches this Order!");
-            ShortAddress.Text =temp.Name;
+            ShortAddress.Text = temp.Name;
             ShortAddress.ToolTip = temp.Address;
             FullAddress.Text = order.Address;
             if (order.Date == DateTime.MinValue)
             {
                 Date.Content = "Not sent";
-                Date.ToolTip = "Prees Send to send it now!";         
+                Date.ToolTip = "Prees Send to send it now!";
             }
-            else if(!order.Delivered)
+            else if (!order.Delivered)
             {
                 Date.Content = order.Date.ToShortDateString();
                 Date.ToolTip = order.Date.ToShortTimeString();
@@ -72,9 +72,9 @@ namespace PLForms
                 EditBtn.ToolTip = "See the dishs in the order";
                 IsDeliverd = true;
             }
-            if(!IsWindowMode)
+            if (!IsWindowMode)
             {
-                DeleteBtn.Visibility=Visibility.Collapsed;
+                DeleteBtn.Visibility = Visibility.Collapsed;
                 EditBtn.Visibility = Visibility.Collapsed;
                 SendBtn.Visibility = Visibility.Collapsed;
                 timeLeft.Visibility = Visibility.Collapsed;
@@ -83,7 +83,7 @@ namespace PLForms
             ID = order.ID;
             this.IsWindowMode = IsWindowMode;
             priceOrder.Text = BL.FactoryBL.getBL().PriceOfOrder(ID).ToString() + "$";
-            if(IsWindowMode)
+            if (IsWindowMode)
             {
                 this.ToolTip = priceOrder.Text;
             }
@@ -107,21 +107,21 @@ namespace PLForms
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if ((!IsWindowMode)||MessageBoxResult.Yes == MessageBox.Show((IsDeliverd?"It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer\n":"")+"Are you sure you want to delete this order?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
+            if ((!IsWindowMode) || MessageBoxResult.Yes == MessageBox.Show((IsDeliverd ? "It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer\n" : "") + "Are you sure you want to delete this order?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
                 BL.FactoryBL.getBL().DeleteOrder(ID);
-            if (IsWindowMode&& Deleted != null)
+            if (IsWindowMode && Deleted != null)
                 Deleted(this, new BE.EventValue(ID));
         }
         private void Update_Click(object sender, RoutedEventArgs e)
         {
-            new OrderEditor(BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First(), IsDeliverd).ShowDialog();
-            if (IsWindowMode&&Updated != null)
+            new OrderEditorStep2(BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First(), IsDeliverd).ShowDialog();
+            if (IsWindowMode && Updated != null)
                 Updated(this, new BE.EventValue(ID));
-            priceOrder.Text = BL.FactoryBL.getBL().PriceOfOrder(ID).ToString()+"$";
+            priceOrder.Text = BL.FactoryBL.getBL().PriceOfOrder(ID).ToString() + "$";
         }
         private void Send_Click(object sender, RoutedEventArgs e)
         {
-            var price=BL.FactoryBL.getBL().PriceOfOrder(ID);
+            var price = BL.FactoryBL.getBL().PriceOfOrder(ID);
             if (price == 0)
             {
                 MessageBox.Show("You cant send an order with a total price of 0!", "Empty Order");
@@ -133,7 +133,7 @@ namespace PLForms
                 temp.Date = DateTime.Now;
                 BL.FactoryBL.getBL().UpdateOrder(temp);
             }
-            if (IsWindowMode&&Sended != null)
+            if (IsWindowMode && Sended != null)
                 Sended(this, new BE.EventValue(ID));
         }
 
@@ -144,6 +144,6 @@ namespace PLForms
             temp = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First();
             if (IsWindowMode && Arived != null)
                 Arived(this, new BE.EventValue(ID));
-        }    
+        }
     }
 }

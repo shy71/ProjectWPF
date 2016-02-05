@@ -103,7 +103,7 @@ namespace BE
         }
         public static bool IsActive(this Order order)
         {
-            return (order.Delivered == false || order.Date != DateTime.MinValue);
+            return (order.Delivered == false && order.Date != DateTime.MinValue);
         }
     }
 

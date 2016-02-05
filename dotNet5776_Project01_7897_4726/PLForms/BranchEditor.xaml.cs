@@ -27,7 +27,7 @@ namespace PLForms
             branch = new BE.Branch();
 
         }
-        public BranchEditor(BE.Branch bra,bool IsNetworkManger=true)
+        public BranchEditor(BE.Branch bra, bool IsNetworkManger = true)
         {
             InitializeComponent();
             nameBox.SetText(bra.Name);
@@ -36,10 +36,10 @@ namespace PLForms
             empoyeBox.SetNum(bra.EmployeeCount);
             messengersBox.SetNum(bra.AvailableMessangers);
             KashrutCombo.SelectedItem = bra.Kosher.ToString();
-                       branch = bra;
+            branch = bra;
             IsUpadte = true;
             DoButton.Content = "Update!";
-            if(!IsNetworkManger)
+            if (!IsNetworkManger)
             {
                 nameBox.IsEnabled = false;
                 addressBox.IsEnabled = false;
@@ -47,7 +47,7 @@ namespace PLForms
                 KashrutCombo.Visibility = Visibility.Hidden;
                 branchCombo.Visibility = Visibility.Hidden;
             }
-            }
+        }
 
         private void CreateBranchManagerButton_Click(object sender, RoutedEventArgs e)
         {
@@ -77,7 +77,7 @@ namespace PLForms
             {
                 if (IsUpadte)
                 {
-                    
+
                     BL.FactoryBL.getBL().UpdateBranch(branch);
                 }
                 else
@@ -85,7 +85,7 @@ namespace PLForms
                 MessageBox.Show("The branch " + branch.Name + " was " + ((IsUpadte) ? "Updated!" : "created!"), "Branch created", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 MessageBox.Show(exp.Message, "Problem with branch", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -98,7 +98,7 @@ namespace PLForms
             temp.Content = "Create a New manger!";
             temp.ToolTip = "Will give you the option to\ncreate a new manger that\nwill run the branch";
             MangerCombo.Items.Add(temp);
-            if(IsUpadte)
+            if (IsUpadte)
             {
                 temp = new ComboBoxItem();
                 temp.Content = "Stay with the current manger!";
@@ -106,10 +106,10 @@ namespace PLForms
                 MangerCombo.Items.Add(temp);
                 MangerCombo.SelectedItem = temp;
             }
-            foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers(item2=>item2.Type==BE.UserType.BranchManger&&item2.ItemID==0))
+            foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers(item2 => item2.Type == BE.UserType.BranchManger && item2.ItemID == 0))
             {
                 temp = new ComboBoxItem();
-                
+
                 temp.Content = item.Name + " @" + item.UserName;
                 temp.ToolTip = item.ToString();
                 MangerCombo.Items.Add(temp);
@@ -120,10 +120,10 @@ namespace PLForms
         {
             if (MangerCombo.SelectedIndex == 0)
                 CreateBranchManagerButton.IsEnabled = true;
-            else if(MangerCombo.SelectedIndex!=0)
+            else if (MangerCombo.SelectedIndex != 0)
                 CreateBranchManagerButton.IsEnabled = false;
-            if (MangerCombo.SelectedIndex > 0&&((!IsUpadte)||MangerCombo.SelectedIndex>1))
-                branch.Boss =( MangerCombo.Items.GetItemAt(MangerCombo.SelectedIndex) as ComboBoxItem).Content.ToString();
+            if (MangerCombo.SelectedIndex > 0 && ((!IsUpadte) || MangerCombo.SelectedIndex > 1))
+                branch.Boss = (MangerCombo.Items.GetItemAt(MangerCombo.SelectedIndex) as ComboBoxItem).Content.ToString();
         }
 
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -134,7 +134,7 @@ namespace PLForms
                 temp = new ComboBoxItem();
                 temp.Content = item.Name + " - " + item.Address;
                 temp.ToolTip = item.ToString();
-                branchCombo.Items.Add(temp); 
+                branchCombo.Items.Add(temp);
             }
             if (branchCombo.Items.Count == 0)
             {
@@ -149,30 +149,30 @@ namespace PLForms
         }
 
         private void CopyBranch(object sender, RoutedEventArgs e)
-       {
-           try
-           {
-               BE.Branch temp;
-               if (branchCombo.SelectedIndex >= 0)
-               {
-                   temp = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ToString() == (branchCombo.Items.GetItemAt(branchCombo.SelectedIndex) as ComboBoxItem).ToolTip.ToString()).FirstOrDefault();
-                   if (temp == null)
-                       throw new Exception("ERROR");
-                   nameBox.SetText(temp.Name);
-                   addressBox.SetText(temp.Address);
-                   phoneBox.SetText(temp.PhoneNumber);
-                   empoyeBox.SetNum(temp.EmployeeCount);
-                   messengersBox.SetNum(temp.AvailableMessangers);
-                   KashrutCombo.SelectedIndex = (temp.Kosher == BE.Kashrut.HIGH) ? 2 : (temp.Kosher == BE.Kashrut.MEDIUM) ? 1 : 0;
-                   branchCombo.SelectedIndex = -1;
-               }
-               else
-                   throw new Exception("ERROR");
-           }
-            catch(Exception Exp)
-           {
-               MessageBox.Show(Exp.ToString(), "Error");
-           }
+        {
+            try
+            {
+                BE.Branch temp;
+                if (branchCombo.SelectedIndex >= 0)
+                {
+                    temp = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ToString() == (branchCombo.Items.GetItemAt(branchCombo.SelectedIndex) as ComboBoxItem).ToolTip.ToString()).FirstOrDefault();
+                    if (temp == null)
+                        throw new Exception("ERROR");
+                    nameBox.SetText(temp.Name);
+                    addressBox.SetText(temp.Address);
+                    phoneBox.SetText(temp.PhoneNumber);
+                    empoyeBox.SetNum(temp.EmployeeCount);
+                    messengersBox.SetNum(temp.AvailableMessangers);
+                    KashrutCombo.SelectedIndex = (temp.Kosher == BE.Kashrut.HIGH) ? 2 : (temp.Kosher == BE.Kashrut.MEDIUM) ? 1 : 0;
+                    branchCombo.SelectedIndex = -1;
+                }
+                else
+                    throw new Exception("ERROR");
+            }
+            catch (Exception Exp)
+            {
+                MessageBox.Show(Exp.ToString(), "Error");
+            }
 
         }
 

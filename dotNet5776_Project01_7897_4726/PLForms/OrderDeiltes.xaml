@@ -59,12 +59,12 @@
                                 <Condition Binding="{Binding ElementName=DeleteBtn,Path=Visibility}" Value="Collapsed"/>
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.Setters>
-                            <Setter Property="TextBlock.Visibility" Value="Visible"/>
+                                <Setter Property="TextBlock.Visibility" Value="Visible"/>
                             </MultiDataTrigger.Setters>
                         </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-    </Grid> 
+    </Grid>
 </UserControl>

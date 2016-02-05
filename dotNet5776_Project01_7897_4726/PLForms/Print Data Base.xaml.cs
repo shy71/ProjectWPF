@@ -117,7 +117,7 @@ namespace PLForms
         //{
         //    foreach (IEnumerable<BE.InterID> item in collection)
         //    {
-                
+
         //    } BL.FactoryBL.getBL().Search(SearchBing.GetText()); BL.FactoryBL.getBL().se
         //    foreach (BE.InterID var in list)
         //    {
@@ -145,14 +145,14 @@ namespace PLForms
         }
         void Refresh()
         {
-            if(DishStack.Children.Count+OrderStack.Children.Count+BranchStack.Children.Count+ClientStack.Children.Count<=5)
+            if (DishStack.Children.Count + OrderStack.Children.Count + BranchStack.Children.Count + ClientStack.Children.Count <= 5)
                 foreach (Expander item in MainStack.Children)
                 {
                     item.IsExpanded = true;
                     foreach (Expander item2 in (item.Content as StackPanel).Children)
                         item2.IsExpanded = true;
                 }
-            if (SearchBing.ForeG != Brushes.Gray && SearchBing.GetText() != null && SearchBing.GetText()!="" && SearchBing.GetText() != SearchBing.Str)
+            if (SearchBing.ForeG != Brushes.Gray && SearchBing.GetText() != null && SearchBing.GetText() != "" && SearchBing.GetText() != SearchBing.Str)
                 foreach (Expander item in MainStack.Children)
                     item.IsExpanded = true;
             else

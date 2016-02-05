@@ -71,14 +71,14 @@
     <Compile Include="DishPicker.xaml.cs">
       <DependentUpon>DishPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OrderEditor.xaml.cs">
-      <DependentUpon>OrderEditor.xaml</DependentUpon>
+    <Compile Include="OrderEditorStep2.xaml.cs">
+      <DependentUpon>OrderEditorStep2.xaml</DependentUpon>
     </Compile>
     <Compile Include="OrderDeiltes.xaml.cs">
       <DependentUpon>OrderDeiltes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OrderEditor1.xaml.cs">
-      <DependentUpon>OrderEditor1.xaml</DependentUpon>
+    <Compile Include="OrderEditorStep1.xaml.cs">
+      <DependentUpon>OrderEditorStep1.xaml</DependentUpon>
     </Compile>
     <Compile Include="PasswordControl.xaml.cs">
       <DependentUpon>PasswordControl.xaml</DependentUpon>
@@ -140,7 +140,7 @@
       <DependentUpon>MainInterface.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="OrderEditor.xaml">
+    <Page Include="OrderEditorStep2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,7 +160,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OrderEditor1.xaml">
+    <Page Include="OrderEditorStep1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

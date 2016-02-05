@@ -37,7 +37,7 @@
                 <ColumnDefinition Width="42*"/>
                 <ColumnDefinition Width="94*"/>
             </Grid.ColumnDefinitions>
-            <dc:TextControl x:Name="idBox" IsEnabled="{Binding ElementName=checkBox, Path=IsChecked}" Grid.Column="1" Str="ID"/> 
+            <dc:TextControl x:Name="idBox" IsEnabled="{Binding ElementName=checkBox, Path=IsChecked}" Grid.Column="1" Str="ID"/>
             <CheckBox x:Name="checkBox" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="110,12,9,20" Height="12" Width="14"/>
             <TextBlock Grid.Column="0" Background="Transparent" Margin="0,3,0,-12" HorizontalAlignment="Left" TextAlignment="Center"><Run Text="Self appointed ID"/><LineBreak/><Run Text="Not recommended!"/></TextBlock>
             <Label Content="Age:" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="42"/>

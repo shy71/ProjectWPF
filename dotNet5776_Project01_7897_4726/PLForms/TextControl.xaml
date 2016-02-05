@@ -8,6 +8,5 @@
              >
     <Grid>
         <TextBox x:Name="textBox" TextAlignment="Left" VerticalContentAlignment="Center" FontFamily="Arial" FontWeight="Normal" GotFocus="textBox_GotFocus" LostFocus="textBox_LostFocus" Loaded="textBox_Loaded" TextChanged="UserControl_TextInput"/>
-
     </Grid>
 </UserControl>

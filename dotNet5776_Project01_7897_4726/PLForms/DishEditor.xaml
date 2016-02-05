@@ -24,32 +24,9 @@
         <local:TextControl x:Name="nameBox" Grid.Row="1" Str="Dish Name" Grid.ColumnSpan="4" pName="Name"/>
         <local:TextControl x:Name="priceBox" Str="Price" Grid.Row="3"  pName="Price" Changed="priceBox_Changed" />
         <ComboBox x:Name="SizeCombo" Grid.Row="5"  Grid.ColumnSpan="2" SelectionChanged="SizeCombo_SelectionChanged"/>
-        <TextBlock Text="Select Size for the Dish" IsHitTestVisible="False" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="24,21,31,20" Grid.ColumnSpan="2">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=SizeCombo,Path=SelectedItem}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+        <TextBlock Text="Select Size for the Dish" IsHitTestVisible="False" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="24,21,31,20" Grid.ColumnSpan="2" Visibility="{Binding ElementName=SizeCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
         <ComboBox x:Name="KashrutCombo" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="2" ToolTip="The Kashrut level of the dish)" SelectionChanged="KashrutCombo_SelectionChanged"/>
-        <TextBlock Text="Select Kashrut level" IsHitTestVisible="False" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="37,21,36,20">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=KashrutCombo,Path=SelectedItem}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-
+        <TextBlock Text="Select Kashrut level" IsHitTestVisible="False" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=KashrutCombo ,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
         <Button x:Name="DoButton" Content="Create!" Grid.Column="2" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="7" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24"  Margin="51,16,51,17" Click="DoButton_Click">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -82,18 +59,7 @@
             </Button.Style>
         </Button>
         <ComboBox x:Name="dishCombo" Grid.Column="2"  ToolTipService.ShowOnDisabled="True" Loaded="dishCombo_Loaded"/>
-        <TextBlock Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="14,14,14,0">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=dishCombo,Path=SelectedItem}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+        <TextBlock Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=dishCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
         <local:TextControl x:Name="idBox" IsEnabled="{Binding IsChecked, ElementName=checkBox}" Str="ID"  Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Panel.ZIndex="1" Grid.Row="3" MinWidth="75" Margin="0,0,0,10" ToolTipService.ShowOnDisabled="True" Changed="idBox_Changed"/>
         <CheckBox x:Name="checkBox"  Content="Self appointed ID(Not recommended!)" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="1"/>
     </Grid>

@@ -1,7 +1,7 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:PLForms" x:Class="PLForms.OrderEditor"
+        xmlns:local="clr-namespace:PLForms" x:Class="PLForms.OrderEditorStep2"
         Title="MangeOrder" Height="300" Width="300" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,32 +14,20 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        
-        <local:TextControl x:Name="addressBox" Grid.Row="1" FontS="20" Str="Address" Grid.Column="1" Grid.ColumnSpan="2">
-            <local:TextControl.Style>
-                <Style>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=HomeCheckBox, Path=IsChecked}" Value="True">
-                            <Setter Property="local:TextControl.IsEnabled" Value="False"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </local:TextControl.Style>
-        </local:TextControl>
+
+        <local:TextControl x:Name="addressBox" Grid.Row="1" FontS="20" Str="Address" Grid.Column="1" Grid.ColumnSpan="2" IsEnabled="{Binding ElementName=HomeCheckBox,Path=IsChecked,Converter={StaticResource NotBoolen}}"/>
         <CheckBox x:Name="HomeCheckBox" Content="To Home" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" Checked="HomeCheckBox_Checked" Unchecked="HomeCheckBox_UnChecked" />
-
-
-        <Button x:Name="SendBtn" Background="Transparent" Grid.Column="2"  Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Panel.ZIndex="1" Click="SendBtn_Click">
+        <Button x:Name="SendBtn" Background="Transparent" Grid.Column="2"  Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Panel.ZIndex="1" Click="SendBtn_Click" ToolTip="Close the edit page(your changes already saved)">
             <Button.Content>
                 <Image Source="Images\Send Order.png"/>
             </Button.Content>
         </Button>
-           <Button x:Name="AddBtn" Background="Transparent" Grid.Column="0"  Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" ToolTip="Add a dish to the order" Click="AddBtn_Click" Panel.ZIndex="1">
+        <Button x:Name="AddBtn" Background="Transparent" Grid.Column="0"  Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" ToolTip="Add a dish to the order" Click="AddBtn_Click" Panel.ZIndex="1">
             <Button.Content>
-            <Image Source="Images\Add.png"/>
+                <Image Source="Images/Add Order.png"/>
             </Button.Content>
         </Button>
-    
+
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="2">
             <Grid x:Name="DishOrdersGrid" Loaded="RefreshStacks">
                 <Grid.Resources>

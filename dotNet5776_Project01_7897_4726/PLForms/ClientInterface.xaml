@@ -52,38 +52,7 @@
             <Button x:Name="DeleteBtn"  Margin="0,0,30,0" Click="DeleteBtn_Click" Visibility="Collapsed"  ToolTip="Delete The Orders" Content="{StaticResource DeleteOrders}"/>
             <Button x:Name="EditBtn"  Margin="0,0,30,0" Click="EditBtn_Click" Visibility="Collapsed" ToolTip="Edit The Orders" Content="{StaticResource EditOrders}"/>
             <Button x:Name="SendBtn"  Margin="0,0,30,0" Click="SendBtn_Click" Visibility="Collapsed" ToolTip="Send The Orders" Content="{StaticResource SendOrders}"/>
-                <Button x:Name="ArivedBtn"  Margin="0,0,30,0" Click="ArivedBtn_Click" Visibility="Collapsed" ToolTip="Reoprt The Orders as arrived" Content="{StaticResource ArrivedOrders}"/>
+            <Button x:Name="ArivedBtn"  Margin="0,0,30,0" Click="ArivedBtn_Click" Visibility="Collapsed" ToolTip="Reoprt The Orders as arrived" Content="{StaticResource ArrivedOrders}"/>
         </StackPanel>
-
-        <!--<Grid  Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <RadioButton x:Name="UnsentButton" Grid.Row="0" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="27,38,259,38" Checked="UnsentButton_Checked" Panel.ZIndex="1"/>
-            <Label Content="Unsent Orders" Grid.Row="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Unsent_MouseLeftButtonUp"/>
-            <Expander Grid.Row="0"  Header="Unsent Orders List" HorizontalAlignment="Center"  VerticalAlignment="Bottom" IsExpanded="False" ExpandDirection="Down" >
-                <Grid Background="#FFE5E5E5">
-                    <TextBox Text="SHy"/>
-                </Grid>
-            </Expander>
-            <RadioButton x:Name="ActiveButton" Grid.Row="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"  Checked="ActiveButton_Checked" Panel.ZIndex="1" Margin="27,38,259,38"/>
-            <Label  Content="Active Orders" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Active_MouseLeftButtonUp"/>
-            <RadioButton x:Name="DeliveredButton" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Checked="DeliveredButton_Checked" Panel.ZIndex="1" Margin="27,38,259,38" />
-            <Label Content="Delivered Orders" Grid.Row="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontFamily="Comic Sans MS" FontSize="30" MouseLeftButtonUp="Deliverd_MouseLeftButtonUp"/>
-            <Button Content="Edit your profile" HorizontalAlignment="Center" Grid.Row="10" VerticalAlignment="Center" Width="150" Click="Button_Click"/>
-
-
-        </Grid>-->
-
     </Grid>
 </Window>

@@ -22,34 +22,12 @@
                         <Button Content="Statics Info for one of the branchs" FontSize="20" Click="BranchStatic_Click"/>
                         <Grid>
                             <ComboBox x:Name="BranchMangerCombo" SelectionChanged="BranchMangerCombo_SelectionChanged"/>
-                            <TextBlock Text="DeleteManger" IsHitTestVisible="False"  FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=BranchMangerCombo,Path=SelectedItem}" Value="{x:Null}">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <TextBlock Text="Delete Branch Manger" IsHitTestVisible="False"  FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=BranchMangerCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
                         </Grid>
                         <Button Content="Add Network Manger"  FontSize="20" Click="AddNetworkManger_Click"/>
                         <Grid>
                             <ComboBox x:Name="NetWorkCombo" SelectionChanged="NetWorkCombo_SelectionChanged"/>
-                            <TextBlock Text="Delete NetworkManger" IsHitTestVisible="False"  FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=NetWorkCombo,Path=SelectedItem}" Value="{x:Null}">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <TextBlock Text="Delete NetworkManger" IsHitTestVisible="False"  FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=NetWorkCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
                         </Grid>
                         <Button Content="Quit!"  FontSize="20" Click="Quit_Click"/>
                     </StackPanel>

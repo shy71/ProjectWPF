@@ -25,9 +25,7 @@
         <dc:PasswordControl x:Name="passwordBox1" Grid.Row="3" Str="Password"/>
         <dc:PasswordControl x:Name="passwordBox2" Grid.Row="5" Str="Password Conformation"/>
         <dc:TextControl x:Name="nameBox" Grid.Row="7" Str="Full Name"/>
-
-            <dc:TextControl x:Name="idBox" Grid.Row="9" HorizontalAlignment="Center" MinWidth="70" Str="Branch ID" Visibility="Collapsed" IsEnabled="False" />
-
+        <dc:TextControl x:Name="idBox" Grid.Row="9" HorizontalAlignment="Center" MinWidth="70" Str="Branch ID" Visibility="Collapsed" IsEnabled="False" />
         <Button x:Name="nextButton" Grid.Row="14" FontSize="20" Content="Next step!"  HorizontalAlignment="Center" FontWeight="Bold" Width="114" Visibility="Visible" Click="nextButton_Click" VerticalAlignment="Center" Height="34" Margin="140,3,140,0" >
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -48,7 +46,5 @@
                 </Style>
             </Button.Style>
         </Button>
-
-
     </Grid>
 </Window>

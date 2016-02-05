@@ -15,16 +15,17 @@ using System.Windows.Shapes;
 namespace PLForms
 {
     /// <summary>
-    /// Interaction logic for OrderEditor1.xaml
+    /// Interaction logic for OrderEditorStep1.xaml
     /// </summary>
-    public partial class OrderEditor1 : Window
+    public partial class OrderEditorStep1 : Window
     {
         BE.Client client;
-        public OrderEditor1()
+        public OrderEditorStep1()
         {
             InitializeComponent();
         }
-        public OrderEditor1(BE.Client client):this()
+        public OrderEditorStep1(BE.Client client)
+            : this()
         {
             this.client = client;
         }
@@ -38,10 +39,10 @@ namespace PLForms
             ComboBoxItem temp;
             if (branchCombo.Items.Count != 0)
                 branchCombo.Items.Clear();
-            foreach (BE.Branch item in BL.FactoryBL.getBL().GetAllBranchs(item=>item.Kosher>=BE.Extensions.ToKashrut(KashrutCombo.SelectedItem.ToString())))
+            foreach (BE.Branch item in BL.FactoryBL.getBL().GetAllBranchs(item => item.Kosher >= BE.Extensions.ToKashrut(KashrutCombo.SelectedItem.ToString())))
             {
                 temp = new ComboBoxItem();
-                temp.Content = item.Name + " - " + item.Address +" | "+item.Kosher;
+                temp.Content = item.Name + " - " + item.Address + " | " + item.Kosher;
                 temp.ToolTip = item.ToString();
                 branchCombo.Items.Add(temp);
             }
@@ -62,14 +63,14 @@ namespace PLForms
         {
             string temp;
             BE.Order order;
-                temp = (branchCombo.SelectedItem as ComboBoxItem).ToolTip.ToString();
-                order = new BE.Order(Convert.ToInt32(temp.Substring(temp.IndexOf("ID: ") + 4, temp.IndexOf("\n\tName:") - temp.IndexOf("ID: ") - 4)),
-                                               client.Address, BE.Extensions.ToKashrut(KashrutCombo.SelectedItem.ToString()), client.ID);//עובד רק עם ה by ref...
-                BL.FactoryBL.getBL().AddOrder(order);
+            temp = (branchCombo.SelectedItem as ComboBoxItem).ToolTip.ToString();
+            order = new BE.Order(Convert.ToInt32(temp.Substring(temp.IndexOf("ID: ") + 4, temp.IndexOf("\n\tName:") - temp.IndexOf("ID: ") - 4)),
+                                           client.Address, BE.Extensions.ToKashrut(KashrutCombo.SelectedItem.ToString()), client.ID);//עובד רק עם ה by ref...
+            BL.FactoryBL.getBL().AddOrder(order);
             this.Hide();
-            new OrderEditor(order).ShowDialog();
+            new OrderEditorStep2(order).ShowDialog();
             this.Close();
-           
+
         }
 
     }

@@ -9,18 +9,7 @@
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
         <ComboBox x:Name="Kosher" Grid.Row="1" HorizontalAlignment="Center" MinWidth="100" Loaded="Kosher_Loaded" SelectionChanged="Kosher_SelectionChanged"/>
-        <TextBlock Text="Kashrut level" IsHitTestVisible="False" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=Kosher,Path=SelectedItem}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+        <TextBlock Text="Kashrut level" IsHitTestVisible="False" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Visibility="{Binding ElementName=Kosher,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
         <ScrollViewer Grid.Row="2" Loaded="Refresh" VerticalScrollBarVisibility="Auto">
             <Grid x:Name="MainGrid">
                 <Grid.Resources>

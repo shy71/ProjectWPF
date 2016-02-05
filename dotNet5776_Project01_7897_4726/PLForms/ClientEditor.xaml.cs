@@ -32,10 +32,10 @@ namespace PLForms
     {
         BE.Client client;
         BE.User user;
-        bool IsUpdated=false;
+        bool IsUpdated = false;
         public ClientEditor()
         {
-           
+
             InitializeComponent();
             client = new BE.Client();
             user = new BE.User();
@@ -57,7 +57,7 @@ namespace PLForms
             IsUpdated = true;
             if (user.Type != BE.UserType.Client)
                 throw new Exception("Error!");
-            client = BL.FactoryBL.getBL().GetAllClients(item=>item.ID==user.ItemID).FirstOrDefault();
+            client = BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).FirstOrDefault();
             this.user = user;
             this.SetBinding();
             usernameBox.SetText(user.UserName);
@@ -88,15 +88,15 @@ namespace PLForms
                     throw new Exception("The passwords does not match!");
                 if (passwordBox1.GetPassword() == "")
                     throw new Exception("The password cant be empty!");
-                if(!IsUpdated)
+                if (!IsUpdated)
                 {
-                BL.FactoryBL.getBL().AddClient(client);
-                user.Name = client.Name;
-                user.Password = passwordBox1.GetPassword();
-                user.Type = BE.UserType.Client;
-                user.ItemID = client.ID;
-                BL.FactoryBL.getBL().AddUser(user);
-                MessageBox.Show("The account " + user.UserName + " was created!", "Account created", MessageBoxButton.OK, MessageBoxImage.Information);
+                    BL.FactoryBL.getBL().AddClient(client);
+                    user.Name = client.Name;
+                    user.Password = passwordBox1.GetPassword();
+                    user.Type = BE.UserType.Client;
+                    user.ItemID = client.ID;
+                    BL.FactoryBL.getBL().AddUser(user);
+                    MessageBox.Show("The account " + user.UserName + " was created!", "Account created", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -107,9 +107,9 @@ namespace PLForms
                     MessageBox.Show("The account " + user.UserName + " was Updated!", "Account Updated", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 this.Close();
-                
+
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 MessageBox.Show(exp.Message, "Problem with account", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -118,14 +118,14 @@ namespace PLForms
         private void PlusMinusTextBox_Changed(object sender, BE.EventValue e)
         {
             if (client != null)
-                client.Age =Convert.ToInt32(e.Value);
+                client.Age = Convert.ToInt32(e.Value);
         }
         //bool GotPropty(object obj,string str)
         //{
         //    if(obj.GetType().GetProperty(str)!=null)
         //        return true;
         //    return false;
-            
+
         //}
     }
 }

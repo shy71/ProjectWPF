@@ -15,26 +15,26 @@ using System.Windows.Shapes;
 namespace PLForms
 {
     /// <summary>
-    /// Interaction logic for MangeOrder.xaml
+    /// Interaction logic for OrderEditorStep2.xaml
     /// </summary>
-    public partial class OrderEditor : Window
+    public partial class OrderEditorStep2 : Window
     {
         BE.Client client;
         BE.Order tempOrder;
         bool IsReadOnly = false;
-        public OrderEditor()
+        public OrderEditorStep2()
         {
             InitializeComponent();
         }
-        public OrderEditor(BE.Order order,bool ReadOnly=false)
+        public OrderEditorStep2(BE.Order order, bool ReadOnly = false)
         {
             InitializeComponent();
-            this.client = BL.FactoryBL.getBL().GetAllClients(item=>item.ID==order.ClientID).First();
+            this.client = BL.FactoryBL.getBL().GetAllClients(item => item.ID == order.ClientID).First();
             tempOrder = order;
             if (order.Address == client.Address)
                 HomeCheckBox.IsChecked = true;
             else
-                HomeCheckBox_UnChecked(this,null);
+                HomeCheckBox_UnChecked(this, null);
             if (ReadOnly)
             {
                 AddBtn.Visibility = Visibility.Collapsed;
@@ -58,22 +58,22 @@ namespace PLForms
         }
         private void RefreshStacks(object sender, RoutedEventArgs e)
         {
-            int NumOfDishOrders=0;
+            int NumOfDishOrders = 0;
             DishOrder us;
             foreach (StackPanel item in DishOrdersGrid.Children)
             {
                 if (item.Children.Count != 0)
                     item.Children.RemoveRange(0, item.Children.Count);
             }
-            foreach (BE.DishOrder item in BL.FactoryBL.getBL().GetAllDishOrders(item=>item.OrderID==tempOrder.ID))
+            foreach (BE.DishOrder item in BL.FactoryBL.getBL().GetAllDishOrders(item => item.OrderID == tempOrder.ID))
             {
-                us = new DishOrder(item,IsReadOnly);
+                us = new DishOrder(item, IsReadOnly);
                 us.AmountChanged += DishOrderAmount;
                 us.HorizontalAlignment = HorizontalAlignment.Center;
                 us.HorizontalContentAlignment = HorizontalAlignment.Center;
-                if(NumOfDishOrders%3==0)
+                if (NumOfDishOrders % 3 == 0)
                     Stack1.Children.Add(us);
-                else if(NumOfDishOrders%3==1)
+                else if (NumOfDishOrders % 3 == 1)
                     Stack2.Children.Add(us);
                 else
                     Stack3.Children.Add(us);
@@ -83,13 +83,13 @@ namespace PLForms
         private void DishOrderAmount(object sender, BE.EventValue e)
         {
             if (Convert.ToInt32(e.Value) == 0)
-            { 
+            {
                 BL.FactoryBL.getBL().DeleteDishOrder(Convert.ToInt32(e.pName));
                 RefreshStacks(this, null);
                 return;
             }
-            BE.DishOrder ds= BL.FactoryBL.getBL().GetAllDishOrders(item => item.ID.ToString() == e.pName).FirstOrDefault(); //error if there isnt DishOrder
-            ds.DishAmount =Convert.ToInt32(e.Value);
+            BE.DishOrder ds = BL.FactoryBL.getBL().GetAllDishOrders(item => item.ID.ToString() == e.pName).FirstOrDefault(); //error if there isnt DishOrder
+            ds.DishAmount = Convert.ToInt32(e.Value);
             BL.FactoryBL.getBL().UpdateDishOrder(ds);
         }
 
@@ -106,9 +106,9 @@ namespace PLForms
         }
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-           var picker= new DishPicker(Max(tempOrder.Kosher,BL.FactoryBL.getBL().GetAllBranchs(item=>item.ID==tempOrder.BranchID).First().Kosher), tempOrder.ID);
-           picker.Added += AddedDishs;
-           picker.Show();
+            var picker = new DishPicker(Max(tempOrder.Kosher, BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == tempOrder.BranchID).First().Kosher), tempOrder.ID);
+            picker.Added += AddedDishs;
+            picker.Show();
         }
         BE.Kashrut Max(BE.Kashrut kosher1, BE.Kashrut kosher2)
         {
@@ -118,7 +118,7 @@ namespace PLForms
         }
         void AddedDishs(object sender, BE.EventValue e)
         {
-            if(e.pName==tempOrder.ID.ToString())
+            if (e.pName == tempOrder.ID.ToString())
             {
                 try
                 {

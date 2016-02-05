@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace PLForms
 {
-    
+
     /// <summary>
     /// Interaction logic for PlusMinusTextBox.xaml
     /// </summary>

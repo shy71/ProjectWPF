@@ -35,15 +35,6 @@
                                 <Setter Property="Button.IsEnabled" Value="False"/>
                             </MultiDataTrigger.Setters>
                         </MultiDataTrigger>
-                        <!--<MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding ElementName=InputPassword, Path=Foreground}" Value="Gray"/>
-                                <Condition Binding="{Binding ElementName=InputPassword, Path=Visibility}" Value="Visible"/>
-                            </MultiDataTrigger.Conditions>
-                            <MultiDataTrigger.Setters>
-                                <Setter Property="Button.IsEnabled" Value="False"/>
-                            </MultiDataTrigger.Setters>
-                        </MultiDataTrigger>-->
                         <DataTrigger Binding="{Binding ElementName=backArrow, Path=Visibility}" Value="Hidden">
                             <Setter Property="Button.Content" Value="Next"/>
                         </DataTrigger>
@@ -64,40 +55,17 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Label x:Name="typeLabel" Content="{Binding Type}" Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Center"  FontWeight="Bold" FontSize="25" Height="48" Width="294" Grid.ColumnSpan="2"/>
+            <Label x:Name="typeLabel" Content="{Binding Type,Converter={StaticResource TypeToString}}" Grid.Row="0" HorizontalContentAlignment="Center" VerticalAlignment="Center"  FontWeight="Bold" FontSize="25" Height="48" Width="294" Grid.ColumnSpan="2"/>
             <Label x:Name="nameLabel" Content="{Binding Name}" Grid.Row="1" HorizontalContentAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold" FontSize="20"  Height="41" Grid.ColumnSpan="2" />
             <Label x:Name="UsernameLabel" Content="{Binding UserName}" Grid.Row="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="26" Grid.ColumnSpan="2" />
-            <Image x:Name="backArrow" Source="Images\Back Arrow.png" Grid.Column="1" Grid.Row="0" Visibility="Hidden" />
-            <Button x:Name="backButton" Opacity="0.2" Grid.Column="1" Click="backButton_Click" Grid.Row="0">
-                <Button.Style>
-                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=backArrow,Path=Visibility}" Value="Visible">
-                                <Setter Property="Button.Visibility" Value="Visible"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding ElementName=backArrow,Path=Visibility}" Value="Hidden">
-                                <Setter Property="Button.Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
+
+            <Button x:Name="backArrow" Opacity="0.2" Grid.Column="1" Click="backArrow_Click" Grid.Row="0" Visibility="Hidden">
+                <Button.Content>
+                    <Image Source="Images\Back Arrow.png" Grid.Row="0"/>
+                </Button.Content>
             </Button>
         </Grid>
-        <Button x:Name="createAccountButton" Content="Create account" Margin="90,88,90,0" Grid.Row="3" VerticalAlignment="Top" FontFamily="auto" Click="createAccountButton_Click" ToolTip="Dont have an account? create one now!">
-            <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=backArrow,Path=Visibility}" Value="Visible">
-                            <Setter Property="Button.Visibility" Value="Hidden"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=backArrow,Path=Visibility}" Value="Hidden">
-                            <Setter Property="Button.Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
+        <Button x:Name="createAccountButton" Visibility="{Binding ElementName=backArrow,Path=Visibility,Converter={StaticResource NotVisibility}}" Content="Create account" Margin="90,88,90,0" Grid.Row="3" VerticalAlignment="Top" FontFamily="auto" Click="createAccountButton_Click" ToolTip="Dont have an account? create one now!"/>
         <local:PasswordControl x:Name="InputPassword" FontS="15" Grid.Row="2"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" Width="217" PreviewKeyDown="InputPreviewKeyDown" Str="Password"  Visibility="Hidden"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="110,88,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
     </Grid>
 </Window>

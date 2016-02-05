@@ -27,8 +27,8 @@ namespace PLForms
         }
         internal int getHeight(double height, params BE.GroupSum[] heights)
         {
-            return Convert.ToInt32(0.9*this.ActualHeight * (double)((double)height / (from item in heights
-                                                                                      select item.Sum).Max()));
+            return Convert.ToInt32(0.9 * this.ActualHeight * (double)((double)height / (from item in heights
+                                                                                        select item.Sum).Max()));
         }
         public Stick_Diagram(params BE.GroupSum[] heights)
         {
@@ -47,7 +47,7 @@ namespace PLForms
             MainStack.Children.Clear();
             for (int counter = 0; counter < Heights.Count(); counter++)
             {
-                
+
                 stack = new StackPanel();
                 stack.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
                 //column.Width = new System.Windows.GridLength(30, GridUnitType.Pixel);
@@ -58,7 +58,7 @@ namespace PLForms
                 numberText.TextAlignment = TextAlignment.Center;
                 numberText.Text = Heights[counter].Sum.ToString();
                 //numberText.Margin.Bottom = text.Height;
-                if (text.Height / (0.9 * MainStack.ActualHeight) < 0.05) 
+                if (text.Height / (0.9 * MainStack.ActualHeight) < 0.05)
                     text.Background = Brushes.Red;
                 else if (text.Height / (0.9 * MainStack.ActualHeight) < 0.2)
                     text.Background = Brushes.Orange;
@@ -108,17 +108,17 @@ namespace PLForms
                 //}
                 name.Text = Heights[counter].LowerHeadr;
                 stack.Children.Add(name);
-               // MainList.Children.Add(stack);
+                // MainList.Children.Add(stack);
                 MainStack.Children.Add(stack);
                 text = new TextBlock();
                 text.Width = 25;
                 MainStack.Children.Add(text);
                 Grid.SetColumn(stack, counter);
             }
-            if(MainStack.Children.Count==0)
+            if (MainStack.Children.Count == 0)
             {
-                text=new TextBlock();
-                text.Text="No Diagram To Show for this Data";
+                text = new TextBlock();
+                text.Text = "No Diagram To Show for this Data";
                 MainStack.Children.Add(text);
             }
 
@@ -126,7 +126,7 @@ namespace PLForms
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if(Heights!=null)
+            if (Heights != null)
                 Refresh();
         }
     }

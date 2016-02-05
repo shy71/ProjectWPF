@@ -38,7 +38,7 @@ namespace PLForms
         {
             InitializeComponent();
             choiceBtn.IsEnabled = false;
-           // choiceBtn.DataContext = theBranchesIDs;
+            // choiceBtn.DataContext = theBranchesIDs;
             theBranchesIDs = new List<int>();
             TextBox text;
             int NumOfBranches = 0;
@@ -65,7 +65,7 @@ namespace PLForms
                 NumOfBranches++;
             }
             this.func = func;
-            this.DataContext = new {Name=str,Header="Chose the branch you want to "+str.ToLower()+":" };
+            this.DataContext = new { Name = str, Header = "Chose the branch you want to " + str.ToLower() + ":" };
 
         }
         private void Refresh(object sender, RoutedEventArgs e)
@@ -159,7 +159,7 @@ namespace PLForms
                 }
                 this.Close();
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 MessageBox.Show(exp.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 theBranchesIDs.Clear();

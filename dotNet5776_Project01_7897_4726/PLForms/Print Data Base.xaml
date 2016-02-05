@@ -12,7 +12,7 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel x:Name="MainStack" VerticalAlignment="Top">
                 <Expander x:Name="DishExp" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod">
-                    <StackPanel x:Name="DishStack" Margin="40,0,0,0">  
+                    <StackPanel x:Name="DishStack" Margin="40,0,0,0">
                     </StackPanel>
                 </Expander>
                 <Expander x:Name="BranchExp" Foreground="Maroon" FontFamily="Comic Sans MS" Background="DarkGoldenrod">

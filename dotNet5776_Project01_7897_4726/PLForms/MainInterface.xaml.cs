@@ -28,14 +28,14 @@ namespace PLForms
             try
             {
                 InitializeComponent();
-                if (MessageBox.Show("would you like to reset the database?", "DataBase Restart", MessageBoxButton.YesNo, MessageBoxImage.Error,MessageBoxResult.No) == MessageBoxResult.Yes)
+                if (MessageBox.Show("would you like to reset the database?", "DataBase Restart", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.No) == MessageBoxResult.Yes)
                 {
                     BL.FactoryBL.getBL().DeleteDataBase();
                     BL.FactoryBL.getBL().Inti();
                 }
                 if (!BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger).Any())
-                    MessageBox.Show("Hello! and wellcom to Shy and Ezra program for manging Fred's BBQ Joint\n you will now be redirected to create the First Network Manger account \n please pay attention to this process","Hello World!",MessageBoxButton.OK,MessageBoxImage.Information);
-                    //Open a new Window manger window
+                    MessageBox.Show("Hello! and wellcom to Shy and Ezra program for manging Fred's BBQ Joint\n you will now be redirected to create the First Network Manger account \n please pay attention to this process", "Hello World!", MessageBoxButton.OK, MessageBoxImage.Information);
+                //Open a new Window manger window
             }
             catch (Exception exp)
             {
@@ -89,20 +89,20 @@ namespace PLForms
                     }
                     else
                     {
-                        if(IsLostPassword==true)
+                        if (IsLostPassword == true)
                         {
                             if (InputPassword.GetPassword() == BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First().CreditCard.ToString())
                             {
                                 MessageBox.Show("You will be redirect to save a new password, please try not to forget her");
                                 new UserEditor(user).ShowDialog();
                                 IsLostPassword = false;
-                                backButton_Click(this,null);
+                                backArrow_Click(this, null);
                                 return;
                             }
                             else
                                 MessageBox.Show("The username and CreditCard you entered don't match. Please try again or contact a staff member");
                         }
-                        if ((!IsLostPassword)&&MessageBoxResult.Yes == MessageBox.Show("The username and password you entered don't match.\nDid you forgot your password?", "Incorrect password", MessageBoxButton.YesNo, MessageBoxImage.Error))
+                        if ((!IsLostPassword) && MessageBoxResult.Yes == MessageBox.Show("The username and password you entered don't match.\nDid you forgot your password?", "Incorrect password", MessageBoxButton.YesNo, MessageBoxImage.Error))
                         {
                             if (user.Type == BE.UserType.Client)
                             {
@@ -113,7 +113,7 @@ namespace PLForms
                                 MessageBox.Show("We cant do anything for you, please try to contact your superior");
                         }
 
-                            InputPassword.Clear();
+                        InputPassword.Clear();
                     }
                     #endregion
                     break;
@@ -150,7 +150,7 @@ namespace PLForms
             new ClientEditor().ShowDialog();
         }
 
-        private void backButton_Click(object sender, RoutedEventArgs e)
+        private void backArrow_Click(object sender, RoutedEventArgs e)
         {
             this.DataContext = null;
             backArrow.Visibility = Visibility.Hidden;
@@ -165,27 +165,9 @@ namespace PLForms
             if (e.Key == Key.Enter)
                 NextLogin(sender, e);
             if (e.Key == Key.Back && (InputPassword.ForeG == Brushes.Gray && backArrow.Visibility == Visibility.Visible))
-                backButton_Click(backButton, null);
+                backArrow_Click(backArrow, null);
 
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)//delete
-        {
-            //new ShowUserControl(new DishOrder(BL.FactoryBL.getBL().GetAllDishOrders().First())).Show();
-            //new ShowUserControl(new DishOrder(BL.FactoryBL.getBL().GetAllDishOrders().ElementAt(2))).Show();
-            //new OrderEditor1(BL.FactoryBL.getBL().GetAllClients().First()).Show();
-            //new DishPicker(BE.Kashrut.LOW, BL.FactoryBL.getBL().GetAllOrders().First().ID).Show();
-            //new DishEditor(BL.FactoryBL.getBL().GetAllDishs().First()).Show();
-          BL.FactoryBL.getBL().DeleteDish(BL.FactoryBL.getBL().GetAllDishs().First(item => item.Name == "Wings"));
-        }
-
-        //private void passwordLabelBox_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    (sender as TextBox).Visibility = Visibility.Hidden;
-        //    (sender as TextBox).Foreground = Brushes.Black;
-        //    InputPassword.Visibility = Visibility.Visible;
-        //   KeyBorad.Focus(InputPassword);
-        //}
     }
 }
 

@@ -90,7 +90,7 @@ namespace PLForms
         {
             Grid g;
             ColumnDefinition a, b, c, d;
-            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && predicate(item)).OrderBy(item=>-BL.FactoryBL.getBL().PriceOfOrder(item.ID)))
+            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && predicate(item)).OrderBy(item => -BL.FactoryBL.getBL().PriceOfOrder(item.ID)))
             {
                 if (numOfOrders % 4 == 0)
                 {
@@ -392,11 +392,10 @@ namespace PLForms
         }
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
-        
-            {
-                new OrderEditor1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First()).ShowDialog();
-                UnsentButton_Checked(UnsentButton, null);
-            }
+        {
+            new OrderEditorStep1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First()).ShowDialog();
+            UnsentButton_Checked(UnsentButton, null);
+        }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -480,6 +479,6 @@ namespace PLForms
             }
             Restart(this, null);
         }
-        
+
     }
 }
