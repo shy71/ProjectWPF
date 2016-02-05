@@ -2,6 +2,13 @@
 <Users>
   <User>
     <Type>NetworkManger</Type>
+    <UserName>shy71</UserName>
+    <Password>123456</Password>
+    <Name>Shy Tennenbaum</Name>
+    <ItemID>0</ItemID>
+  </User>
+  <User>
+    <Type>NetworkManger</Type>
     <UserName>ezra1</UserName>
     <Password>123456</Password>
     <Name>Ezra Block</Name>
@@ -10,13 +17,6 @@
   <User>
     <Type>BranchManger</Type>
     <UserName>itai1</UserName>
-    <Password>123456</Password>
-    <Name>itai deykan</Name>
-    <ItemID>0</ItemID>
-  </User>
-  <User>
-    <Type>BranchManger</Type>
-    <UserName>itai111</UserName>
     <Password>123456</Password>
     <Name>itai deykan</Name>
     <ItemID>0</ItemID>
