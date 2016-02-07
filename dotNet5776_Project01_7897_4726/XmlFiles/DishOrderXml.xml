@@ -7,12 +7,6 @@
     <DishAmount>15</DishAmount>
   </DishOrder>
   <DishOrder>
-    <ID>12370</ID>
-    <OrderID>2</OrderID>
-    <DishID>1243</DishID>
-    <DishAmount>34</DishAmount>
-  </DishOrder>
-  <DishOrder>
     <ID>13271</ID>
     <OrderID>3</OrderID>
     <DishID>19273</DishID>
@@ -29,5 +23,23 @@
     <OrderID>5</OrderID>
     <DishID>21</DishID>
     <DishAmount>3</DishAmount>
+  </DishOrder>
+  <DishOrder>
+    <ID>12370</ID>
+    <OrderID>2</OrderID>
+    <DishID>1243</DishID>
+    <DishAmount>38</DishAmount>
+  </DishOrder>
+  <DishOrder>
+    <ID>7570</ID>
+    <OrderID>2</OrderID>
+    <DishID>19273</DishID>
+    <DishAmount>41</DishAmount>
+  </DishOrder>
+  <DishOrder>
+    <ID>7610</ID>
+    <OrderID>2</OrderID>
+    <DishID>95840</DishID>
+    <DishAmount>14</DishAmount>
   </DishOrder>
 </DishOrders>

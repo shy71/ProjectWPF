@@ -662,7 +662,7 @@ namespace DAL
         {
             return from item in GetAll<DishOrder>()
                    let order = GetOrder(item.OrderID)
-                   where predicate(order.ID)
+                   where predicate(order.BranchID)
                    select item;
         }
         #endregion
