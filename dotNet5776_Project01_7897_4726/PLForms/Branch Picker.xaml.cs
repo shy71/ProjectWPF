@@ -16,24 +16,38 @@ namespace PLForms
 {
     /// <summary>
     /// Interaction logic for Delete_Branch.xaml
+    /// Used for chooseing a branch 
     /// </summary>
     public partial class BranchPicker : Window
     {
         List<int> theBranchesIDs;
         bool IsCtrlDown = false;
         Action<int> func;
-
+        /// <summary>
+        /// Checks if ctrl is being held down
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KeyDownCheck(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
                 IsCtrlDown = true;
         }
-
+        /// <summary>
+        /// checks if ctrl was released
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KeyUpCheck(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
                 IsCtrlDown = false;
         }
+        /// <summary>
+        /// constructor which starts and prints everything
+        /// </summary>
+        /// <param name="func"></param>
+        /// <param name="str"></param>
         public BranchPicker(Action<int> func, string str)
         {
             InitializeComponent();
@@ -65,9 +79,14 @@ namespace PLForms
                 NumOfBranches++;
             }
             this.func = func;
-            this.DataContext = new { Name = str, Header = "Chose the branch you want to " + str.ToLower() + ":" };
+            this.DataContext = new { Name = str, Header = "Choose the branch you want to " + str.ToLower() + ":" };
 
         }
+        /// <summary>
+        /// refreshes the screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Refresh(object sender, RoutedEventArgs e)
         {
             TextBox text;
@@ -95,6 +114,11 @@ namespace PLForms
                 NumOfBranches++;
             }
         }
+        /// <summary>
+        /// checks when mouse clicks something relevent like a branch being chosen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void MouseClick(object sender, MouseButtonEventArgs e)
         {
             bool WasSelected = (sender as TextBox).Opacity == 1;
@@ -134,6 +158,11 @@ namespace PLForms
                 }
             }
         }
+        /// <summary>
+        /// checks when the button to finalize the choices is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void choiceBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -166,12 +195,16 @@ namespace PLForms
                 choiceBtn.IsEnabled = false;
             }
         }
-
+        /// <summary>
+        /// checks when the window was loaded adn messages the user if there is nothing to choose from
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (Stack1.Children.Count == 0)
             {
-                MessageBox.Show("You dont have any branch to pick from!");
+                MessageBox.Show("You don't have any branch to pick from!");
                 this.Close();
             }
         }

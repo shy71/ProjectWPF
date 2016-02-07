@@ -16,18 +16,26 @@ namespace PLForms
 {
     /// <summary>
     /// Interaction logic for BranchEditor.xaml
+    /// Incharge of editing or creating a branch
     /// </summary>
     public partial class BranchEditor : Window
     {
         bool IsUpadte;
         BE.Branch branch;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public BranchEditor()
         {
             InitializeComponent();
             branch = new BE.Branch();
-
         }
-        public BranchEditor(BE.Branch bra, bool IsNetworkManger = true)
+        /// <summary>
+        /// constructor which starts everything
+        /// </summary>
+        /// <param name="bra"></param>
+        /// <param name="IsNetworkManager"></param>
+        public BranchEditor(BE.Branch bra, bool IsNetworkManager = true)
         {
             InitializeComponent();
             nameBox.SetText(bra.Name);
@@ -39,41 +47,62 @@ namespace PLForms
             branch = bra;
             IsUpadte = true;
             DoButton.Content = "Update!";
-            if (!IsNetworkManger)
+            if (!IsNetworkManager)
             {
                 nameBox.IsEnabled = false;
                 addressBox.IsEnabled = false;
-                MangerCombo.Visibility = Visibility.Hidden;
+                ManagerCombo.Visibility = Visibility.Hidden;
                 KashrutCombo.Visibility = Visibility.Hidden;
                 branchCombo.Visibility = Visibility.Hidden;
                 branchComboText.Visibility = Visibility.Hidden;
             }
         }
-
+        /// <summary>
+        /// in case the user decided to hire a new manager for the branch, this deals with it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateBranchManagerButton_Click(object sender, RoutedEventArgs e)
         {
             new UserEditor(BE.UserType.BranchManger).ShowDialog();
-            MangerCombo.Items.Clear();
-            MangerComboBox_Loaded(this, null);
+            ManagerCombo.Items.Clear();
+            ManagerComboBox_Loaded(this, null);
         }
-
+        /// <summary>
+        /// checks if the number of employees was changed by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NumberOfEmplyes_Changed(object sender, BE.EventValue e)
         {
             if (branch != null)
                 branch.EmployeeCount = Convert.ToInt32(e.Value);
         }
-        private void AvilbleMesnngers_Changed(object sender, BE.EventValue e)
+        /// <summary>
+        /// checks if the user changed the number of available messanagers the branch starts with
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AvailableMessangers_Changed(object sender, BE.EventValue e)
         {
             if (branch != null)
                 branch.AvailableMessangers = Convert.ToInt32(e.Value);
         }
-
+        /// <summary>
+        /// checks if a specific text box was changed by the user and changes the property in the branch that that text box represents
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextControl_Changed(object sender, BE.EventValue e)
         {
             if (branch != null)
                 branch.GetType().GetProperty(e.pName).SetValue(branch, e.Value);
         }
-
+        /// <summary>
+        /// in case the finalizing button was clicked it deals with it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -94,20 +123,24 @@ namespace PLForms
             }
 
         }
-
-        private void MangerComboBox_Loaded(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// checks if the branch manager combo box for choosing the manager was opened
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ManagerComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var temp = new ComboBoxItem();
-            temp.Content = "Create a New manger!";
-            temp.ToolTip = "Will give you the option to\ncreate a new manger that\nwill run the branch";
-            MangerCombo.Items.Add(temp);
+            temp.Content = "Create a New manager!";
+            temp.ToolTip = "Will give you the option to\ncreate a new manager that\nwill run the branch";
+            ManagerCombo.Items.Add(temp);
             if (IsUpadte)
             {
                 temp = new ComboBoxItem();
-                temp.Content = "Stay with the current manger!";
+                temp.Content = "Stay with the current manager!";
                 temp.ToolTip = branch.Boss;
-                MangerCombo.Items.Add(temp);
-                MangerCombo.SelectedItem = temp;
+                ManagerCombo.Items.Add(temp);
+                ManagerCombo.SelectedItem = temp;
             }
             foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers(item2 => item2.Type == BE.UserType.BranchManger && item2.ItemID == 0))
             {
@@ -115,20 +148,28 @@ namespace PLForms
 
                 temp.Content = item.Name + " @" + item.UserName;
                 temp.ToolTip = item.ToString();
-                MangerCombo.Items.Add(temp);
+                ManagerCombo.Items.Add(temp);
             }
         }
-
-        private void MangerCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// checks if a manager was chosen from the managers in the system
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ManagerCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (MangerCombo.SelectedIndex == 0)
+            if (ManagerCombo.SelectedIndex == 0)
                 CreateBranchManagerButton.IsEnabled = true;
-            else if (MangerCombo.SelectedIndex != 0)
+            else if (ManagerCombo.SelectedIndex != 0)
                 CreateBranchManagerButton.IsEnabled = false;
-            if (MangerCombo.SelectedIndex > 0 && ((!IsUpadte) || MangerCombo.SelectedIndex > 1))
-                branch.Boss = (MangerCombo.Items.GetItemAt(MangerCombo.SelectedIndex) as ComboBoxItem).Content.ToString();
+            if (ManagerCombo.SelectedIndex > 0 && ((!IsUpadte) || ManagerCombo.SelectedIndex > 1))
+                branch.Boss = (ManagerCombo.Items.GetItemAt(ManagerCombo.SelectedIndex) as ComboBoxItem).Content.ToString();
         }
-
+        /// <summary>
+        /// checks if the branch combo box was opened
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var temp = new ComboBoxItem();//בזבוז
@@ -142,15 +183,23 @@ namespace PLForms
             if (branchCombo.Items.Count == 0)
             {
                 branchCombo.IsEnabled = false;
-                branchCombo.ToolTip = "There isnt any branchs to pick from!";
+                branchCombo.ToolTip = "There isn't any branchs to pick from!";
             }
         }
-
+        /// <summary>
+        /// checks when the kashrut combo box was opened
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KashrutCombo_Loaded(object sender, RoutedEventArgs e)
         {
             KashrutCombo.ItemsSource = typeof(BE.Kashrut).GetEnumNames();
         }
-
+        /// <summary>
+        /// copies a branch to use as a sample for the new one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CopyBranch(object sender, RoutedEventArgs e)
         {
             try
@@ -178,7 +227,11 @@ namespace PLForms
             }
 
         }
-
+        /// <summary>
+        /// checks if the kashrut level was changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KashrutCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (KashrutCombo.SelectedIndex >= 0)
