@@ -60,7 +60,7 @@
             <Label x:Name="nameLabel" Content="{Binding Name}" Grid.Row="1" HorizontalContentAlignment="Center"  VerticalAlignment="Top" FontWeight="Bold" FontSize="20"  Height="42" Grid.ColumnSpan="2" Margin="0,4,0,0" />
             <Label x:Name="UsernameLabel" Content="{Binding UserName}" Grid.Row="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="26" Grid.ColumnSpan="2" />
 
-            <Button x:Name="backArrow" Grid.Column="1" Click="backArrow_Click" Grid.Row="0" Visibility="Hidden">
+            <Button x:Name="backArrow" Grid.Column="1" Width="30" Height="30" HorizontalAlignment="Right" Click="backArrow_Click" Grid.Row="0" Visibility="Hidden">
                 <Button.Content>
                     <Image Source="Images\Back Arrow.png" Grid.Row="0"/>
                 </Button.Content>
