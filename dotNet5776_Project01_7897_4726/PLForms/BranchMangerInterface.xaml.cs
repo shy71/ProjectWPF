@@ -28,22 +28,18 @@ namespace PLForms
         public BranchMangerInterface(BE.User user)
             : this()
         {
-
             branch = BL.FactoryBL.getBL().GetAllBranchs(item => user.ItemID == item.ID).FirstOrDefault();
             if (branch == null)
-            {
-                MessageBox.Show("Sorry, you dont have a branch assinged to you at the moment");
-                new MainInterface().Show();
-                this.Close();
-            }
+                throw new Exception("Sorry, you dont have a branch assinged to you at the moment");
             this.user = user;
-            deitles_Loaded(this, null);
+            details_Loaded(this, null);
+
         }
 
-        private void deitles_Loaded(object sender, RoutedEventArgs e)
+        private void details_Loaded(object sender, RoutedEventArgs e)
         {
-            deitles.Content = branch.Name;
-            deitles.ToolTip = branch.Address;
+            details.Content = branch.Name;
+            details.ToolTip = branch.Address;
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
@@ -73,6 +69,28 @@ namespace PLForms
         private void staticBtn_Click(object sender, RoutedEventArgs e)
         {
             new Profit_Details(x => x == branch.ID).ShowDialog();
+        }
+
+        private void MouseEnterEvent(object sender, MouseEventArgs e)
+        {
+            switch((sender as Button).Name)
+            {
+                case "LogOut":
+                    (sender as Button).ToolTip = "Log out of this account";
+                    break;
+                case "Edit":
+                    (sender as Button).ToolTip = "Edit your details";
+                    break;
+                case "staticBtn":
+                    (sender as Button).ToolTip = "Get your branches statistics";
+                    break;
+                case "addDish":
+                    (sender as Button).ToolTip = "Add a new dish to the menu";
+                    break;
+                case "mangeBtn":
+                    (sender as Button).ToolTip = "Change the branches details";
+                    break;
+            }
         }
     }
 }

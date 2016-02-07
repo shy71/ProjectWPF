@@ -35,7 +35,6 @@ namespace PLForms
         bool IsUpdated = false;
         public ClientEditor()
         {
-
             InitializeComponent();
             client = new BE.Client();
             user = new BE.User();
@@ -119,6 +118,11 @@ namespace PLForms
         {
             if (client != null)
                 client.Age = Convert.ToInt32(e.Value);
+        }
+
+        private void nextButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Button).ToolTip = "Create the account";
         }
         //bool GotPropty(object obj,string str)
         //{

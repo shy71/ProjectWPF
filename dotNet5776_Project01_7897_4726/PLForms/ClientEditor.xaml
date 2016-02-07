@@ -44,7 +44,7 @@
             <dc:PlusMinusTextBox x:Name="ageBox" Grid.Column="3" Changed="PlusMinusTextBox_Changed"/>
 
         </Grid>
-        <Button x:Name="nextButton" Grid.Row="14" FontSize="20" Content="Next step!"  HorizontalAlignment="Center" FontWeight="Bold" Width="114" Visibility="Visible" Click="nextButton_Click" VerticalAlignment="Center" Height="34" Margin="140,3,140,0" >
+        <Button x:Name="nextButton" Grid.Row="14" MouseEnter="nextButton_MouseEnter" FontSize="20" Content="Next Step!"  HorizontalAlignment="Center" FontWeight="Bold" Width="114" Visibility="Visible" Click="nextButton_Click" VerticalAlignment="Center" Height="34" Margin="140,3,140,0" >
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>

@@ -46,87 +46,100 @@ namespace PLForms
         }
         private void NextLogin(object sender, RoutedEventArgs e)
         {
-            switch (SignInButton.Content.ToString())
+            try
             {
-                case "Next":
-                    #region Next
-                    user = BL.FactoryBL.getBL().GetUser(InputBox.GetText());
-                    if (user == null)
-                    {
-                        if (MessageBox.Show("Sorry, There isn't such username in our datdbase\n\n would you like to create a new client with that username?", "Incorrect username", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
-                            new ClientEditor(InputBox.GetText()).ShowDialog();
+                switch (SignInButton.Content.ToString())
+                {
+                    case "Next":
+                        #region Next
                         user = BL.FactoryBL.getBL().GetUser(InputBox.GetText());
-                        if (user != null)
+                        if (user == null)
                         {
-                            new ClientInterface(user).Show();
+                            if (MessageBox.Show("Sorry, There isn't such username in our datdbase\n\n would you like to create a new client with that username?", "Incorrect username", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes)
+                                new ClientEditor(InputBox.GetText()).ShowDialog();
+                            user = BL.FactoryBL.getBL().GetUser(InputBox.GetText());
+                            if (user != null)
+                            {
+                                new ClientInterface(user).Show();
+                                this.Close();
+                            }
+                            Keyboard.ClearFocus();
+                        }
+                        else
+                        {
+                            this.DataContext = user;
+                            ChangeToLogin();
+                        }
+                        InputBox.Clear();
+                        #endregion
+                        break;
+                    case "Sign In":
+                        #region Sign In
+                        if (InputPassword.GetPassword() == user.Password)
+                        {
+                            switch (user.Type)
+                            {
+                                case BE.UserType.Client:
+                                    new ClientInterface(user).Show();
+                                    break;
+                                case BE.UserType.BranchManger:
+                                    new BranchMangerInterface(user).Show();
+                                    break;
+                                case BE.UserType.NetworkManger:
+                                    new NetworkManagerInterface(user).Show();
+                                    break;
+                            }
                             this.Close();
                         }
-                        Keyboard.ClearFocus();
-                    }
-                    else
-                    {
-                        this.DataContext = user;
-                        ChangeToLogin();
-                    }
-                    InputBox.Clear();
-                    #endregion
-                    break;
-                case "Sign In":
-                    #region Sign In
-                    if (InputPassword.GetPassword() == user.Password)
-                    {
-                        switch (user.Type)
+                        else
                         {
-                            case BE.UserType.Client:
-                                new ClientInterface(user).Show();
-                                break;
-                            case BE.UserType.BranchManger:
-                                new BranchMangerInterface(user).Show();
-                                break;
-                            case BE.UserType.NetworkManger:
-                                new NetworkManagerInterface(user).Show();
-                                break;
-                        }
-                        this.Close();
-                    }
-                    else
-                    {
-                        if (IsLostPassword == true)
-                        {
-                            if (InputPassword.GetPassword() == BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First().CreditCard.ToString())
+                            if (IsLostPassword == true)
                             {
-                                MessageBox.Show("You will be redirect to save a new password, please try not to forget her");
-                                new UserEditor(user).ShowDialog();
-                                IsLostPassword = false;
-                                backArrow_Click(this, null);
-                                return;
+                                if (InputPassword.GetPassword() == BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First().CreditCard.ToString())
+                                {
+                                    MessageBox.Show("You will be redirect to save a new password, please try not to forget her");
+                                    new UserEditor(user).ShowDialog();
+                                    IsLostPassword = false;
+                                    backArrow_Click(this, null);
+                                    return;
+                                }
+                                else
+                                    MessageBox.Show("The username and CreditCard you entered don't match. Please try again or contact a staff member");
                             }
-                            else
-                                MessageBox.Show("The username and CreditCard you entered don't match. Please try again or contact a staff member");
-                        }
-                        if ((!IsLostPassword) && MessageBoxResult.Yes == MessageBox.Show("The username and password you entered don't match.\nDid you forgot your password?", "Incorrect password", MessageBoxButton.YesNo, MessageBoxImage.Error))
-                        {
-                            if (user.Type == BE.UserType.Client)
+                            if ((!IsLostPassword) && MessageBoxResult.Yes == MessageBox.Show("The username and password you entered don't match.\nDid you forgot your password?", "Incorrect password", MessageBoxButton.YesNo, MessageBoxImage.Error))
                             {
-                                MessageBox.Show("Enter your credit card number in the password filed below", "Password Recovry");
-                                IsLostPassword = true;
+                                if (user.Type == BE.UserType.Client)
+                                {
+                                    MessageBox.Show("Enter your credit card number in the password filed below", "Password Recovry");
+                                    IsLostPassword = true;
+                                }
+                                else
+                                    MessageBox.Show("We cant do anything for you, please try to contact your superior");
                             }
-                            else
-                                MessageBox.Show("We cant do anything for you, please try to contact your superior");
-                        }
 
-                        InputPassword.Clear();
-                    }
-                    #endregion
-                    break;
+                            InputPassword.Clear();
+                        }
+                        #endregion
+                        break;
+                }
             }
-
+            catch(Exception exp)
+            {
+                MessageBox.Show(exp.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.DataContext = null;
+                backArrow.Visibility = Visibility.Hidden;
+                InputPassword.Clear();
+                InputPassword.Visibility = Visibility.Hidden;
+                Keyboard.Focus(SignInButton);
+                IsLostPassword = false;
+            }
         }
         private void ChangeToLogin()
         {
             backArrow.Visibility = Visibility.Visible;
             InputPassword.Visibility = Visibility.Visible;
             FocusManager.SetFocusedElement(this, InputPassword.textBox);
+            SignInButton.ToolTip = "Log in to the account";
         }
 
         //private void passwordLabelBox_LostFocus(object sender, RoutedEventArgs e)
@@ -169,6 +182,14 @@ namespace PLForms
             if (e.Key == Key.Back && (InputPassword.ForeG == Brushes.Gray && backArrow.Visibility == Visibility.Visible))
                 backArrow_Click(backArrow, null);
 
+        }
+
+        private void SignInButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if ((sender as Button).Content.ToString() == "Next")
+                (sender as Button).ToolTip = "Continue to the next step of the login";
+            else
+                (sender as Button).ToolTip = "Log in to the account";
         }
     }
 }

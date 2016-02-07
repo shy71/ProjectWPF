@@ -53,6 +53,8 @@ namespace PLForms
         private void CreateBranchManagerButton_Click(object sender, RoutedEventArgs e)
         {
             new UserEditor(BE.UserType.BranchManger).ShowDialog();
+            MangerCombo.Items.Clear();
+            MangerComboBox_Loaded(this, null);
         }
 
         private void NumberOfEmplyes_Changed(object sender, BE.EventValue e)
@@ -181,6 +183,11 @@ namespace PLForms
         {
             if (KashrutCombo.SelectedIndex >= 0)
                 branch.Kosher = BE.Extensions.ToKashrut(KashrutCombo.SelectedItem.ToString());
+        }
+
+        private void DoButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Button).ToolTip = "Create the account";
         }
     }
 }
