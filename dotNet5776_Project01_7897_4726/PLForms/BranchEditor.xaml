@@ -50,7 +50,7 @@
         <TextBlock TextAlignment="Center" Grid.Row="11"><Run Text="Available messengers" FontWeight="Bold"/><LineBreak/><Run Text=" in the branch :" FontWeight="Bold"/></TextBlock>
         <ComboBox x:Name="KashrutCombo" Grid.Row="13" Grid.Column="0" Loaded="KashrutCombo_Loaded" SelectionChanged="KashrutCombo_SelectionChanged" ToolTip="The Kashrut level of the new branch)"/>
         <TextBlock Text="Select Kashrut level" IsHitTestVisible="False" Grid.Row="13" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=KashrutCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
-        <Button x:Name="DoButton" MouseEnter="DoButton_MouseEnter" Content="Create!" Grid.Column="1" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="13" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24" Click="Button_Click">
+        <Button x:Name="DoButton" ToolTip="Create the account" Content="Create!" Grid.Column="1" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="13" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24" Click="Button_Click">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>

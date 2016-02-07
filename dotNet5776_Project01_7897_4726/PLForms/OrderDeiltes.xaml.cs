@@ -145,5 +145,16 @@ namespace PLForms
             if (IsWindowMode && Arived != null)
                 Arived(this, new BE.EventValue(ID));
         }
+
+        private void MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as Button).Height *= 1.5;
+            (sender as Button).Width *= 1.5;
+        }
+        private void MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as Button).Height /= 1.5;
+            (sender as Button).Width /= 1.5;
+        }
     }
 }

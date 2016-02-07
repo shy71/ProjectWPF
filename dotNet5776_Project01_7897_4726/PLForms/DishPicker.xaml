@@ -32,6 +32,6 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-        <Button x:Name="AddBtn" Content="Add!" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="3" Width="75" Height="35" Click="AddBtn_Click"/>
+        <Button x:Name="AddBtn" Content="Add!" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="3" Width="75" Height="35" Click="AddBtn_Click" ToolTip="Add the dishes to the order"/>
     </Grid>
 </Window>

@@ -184,10 +184,5 @@ namespace PLForms
             if (KashrutCombo.SelectedIndex >= 0)
                 branch.Kosher = BE.Extensions.ToKashrut(KashrutCombo.SelectedItem.ToString());
         }
-
-        private void DoButton_MouseEnter(object sender, MouseEventArgs e)
-        {
-            (sender as Button).ToolTip = "Create the account";
-        }
     }
 }

@@ -119,11 +119,6 @@ namespace PLForms
             if (client != null)
                 client.Age = Convert.ToInt32(e.Value);
         }
-
-        private void nextButton_MouseEnter(object sender, MouseEventArgs e)
-        {
-            (sender as Button).ToolTip = "Create the account";
-        }
         //bool GotPropty(object obj,string str)
         //{
         //    if(obj.GetType().GetProperty(str)!=null)

@@ -30,16 +30,4 @@
     <DishID>21</DishID>
     <DishAmount>3</DishAmount>
   </DishOrder>
-  <DishOrder>
-    <ID>7021</ID>
-    <OrderID>14</OrderID>
-    <DishID>1243</DishID>
-    <DishAmount>87</DishAmount>
-  </DishOrder>
-  <DishOrder>
-    <ID>7621</ID>
-    <OrderID>14</OrderID>
-    <DishID>19273</DishID>
-    <DishAmount>118</DishAmount>
-  </DishOrder>
 </DishOrders>
