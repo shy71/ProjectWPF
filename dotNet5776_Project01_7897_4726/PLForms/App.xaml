@@ -34,5 +34,6 @@
         <local:NotVisibility x:Key="NotVisibility"/>
         <local:SelectedItemToVisibility x:Key="SelectedItemToVisibility"/>
         <local:NotBoolen x:Key="NotBoolen"/>
+        <local:ItemsSourceToBoolen x:Key="ItemsSourceToBoolen"/>
     </Application.Resources>
 </Application>

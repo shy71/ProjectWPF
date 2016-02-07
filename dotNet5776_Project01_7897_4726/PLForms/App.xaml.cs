@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Collections;
 
 namespace PLForms
 {
@@ -73,6 +74,22 @@ namespace PLForms
         {
             if ((bool)value == true)
                 return false;
+            else
+                return true;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return "";
+        }
+    }
+    public class ItemsSourceToBoolen : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null)
+                return false;
+           if (((IEnumerable)value).GetEnumerator().MoveNext()==false)
+              return false;
             else
                 return true;
         }

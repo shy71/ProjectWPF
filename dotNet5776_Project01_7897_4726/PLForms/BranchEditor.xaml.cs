@@ -79,10 +79,7 @@ namespace PLForms
             try
             {
                 if (IsUpadte)
-                {
-
                     BL.FactoryBL.getBL().UpdateBranch(branch);
-                }
                 else
                     BL.FactoryBL.getBL().AddBranch(branch);
                 MessageBox.Show("The branch " + branch.Name + " was " + ((IsUpadte) ? "Updated!" : "created!"), "Branch created", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -129,7 +126,7 @@ namespace PLForms
                 branch.Boss = (MangerCombo.Items.GetItemAt(MangerCombo.SelectedIndex) as ComboBoxItem).Content.ToString();
         }
 
-        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        private void BranchComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var temp = new ComboBoxItem();//בזבוז
             foreach (BE.Branch item in BL.FactoryBL.getBL().GetAllBranchs())
