@@ -63,6 +63,10 @@ namespace PLForms
                 (PlusBtn).ToolTip = "Add one dish to the order";
             }
         }
+        public void PlusOne()
+        { 
+            Plus_Click(this,null);
+        }
         private void Plus_Click(object sender, RoutedEventArgs e)
         {
             //put price in temp integer?

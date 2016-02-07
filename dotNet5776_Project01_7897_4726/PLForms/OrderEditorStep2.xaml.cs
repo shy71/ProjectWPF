@@ -84,9 +84,17 @@ namespace PLForms
         {
             if (Convert.ToInt32(e.Value) == 0)
             {
-                BL.FactoryBL.getBL().DeleteDishOrder(Convert.ToInt32(e.pName));
-                RefreshStacks(this, null);
-                return;
+                if (MessageBoxResult.Yes == MessageBox.Show("You cant order 0 dishs from a dish!\n Are you sure you want to delete it from the order?", "Delete Dish?", MessageBoxButton.YesNo))
+                {
+                    BL.FactoryBL.getBL().DeleteDishOrder(Convert.ToInt32(e.pName));
+                    RefreshStacks(this, null);
+                    return;
+                }
+                else
+                {
+                    (sender as DishOrder).PlusOne();
+                    return;
+                }
             }
             BE.DishOrder ds = BL.FactoryBL.getBL().GetAllDishOrders(item => item.ID.ToString() == e.pName).FirstOrDefault(); //error if there isnt DishOrder
             ds.DishAmount = Convert.ToInt32(e.Value);

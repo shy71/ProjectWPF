@@ -70,27 +70,5 @@ namespace PLForms
         {
             new Profit_Details(x => x == branch.ID).ShowDialog();
         }
-
-        private void MouseEnterEvent(object sender, MouseEventArgs e)
-        {
-            switch((sender as Button).Name)
-            {
-                case "LogOut":
-                    (sender as Button).ToolTip = "Log out of this account";
-                    break;
-                case "Edit":
-                    (sender as Button).ToolTip = "Edit your details";
-                    break;
-                case "staticBtn":
-                    (sender as Button).ToolTip = "Get your branches statistics";
-                    break;
-                case "addDish":
-                    (sender as Button).ToolTip = "Add a new dish to the menu";
-                    break;
-                case "mangeBtn":
-                    (sender as Button).ToolTip = "Change the branches details";
-                    break;
-            }
-        }
     }
 }

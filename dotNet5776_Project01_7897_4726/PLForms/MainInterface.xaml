@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Image Grid.Row="0" Source="Images\Logo.png"/>
         <local:TextControl x:Name="InputBox" FontS="20" Str="Enter your Username" Grid.Row="2" Height="35" VerticalAlignment="Center" PreviewKeyDown="InputPreviewKeyDown" Width="217"/>
-        <Button x:Name="SignInButton" Grid.Row="3" VerticalAlignment="Top" MouseEnter="SignInButton_MouseEnter" Height="40" FontSize="20" Margin="47,24,47,0" Click="NextLogin">
+        <Button x:Name="SignInButton" Grid.Row="3" VerticalAlignment="Top" Height="40" FontSize="20" Margin="47,24,47,0" Click="NextLogin">
             <Button.Style>
                 <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                     <Style.Triggers>
