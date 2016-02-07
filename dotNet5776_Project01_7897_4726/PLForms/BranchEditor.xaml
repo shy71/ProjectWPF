@@ -88,7 +88,7 @@
             </Button.Style>
         </Button>
         <ComboBox x:Name="branchCombo" Grid.Column="1" Loaded="ComboBox_Loaded" ToolTipService.ShowOnDisabled="True"/>
-        <TextBlock x:Name="branchComboText" Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=branchCombo ,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+        <TextBlock x:Name="branchComboText" Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding ElementName=branchCombo ,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}" Margin="14,5,0,5"/>
 
     </Grid>
 </Window>

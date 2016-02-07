@@ -25,10 +25,10 @@ namespace PLForms
             InitializeComponent();
             this.manger = manger;
             NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger && item.UserName != manger.UserName);
-            NetWorkCombo.DisplayMemberPath = "UserName";//check
+            NetWorkCombo.DisplayMemberPath = "UserName";
             NetWorkCombo.SelectedValuePath = "UserName";
             BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger && item.ItemID == 0);
-            BranchMangerCombo.ItemStringFormat ="UserName";//check
+            BranchMangerCombo.DisplayMemberPath ="UserName";//check
             BranchMangerCombo.SelectedValuePath = "UserName";
         }
 
