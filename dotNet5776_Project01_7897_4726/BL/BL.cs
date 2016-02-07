@@ -892,51 +892,71 @@ namespace BL
         public IEnumerable<IGrouping<string, int>> GetDishAmountByDate(Predicate<int> predicate)
         {
             return from item in myDal.GetAllDishOrders(predicate)
+                   let order=myDal.GetOrder(item.OrderID)
+                   where order.Delivered || order.IsActive()
                    group item.DishAmount by myDal.GetOrder(item.OrderID).Date.ToShortDateString();
         }
         public IEnumerable<IGrouping<DayOfWeek, float>> GetProfitByWeekDay(Predicate<int> predicate)
         {
             return from item in myDal.GetAllDishOrders(predicate)
+                   let order = myDal.GetOrder(item.OrderID)
+                   where order.Delivered || order.IsActive()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Date.DayOfWeek;
         }
         public IEnumerable<IGrouping<DayOfWeek, int>> GetDishAmountByWeekDay(Predicate<int> predicate)
         {
             return from item in myDal.GetAllDishOrders(predicate)
+                   let order = myDal.GetOrder(item.OrderID)
+                   where order.Delivered || order.IsActive()
                    group item.DishAmount by myDal.GetOrder(item.OrderID).Date.DayOfWeek;
         }
         public IEnumerable<IGrouping<int, int>> GetDishAmountByBranchs()
         {
             return from item in myDal.GetAllDishOrders()
+                   let order = myDal.GetOrder(item.OrderID)
+                   where order.Delivered || order.IsActive()
                    group item.DishAmount by myDal.GetAllOrders(item1 => item1.ID == item.OrderID).FirstOrDefault().BranchID;
         }
         public IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByBranchsKashrut()
         {
             return from item in myDal.GetAllDishOrders()
+                   let order = myDal.GetOrder(item.OrderID)
+                   where order.Delivered || order.IsActive()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetAllBranchs(item2 => item2.ID == myDal.GetAllOrders(item1 => item1.ID == item.OrderID).First().BranchID).First().Kosher;
         }
         public IEnumerable<IGrouping<BE.Kashrut, float>> GetProfitByDishKashrut(Predicate<int> predicate)
         {
             return from item in myDal.GetAllDishOrders(predicate)
+                   let order = myDal.GetOrder(item.OrderID)
+                   where order.Delivered || order.IsActive()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetAllDishs(item1 => item1.ID == item.DishID).First().Kosher;
         }
         public IEnumerable<IGrouping<int, float>> GetProfitByBranches()
         {
             return from item in myDal.GetAllDishOrders()
+                   let order = myDal.GetOrder(item.OrderID)
+                   where order.Delivered || order.IsActive()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetAllOrders(item1 => item1.ID == item.OrderID).First().BranchID;
         }
         public IEnumerable<IGrouping<int, float>> GetProfitByDishs(Predicate<int> predicate)
         {
             return from item in myDal.GetAllDishOrders(predicate)
+                   let order = myDal.GetOrder(item.OrderID)
+                   where order.Delivered || order.IsActive()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by item.DishID;
         }
         public IEnumerable<IGrouping<string, float>> GetProfitByAddress(Predicate<int> predicate)
         {
             return from item in myDal.GetAllDishOrders(predicate)
+                   let order = myDal.GetOrder(item.OrderID)
+                   where order.Delivered || order.IsActive()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Address;
         }
         public IEnumerable<IGrouping<string, float>> GetProfitByDates(Predicate<int> predicate)
         {
             return from item in myDal.GetAllDishOrders(predicate)
+                   let order = myDal.GetOrder(item.OrderID)
+                   where order.Delivered || order.IsActive()
                    group item.DishAmount * myDal.GetDish(item.DishID).Price by myDal.GetOrder(item.OrderID).Date.ToShortDateString();
         }
         #endregion
