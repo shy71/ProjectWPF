@@ -27,7 +27,7 @@
         <TextBlock Text="Select Size for the Dish" IsHitTestVisible="False" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="24,21,31,20" Grid.ColumnSpan="2" Visibility="{Binding ElementName=SizeCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
         <ComboBox x:Name="KashrutCombo" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="2" ToolTip="The Kashrut level of the dish)" SelectionChanged="KashrutCombo_SelectionChanged"/>
         <TextBlock Text="Select Kashrut level" IsHitTestVisible="False" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=KashrutCombo ,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
-        <Button x:Name="DoButton" Content="Create!" Grid.Column="2" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="7" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24"  Margin="51,16,51,17" Click="DoButton_Click">
+        <Button x:Name="DoButton" Content="Create!" Grid.Column="2" ToolTip="Create the dish" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="7" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24"  Margin="51,16,51,17" Click="DoButton_Click">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>

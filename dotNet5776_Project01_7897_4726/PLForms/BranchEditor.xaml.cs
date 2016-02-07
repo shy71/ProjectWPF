@@ -53,6 +53,8 @@ namespace PLForms
         private void CreateBranchManagerButton_Click(object sender, RoutedEventArgs e)
         {
             new UserEditor(BE.UserType.BranchManger).ShowDialog();
+            MangerCombo.Items.Clear();
+            MangerComboBox_Loaded(this, null);
         }
 
         private void NumberOfEmplyes_Changed(object sender, BE.EventValue e)

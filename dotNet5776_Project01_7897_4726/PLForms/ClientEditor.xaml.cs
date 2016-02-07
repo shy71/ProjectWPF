@@ -35,7 +35,6 @@ namespace PLForms
         bool IsUpdated = false;
         public ClientEditor()
         {
-
             InitializeComponent();
             client = new BE.Client();
             user = new BE.User();

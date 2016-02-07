@@ -3,33 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NetworkManagerWindow" Height="500" Width="500" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
     <Grid>
-        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="24" Click="LogOut_Click"/>
-        <Button Content="Edit your profile" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Click="Edit_Click"/>
+        <Button x:Name="LogOut" Content="Log Out" ToolTip="Log out of this account" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="24" Click="LogOut_Click"/>
+        <Button Content="Edit your profile" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" ToolTip="Edit you're personal profile or user" Click="Edit_Click"/>
         <TabControl Height="220">
-            <TabItem Header="Manege Branches">
+            <TabItem Header="Manage Branches">
                 <Grid Background="#FFA50221">
                     <StackPanel>
-                        <Button Content="Add Branch" FontSize="20" Click="AddButton"/>
-                        <Button Content="Delete Branch"  FontSize="20" Click="DeleteBranch_Click"/>
-                        <Button Content="Edit Branch"  FontSize="20" Click="EditBranch"/>
+                        <Button Content="Add Branch" ToolTip="Add a branch to the restaurant network" FontSize="20" Click="AddButton"/>
+                        <Button Content="Delete Branch" ToolTip="Delete a branch" FontSize="20" Click="DeleteBranch_Click"/>
+                        <Button Content="Edit Branch" ToolTip="Edit a specific branch that's in the network" FontSize="20" Click="EditBranch"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Other Options">
                 <Grid Background="#FFA50221">
                     <StackPanel>
-                        <Button Content="Statics Info for the entire network" FontSize="20" Click="Static_Click"/>
-                        <Button Content="Statics Info for one of the branchs" FontSize="20" Click="BranchStatic_Click"/>
+                        <Button Content="Statistics Info for the entire network" ToolTip="Statitics of the network e.g. Dish popularity in the network" FontSize="20" Click="Static_Click"/>
+                        <Button Content="Statistics Info for one of the branchs" ToolTip="Statitics of a specific e.g. Dish popularity in the branch" FontSize="20" Click="BranchStatic_Click"/>
                         <Grid>
-                            <ComboBox x:Name="BranchMangerCombo" SelectionChanged="BranchMangerCombo_SelectionChanged"/>
-                            <TextBlock Text="Delete Branch Manger" IsHitTestVisible="False"  FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=BranchMangerCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+                            <ComboBox x:Name="BranchMangerCombo" ToolTip="Fire a branch manager" SelectionChanged="BranchMangerCombo_SelectionChanged"/>
+                            <TextBlock Text="Delete Branch Manager" IsHitTestVisible="False" FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=BranchMangerCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
                         </Grid>
-                        <Button Content="Add Network Manger"  FontSize="20" Click="AddNetworkManger_Click"/>
+                        <Button Content="Add Network Manager"  FontSize="20" ToolTip="Hire another companion to manage the network" Click="AddNetworkManger_Click"/>
                         <Grid>
-                            <ComboBox x:Name="NetWorkCombo" SelectionChanged="NetWorkCombo_SelectionChanged"/>
-                            <TextBlock Text="Delete NetworkManger" IsHitTestVisible="False"  FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=NetWorkCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+                            <ComboBox x:Name="NetWorkCombo" ToolTip="Fire a different network manager from managing the restaurant network" SelectionChanged="NetWorkCombo_SelectionChanged"/>
+                            <TextBlock Text="Delete Network Manager" IsHitTestVisible="False"  FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=NetWorkCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
                         </Grid>
-                        <Button Content="Quit!"  FontSize="20" Click="Quit_Click"/>
+                        <Button Content="Quit!" ToolTip="Quit completely from the job of network manager" FontSize="20" Click="Quit_Click"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
