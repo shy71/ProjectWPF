@@ -23,6 +23,9 @@ namespace PLForms
     {
         BE.User user;
         bool IsLostPassword;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public MainInterface()
         {
             try
@@ -44,6 +47,11 @@ namespace PLForms
                 MessageBox.Show(exp.ToString(), "Error");
             }
         }
+        /// <summary>
+        /// checks when the button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NextLogin(object sender, RoutedEventArgs e)
         {
             try
@@ -129,6 +137,9 @@ namespace PLForms
                 backArrow_Click(this, null);
             }
         }
+        /// <summary>
+        /// changes the place to login
+        /// </summary>
         private void ChangeToLogin()
         {
             backArrow.Visibility = Visibility.Visible;
@@ -153,13 +164,21 @@ namespace PLForms
         //        passwordLabelBox.Text = InputPassword.Password;
         //    }
         //}
-
+        /// <summary>
+        /// opens the window for account creation when the button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void createAccountButton_Click(object sender, RoutedEventArgs e)
         {
             //open new client window
             new ClientEditor().ShowDialog();
         }
-
+        /// <summary>
+        /// goes back to last screen when the back arrow is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backArrow_Click(object sender, RoutedEventArgs e)
         {
             this.DataContext = null;
@@ -170,7 +189,11 @@ namespace PLForms
             IsLostPassword = false;
             SignInButton.ToolTip = "Continue to the next step of the login";
         }
-
+        /// <summary>
+        /// checks for special keys being pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InputPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
