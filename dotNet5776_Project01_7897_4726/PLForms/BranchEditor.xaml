@@ -34,18 +34,18 @@
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="Button.Visibility" Value="Hidden"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=MangerCombo , Path=SelectedIndex}" Value="0">
+                        <DataTrigger Binding="{Binding ElementName=ManagerCombo , Path=SelectedIndex}" Value="0">
                             <Setter Property="Button.Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
         </Button>
-        <Label Content="Fire/Hire Emplyes:" FontSize="24" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Top" Visibility="{Binding ElementName=MangerCombo,Path=Visibility,Converter={StaticResource NotVisibility}}"/>
-        <ComboBox x:Name="MangerCombo" Grid.Row="7" ToolTip="Chose the manger that will be assigned to the branch." Loaded="MangerComboBox_Loaded" SelectionChanged="MangerCombo_SelectionChanged"/>
-        <TextBlock Text="Select Manger for the branch" IsHitTestVisible="False" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,10,15,10" Visibility="{Binding ElementName=MangerCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+        <Label Content="Fire/Hire Emplyes:" FontSize="24" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Top" Visibility="{Binding ElementName=ManagerCombo,Path=Visibility,Converter={StaticResource NotVisibility}}"/>
+        <ComboBox x:Name="ManagerCombo" Grid.Row="7" ToolTip="Chose the manager that will be assigned to the branch." Loaded="ManagerComboBox_Loaded" SelectionChanged="ManagerCombo_SelectionChanged"/>
+        <TextBlock Text="Select Manager for the branch" IsHitTestVisible="False" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,10,15,10" Visibility="{Binding ElementName=ManagerCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
         <local:PlusMinusTextBox x:Name="empoyeBox" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" Width="80" Changed="NumberOfEmplyes_Changed" />
-        <local:PlusMinusTextBox x:Name="messengersBox" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Center" Width="80" Changed="AvilbleMesnngers_Changed"/>
+        <local:PlusMinusTextBox x:Name="messengersBox" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Center" Width="80" Changed="AvailableMessangers_Changed"/>
         <Label Content="Number of Employees:" HorizontalContentAlignment="Center" FontWeight="Bold" VerticalContentAlignment="Center" Grid.Row="9"/>
         <TextBlock TextAlignment="Center" Grid.Row="11"><Run Text="Available messengers" FontWeight="Bold"/><LineBreak/><Run Text=" in the branch :" FontWeight="Bold"/></TextBlock>
         <ComboBox x:Name="KashrutCombo" Grid.Row="13" Grid.Column="0" Loaded="KashrutCombo_Loaded" SelectionChanged="KashrutCombo_SelectionChanged" ToolTip="The Kashrut level of the new branch)"/>
@@ -63,13 +63,13 @@
                         <DataTrigger Binding="{Binding ElementName=phoneBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=MangerCombo,Path=SelectedItem}" Value="{x:Null}">
+                        <DataTrigger Binding="{Binding ElementName=ManagerCombo,Path=SelectedItem}" Value="{x:Null}">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=KashrutCombo,Path=SelectedItem}" Value="{x:Null}">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=MangerCombo,Path=SelectedIndex}" Value="0">
+                        <DataTrigger Binding="{Binding ElementName=ManagerCombo,Path=SelectedIndex}" Value="0">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
                     </Style.Triggers>

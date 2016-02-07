@@ -33,6 +33,9 @@ namespace PLForms
         BE.Client client;
         BE.User user;
         bool IsUpdated = false;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public ClientEditor()
         {
             InitializeComponent();
@@ -40,6 +43,10 @@ namespace PLForms
             user = new BE.User();
             this.SetBinding();
         }
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="str"></param>
         public ClientEditor(string str)
         {
 
@@ -49,6 +56,10 @@ namespace PLForms
             this.SetBinding();
             usernameBox.SetText(str);
         }
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="user"></param>
         public ClientEditor(BE.User user)
         {
 
@@ -68,6 +79,9 @@ namespace PLForms
             idBox.IsEnabled = false;
             usernameBox.IsEnabled = false;
         }
+        /// <summary>
+        /// sets the bindings up with the xaml
+        /// </summary>
         void SetBinding()
         {
             usernameBox.SetBinding(user, "UserName", BindingMode.TwoWay);
@@ -76,7 +90,11 @@ namespace PLForms
             addressBox.SetBinding(client, "Address", BindingMode.TwoWay);
             idBox.SetBinding(client, "ID", BindingMode.TwoWay);
         }
-
+        /// <summary>
+        /// checks when next button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -113,7 +131,11 @@ namespace PLForms
                 MessageBox.Show(exp.Message, "Problem with account", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// checks if the age was changed by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PlusMinusTextBox_Changed(object sender, BE.EventValue e)
         {
             if (client != null)

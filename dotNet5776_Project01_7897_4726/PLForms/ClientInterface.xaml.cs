@@ -23,11 +23,18 @@ namespace PLForms
         int numOfOrders = 0;
         BE.User user;
         bool IsCtrlDown = false;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public ClientInterface()
         {
             InitializeComponent();
             //erroe
         }
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="user"></param>
         public ClientInterface(BE.User user)
         {
             InitializeComponent();
@@ -36,6 +43,11 @@ namespace PLForms
             this.user = user;
             MainTitle.Content = "Hello " + user.Name + "!";
         }
+        /// <summary>
+        /// restarts the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Restart(object sender, BE.EventValue e)
         {
             foreach (Window item in subWin)
@@ -66,6 +78,11 @@ namespace PLForms
                 }
             }
         }
+        /// <summary>
+        /// checks if the window was fully opened
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //UnsentButton.IsChecked = true;
@@ -73,6 +90,9 @@ namespace PLForms
                 (addBtn.Parent as Grid).Children.Remove(addBtn);
             LittleTitle.Content = "";
         }
+        /// <summary>
+        /// clears the window
+        /// </summary>
         void Clear_window()
         {
             SelectAtLeastOne(false);
@@ -85,7 +105,11 @@ namespace PLForms
                 (addBtn.Parent as Grid).Children.Remove(addBtn);
 
         }
-
+        /// <summary>
+        /// checks when the radio button is active and opens what needs to be opened
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="predicate"></param>
         private void Window_Loaded_Active(RadioButton sender, Func<BE.Order, bool> predicate)
         {
             Grid g;
@@ -153,7 +177,11 @@ namespace PLForms
                 Grid.SetColumn(addBtn, 3);
             }
         }
-
+        /// <summary>
+        /// checks if the radio button for unsent orders is currently checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UnsentButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
@@ -165,6 +193,11 @@ namespace PLForms
             ArivedBtn.Visibility = Visibility.Collapsed;
             Window_Loaded_Active(sender as RadioButton, item => item.Date == DateTime.MinValue && !item.Delivered);
         }
+        /// <summary>
+        /// checks if the radio button for acitve orders is currently checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ActiveButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
@@ -175,6 +208,11 @@ namespace PLForms
             ArivedBtn.Visibility = Visibility.Visible;
             Window_Loaded_Active(sender as RadioButton, item => item.Date != DateTime.MinValue && !item.Delivered);
         }
+        /// <summary>
+        /// checks if the radio button for delivered orders is currently checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeliveredButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
@@ -201,7 +239,11 @@ namespace PLForms
         //{
         //    DeliveredButton.IsChecked = true;
         //}
-
+        /// <summary>
+        /// checks if the editing button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Clear_window();
@@ -212,7 +254,11 @@ namespace PLForms
             else
                 UnsentButton_Checked(UnsentButton, null);
         }
-
+        /// <summary>
+        /// checks when the expander (minimizer) is expanded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Expender_Expanded(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource == sender)
@@ -247,6 +293,11 @@ namespace PLForms
                 }
             }
         }
+        /// <summary>
+        /// closes all other expanders except for the sender
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="s"></param>
         void CloseOthersExpenders(object sender, EventArgs s)
         {
             foreach (object item in ((sender as Expander).Parent as StackPanel).Children)
@@ -254,6 +305,11 @@ namespace PLForms
                     if (sender.GetHashCode() != item.GetHashCode())
                         (item as Expander).IsExpanded = false;
         }
+        /// <summary>
+        /// opens an order
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void OpenOrder(object sender, EventArgs e)
         {
             var temp = (sender as Button).Resources.Values.GetEnumerator();
@@ -266,6 +322,10 @@ namespace PLForms
             subWin.Add(new ShowUserControl(us));
             subWin.Last().Show();
         }
+        /// <summary>
+        /// returns a predicate (test) for each case
+        /// </summary>
+        /// <returns></returns>
         Func<BE.Order, bool> GetPredicte()
         {
             if (UnsentExpender.IsExpanded)
@@ -276,6 +336,10 @@ namespace PLForms
                 return item => item.Delivered;
             return item => false;
         }
+        /// <summary>
+        /// returns the case for each radio button checking
+        /// </summary>
+        /// <returns></returns>
         RadioButton GetRadioChecked()
         {
             if (UnsentExpender.IsExpanded)
@@ -286,6 +350,11 @@ namespace PLForms
                 return DeliveredButton;
             return null;
         }
+        /// <summary>
+        /// deals with mouse clicking
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void MouseClick(object sender, MouseButtonEventArgs e)
         {
             bool WasSelected = (sender as OrderDeiltes).Opacity == 1;
@@ -326,6 +395,10 @@ namespace PLForms
             else if (DeleteBtn.IsEnabled == false)
                 SelectAtLeastOne(true);
         }
+        /// <summary>
+        /// Checks if at least one order is selected
+        /// </summary>
+        /// <param name="IsSelected"></param>
         void SelectAtLeastOne(bool IsSelected)
         {
             if (IsSelected)
@@ -352,17 +425,30 @@ namespace PLForms
             }
 
         }
+        /// <summary>
+        /// checks if ctrl is being held down
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KeyDownCheck(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
                 IsCtrlDown = true;
         }
-
+        /// <summary>
+        /// checks if ctrl was released
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KeyUpCheck(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
                 IsCtrlDown = false;
         }
+        /// <summary>
+        /// checks if something is selected
+        /// </summary>
+        /// <returns></returns>
         bool DoesSelect()
         {
             foreach (object grid in stackPanel.Children)
@@ -382,6 +468,11 @@ namespace PLForms
             }
             return false;
         }
+        /// <summary>
+        /// logs out when the log out button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to log out?", "Log out?", MessageBoxButton.YesNo))
@@ -390,13 +481,21 @@ namespace PLForms
                 this.Close();
             }
         }
-
+        /// <summary>
+        /// when the add order button is clicked it opens the window for that
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             new OrderEditorStep1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First()).ShowDialog();
             UnsentButton_Checked(UnsentButton, null);
         }
-
+        /// <summary>
+        /// deletes selected orders when the delete button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBoxResult.Yes == MessageBox.Show(((DeliveredButton.IsChecked == true) ? "It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer\n" : "") + "Are you sure you want to delete this orders?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
@@ -418,6 +517,11 @@ namespace PLForms
                 }
             Restart(this, null);
         }
+        /// <summary>
+        /// edits all orders selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
             foreach (object grid in stackPanel.Children)
@@ -438,6 +542,11 @@ namespace PLForms
             }
             Restart(this, null);
         }
+        /// <summary>
+        /// sends all orders selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SendBtn_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send all of this orders?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
@@ -459,6 +568,11 @@ namespace PLForms
                 }
             Restart(this, null);
         }
+        /// <summary>
+        /// states that specific orders were delivered when the user presses the delivered button for the orders
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ArivedBtn_Click(object sender, RoutedEventArgs e)
         {
             foreach (object grid in stackPanel.Children)
