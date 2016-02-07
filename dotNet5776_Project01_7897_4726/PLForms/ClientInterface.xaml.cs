@@ -29,7 +29,8 @@ namespace PLForms
         public ClientInterface()
         {
             InitializeComponent();
-            //erroe
+            //error
+            throw new Exception("You cant open a user interface without a user!");
         }
         /// <summary>
         /// constructor
@@ -79,7 +80,7 @@ namespace PLForms
             }
         }
         /// <summary>
-        /// checks if the window was fully opened
+        /// open when the window is loaded 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -106,11 +107,11 @@ namespace PLForms
 
         }
         /// <summary>
-        /// checks when the radio button is active and opens what needs to be opened
+        /// refresh the window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="predicate"></param>
-        private void Window_Loaded_Active(RadioButton sender, Func<BE.Order, bool> predicate)
+        private void RefreshWindow(RadioButton sender, Func<BE.Order, bool> predicate)
         {
             Grid g;
             ColumnDefinition a, b, c, d;
@@ -178,7 +179,7 @@ namespace PLForms
             }
         }
         /// <summary>
-        /// checks if the radio button for unsent orders is currently checked
+        /// enter when the UnsentButton is checked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -191,10 +192,10 @@ namespace PLForms
             EditBtn.ToolTip = "Edit The Orders";
             SendBtn.Visibility = Visibility.Visible;
             ArivedBtn.Visibility = Visibility.Collapsed;
-            Window_Loaded_Active(sender as RadioButton, item => item.Date == DateTime.MinValue && !item.Delivered);
+            RefreshWindow(sender as RadioButton, item => item.Date == DateTime.MinValue && !item.Delivered);
         }
         /// <summary>
-        /// checks if the radio button for acitve orders is currently checked
+        ///enter when the ActiveButton is checked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -206,10 +207,10 @@ namespace PLForms
             EditBtn.Visibility = Visibility.Collapsed;
             SendBtn.Visibility = Visibility.Collapsed;
             ArivedBtn.Visibility = Visibility.Visible;
-            Window_Loaded_Active(sender as RadioButton, item => item.Date != DateTime.MinValue && !item.Delivered);
+            RefreshWindow(sender as RadioButton, item => item.Date != DateTime.MinValue && !item.Delivered);
         }
         /// <summary>
-        /// checks if the radio button for delivered orders is currently checked
+        /// enter when the DekuveredButton is checked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -222,29 +223,14 @@ namespace PLForms
             EditBtn.ToolTip = "Look at the specific of the order";
             SendBtn.Visibility = Visibility.Collapsed;
             ArivedBtn.Visibility = Visibility.Collapsed;
-            Window_Loaded_Active(sender as RadioButton, item => item.Delivered);
+            RefreshWindow(sender as RadioButton, item => item.Delivered);
         }
-
-        //private void Unsent_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    UnsentButton.IsChecked = true;
-        //}
-
-        //private void Active_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    ActiveButton.IsChecked = true;
-        //}
-
-        //private void Deliverd_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    DeliveredButton.IsChecked = true;
-        //}
         /// <summary>
-        /// checks if the editing button is clicked
+        /// enter when the Edit Profile button is clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void EditProfileButton_Click(object sender, RoutedEventArgs e)
         {
             Clear_window();
             LittleTitle.Content = "Profile editing is in progress";
@@ -255,7 +241,7 @@ namespace PLForms
                 UnsentButton_Checked(UnsentButton, null);
         }
         /// <summary>
-        /// checks when the expander (minimizer) is expanded
+        /// enter when the expender is expanded
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -306,7 +292,7 @@ namespace PLForms
                         (item as Expander).IsExpanded = false;
         }
         /// <summary>
-        /// opens an order
+        /// opens an order window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -323,7 +309,7 @@ namespace PLForms
             subWin.Last().Show();
         }
         /// <summary>
-        /// returns a predicate (test) for each case
+        /// returns the macthing predicate (test) for each case
         /// </summary>
         /// <returns></returns>
         Func<BE.Order, bool> GetPredicte()
@@ -337,7 +323,7 @@ namespace PLForms
             return item => false;
         }
         /// <summary>
-        /// returns the case for each radio button checking
+        /// returns the radio button by the expanded menu
         /// </summary>
         /// <returns></returns>
         RadioButton GetRadioChecked()
@@ -351,7 +337,7 @@ namespace PLForms
             return null;
         }
         /// <summary>
-        /// deals with mouse clicking
+        /// deals with mouse clicking 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -359,44 +345,22 @@ namespace PLForms
         {
             bool WasSelected = (sender as OrderDeiltes).Opacity == 1;
             if (!IsCtrlDown)
-            {
                 foreach (object grid in stackPanel.Children)
-                {
                     if (grid.GetType() == typeof(Grid))
-                    {
                         foreach (object item in (grid as Panel).Children)
-                        {
                             if (item.GetType() == typeof(OrderDeiltes))
-                            {
                                 (item as OrderDeiltes).Opacity = 0.7;
-                                //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                                //(item as OrderDeiltes).BorderBrush = Brushes.Black;
-                            }
-                        }
-                    }
-                }
-            }
             if (!WasSelected)
-            {
                 (sender as OrderDeiltes).Opacity = 1;
-                // (sender as OrderDeiltes).BorderThickness = new Thickness(2);
-                // (sender as OrderDeiltes).BorderBrush = Brushes.LightBlue;
-            }
             else if (IsCtrlDown)
-            {
                 (sender as OrderDeiltes).Opacity = 0.7;
-                // (sender as OrderDeiltes).BorderThickness = new Thickness(1);
-                //  (sender as OrderDeiltes).BorderBrush = Brushes.Black;
-            }
             if (!DoesSelect())
-            {
                 SelectAtLeastOne(false);
-            }
             else if (DeleteBtn.IsEnabled == false)
                 SelectAtLeastOne(true);
         }
         /// <summary>
-        /// Checks if at least one order is selected
+        /// enter and acts in the cases that there is at least one(IsSelected=true) and that there isnt(IsSelected=false);
         /// </summary>
         /// <param name="IsSelected"></param>
         void SelectAtLeastOne(bool IsSelected)
@@ -426,7 +390,7 @@ namespace PLForms
 
         }
         /// <summary>
-        /// checks if ctrl is being held down
+        /// check and report that ctrl is being held down
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -436,7 +400,7 @@ namespace PLForms
                 IsCtrlDown = true;
         }
         /// <summary>
-        /// checks if ctrl was released
+        /// check and report that ctrl was released
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -446,7 +410,7 @@ namespace PLForms
                 IsCtrlDown = false;
         }
         /// <summary>
-        /// checks if something is selected
+        /// checks if something is selected(at least one)
         /// </summary>
         /// <returns></returns>
         bool DoesSelect()

@@ -47,7 +47,7 @@
                 </ScrollViewer>
             </Expander>
         </StackPanel>
-        <Button Content="Edit your profile" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Click="Button_Click" Margin="74,0" Grid.Row="1"/>
+        <Button Content="Edit your profile" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Click="EditProfileButton_Click" Margin="74,0" Grid.Row="1"/>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
             <Button x:Name="DeleteBtn"  Margin="0,0,30,0" Click="DeleteBtn_Click" Visibility="Collapsed"  ToolTip="Delete The Orders" Content="{StaticResource DeleteOrders}"/>
             <Button x:Name="EditBtn"  Margin="0,0,30,0" Click="EditBtn_Click" Visibility="Collapsed" ToolTip="Edit The Orders" Content="{StaticResource EditOrders}"/>

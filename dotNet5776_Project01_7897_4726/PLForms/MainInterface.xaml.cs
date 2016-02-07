@@ -48,7 +48,7 @@ namespace PLForms
             }
         }
         /// <summary>
-        /// checks when the button is clicked
+        /// enters when the Next/(sign in) button is clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -138,7 +138,7 @@ namespace PLForms
             }
         }
         /// <summary>
-        /// changes the place to login
+        /// changes the screen to SignIn screen
         /// </summary>
         private void ChangeToLogin()
         {
@@ -165,7 +165,7 @@ namespace PLForms
         //    }
         //}
         /// <summary>
-        /// opens the window for account creation when the button is clicked
+        /// opens the window for account creation when the create account button is clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -175,7 +175,7 @@ namespace PLForms
             new ClientEditor().ShowDialog();
         }
         /// <summary>
-        /// goes back to last screen when the back arrow is clicked
+        /// goes back to Username Screem when the back arrow is clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
