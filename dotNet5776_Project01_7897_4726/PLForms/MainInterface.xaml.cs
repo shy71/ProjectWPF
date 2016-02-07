@@ -104,7 +104,7 @@ namespace PLForms
                                     return;
                                 }
                                 else
-                                    MessageBox.Show("The username and CreditCard you entered don't match. Please try again or contact a staff member");
+                                    MessageBox.Show("The username and Credit Card you entered don't match. Please try again or contact a staff member");
                             }
                             if ((!IsLostPassword) && MessageBoxResult.Yes == MessageBox.Show("The username and password you entered don't match.\nDid you forgot your password?", "Incorrect password", MessageBoxButton.YesNo, MessageBoxImage.Error))
                             {
@@ -126,12 +126,7 @@ namespace PLForms
             catch(Exception exp)
             {
                 MessageBox.Show(exp.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.DataContext = null;
-                backArrow.Visibility = Visibility.Hidden;
-                InputPassword.Clear();
-                InputPassword.Visibility = Visibility.Hidden;
-                Keyboard.Focus(SignInButton);
-                IsLostPassword = false;
+                backArrow_Click(this, null);
             }
         }
         private void ChangeToLogin()
@@ -173,6 +168,7 @@ namespace PLForms
             InputPassword.Visibility = Visibility.Hidden;
             Keyboard.Focus(SignInButton);
             IsLostPassword = false;
+            SignInButton.ToolTip = "Continue to the next step of the login";
         }
 
         private void InputPreviewKeyDown(object sender, KeyEventArgs e)
@@ -182,14 +178,6 @@ namespace PLForms
             if (e.Key == Key.Back && (InputPassword.ForeG == Brushes.Gray && backArrow.Visibility == Visibility.Visible))
                 backArrow_Click(backArrow, null);
 
-        }
-
-        private void SignInButton_MouseEnter(object sender, MouseEventArgs e)
-        {
-            if ((sender as Button).Content.ToString() == "Next")
-                (sender as Button).ToolTip = "Continue to the next step of the login";
-            else
-                (sender as Button).ToolTip = "Log in to the account";
         }
     }
 }

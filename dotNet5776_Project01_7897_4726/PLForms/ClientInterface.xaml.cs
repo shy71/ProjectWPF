@@ -480,15 +480,5 @@ namespace PLForms
             Restart(this, null);
         }
 
-        private void addBtn_MouseEnter(object sender, MouseEventArgs e)
-        {
-            (sender as Button).ToolTip = "Add a new order";
-        }
-
-        private void LogOut_MouseEnter(object sender, MouseEventArgs e)
-        {
-            (sender as Button).ToolTip = "Log out of this account";
-        }
-
     }
 }

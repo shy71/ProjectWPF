@@ -8,8 +8,8 @@
             <RowDefinition Height="47*"/>
         </Grid.RowDefinitions>
         <Label x:Name="details" HorizontalAlignment="Left" Loaded="details_Loaded" FontSize="24" Margin="0,0,0,-5"/>
-        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" FontSize="14" Click="LogOut_Click" MouseEnter="MouseEnterEvent"/>
-        <Button x:Name="Edit" Content="Edit your profile" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="115" Click="Edit_Click" Grid.Row="1" MouseEnter="MouseEnterEvent"/>
+        <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" FontSize="14" Click="LogOut_Click" ToolTip="Log out of this account"/>
+        <Button x:Name="Edit" Content="Edit your profile" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="115" Click="Edit_Click" Grid.Row="1" ToolTip="Edit your details"/>
         <StackPanel Grid.Row="1">
             <StackPanel.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -19,9 +19,9 @@
                 </Style>
             </StackPanel.Resources>
 
-            <Button x:Name="addDish"  Content="Add Dish!" Click="addDish_Click"  Width="184" Height="40" MouseEnter="MouseEnterEvent"/>
-            <Button x:Name="mangeBtn"  Content="Edit Branch details" Click="mangeBtn_Click" Margin="0,20,0,0" Width="184" Height="40" MouseEnter="MouseEnterEvent"/>
-            <Button x:Name="staticBtn" Content="Look at the Branch statistics" Margin="0,20,0,0" Click="staticBtn_Click" Height="40" MouseEnter="MouseEnterEvent"/>
+            <Button x:Name="addDish"  Content="Add Dish!" Click="addDish_Click"  Width="184" Height="40" ToolTip="Add a new dish to the menu"/>
+            <Button x:Name="mangeBtn"  Content="Edit Branch details" Click="mangeBtn_Click" Margin="0,20,0,0" Width="184" Height="40" ToolTip="Change the branches details"/>
+            <Button x:Name="staticBtn" Content="Look at the Branch statistics" Margin="0,20,0,0" Click="staticBtn_Click" Height="40" ToolTip="Get your branches statistics"/>
 
         </StackPanel>
     </Grid>
