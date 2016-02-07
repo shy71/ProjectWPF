@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 namespace PLForms
 {
     /// <summary>
@@ -19,6 +21,16 @@ namespace PLForms
     /// </summary>
     public partial class UserEditor : Window
     {
+        
+        private const int GWL_STYLE = -16;
+        private const int WS_SYSMENU = 0x80000;
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        [DllImport("user32.dll")]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+
+
         BE.User user;
         bool IsUpdated;
         public UserEditor(BE.UserType type)
@@ -29,6 +41,7 @@ namespace PLForms
             usernameBox.SetBinding(user, "UserName", BindingMode.TwoWay);
             nameBox.SetBinding(user, "Name", BindingMode.TwoWay);
         }
+
         public UserEditor(BE.User user):this(user.Type)
         {
             IsUpdated = true;
@@ -72,6 +85,15 @@ namespace PLForms
             catch(Exception exp)
             {
                 MessageBox.Show(exp.Message);
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(user.Type == BE.UserType.NetworkManger && (!BL.FactoryBL.getBL().GetAllUsers(item=>item.Type==BE.UserType.NetworkManger).Any()))
+            {
+                var hwnd = new WindowInteropHelper(this).Handle;
+                SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
             }
         }
     }

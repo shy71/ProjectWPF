@@ -84,4 +84,11 @@
     <Name>itai deykan</Name>
     <ItemID>9873</ItemID>
   </User>
+  <User>
+    <Type>NetworkManger</Type>
+    <UserName>ezra1</UserName>
+    <Password>123456</Password>
+    <Name>ezra block</Name>
+    <ItemID>0</ItemID>
+  </User>
 </Users>
