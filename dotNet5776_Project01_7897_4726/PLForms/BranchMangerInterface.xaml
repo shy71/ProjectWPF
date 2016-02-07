@@ -21,7 +21,7 @@
 
             <Button x:Name="addDish"  Content="Add Dish!" Click="addDish_Click"  Width="184" Height="40" ToolTip="Add a new dish to the menu"/>
             <Button x:Name="mangeBtn"  Content="Edit Branch details" Click="mangeBtn_Click" Margin="0,20,0,0" Width="184" Height="40" ToolTip="Change the branches details"/>
-            <Button x:Name="staticBtn" Content="Look at the Branch statistics" Margin="0,20,0,0" Click="staticBtn_Click" Height="40" ToolTip="Get your branches statistics"/>
+            <Button x:Name="statisticsBtn" Content="Look at the Branch statistics" Margin="0,20,0,0" Click="statisticsBtn_Click" Height="40" ToolTip="Get your branches statistics"/>
 
         </StackPanel>
     </Grid>

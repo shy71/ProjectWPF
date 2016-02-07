@@ -21,10 +21,17 @@ namespace PLForms
     {
         BE.Branch branch;
         BE.User user;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public BranchMangerInterface()
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// the used construtcor
+        /// </summary>
+        /// <param name="user"></param>
         public BranchMangerInterface(BE.User user)
             : this()
         {
@@ -35,13 +42,21 @@ namespace PLForms
             details_Loaded(this, null);
 
         }
-
+        /// <summary>
+        /// when the window is fully loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void details_Loaded(object sender, RoutedEventArgs e)
         {
             details.Content = branch.Name;
             details.ToolTip = branch.Address;
         }
-
+        /// <summary>
+        /// logs out when the button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to log out?", "Log out?", MessageBoxButton.YesNo))
@@ -50,23 +65,39 @@ namespace PLForms
                 this.Close();
             }
         }
-
+        /// <summary>
+        /// opens the editor window when the edit button was clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             new UserEditor(user).ShowDialog();
         }
-
+        /// <summary>
+        /// Adds a dish when the AddDish button was clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addDish_Click(object sender, RoutedEventArgs e)
         {
             new DishEditor().ShowDialog();
         }
-
+        /// <summary>
+        /// opens the managing part when the button reffering to that is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mangeBtn_Click(object sender, RoutedEventArgs e)
         {
             new BranchEditor(branch, false).ShowDialog();
         }
-
-        private void staticBtn_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// opens the statitics when its button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void statisticsBtn_Click(object sender, RoutedEventArgs e)
         {
             new Profit_Details(x => x == branch.ID).ShowDialog();
         }
