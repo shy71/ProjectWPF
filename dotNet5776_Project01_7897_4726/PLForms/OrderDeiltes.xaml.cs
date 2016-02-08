@@ -27,9 +27,11 @@ namespace PLForms
         public event EventHandler<BE.EventValue> Updated;
         public event EventHandler<BE.EventValue> Sended;
         public event EventHandler<BE.EventValue> Arived;
+        public event EventHandler<BE.EventValue> DelivveryArived;
         int ID;
         bool IsDeliverd = false;
         bool IsWindowMode = true;
+        Random rand = new Random();
         public OrderDeiltes()
         {
             InitializeComponent();
@@ -137,6 +139,7 @@ namespace PLForms
             }
             if (IsWindowMode && Sended != null)
                 Sended(this, new BE.EventValue(ID));
+            new Thread(() => OrderDetails_Sending(ID)).Start();
         }
 
         private void Arrived_Click(object sender, RoutedEventArgs e)
@@ -157,6 +160,17 @@ namespace PLForms
         {
             (sender as Button).Height /= 1.5;
             (sender as Button).Width /= 1.5;
+        }
+        private void OrderDetails_Sending(int ID)
+        {
+            Thread.Sleep(10000+rand.Next(5000,10000));
+            BE.Order order = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First();
+            if (order.Delivered == false)
+            {
+                BL.FactoryBL.getBL().DeliveredOrder(order);
+                if (DelivveryArived != null)
+                    DelivveryArived(this, new BE.EventValue(ID));
+            }
         }
     }
 }

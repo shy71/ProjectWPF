@@ -43,8 +43,6 @@ namespace PLForms
         public ClientInterface(BE.User user)
         {
             InitializeComponent();
-            Sending += OrderDetails_Sending;
-            Sending += OpenOrder;
             if (user.Type != BE.UserType.Client)
                 throw new Exception("You cant open client interface with a user that isnt a client!");
             this.user = user;
@@ -147,6 +145,7 @@ namespace PLForms
                 //orderD.Sended += Restart;
                 //orderD.Updated += Restart;
                 //orderD.Arived += Restart;
+                orderD.DelivveryArived += OrderArrived;
                 orderD.Opacity = 0.7;
                 orderD.PreviewMouseDown += MouseClick;
                 var ChildEnumrator = stackPanel.Children.GetEnumerator();
@@ -311,6 +310,7 @@ namespace PLForms
             us.Sended += Restart;
             us.Updated += Restart;
             us.Arived += Restart;
+            us.DelivveryArived += OrderArrived;
             subWin.Add(new ShowUserControl(us));
             subWin.Last().Show();
         }
@@ -566,11 +566,37 @@ namespace PLForms
             }
             Restart(this, null);
         }
-        private void OrderDetails_Sending(object sender, BE.EventValue value)
+        private void OrderArrived(object sender,BE.EventValue e)
         {
-            Thread.Sleep(5000);
-            if(MessageBox.Show("An order has arrived!\nWould you like to open it now?", "Information", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
-                OpenOrder(sender, value);
+            OrderDeiltes us;
+           BE.Order order= BL.FactoryBL.getBL().GetAllOrders(item=>item.ID==int.Parse(e.Value.ToString())).First();
+               if (order.ClientID == user.ItemID)
+               {
+                   if (MessageBoxResult.Yes == MessageBox.Show("An order of you has arived!\n would you like to open it?", "Order Arived!", MessageBoxButton.YesNo))
+                   {
+                       Dispatcher.Invoke(() =>
+                           {
+                               if (!this.IsActive)
+                               {
+                                   MessageBox.Show("Sorry, you dont have permission to see the order");
+                                   return;
+                               }
+                               us = new OrderDeiltes(order, true);
+                               us.Deleted += Restart;
+                               us.Sended += Restart;
+                               us.Updated += Restart;
+                               us.Arived += Restart;
+                               us.DelivveryArived += OrderArrived;
+                               Restart(this, null);
+                               subWin.Add(new ShowUserControl(us));
+                               subWin.Last().Show();
+
+                       
+                           });
+                   }
+                   }
+               Dispatcher.Invoke(() => Restart(this, null));
         }
+
     }
 }
