@@ -9,35 +9,35 @@
     <Active>true</Active>
   </Dish>
   <Dish>
-    <ID>21</ID>
-    <Name>Stake</Name>
-    <Size>LARGE</Size>
-    <Price>3</Price>
-    <Kosher>LOW</Kosher>
+    <ID>19273</ID>
+    <Name>Hot Dogs</Name>
+    <Size>MEDIUM</Size>
+    <Price>7</Price>
+    <Kosher>HIGH</Kosher>
+    <Active>true</Active>
+  </Dish>
+  <Dish>
+    <ID>1243</ID>
+    <Name>Bamba</Name>
+    <Size>SMALL</Size>
+    <Price>2</Price>
+    <Kosher>HIGH</Kosher>
     <Active>true</Active>
   </Dish>
   <Dish>
     <ID>95840</ID>
-    <Name>Wingsaa</Name>
+    <Name>Wings</Name>
     <Size>MEDIUM</Size>
     <Price>1</Price>
     <Kosher>MEDIUM</Kosher>
     <Active>true</Active>
   </Dish>
   <Dish>
-    <ID>297431</ID>
-    <Name>Bambaaa</Name>
-    <Size>SMALL</Size>
-    <Price>2</Price>
-    <Kosher>HIGH</Kosher>
-    <Active>true</Active>
-  </Dish>
-  <Dish>
-    <ID>1243</ID>
-    <Name>Bambaaaasdsd</Name>
-    <Size>SMALL</Size>
-    <Price>2</Price>
-    <Kosher>HIGH</Kosher>
+    <ID>21</ID>
+    <Name>Stake</Name>
+    <Size>LARGE</Size>
+    <Price>3</Price>
+    <Kosher>LOW</Kosher>
     <Active>true</Active>
   </Dish>
 </Dishes>

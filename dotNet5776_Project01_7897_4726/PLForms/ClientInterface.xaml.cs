@@ -22,7 +22,6 @@ namespace PLForms
     /// </summary>
     public partial class ClientInterface : Window
     {
-        public event EventHandler<BE.EventValue> Sending;
         List<Window> subWin = new List<Window>();
         int numOfOrders = 0;
         BE.User user;
