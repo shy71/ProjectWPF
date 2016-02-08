@@ -20,7 +20,7 @@ namespace PLForms
     public partial class OrderEditorStep2 : Window
     {
         BE.Client client;
-        BE.Order tempOrder;
+        BE.Order order;
         bool IsReadOnly = false;
         public OrderEditorStep2()
         {
@@ -30,7 +30,7 @@ namespace PLForms
         {
             InitializeComponent();
             this.client = BL.FactoryBL.getBL().GetAllClients(item => item.ID == order.ClientID).First();
-            tempOrder = order;
+           this.order = order;
             if (order.Address == client.Address)
                 HomeCheckBox.IsChecked = true;
             else
@@ -51,10 +51,10 @@ namespace PLForms
         }
         private void HomeCheckBox_UnChecked(object sender, RoutedEventArgs e)
         {
-            if (tempOrder.Address == client.Address)
+            if (order.Address == client.Address)
                 addressBox.Clear();
             else
-                addressBox.SetText(tempOrder.Address);
+                addressBox.SetText(order.Address);
         }
         private void RefreshStacks(object sender, RoutedEventArgs e)
         {
@@ -65,7 +65,7 @@ namespace PLForms
                 if (item.Children.Count != 0)
                     item.Children.RemoveRange(0, item.Children.Count);
             }
-            foreach (BE.DishOrder item in BL.FactoryBL.getBL().GetAllDishOrders(item => item.OrderID == tempOrder.ID))
+            foreach (BE.DishOrder item in BL.FactoryBL.getBL().GetAllDishOrders(item => item.OrderID == order.ID))
             {
                 us = new DishOrder(item, IsReadOnly);
                 us.AmountChanged += DishOrderAmount;
@@ -79,6 +79,7 @@ namespace PLForms
                     Stack3.Children.Add(us);
                 NumOfDishOrders++;
             }
+            priceLabel.Content = BL.FactoryBL.getBL().PriceOfOrder(order) + "$";
         }
         private void DishOrderAmount(object sender, BE.EventValue e)
         {
@@ -99,6 +100,7 @@ namespace PLForms
             BE.DishOrder ds = BL.FactoryBL.getBL().GetAllDishOrders(item => item.ID.ToString() == e.pName).FirstOrDefault(); //error if there isnt DishOrder
             ds.DishAmount = Convert.ToInt32(e.Value);
             BL.FactoryBL.getBL().UpdateDishOrder(ds);
+            priceLabel.Content = BL.FactoryBL.getBL().PriceOfOrder(order) + "$";
         }
 
         private void SendBtn_Click(object sender, RoutedEventArgs e)
@@ -108,13 +110,13 @@ namespace PLForms
                 MessageBox.Show("You must peek an Address!", "Problem with order");
                 return;
             }
-            tempOrder.Address = addressBox.GetText();
-            BL.FactoryBL.getBL().UpdateOrder(tempOrder);
+            order.Address = addressBox.GetText();
+            BL.FactoryBL.getBL().UpdateOrder(order);
             this.Close();
         }
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            var picker = new DishPicker(Max(tempOrder.Kosher, BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == tempOrder.BranchID).First().Kosher), tempOrder.ID);
+            var picker = new DishPicker(Max(order.Kosher, BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == order.BranchID).First().Kosher), order.ID);
             picker.Added += AddedDishs;
             picker.Show();
         }
@@ -126,14 +128,14 @@ namespace PLForms
         }
         void AddedDishs(object sender, BE.EventValue e)
         {
-            if (e.pName == tempOrder.ID.ToString())
+            if (e.pName == order.ID.ToString())
             {
                 try
                 {
                     foreach (int item in (e.Value as List<int>))
                     {
 
-                        BL.FactoryBL.getBL().AddDishOrder(new BE.DishOrder(tempOrder.ID, item));
+                        BL.FactoryBL.getBL().AddDishOrder(new BE.DishOrder(order.ID, item));
 
                     }
                 }
@@ -145,7 +147,7 @@ namespace PLForms
                         {
                             foreach (int item in (e.Value as List<int>))
                             {
-                                BL.FactoryBL.getBL().DeleteDishOrder(new BE.DishOrder(tempOrder.ID, item));
+                                BL.FactoryBL.getBL().DeleteDishOrder(new BE.DishOrder(order.ID, item));
 
                             }
                         }
