@@ -48,6 +48,6 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-        <Label x:Name="priceLabel" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Foreground="GreenYellow" FontSize="24"/>
+        <Label x:Name="priceLabel" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="GreenYellow" FontSize="23"/>
     </Grid>
 </Window>
