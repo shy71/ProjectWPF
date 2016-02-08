@@ -15,6 +15,17 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
+            <TabItem Header="Manage Dishs">
+                <Grid Background="#FFA50221">
+                    <StackPanel>
+                        <Button Content="Add Dish" ToolTip="Add a dish to the restaurant network" FontSize="20" Click="AddDish"/>
+                        <Grid>
+                            <ComboBox x:Name="DishCombo" ToolTip="Delete/Edit Dishs" SelectionChanged="DishCombo_SelectionChanged" IsEnabled="{Binding ElementName=DishCombo,Path=ItemsSource,Converter={StaticResource ItemsSourceToBoolen}}"/>
+                            <TextBlock Text="Delete/Edit Dishs" IsHitTestVisible="False" FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=DishCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
             <TabItem Header="Other Options">
                 <Grid Background="#FFA50221">
                     <StackPanel>

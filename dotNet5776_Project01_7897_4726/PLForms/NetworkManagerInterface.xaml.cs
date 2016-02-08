@@ -30,6 +30,9 @@ namespace PLForms
             BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger && item.ItemID == 0);
             BranchMangerCombo.DisplayMemberPath ="UserName";//check
             BranchMangerCombo.SelectedValuePath = "UserName";
+            DishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs();
+            DishCombo.DisplayMemberPath = "Name";
+            DishCombo.SelectedValuePath = "ID";
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
@@ -117,6 +120,31 @@ namespace PLForms
                 {
                     new Profit_Details(x => x == branchID).Show();
                 }, "See Statics").Show();
+        }
+
+        private void DishCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (DishCombo.SelectedItem == null)
+                    return;
+                if (MessageBoxResult.Yes == MessageBox.Show("Do you want to delete this order?", "Delete Conformtion", MessageBoxButton.YesNo))
+                    BL.FactoryBL.getBL().DeleteDish(int.Parse(DishCombo.SelectedValue.ToString()));
+                else
+                    new DishEditor(BL.FactoryBL.getBL().GetAllDishs(item => item.ID == int.Parse(DishCombo.SelectedValue.ToString())).First()).ShowDialog();
+                DishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs(item=>item.Active);
+            }
+            catch(Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
+        }
+
+        private void AddDish(object sender, RoutedEventArgs e)
+        {
+            new DishEditor().ShowDialog();
+            DishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs();
+
         }
     }
 }
