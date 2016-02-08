@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Threading;
+using System.Diagnostics;
 
 namespace PLForms
 {
@@ -37,6 +38,7 @@ namespace PLForms
         {
             InitializeComponent();//error if branch does not exsist
             BE.Branch temp = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == order.BranchID).FirstOrDefault();
+            
             if (temp == null)
                 throw new Exception("There isn't a branch that matches this Order!");
             ShortAddress.Text = temp.Name;
@@ -124,7 +126,7 @@ namespace PLForms
             var price = BL.FactoryBL.getBL().PriceOfOrder(ID);
             if (price == 0)
             {
-                MessageBox.Show("You cant send an order with a total price of 0!", "Empty Order");
+                MessageBox.Show("You can't send an order with a total price of 0!", "Empty Order");
                 return;
             }
             if ((!IsWindowMode) || MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send this order? Cost - " + price.ToString() + "$", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))

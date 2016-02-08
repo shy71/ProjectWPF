@@ -11,14 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace PLForms
 {
+
     /// <summary>
     /// Interaction logic for ClientInterface.xaml
     /// </summary>
     public partial class ClientInterface : Window
     {
+        public event EventHandler<BE.EventValue> Sending;
         List<Window> subWin = new List<Window>();
         int numOfOrders = 0;
         BE.User user;
@@ -39,6 +43,8 @@ namespace PLForms
         public ClientInterface(BE.User user)
         {
             InitializeComponent();
+            Sending += OrderDetails_Sending;
+            Sending += OpenOrder;
             if (user.Type != BE.UserType.Client)
                 throw new Exception("You cant open client interface with a user that isnt a client!");
             this.user = user;
@@ -514,6 +520,7 @@ namespace PLForms
         private void SendBtn_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send all of this orders?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
+            {
                 foreach (object grid in stackPanel.Children)
                 {
                     if (grid.GetType() == typeof(Grid))
@@ -523,13 +530,15 @@ namespace PLForms
                             if (item.GetType() == typeof(OrderDeiltes))
                             {
                                 if ((item as OrderDeiltes).Opacity == 1)
+                                {
+                                    //Sending(sender, new BE.EventValue((item as OrderDeiltes).Content));
                                     (item as OrderDeiltes).SendOrder();
-                                //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                                //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                                }
                             }
                         }
                     }
                 }
+            }
             Restart(this, null);
         }
         /// <summary>
@@ -557,6 +566,11 @@ namespace PLForms
             }
             Restart(this, null);
         }
-
+        private void OrderDetails_Sending(object sender, BE.EventValue value)
+        {
+            Thread.Sleep(5000);
+            if(MessageBox.Show("An order has arrived!\nWould you like to open it now?", "Information", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                OpenOrder(sender, value);
+        }
     }
 }
