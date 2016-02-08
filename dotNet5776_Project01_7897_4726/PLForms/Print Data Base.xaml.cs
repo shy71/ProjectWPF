@@ -19,6 +19,18 @@ namespace PLForms
     /// </summary>
     public partial class Print_Data_Base : Window
     {
+        public Print_Data_Base()
+        {
+            InitializeComponent();
+            try
+            {
+                ClearToBase();
+            }
+            catch (Exception Exp)
+            {
+                MessageBox.Show(Exp.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         internal void ClearToBase()
         {
             BL.IBL myBL = BL.FactoryBL.getBL();
@@ -95,18 +107,6 @@ namespace PLForms
                 ClientExp.Visibility = Visibility.Collapsed;
             else
                 ClientExp.Visibility = Visibility.Visible;
-        }
-        public Print_Data_Base()
-        {
-            InitializeComponent();
-            try
-            {
-                ClearToBase();
-            }
-            catch (Exception Exp)
-            {
-                MessageBox.Show(Exp.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)

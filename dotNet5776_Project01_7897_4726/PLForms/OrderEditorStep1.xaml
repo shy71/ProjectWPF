@@ -1,7 +1,7 @@
 <Window x:Class="PLForms.OrderEditorStep1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="OrderEditor1" Height="185" Width="250" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
+        Title="OrderEditor1" MinHeight="185" Height="185" MinWidth="220" Width="250" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.75*"/>

@@ -40,6 +40,7 @@ namespace PLForms
             user.Type = type;
             usernameBox.SetBinding(user, "UserName", BindingMode.TwoWay);
             nameBox.SetBinding(user, "Name", BindingMode.TwoWay);
+            MainTitle.Content = "Create User Detailes:";
         }
 
         public UserEditor(BE.User user):this(user.Type)
