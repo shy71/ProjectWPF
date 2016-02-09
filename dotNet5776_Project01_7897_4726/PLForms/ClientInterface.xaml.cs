@@ -597,5 +597,27 @@ namespace PLForms
                Dispatcher.Invoke(() => Restart(this, null));
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            foreach (object grid in stackPanel.Children)
+            {
+                if (grid.GetType() == typeof(Grid))
+                {
+                    foreach (object item in (grid as Panel).Children)
+                    {
+                        if (item.GetType() == typeof(OrderDeiltes))
+                        {
+                            (item as OrderDeiltes).DelivveryArived -= OrderArrived;
+
+                        }
+                    }
+                }
+            }
+            foreach (ShowUserControl item in subWin)
+            {
+                (item.us as OrderDeiltes).DelivveryArived -= OrderArrived;
+            }
+        }
+
     }
 }

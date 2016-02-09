@@ -25,13 +25,10 @@ namespace PLForms
             InitializeComponent();
             this.manger = manger;
             NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger && item.UserName != manger.UserName);
-            NetWorkCombo.DisplayMemberPath = "UserName";
             NetWorkCombo.SelectedValuePath = "UserName";
             BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger && item.ItemID == 0);
-            BranchMangerCombo.DisplayMemberPath ="UserName";//check
             BranchMangerCombo.SelectedValuePath = "UserName";
             DishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs();
-            DishCombo.DisplayMemberPath = "Name";
             DishCombo.SelectedValuePath = "ID";
         }
 
@@ -59,8 +56,9 @@ namespace PLForms
             if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to Quit?", "Log out?", MessageBoxButton.YesNo))
             {
                 BL.FactoryBL.getBL().RemoveUser(manger);
+                this.Hide();
                 new MainInterface().Show();
-                this.Close();
+                this.Close();   
             }
 
 

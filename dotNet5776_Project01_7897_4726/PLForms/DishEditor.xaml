@@ -58,8 +58,22 @@
                 </Style>
             </Button.Style>
         </Button>
-        <ComboBox x:Name="dishCombo" Grid.Column="2"  ToolTipService.ShowOnDisabled="True" Loaded="dishCombo_Loaded"/>
-        <TextBlock Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=dishCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+        <ComboBox x:Name="dishCombo" Grid.Column="2"  ToolTipService.ShowOnDisabled="True" Loaded="dishCombo_Loaded">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding  StringFormat="{}{0} -- {1}$ -- {2}">
+                                <Binding Path="Name"/>
+                                <Binding Path="Price"/>
+                                <Binding Path="Kosher"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="Base Dish" IsHitTestVisible="False" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=dishCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
         <local:TextControl x:Name="idBox" IsEnabled="{Binding IsChecked, ElementName=checkBox}" Str="ID"  Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Panel.ZIndex="1" Grid.Row="3" MinWidth="75" Margin="0,0,0,10" ToolTipService.ShowOnDisabled="True" Changed="idBox_Changed"/>
         <CheckBox x:Name="checkBox"  Content="Self appointed ID(Not recommended!)" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="1"/>
     </Grid>

@@ -19,6 +19,7 @@ namespace PLForms
     /// </summary>
     public partial class ShowUserControl : Window
     {
+        public UserControl us;
         public ShowUserControl()
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace PLForms
             if (us.Parent != null)
                 throw new Exception("cant cretae a window for a Usercontrol that is already assingend");
             MainGrid.Children.Add(us);
+            this.us = us;
         }
     }
 }

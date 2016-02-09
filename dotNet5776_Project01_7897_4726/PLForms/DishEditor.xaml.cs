@@ -65,7 +65,6 @@ namespace PLForms
         private void dishCombo_Loaded(object sender, RoutedEventArgs e)
         {
             dishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs(item => item.Kosher >= kosher && dish.ID != item.ID);
-            dishCombo.DisplayMemberPath = "Name";
             dishCombo.SelectedValuePath = "ID";
             if (dishCombo.Items.Count == 0)
             {
