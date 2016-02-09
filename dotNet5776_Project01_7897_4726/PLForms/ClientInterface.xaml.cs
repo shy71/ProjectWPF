@@ -618,6 +618,5 @@ namespace PLForms
                 (item.us as OrderDeiltes).DelivveryArived -= OrderArrived;
             }
         }
-
     }
 }
