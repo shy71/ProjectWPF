@@ -162,7 +162,7 @@ namespace PLForms
                     case "Months":
                         Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDates(IsBranch)
                                                      group item.Sum() by DateTime.Parse(item.Key).Month + "/" + DateTime.Parse(item.Key).Year into item3
-                                                     select new BE.GroupSum(item3.Key, item3.Sum(), item3.Key, item3.Key)).OrderBy(item => item.LowerHeadr).ToArray());
+                                                     select new BE.GroupSum(item3.Key, item3.Sum(), item3.Key, item3.Key)).OrderBy(item =>DateTime.Parse(item.LowerHeadr.Insert(0,"01/"))).ToArray());
                         break;
                     case "Years":
                         Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDates(IsBranch)
@@ -171,7 +171,7 @@ namespace PLForms
                         break;
                     default://"Days(last 30 days)"
                         Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetProfitByDates(IsBranch)
-                                                     select new BE.GroupSum(item.Key, item.Sum(), item.Key, item.Key)).OrderBy(item => item.LowerHeadr).ToArray());
+                                                     select new BE.GroupSum(item.Key, item.Sum(), item.Key, item.Key)).OrderBy(item => DateTime.Parse(item.LowerHeadr)).ToArray());
                         break;
                 }
             else
@@ -180,7 +180,7 @@ namespace PLForms
                     case "Months":
                         Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByDate(IsBranch)
                                                      group item.Sum() by DateTime.Parse(item.Key).Month + "/" + DateTime.Parse(item.Key).Year into item3
-                                                     select new BE.GroupSum(item3.Key, item3.Sum(), item3.Key, item3.Key)).OrderBy(item => item.LowerHeadr).ToArray());
+                                                     select new BE.GroupSum(item3.Key, item3.Sum(), item3.Key, item3.Key)).OrderBy(item => DateTime.Parse(item.LowerHeadr.Insert(0, "01/"))).ToArray());
                         break;
                     case "Years":
                         Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByDate(IsBranch)
@@ -189,7 +189,7 @@ namespace PLForms
                         break;
                     default://"Days(last 30 days)"
                         Diagram = new Stick_Diagram((from item in BL.FactoryBL.getBL().GetDishAmountByDate(IsBranch)
-                                                     select new BE.GroupSum(item.Key, item.Sum(), item.Key, item.Key)).OrderBy(item => item.LowerHeadr).ToArray());
+                                                     select new BE.GroupSum(item.Key, item.Sum(), item.Key, item.Key)).OrderBy(item => DateTime.Parse(item.LowerHeadr)).ToArray());
                         break;
                 }
 

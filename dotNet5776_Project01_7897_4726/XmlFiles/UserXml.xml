@@ -16,6 +16,13 @@
   </User>
   <User>
     <Type>BranchManger</Type>
+    <UserName>arielf</UserName>
+    <Password>123456</Password>
+    <Name>Ariel Feriga</Name>
+    <ItemID>96110356</ItemID>
+  </User>
+  <User>
+    <Type>BranchManger</Type>
     <UserName>davidR</UserName>
     <Password>123456</Password>
     <Name>David Rimon</Name>
@@ -153,12 +160,5 @@
     <Password>123456</Password>
     <Name>Uriel Eli</Name>
     <ItemID>153517</ItemID>
-  </User>
-  <User>
-    <Type>BranchManger</Type>
-    <UserName>arielf</UserName>
-    <Password>123456</Password>
-    <Name>Ariel Ferigaaa</Name>
-    <ItemID>96110356</ItemID>
   </User>
 </Users>

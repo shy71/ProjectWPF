@@ -51,16 +51,6 @@
     <Kosher>LOW</Kosher>
   </Branch>
   <Branch>
-    <ID>56656603</ID>
-    <Name>Haifa</Name>
-    <Address>Sea Road</Address>
-    <PhoneNumber>046547643</PhoneNumber>
-    <Boss>Yishay Catane @icatane</Boss>
-    <EmployeeCount>5</EmployeeCount>
-    <AvailableMessangers>4</AvailableMessangers>
-    <Kosher>MEDIUM</Kosher>
-  </Branch>
-  <Branch>
     <ID>61919381</ID>
     <Name>Tel Aviv</Name>
     <Address>Dizengoff Center</Address>
@@ -107,7 +97,7 @@
     <PhoneNumber>039872611</PhoneNumber>
     <Boss>Brauch Belzberg @brauchB</Boss>
     <EmployeeCount>2</EmployeeCount>
-    <AvailableMessangers>8</AvailableMessangers>
+    <AvailableMessangers>7</AvailableMessangers>
     <Kosher>HIGH</Kosher>
   </Branch>
   <Branch>
@@ -115,9 +105,19 @@
     <Name>Jerusalem</Name>
     <Address>Sdarot Herzel 12</Address>
     <PhoneNumber>026587464</PhoneNumber>
-    <Boss>Ariel Ferigaaa @arielf</Boss>
+    <Boss>Ariel Feriga @arielf</Boss>
     <EmployeeCount>3</EmployeeCount>
-    <AvailableMessangers>11</AvailableMessangers>
+    <AvailableMessangers>12</AvailableMessangers>
     <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>56656603</ID>
+    <Name>Haifa</Name>
+    <Address>Sea Road</Address>
+    <PhoneNumber>046547643</PhoneNumber>
+    <Boss>Yishay Catane @icatane</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
   </Branch>
 </Branches>

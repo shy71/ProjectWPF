@@ -64,6 +64,15 @@
     <Delivered>true</Delivered>
   </Order>
   <Order>
+    <ID>3477063</ID>
+    <BranchID>18932</BranchID>
+    <Address>Maitar, Maitar Road</Address>
+    <Date>2015-05-09T23:08:11.6355822+02:00</Date>
+    <Kosher>HIGH</Kosher>
+    <ClientID>160391</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
     <ID>3431070</ID>
     <BranchID>87465</BranchID>
     <Address>Maitar, Maitar Road</Address>
@@ -94,7 +103,7 @@
     <ID>3706350</ID>
     <BranchID>87465</BranchID>
     <Address>dolev</Address>
-    <Date>2016-02-09T23:37:43.7027356+02:00</Date>
+    <Date>2014-11-19T23:37:43.7027356+02:00</Date>
     <Kosher>MEDIUM</Kosher>
     <ClientID>154738</ClientID>
     <Delivered>true</Delivered>
@@ -109,21 +118,21 @@
     <Delivered>true</Delivered>
   </Order>
   <Order>
-    <ID>3477063</ID>
-    <BranchID>18932</BranchID>
-    <Address>Maitar, Maitar Road</Address>
-    <Date>2016-02-09T23:08:11.6355822+02:00</Date>
-    <Kosher>HIGH</Kosher>
-    <ClientID>160391</ClientID>
+    <ID>2605915</ID>
+    <BranchID>96110356</BranchID>
+    <Address>Havved Haleumi 32</Address>
+    <Date>2016-02-10T00:51:04.623327+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
     <Delivered>true</Delivered>
   </Order>
   <Order>
     <ID>2605922</ID>
-    <BranchID>61919381</BranchID>
+    <BranchID>56656603</BranchID>
     <Address>Havved Haleumi 32</Address>
-    <Date>0001-01-01T00:00:00</Date>
+    <Date>2015-07-18T00:51:04.6433281+02:00</Date>
     <Kosher>MEDIUM</Kosher>
     <ClientID>1921</ClientID>
-    <Delivered>false</Delivered>
+    <Delivered>true</Delivered>
   </Order>
 </Order>
