@@ -45,7 +45,7 @@ namespace PLForms
             Expander exp;
             DishExp.Header = "Dishs";
             DishStack.Children.Clear();
-            foreach (BE.Dish item in list)
+            foreach (BE.Dish item in list.OrderBy(item=>item.Name))
             {
                 exp = new Expander();
                 exp.Content = new TextBox
@@ -77,7 +77,7 @@ namespace PLForms
             Expander exp;
             OrderExp.Header = "Orders";
             OrderStack.Children.Clear();
-            foreach (BE.Order item in list)//פתרון לא הכי יעיל
+            foreach (BE.Order item in list.OrderBy(item => item.ClientID))//פתרון לא הכי יעיל
             {
                 exp = new Expander();
                 exp.Content = new TextBox
@@ -109,7 +109,7 @@ namespace PLForms
             Expander exp;
             BranchExp.Header = "Branchs";
             BranchStack.Children.Clear();
-            foreach (BE.Branch item in list)
+            foreach (BE.Branch item in list.OrderBy(item => item.Name))
             {
                 exp = new Expander();
                 exp.Header = item.Name;
@@ -142,7 +142,7 @@ namespace PLForms
             Expander exp;
             ClientExp.Header = "Clients";
             ClientStack.Children.Clear();
-            foreach (BE.Client item in list)
+            foreach (BE.Client item in list.OrderBy(item => item.Name))
             {
                 exp = new Expander();
                 exp.Content = new TextBox

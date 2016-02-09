@@ -43,8 +43,9 @@ namespace PLForms
             MainTitle.Content = "Create User Detailes:";
         }
 
-        public UserEditor(BE.User user):this(user.Type)
+        public UserEditor(BE.User user)
         {
+            InitializeComponent();
             IsUpdated = true;
             this.user = user;
             usernameBox.IsEnabled = false;
