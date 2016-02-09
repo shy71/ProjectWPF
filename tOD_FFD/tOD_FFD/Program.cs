@@ -56,7 +56,7 @@ namespace tOD_FFD
                 {
                     Console.WriteLine("{0}:{1}", x, item);
                 }
-                f1(ref x);
+                f1(ref x); 
                 mydel temp = item => item.ToString();
                 Console.WriteLine(DateTime.Parse(DateTime.Now.ToString()).ToString());
 
