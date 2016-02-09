@@ -113,17 +113,6 @@ namespace PLForms
         {
             this.Close();
         }
-        //internal void PrintSearch<T>(object sender)
-        //{
-        //    foreach (IEnumerable<BE.InterID> item in collection)
-        //    {
-
-        //    } BL.FactoryBL.getBL().Search(SearchBing.GetText()); BL.FactoryBL.getBL().se
-        //    foreach (BE.InterID var in list)
-        //    {
-        //        (sender as TextBlock).Text += var.ToString() + "\n";
-        //    }
-        //}
         private void SearchBing_Changed(object sender, BE.EventValue e)
         {
             string str = SearchBing.GetText();
