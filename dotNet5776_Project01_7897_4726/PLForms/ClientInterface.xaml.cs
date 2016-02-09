@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
+using BE;
 using System.Windows.Threading;
 
 namespace PLForms
@@ -608,6 +609,28 @@ namespace PLForms
             foreach (ShowUserControl item in subWin)
             {
                 (item.us as OrderDeiltes).DelivveryArived -= OrderArrived;
+            }
+        }
+
+        private void DeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (BL.FactoryBL.getBL().GetAllOrders().Any(item => (item.ClientID == user.ItemID) && item.IsActive()))
+                {
+                    MessageBox.Show("You can't delete the user since you still have active orders", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (MessageBox.Show("Are you sure you want to close the account", "Delete Confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    BL.FactoryBL.getBL().RemoveUser(user, true);
+                    new MainInterface().Show();
+                    this.Close();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("There has been a problem while trying to delete the user!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
