@@ -29,13 +29,6 @@
     <Age>19</Age>
   </Client>
   <Client>
-    <ID>160597</ID>
-    <Name>Daniel Pitro</Name>
-    <Address>Neve Choof</Address>
-    <CreditCard>23647312</CreditCard>
-    <Age>76</Age>
-  </Client>
-  <Client>
     <ID>154738</ID>
     <Name>Itan Gotlive</Name>
     <Address>dolev</Address>
@@ -43,10 +36,10 @@
     <Age>19</Age>
   </Client>
   <Client>
-    <ID>1921</ID>
+    <ID>218251</ID>
     <Name>shay katz</Name>
-    <Address>hasaks</Address>
-    <CreditCard>31232</CreditCard>
-    <Age>27</Age>
+    <Address>asdf</Address>
+    <CreditCard>1234</CreditCard>
+    <Age>1000</Age>
   </Client>
 </Clients>

@@ -21,16 +21,6 @@
     <Kosher>LOW</Kosher>
   </Branch>
   <Branch>
-    <ID>2</ID>
-    <Name>Eilat</Name>
-    <Address>Freedom 98</Address>
-    <PhoneNumber>078496352</PhoneNumber>
-    <Boss>Tal Cohen @talco</Boss>
-    <EmployeeCount>5</EmployeeCount>
-    <AvailableMessangers>3</AvailableMessangers>
-    <Kosher>LOW</Kosher>
-  </Branch>
-  <Branch>
     <ID>49769026</ID>
     <Name>Jerusalem</Name>
     <Address>Gilo 15</Address>
@@ -61,16 +51,6 @@
     <Kosher>LOW</Kosher>
   </Branch>
   <Branch>
-    <ID>96110356</ID>
-    <Name>Jerusalem</Name>
-    <Address>Sdarot Herzel 12</Address>
-    <PhoneNumber>026587464</PhoneNumber>
-    <Boss>Ariel Feriga @arielf</Boss>
-    <EmployeeCount>3</EmployeeCount>
-    <AvailableMessangers>11</AvailableMessangers>
-    <Kosher>HIGH</Kosher>
-  </Branch>
-  <Branch>
     <ID>87465</ID>
     <Name>Jerusalem</Name>
     <Address>Malcha 1</Address>
@@ -79,16 +59,6 @@
     <EmployeeCount>3</EmployeeCount>
     <AvailableMessangers>5</AvailableMessangers>
     <Kosher>MEDIUM</Kosher>
-  </Branch>
-  <Branch>
-    <ID>18932</ID>
-    <Name>Bnei Brak</Name>
-    <Address>Shalom 7</Address>
-    <PhoneNumber>039872611</PhoneNumber>
-    <Boss>Brauch Belzberg @brauchB</Boss>
-    <EmployeeCount>2</EmployeeCount>
-    <AvailableMessangers>6</AvailableMessangers>
-    <Kosher>HIGH</Kosher>
   </Branch>
   <Branch>
     <ID>56656603</ID>
@@ -119,5 +89,35 @@
     <EmployeeCount>5</EmployeeCount>
     <AvailableMessangers>3</AvailableMessangers>
     <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>2</ID>
+    <Name>Eilat</Name>
+    <Address>Freedom 98</Address>
+    <PhoneNumber>078496352</PhoneNumber>
+    <Boss>Tal Cohen @talco</Boss>
+    <EmployeeCount>5</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>18932</ID>
+    <Name>Bnei Brak</Name>
+    <Address>Shalom 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>qwe @qwe</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>6</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>96110356</ID>
+    <Name>Jerusalem</Name>
+    <Address>Sdarot Herzel 12</Address>
+    <PhoneNumber>026587464</PhoneNumber>
+    <Boss>Brauch Belzberg @brauchB</Boss>
+    <EmployeeCount>15</EmployeeCount>
+    <AvailableMessangers>20</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
   </Branch>
 </Branches>
