@@ -30,4 +30,22 @@
     <DishID>21</DishID>
     <DishAmount>3</DishAmount>
   </DishOrder>
+  <DishOrder>
+    <ID>6264</ID>
+    <OrderID>2398970</OrderID>
+    <DishID>21</DishID>
+    <DishAmount>6</DishAmount>
+  </DishOrder>
+  <DishOrder>
+    <ID>7894</ID>
+    <OrderID>2398970</OrderID>
+    <DishID>19273</DishID>
+    <DishAmount>4</DishAmount>
+  </DishOrder>
+  <DishOrder>
+    <ID>7294</ID>
+    <OrderID>2398970</OrderID>
+    <DishID>1243</DishID>
+    <DishAmount>4</DishAmount>
+  </DishOrder>
 </DishOrders>

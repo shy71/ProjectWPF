@@ -8,7 +8,7 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <TextBox x:Name="Details" Background="Transparent" BorderThickness="0" Foreground="Black" Text="{Binding Text, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Comic Sans MS"/>
         </ScrollViewer>
         <ComboBox x:Name="TypeComboBox" Loaded="TypeComboBox_Loaded" SelectionChanged="TypeComboBox_SelectionChanged" Grid.Row="0" Margin="80,0,80,0"/>

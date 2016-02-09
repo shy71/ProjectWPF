@@ -54,9 +54,11 @@ namespace PLForms
                 text = new TextBlock();
                 text.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
                 text.Height = getHeight(Heights[counter].Sum, Heights);
+                text.ToolTip = Heights[counter].ToolTip;
                 numberText = new TextBlock();
                 numberText.TextAlignment = TextAlignment.Center;
-                numberText.Text = Heights[counter].Sum.ToString();
+                numberText.Text = Heights[counter].Sum.ToString().Substring(0, (Heights[counter].Sum.ToString().Length > 5) ? 5 : Heights[counter].Sum.ToString().Length);
+                numberText.ToolTip = Heights[counter].ToolTip;
                 //numberText.Margin.Bottom = text.Height;
                 if (text.Height / (0.9 * MainStack.ActualHeight) < 0.05)
                     text.Background = Brushes.Red;
@@ -71,42 +73,8 @@ namespace PLForms
                 stack.Children.Add(text);
                 TextBlock name = new TextBlock();
                 name.TextAlignment = TextAlignment.Center;
-
-                //text.Width = MainGrid.ActualWidth / (2 * Heights.Count());
-                //switch(Heights[0].Type)
-                //{
-                //    case BE.GroupingByType.DishAmountbyWeekDays:
-                //        name.Text = Heights[counter].Day.ToString();
-                //        break;
-                //    case BE.GroupingByType.WeekDays:
-                //        name.Text = Heights[counter].Day.ToString();
-                //        break;
-                //    case BE.GroupingByType.BranchKashrut:
-                //        name.Text = Heights[counter].Kashrut.ToString();
-                //        break;
-                //    case BE.GroupingByType.DishKashrut:
-                //        name.Text = Heights[counter].Kashrut.ToString();
-                //        break;
-                //    case BE.GroupingByType.Branch:
-                //        name.Text = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
-                //        break;
-                //    case BE.GroupingByType.DishesAmountbyDish:
-                //        name.Text = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
-                //        break;
-                //    case BE.GroupingByType.DishesAmountbyBranch:
-                //        name.Text = BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
-                //        break;
-                //    case BE.GroupingByType.Address:
-                //        name.Text = Heights[counter].StrKey;
-                //        break;
-                //    case BE.GroupingByType.Date:
-                //        name.Text = Heights[counter].StrKey;
-                //        break;
-                //    case BE.GroupingByType.Dish:
-                //        name.Text = BL.FactoryBL.getBL().GetAllDishs(item => item.ID == Heights[counter].NumKey).FirstOrDefault().Name;
-                //        break;
-                //}
                 name.Text = Heights[counter].LowerHeadr;
+                name.ToolTip = Heights[counter].ToolTip;
                 stack.Children.Add(name);
                 // MainList.Children.Add(stack);
                 MainStack.Children.Add(stack);

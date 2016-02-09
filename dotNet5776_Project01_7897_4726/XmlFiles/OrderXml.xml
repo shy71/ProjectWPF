@@ -10,30 +10,12 @@
     <Delivered>false</Delivered>
   </Order>
   <Order>
-    <ID>2</ID>
-    <BranchID>87465</BranchID>
-    <Address>hall in beit shems</Address>
-    <Date>0001-01-01T00:00:00</Date>
-    <Kosher>MEDIUM</Kosher>
-    <ClientID>1921</ClientID>
-    <Delivered>false</Delivered>
-  </Order>
-  <Order>
     <ID>3</ID>
     <BranchID>18932</BranchID>
     <Address>Sdarot herzl 12</Address>
     <Date>0001-01-01T00:00:00</Date>
     <Kosher>LOW</Kosher>
     <ClientID>10934</ClientID>
-    <Delivered>false</Delivered>
-  </Order>
-  <Order>
-    <ID>4</ID>
-    <BranchID>9873</BranchID>
-    <Address>hall in beit shems</Address>
-    <Date>0001-01-01T00:00:00</Date>
-    <Kosher>MEDIUM</Kosher>
-    <ClientID>1921</ClientID>
     <Delivered>false</Delivered>
   </Order>
   <Order>
@@ -123,6 +105,42 @@
     <Address>hall in beit shems</Address>
     <Date>0001-01-01T00:00:00</Date>
     <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2</ID>
+    <BranchID>87465</BranchID>
+    <Address>hall in beit shems</Address>
+    <Date>2016-02-09T19:59:08.5320342+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>4</ID>
+    <BranchID>9873</BranchID>
+    <Address>hall in beit shems</Address>
+    <Date>2016-02-09T19:59:08.5490342+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>2606190</ID>
+    <BranchID>87465</BranchID>
+    <Address>Sderot Hertzel 12</Address>
+    <Date>0001-01-01T00:00:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>2398970</ID>
+    <BranchID>2</BranchID>
+    <Address>Sderot Hertzel 12</Address>
+    <Date>0001-01-01T00:00:00</Date>
+    <Kosher>LOW</Kosher>
     <ClientID>1921</ClientID>
     <Delivered>false</Delivered>
   </Order>

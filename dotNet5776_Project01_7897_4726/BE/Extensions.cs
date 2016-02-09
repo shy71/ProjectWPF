@@ -123,41 +123,47 @@ namespace BE
   
     public class GroupSum
     {
-        public GroupSum(Kashrut kashrutlevel, double newsum,string LowHeadr)
+        public GroupSum(Kashrut kashrutlevel, double newsum,string LowHeadr,string toolTip)
         {
             Kashrut = kashrutlevel;
             Sum = newsum;
             LowerHeadr = LowHeadr;
+            ToolTip = toolTip.Replace("\t", "");
         }
-        public GroupSum(string str, double newsum, string LowHeadr)
+        public GroupSum(string str, double newsum, string LowHeadr, string toolTip)
         {
             StrKey = str;
             Sum = newsum;
             LowerHeadr = LowHeadr;
+            ToolTip = toolTip.Replace("\t", "");
         }
-        public GroupSum( int num, double newsum, string LowHeadr)
+        public GroupSum(int num, double newsum, string LowHeadr, string toolTip)
         {
             NumKey = num;
             Sum = newsum;
             LowerHeadr = LowHeadr;
+            ToolTip = toolTip.Replace("\t", "");
         }
-        public GroupSum(int num, int amount,string LowHeadr)
+        public GroupSum(int num, int amount, string LowHeadr, string toolTip)
         {
             NumKey = num;
        Sum = amount;
-            LowerHeadr = LowHeadr;
+       LowerHeadr = LowHeadr;
+       ToolTip = toolTip.Replace("\t", "");
         }
-        public GroupSum(DayOfWeek theDay,int amount,string LowHeadr)
+        public GroupSum(DayOfWeek theDay, int amount, string LowHeadr, string toolTip)
         {
             Day = theDay;
             Sum = amount;
             LowerHeadr = LowHeadr;
+            ToolTip = toolTip.Replace("\t","");
         }
-        public GroupSum(DayOfWeek theDay, float newsum, string LowHeadr)
+        public GroupSum(DayOfWeek theDay, float newsum, string LowHeadr, string toolTip)
         {
             Day = theDay;
         Sum = newsum;
-            LowerHeadr = LowHeadr;
+        LowerHeadr = LowHeadr;
+        ToolTip = toolTip;
         }
      
         private DayOfWeek day;
@@ -181,6 +187,14 @@ namespace BE
         {
             get { return lowerHeadr; }
             set { lowerHeadr = value; }
+        }
+
+        private string toolTip;
+
+        public string ToolTip
+        {
+            get { return toolTip; }
+            set { toolTip = value; }
         }
         
         string strKey;
