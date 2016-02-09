@@ -378,6 +378,88 @@ namespace BL
             myDal.DeleteDataBase();
         }
         /// <summary>
+        /// checks if the user is compatible 
+        /// </summary>
+        /// <param name="myUser"></param>
+        /// <param name="str"></param>
+        internal void CompatibleUser(User myUser, string str)
+        {
+            if (myUser.Password == "")
+                throw new Exception(str + "The password can't be empty!");
+            else if (myUser.Name == "")
+                throw new Exception(str + "The name can't be empty!");
+            else if (myUser.UserName == "")
+                throw new Exception(str + "The username can't be empty!");
+            else if (myUser.Type == UserType.Client && !myDal.ContainID<Client>(myUser.ItemID))
+                throw new Exception(str + "There isn't a client that connected to this user!");
+        }
+        /// <summary>
+        /// gets all the users that pass the predicate test
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null)
+        {
+            return myDal.GetAllUsers(predicate);
+        }
+        /// <summary>
+        /// adds a user
+        /// </summary>
+        /// <param name="user"></param>
+        public void AddUser(User user)
+        {
+            myDal.AddUser(user);
+        }
+        /// <summary>
+        /// gets a specific user by its name
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
+        public User GetUser(string UserName)
+        {
+            return myDal.GetUser(UserName);
+        }
+        /// <summary>
+        /// updates a user
+        /// </summary>
+        /// <param name="user"></param>
+        public void UpdateUser(User user)
+        {
+            User oldUser = myDal.GetAllUsers(item => item.ItemID == user.ItemID).FirstOrDefault();
+            if (myDal.GetUser(user.UserName).ItemID != user.ItemID&&user.Type==BE.UserType.Client)
+                throw new Exception("You can't change the item that is linked to a user!");
+            CompatibleUser(user, "The updated user you sent to update the old one is incompatible.");
+            myDal.UpdateUser(user);
+            if(user.Name!=oldUser.Name && user.Type==BE.UserType.BranchManger)
+            {
+                Branch theBranch = myDal.GetAllBranchs(item => item.Boss == oldUser.Name + " @" +oldUser.UserName).FirstOrDefault();
+                theBranch.Boss=user.Name+" @"+ user.UserName;
+                myDal.UpdateBranch(theBranch);
+            }
+        }
+        /// <summary>
+        /// removes a user by its name
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="DeleteClient"></param>
+        public void RemoveUser(string username, bool DeleteClient = false)
+        {
+            if (DeleteClient)
+                myDal.DeleteClient(myDal.GetUser(username).ItemID);
+            myDal.DeleteUser(username);
+        }
+        /// <summary>
+        /// removes a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="DeleteClient"></param>
+        public void RemoveUser(BE.User user, bool DeleteClient = false)
+        {
+            if (DeleteClient)
+                myDal.DeleteClient(user.ItemID);
+            myDal.DeleteUser(user.UserName);
+        }
+        /// <summary>
         /// Max Price for an order
         /// </summary>
         public int MAX_PRICE { get; set; }
