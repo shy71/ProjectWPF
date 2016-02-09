@@ -449,7 +449,7 @@ namespace PLForms
         /// <param name="e"></param>
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            new OrderEditorStep1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).First()).ShowDialog();
+            new OrderEditorStep1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).FirstOrDefault()).ShowDialog();
             UnsentButton_Checked(UnsentButton, null);
         }
         /// <summary>

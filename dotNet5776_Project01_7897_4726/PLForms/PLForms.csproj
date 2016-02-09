@@ -257,12 +257,7 @@
       <Name>BL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Editors\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Print\" />
-    <Folder Include="UserControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\Add Order.png" />
     <Resource Include="Images\Arrived Order.png" />
