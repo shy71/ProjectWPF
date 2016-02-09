@@ -30,7 +30,32 @@ namespace PLForms
         {
             try
             {
-                InitializeComponent();/*
+                
+                InitializeComponent();
+                try
+                {
+                    BE.Client temp = null;
+                    BE.Order temp1 = null;
+                    foreach (BE.DishOrder item in BL.FactoryBL.getBL().GetAllDishOrders())
+                    {
+                        temp1 = BL.FactoryBL.getBL().GetAllOrders(item2 => item2.ID == item.OrderID).First();
+                        temp = BL.FactoryBL.getBL().GetAllClients(item2 => item2.ID == temp1.ClientID).First();
+                        BL.FactoryBL.getBL().GetAllUsers(item2 => item2.ItemID == temp.ID);
+                        BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ID == temp1.BranchID);
+                    }
+                    foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers())
+                    {
+                        if(item.ItemID!=0&&item.Type==BE.UserType.Client)
+                        BL.FactoryBL.getBL().GetAllClients(item2 => item2.ID == item.ItemID).First();
+                        else if(item.ItemID!=0)
+                            BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ID == item.ItemID).First();
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Somebody messed up with the XML files! please contact support");
+                }
+                /*
                 if (MessageBox.Show("would you like to reset the database?", "DataBase Restart", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.No) == MessageBoxResult.Yes)
                 {
                     BL.FactoryBL.getBL().DeleteDataBase();

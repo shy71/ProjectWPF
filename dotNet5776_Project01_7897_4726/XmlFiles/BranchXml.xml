@@ -41,16 +41,6 @@
     <Kosher>LOW</Kosher>
   </Branch>
   <Branch>
-    <ID>95577371</ID>
-    <Name>Petah Tikva</Name>
-    <Address>Orlov 23</Address>
-    <PhoneNumber>036453716</PhoneNumber>
-    <Boss>Kobi Godinger @kobi321</Boss>
-    <EmployeeCount>4</EmployeeCount>
-    <AvailableMessangers>4</AvailableMessangers>
-    <Kosher>HIGH</Kosher>
-  </Branch>
-  <Branch>
     <ID>49651763</ID>
     <Name>Haifa</Name>
     <Address>Alenbi Road</Address>
@@ -68,26 +58,6 @@
     <Boss>Ariel Feriga @arielf</Boss>
     <EmployeeCount>3</EmployeeCount>
     <AvailableMessangers>11</AvailableMessangers>
-    <Kosher>HIGH</Kosher>
-  </Branch>
-  <Branch>
-    <ID>87465</ID>
-    <Name>Jerusalem</Name>
-    <Address>Malcha 1</Address>
-    <PhoneNumber>026587463</PhoneNumber>
-    <Boss>Itai Deykan @itaidey</Boss>
-    <EmployeeCount>3</EmployeeCount>
-    <AvailableMessangers>5</AvailableMessangers>
-    <Kosher>MEDIUM</Kosher>
-  </Branch>
-  <Branch>
-    <ID>18932</ID>
-    <Name>Bnei Brak</Name>
-    <Address>Shalom 7</Address>
-    <PhoneNumber>039872611</PhoneNumber>
-    <Boss>Brauch Belzberg @brauchB</Boss>
-    <EmployeeCount>2</EmployeeCount>
-    <AvailableMessangers>6</AvailableMessangers>
     <Kosher>HIGH</Kosher>
   </Branch>
   <Branch>
@@ -119,5 +89,35 @@
     <EmployeeCount>5</EmployeeCount>
     <AvailableMessangers>3</AvailableMessangers>
     <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
+    <ID>95577371</ID>
+    <Name>Petah Tikva</Name>
+    <Address>Orlov 23</Address>
+    <PhoneNumber>036453716</PhoneNumber>
+    <Boss>Kobi Godinger @kobi321</Boss>
+    <EmployeeCount>4</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>87465</ID>
+    <Name>Jerusalem</Name>
+    <Address>Malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>Itai Deykan @itaidey</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>6</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>18932</ID>
+    <Name>Bnei Brak</Name>
+    <Address>Shalom 7</Address>
+    <PhoneNumber>039872611</PhoneNumber>
+    <Boss>Brauch Belzberg @brauchB</Boss>
+    <EmployeeCount>2</EmployeeCount>
+    <AvailableMessangers>7</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
   </Branch>
 </Branches>

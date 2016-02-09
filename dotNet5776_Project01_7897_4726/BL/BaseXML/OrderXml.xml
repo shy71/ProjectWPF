@@ -90,31 +90,4 @@
     <ClientID>160391</ClientID>
     <Delivered>true</Delivered>
   </Order>
-  <Order>
-    <ID>3485018</ID>
-    <BranchID>95577371</BranchID>
-    <Address>Afula</Address>
-    <Date>2016-02-09T23:31:58.2489768+02:00</Date>
-    <Kosher>HIGH</Kosher>
-    <ClientID>153517</ClientID>
-    <Delivered>true</Delivered>
-  </Order>
-  <Order>
-    <ID>3706350</ID>
-    <BranchID>87465</BranchID>
-    <Address>dolev</Address>
-    <Date>2016-02-09T23:37:43.7027356+02:00</Date>
-    <Kosher>MEDIUM</Kosher>
-    <ClientID>154738</ClientID>
-    <Delivered>true</Delivered>
-  </Order>
-  <Order>
-    <ID>3721243</ID>
-    <BranchID>18932</BranchID>
-    <Address>Chasmoniem</Address>
-    <Date>2016-02-09T23:38:11.8483455+02:00</Date>
-    <Kosher>MEDIUM</Kosher>
-    <ClientID>146927</ClientID>
-    <Delivered>true</Delivered>
-  </Order>
 </Order>
