@@ -30,7 +30,7 @@ namespace PLForms
         {
             InitializeComponent();
             this.client = BL.FactoryBL.getBL().GetAllClients(item => item.ID == order.ClientID).First();
-           this.order = order;
+            this.order = order;
             if (order.Address == client.Address)
                 HomeCheckBox.IsChecked = true;
             else
