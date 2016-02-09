@@ -72,7 +72,6 @@ namespace PLForms
         {
             new UserEditor(BE.UserType.NetworkManger).ShowDialog();
             NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger && item.UserName != manger.UserName);
-
         }
 
         private void DeleteBranch_Click(object sender, RoutedEventArgs e)

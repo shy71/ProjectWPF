@@ -9,7 +9,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <TextBox x:Name="Details" Background="Transparent" BorderThickness="0" Foreground="Black" Text="{Binding Text, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Comic Sans MS"/>
+            <TextBox x:Name="Details" Background="Transparent" BorderThickness="0" Foreground="Black" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Comic Sans MS"/>
         </ScrollViewer>
         <ComboBox x:Name="TypeComboBox" Loaded="TypeComboBox_Loaded" SelectionChanged="TypeComboBox_SelectionChanged" Grid.Row="0" Margin="80,0,80,0"/>
         <TextBlock Grid.Row="0" IsHitTestVisible="False" HorizontalAlignment="Center" Margin="80,0,80,0" VerticalAlignment="Center" TextAlignment="Center" Text="Choose The Type" Visibility="{Binding ElementName=TypeComboBox,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}">

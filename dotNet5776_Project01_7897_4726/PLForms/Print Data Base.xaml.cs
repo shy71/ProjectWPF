@@ -48,7 +48,22 @@ namespace PLForms
             foreach (BE.Dish item in list)
             {
                 exp = new Expander();
-                exp.Content = item.ToString();
+                exp.Content = new TextBox
+                {
+                    Foreground = Brushes.Black,
+                    Text = item.ToString(),
+                    TextAlignment = TextAlignment.Left,
+                    TextWrapping = TextWrapping.Wrap,
+                    IsReadOnly = true,
+                    Background = Brushes.Transparent,
+                    BorderThickness = new Thickness()
+                    {
+                        Top = 0,
+                        Bottom = 0,
+                        Left = 0,
+                        Right = 0
+                    }
+                };
                 exp.Header = item.Name;
                 DishStack.Children.Add(exp);
             }
@@ -65,7 +80,22 @@ namespace PLForms
             foreach (BE.Order item in list)//פתרון לא הכי יעיל
             {
                 exp = new Expander();
-                exp.Content = item.ToString();
+                exp.Content = new TextBox
+                {
+                    Foreground = Brushes.Black,
+                    Text = item.ToString(),
+                    TextAlignment = TextAlignment.Left,
+                    TextWrapping = TextWrapping.Wrap,
+                    IsReadOnly = true,
+                    Background = Brushes.Transparent,
+                    BorderThickness = new Thickness()
+                    {
+                        Top = 0,
+                        Bottom = 0,
+                        Left = 0,
+                        Right = 0
+                    }
+                };
                 exp.Header = item.Address + " - " + ((item.Date == DateTime.MinValue) ? "Not Sent" : item.Date.ToShortDateString());
                 OrderStack.Children.Add(exp);
             }
@@ -82,8 +112,24 @@ namespace PLForms
             foreach (BE.Branch item in list)
             {
                 exp = new Expander();
-                exp.Content = item.ToString();
                 exp.Header = item.Name;
+                exp.Content = new TextBox
+                {
+                   Foreground = Brushes.Black,
+                   Text = item.ToString(),
+                   TextAlignment = TextAlignment.Left,
+                   TextWrapping = TextWrapping.Wrap,
+                   IsReadOnly = true,
+                   Background = Brushes.Transparent,
+                   BorderThickness = new Thickness()
+                         {
+                             Top = 0,
+                             Bottom = 0,
+                             Left = 0,
+                             Right = 0
+                         }
+                };
+                //Background="Transparent" BorderThickness="0" Foreground="Black" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Comic Sans MS"
                 BranchStack.Children.Add(exp);
             }
             if (BranchStack.Children.Count == 0)
@@ -99,7 +145,22 @@ namespace PLForms
             foreach (BE.Client item in list)
             {
                 exp = new Expander();
-                exp.Content = item.ToString();
+                exp.Content = new TextBox
+                {
+                    Foreground = Brushes.Black,
+                    Text = item.ToString(),
+                    TextAlignment = TextAlignment.Left,
+                    TextWrapping = TextWrapping.Wrap,
+                    IsReadOnly = true,
+                    Background = Brushes.Transparent,
+                    BorderThickness = new Thickness()
+                    {
+                        Top = 0,
+                        Bottom = 0,
+                        Left = 0,
+                        Right = 0
+                    }
+                };
                 exp.Header = item.Name;
                 ClientStack.Children.Add(exp);
             }
@@ -113,17 +174,6 @@ namespace PLForms
         {
             this.Close();
         }
-        //internal void PrintSearch<T>(object sender)
-        //{
-        //    foreach (IEnumerable<BE.InterID> item in collection)
-        //    {
-
-        //    } BL.FactoryBL.getBL().Search(SearchBing.GetText()); BL.FactoryBL.getBL().se
-        //    foreach (BE.InterID var in list)
-        //    {
-        //        (sender as TextBlock).Text += var.ToString() + "\n";
-        //    }
-        //}
         private void SearchBing_Changed(object sender, BE.EventValue e)
         {
             string str = SearchBing.GetText();
