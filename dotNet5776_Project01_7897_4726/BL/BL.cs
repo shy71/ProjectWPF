@@ -1086,7 +1086,7 @@ namespace BL
         bool Include<T>(T item, string str)
         {
             foreach (PropertyInfo p in item.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
-                if (p.GetValue(item).ToString().Contains(str))
+                if (p.GetValue(item).ToString().ToLower().Contains(str.ToLower()))
                     return true;
             return false;
         }
@@ -1109,11 +1109,11 @@ namespace BL
         public void Inti()
         {
 
-            AddDish(new Dish("Soup", Size.LARGE, 2, Kashrut.HIGH, 957473));
+            AddDish(new Dish("Soup", Size.LARGE, 13, Kashrut.HIGH, 957473));
             AddDish(new Dish("Hot Dogs", Size.MEDIUM, 7, Kashrut.HIGH, 19273));
-            AddDish(new Dish("Bamba", Size.SMALL, 2, Kashrut.HIGH, 1243));
-            AddDish(new Dish("Wings", Size.MEDIUM, 1, Kashrut.MEDIUM, 95840));
-            AddDish(new Dish("Stake", Size.LARGE, 3, Kashrut.LOW, 21));
+            AddDish(new Dish("Bamba", Size.SMALL, 15, Kashrut.HIGH, 1243));
+            AddDish(new Dish("Wings", Size.MEDIUM, 12, Kashrut.MEDIUM, 95840));
+            AddDish(new Dish("Stake", Size.LARGE, 11, Kashrut.LOW, 21));
             AddClient(new Client("Shay", "Sderot Hertzel 12", 45326, 23, 1921));
             AddClient(new Client("ari", "Beit Shemesh", 78695, 65, 10934));
             AddClient(new Client("avia", "Giv'at Ze'ev", 1938, 18, 493));
