@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
            Loaded="UserControl_Loaded">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <StackPanel x:Name="MainStack" HorizontalAlignment="Center" Orientation="Horizontal"/>
     </ScrollViewer>
 </UserControl>
