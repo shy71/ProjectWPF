@@ -37,7 +37,7 @@ namespace PLForms
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            (sender as Window).Title = "Best " + Type;
+            (sender as Window).Title = "Best in the database";
             try
             {
                 if (Type == "Dish")

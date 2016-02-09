@@ -101,6 +101,9 @@
     <Compile Include="TextControl.xaml.cs">
       <DependentUpon>TextControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="The Best Things.xaml.cs">
+      <DependentUpon>The Best Things.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserEditor.xaml.cs">
       <DependentUpon>UserEditor.xaml</DependentUpon>
     </Compile>
@@ -193,6 +196,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="The Best Things.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

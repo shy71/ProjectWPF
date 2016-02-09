@@ -30,10 +30,8 @@ namespace PLForms
                                        select typeof(BE.Kashrut).GetEnumName(item);
             SizeCombo.ItemsSource = Enum.GetNames(typeof(BE.Size));
             dish = new BE.Dish();
+            dish.Active = true;
             this.kosher = kosher;
-            nameBox.SetBinding(dish, "Name", BindingMode.TwoWay);
-            priceBox.SetBinding(dish, "Price", BindingMode.TwoWay);
-            idBox.SetBinding(dish, "ID", BindingMode.TwoWay);
         }
         public DishEditor(BE.Dish dish, BE.Kashrut kosher = BE.Kashrut.LOW)
         {
@@ -46,9 +44,6 @@ namespace PLForms
             IsUpdated = true;
             this.kosher = kosher;
             DoButton.Content = "Update!";
-            nameBox.SetBinding(dish, "Name", BindingMode.TwoWay);
-            priceBox.SetBinding(dish, "Price", BindingMode.TwoWay);
-            idBox.SetBinding(dish, "ID", BindingMode.TwoWay);
             nameBox.SetText(dish.Name);
             priceBox.SetText(dish.Price.ToString());
             idBox.SetText(dish.ID.ToString());
@@ -63,18 +58,24 @@ namespace PLForms
             float num;
             if (!float.TryParse(e.Value.ToString(), out num))
                 dish.Price = 0;
+            else
+                dish.Price = num;
         }
 
         private void dishCombo_Loaded(object sender, RoutedEventArgs e)
         {
             dishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs(item => item.Kosher >= kosher && dish.ID != item.ID);
-            dishCombo.DisplayMemberPath = "Name";
             dishCombo.SelectedValuePath = "ID";
             if (dishCombo.Items.Count == 0)
             {
                 dishCombo.IsEnabled = false;
                 dishCombo.ToolTip = "There isnt any dishs in this level to pick from!";
             }
+        }
+        private void TextControl_Changed(object sender, BE.EventValue e)
+        {
+            if (dish != null)
+                dish.GetType().GetProperty(e.pName).SetValue(dish, e.Value);
         }
         private void DoButton_Click(object sender, RoutedEventArgs e)
         {

@@ -11,9 +11,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
+using BE;
+using System.Windows.Threading;
 
 namespace PLForms
 {
+
     /// <summary>
     /// Interaction logic for ClientInterface.xaml
     /// </summary>
@@ -21,7 +25,7 @@ namespace PLForms
     {
         List<Window> subWin = new List<Window>();
         int numOfOrders = 0;
-        BE.User user;
+        public BE.User user;
         bool IsCtrlDown = false;
         /// <summary>
         /// constructor
@@ -52,7 +56,7 @@ namespace PLForms
         private void Restart(object sender, BE.EventValue e)
         {
             foreach (Window item in subWin)
-                item.Close();//שיסגר רק החלון שעשה את הריסטרט
+                item.Close();
             Clear_window();
             if (DeliveredButton.IsChecked == true)
                 DeliveredButton_Checked(DeliveredButton, null);
@@ -64,20 +68,10 @@ namespace PLForms
                 if (item.GetType() == typeof(Expander))
                     (item as Expander).IsExpanded = false;
             foreach (object grid in stackPanel.Children)
-            {
                 if (grid.GetType() == typeof(Grid))
-                {
                     foreach (object item in (grid as Panel).Children)
-                    {
                         if (item.GetType() == typeof(OrderDeiltes))
-                        {
                             (item as OrderDeiltes).Opacity = 0.7;
-                            //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                            //(item as OrderDeiltes).BorderBrush = Brushes.Black;
-                        }
-                    }
-                }
-            }
         }
         /// <summary>
         /// open when the window is loaded 
@@ -141,6 +135,7 @@ namespace PLForms
                 //orderD.Sended += Restart;
                 //orderD.Updated += Restart;
                 //orderD.Arived += Restart;
+                orderD.DelivveryArived += OrderArrived;
                 orderD.Opacity = 0.7;
                 orderD.PreviewMouseDown += MouseClick;
                 var ChildEnumrator = stackPanel.Children.GetEnumerator();
@@ -305,6 +300,7 @@ namespace PLForms
             us.Sended += Restart;
             us.Updated += Restart;
             us.Arived += Restart;
+            us.DelivveryArived += OrderArrived;
             subWin.Add(new ShowUserControl(us));
             subWin.Last().Show();
         }
@@ -514,6 +510,7 @@ namespace PLForms
         private void SendBtn_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send all of this orders?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
+            {
                 foreach (object grid in stackPanel.Children)
                 {
                     if (grid.GetType() == typeof(Grid))
@@ -523,13 +520,15 @@ namespace PLForms
                             if (item.GetType() == typeof(OrderDeiltes))
                             {
                                 if ((item as OrderDeiltes).Opacity == 1)
+                                {
+                                    //Sending(sender, new BE.EventValue((item as OrderDeiltes).Content));
                                     (item as OrderDeiltes).SendOrder();
-                                //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                                //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                                }
                             }
                         }
                     }
                 }
+            }
             Restart(this, null);
         }
         /// <summary>
@@ -557,6 +556,82 @@ namespace PLForms
             }
             Restart(this, null);
         }
+        private void OrderArrived(object sender, BE.EventValue e)
+        {
+            OrderDeiltes us;
+            BE.Order order = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == int.Parse(e.pName)).First();
+            Dispatcher.Invoke(() =>
+                {
+                    foreach (Window item in App.Current.Windows)
+                    {
+                        if (item is ClientInterface)
+                        {
+                            if ((item as ClientInterface).user.ItemID == BL.FactoryBL.getBL().GetAllOrders(item2 => item2.ID.ToString() == e.pName).First().ClientID)
+                            {
+                                if (MessageBoxResult.Yes == MessageBox.Show("An order of you has arived, it took -- "+int.Parse(e.Value.ToString())/1000+" sec !\nWould you like to open it?", "Order Arived!", MessageBoxButton.YesNo))
+                                {
+                                    us = new OrderDeiltes(order, true);
+                                    us.Deleted += Restart;
+                                    us.Sended += Restart;
+                                    us.Updated += Restart;
+                                    us.Arived += Restart;
+                                    us.DelivveryArived += OrderArrived;
+                                    Restart(this, null);
+                                    subWin.Add(new ShowUserControl(us));
+                                    subWin.Last().Show();
+                                }
+                                else
+                                Restart(this, null);
+                            }
+                            else
+                            return;
+                        }
+                    }
+                });
+        }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            foreach (object grid in stackPanel.Children)
+            {
+                if (grid.GetType() == typeof(Grid))
+                {
+                    foreach (object item in (grid as Panel).Children)
+                    {
+                        if (item.GetType() == typeof(OrderDeiltes))
+                        {
+                            (item as OrderDeiltes).DelivveryArived -= OrderArrived;
+
+                        }
+                    }
+                }
+            }
+            foreach (ShowUserControl item in subWin)
+            {
+                (item.us as OrderDeiltes).DelivveryArived -= OrderArrived;
+            }
+        }
+
+        private void DeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (BL.FactoryBL.getBL().GetAllOrders().Any(item => (item.ClientID == user.ItemID) && item.IsActive()))
+                {
+                    MessageBox.Show("You can't delete your user since you still have active orders", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (MessageBox.Show("Are you sure you want to close the account", "Delete Confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    BL.FactoryBL.getBL().RemoveUser(user, true);
+                    new MainInterface().Show();
+                    this.Close();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("There has been a problem while trying to delete the user!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

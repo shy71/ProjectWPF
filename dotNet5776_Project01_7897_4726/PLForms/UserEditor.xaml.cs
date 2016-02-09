@@ -40,6 +40,7 @@ namespace PLForms
             user.Type = type;
             usernameBox.SetBinding(user, "UserName", BindingMode.TwoWay);
             nameBox.SetBinding(user, "Name", BindingMode.TwoWay);
+            MainTitle.Content = "Create User Detailes:";
         }
 
         public UserEditor(BE.User user):this(user.Type)
@@ -95,6 +96,12 @@ namespace PLForms
                 var hwnd = new WindowInteropHelper(this).Handle;
                 SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (user.Type == BE.UserType.NetworkManger && (!BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger).Any()))
+                e.Cancel = true;
         }
     }
 }

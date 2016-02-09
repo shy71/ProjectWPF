@@ -25,11 +25,15 @@ namespace PLForms
             InitializeComponent();
             this.manger = manger;
             NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger && item.UserName != manger.UserName);
-            NetWorkCombo.DisplayMemberPath = "UserName";
             NetWorkCombo.SelectedValuePath = "UserName";
             BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger && item.ItemID == 0);
-            BranchMangerCombo.DisplayMemberPath ="UserName";//check
             BranchMangerCombo.SelectedValuePath = "UserName";
+            UserCombo.ItemsSource = from item in BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.Client)
+                                    where !BL.FactoryBL.getBL().GetAllOrders(item2 => item2.ClientID == item.ItemID && (item2.Delivered == false && item2.Date != DateTime.MinValue)).Any()
+                                    select item;
+            UserCombo.SelectedValuePath = "UserName";
+            DishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs();
+            DishCombo.SelectedValuePath = "ID";
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
@@ -56,8 +60,9 @@ namespace PLForms
             if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to Quit?", "Log out?", MessageBoxButton.YesNo))
             {
                 BL.FactoryBL.getBL().RemoveUser(manger);
+                this.Hide();
                 new MainInterface().Show();
-                this.Close();
+                this.Close();   
             }
 
 
@@ -67,7 +72,6 @@ namespace PLForms
         {
             new UserEditor(BE.UserType.NetworkManger).ShowDialog();
             NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger && item.UserName != manger.UserName);
-
         }
 
         private void DeleteBranch_Click(object sender, RoutedEventArgs e)
@@ -87,12 +91,13 @@ namespace PLForms
                     new BranchEditor(BL.FactoryBL.getBL().GetAllBranchs(item => item.ID == branchID).First(), true).ShowDialog();
                 }, "Edit"
                 ).Show();
+            BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger && item.ItemID == 0);
         }
         private void NetWorkCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (NetWorkCombo.SelectedItem == null)
                 return;
-            if (MessageBoxResult.Yes == MessageBox.Show("Are You Sure You want to delete this Network Manger?", "Delete Conformtion", MessageBoxButton.YesNo))
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to delete this Network Manger?", "Delete Conformtion", MessageBoxButton.YesNo))
                 BL.FactoryBL.getBL().RemoveUser(NetWorkCombo.SelectedValue as string);
             NetWorkCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger && item.UserName != manger.UserName);
         }
@@ -100,13 +105,14 @@ namespace PLForms
         private void AddButton(object sender, RoutedEventArgs e)
         {
             new BranchEditor().Show();
+            BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger && item.ItemID == 0);
         }
 
         private void BranchMangerCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (BranchMangerCombo.SelectedItem == null)
                 return;
-            if (MessageBoxResult.Yes == MessageBox.Show("Are You Sure You want to delete this Network Manger?", "Delete Conformtion", MessageBoxButton.YesNo))
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to delete this Branch Manger?", "Delete Conformtion", MessageBoxButton.YesNo))
                 BL.FactoryBL.getBL().RemoveUser(BranchMangerCombo.SelectedValue as string);
             BranchMangerCombo.ItemsSource = BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.BranchManger && item.ItemID == 0);
         }
@@ -117,6 +123,52 @@ namespace PLForms
                 {
                     new Profit_Details(x => x == branchID).Show();
                 }, "See Statics").Show();
+        }
+
+        private void DishCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (DishCombo.SelectedItem == null)
+                    return;
+                if (MessageBoxResult.Yes == MessageBox.Show("Do you want to delete this order?", "Delete Conformtion", MessageBoxButton.YesNo))
+                    BL.FactoryBL.getBL().DeleteDish(int.Parse(DishCombo.SelectedValue.ToString()));
+                else
+                    new DishEditor(BL.FactoryBL.getBL().GetAllDishs(item => item.ID == int.Parse(DishCombo.SelectedValue.ToString())).First()).ShowDialog();
+                DishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs(item=>item.Active);
+            }
+            catch(Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
+        }
+
+        private void AddDish(object sender, RoutedEventArgs e)
+        {
+            new DishEditor().ShowDialog();
+            DishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs();
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new The_Best_Things().Show();
+        }
+
+        private void DataBasePrintClickBtn(object sender, RoutedEventArgs e)
+        {
+            new Print_Data_Base().Show();
+        }
+
+        private void UserCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (UserCombo.SelectedItem == null)
+                return;
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to delete this Client?", "Delete Conformtion", MessageBoxButton.YesNo))
+                BL.FactoryBL.getBL().RemoveUser(UserCombo.SelectedValue.ToString(),true);
+            UserCombo.ItemsSource = from item in BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.Client)
+                                    where !BL.FactoryBL.getBL().GetAllOrders(item2 => item2.ClientID == item.ItemID && (item2.Delivered == false && item2.Date != DateTime.MinValue)).Any()
+                                    select item;
         }
     }
 }

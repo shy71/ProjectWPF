@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:clr="clr-namespace:System;assembly=mscorlib"
-             mc:Ignorable="d"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-             >
+             mc:Ignorable="d"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
     <Grid>
         <TextBox x:Name="textBox" TextAlignment="Left" VerticalContentAlignment="Center" FontFamily="Arial" FontWeight="Normal" GotFocus="textBox_GotFocus" LostFocus="textBox_LostFocus" Loaded="textBox_Loaded" TextChanged="UserControl_TextInput"/>
     </Grid>
