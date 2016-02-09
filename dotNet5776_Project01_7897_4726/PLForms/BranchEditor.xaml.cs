@@ -170,14 +170,9 @@ namespace PLForms
         private void BranchComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var temp = new ComboBoxItem();//בזבוז
-            foreach (BE.Branch item in BL.FactoryBL.getBL().GetAllBranchs())
-            {
-                temp = new ComboBoxItem();
-                temp.Content = item.Name + " - " + item.Address;
-                temp.ToolTip = item.ToString();
-                branchCombo.Items.Add(temp);
-            }
-            if (branchCombo.Items.Count == 0)
+            branchCombo.ItemsSource = BL.FactoryBL.getBL().GetAllBranchs();
+            branchCombo.SelectedValuePath = "ID";
+            if (branchCombo.ItemsSource.GetEnumerator().MoveNext()==false)
             {
                 branchCombo.IsEnabled = false;
                 branchCombo.ToolTip = "There isn't any branchs to pick from!";
@@ -204,7 +199,7 @@ namespace PLForms
                 BE.Branch temp;
                 if (branchCombo.SelectedIndex >= 0)
                 {
-                    temp = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ToString() == (branchCombo.Items.GetItemAt(branchCombo.SelectedIndex) as ComboBoxItem).ToolTip.ToString()).FirstOrDefault();
+                    temp = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ID.ToString() == branchCombo.SelectedValue.ToString()).FirstOrDefault();
                     if (temp == null)
                         throw new Exception("ERROR");
                     nameBox.SetText(temp.Name);
