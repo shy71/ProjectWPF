@@ -60,24 +60,7 @@ namespace PLForms
             {
                 item.Children.RemoveRange(0, item.Children.Count);
             }
-            var list = BL.FactoryBL.getBL().GetAllBranchs();
-            foreach (BE.Branch item in BL.FactoryBL.getBL().GetAllBranchs())
-            {
-                text = new TextBox();
-                text.Text = item.ToString().Replace("\t", "");
-                text.FontFamily = new FontFamily("Comic Sans MS");
-                text.Opacity = 0.5;
-                text.Width = 180;
-                text.PreviewMouseUp += MouseClick;
-                text.IsReadOnly = true;
-                if (NumOfBranches % 3 == 0)
-                    Stack1.Children.Add(text);
-                else if (NumOfBranches % 3 == 1)
-                    Stack2.Children.Add(text);
-                else
-                    Stack3.Children.Add(text);
-                NumOfBranches++;
-            }
+            Refresh(this, null);
             this.func = func;
             this.DataContext = new { Name = str, Header = "Choose the branch you want to " + str.ToLower() + ":" };
 
@@ -96,7 +79,7 @@ namespace PLForms
                 item.Children.RemoveRange(0, item.Children.Count);
             }
             var list = BL.FactoryBL.getBL().GetAllBranchs();
-            foreach (BE.Branch item in BL.FactoryBL.getBL().GetAllBranchs())
+            foreach (BE.Branch item in BL.FactoryBL.getBL().GetAllBranchs().OrderBy(item=>item.Name))
             {
                 text = new TextBox();
                 text.Text = item.ToString().Replace("\t", "");

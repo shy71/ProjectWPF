@@ -139,7 +139,7 @@ namespace PLForms
                 ManagerCombo.Items.Add(temp);
                 ManagerCombo.SelectedItem = temp;
             }
-            foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers(item2 => item2.Type == BE.UserType.BranchManger && item2.ItemID == 0))
+            foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers(item2 => item2.Type == BE.UserType.BranchManger && item2.ItemID == 0).OrderBy(item=>item.UserName))
             {
                 temp = new ComboBoxItem();
 
@@ -170,7 +170,7 @@ namespace PLForms
         private void BranchComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var temp = new ComboBoxItem();//בזבוז
-            branchCombo.ItemsSource = BL.FactoryBL.getBL().GetAllBranchs();
+            branchCombo.ItemsSource = BL.FactoryBL.getBL().GetAllBranchs().OrderBy(item=>item.Name);
             branchCombo.SelectedValuePath = "ID";
             if (branchCombo.ItemsSource.GetEnumerator().MoveNext()==false)
             {
