@@ -128,7 +128,7 @@ namespace PLForms
         private void ManagerComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var temp = new ComboBoxItem();
-            temp.Content = "Create a New manager!";
+            temp.Content = "Create a new manager!";
             temp.ToolTip = "Will give you the option to\ncreate a new manager that\nwill run the branch";
             ManagerCombo.Items.Add(temp);
             if (IsUpadte)

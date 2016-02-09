@@ -833,8 +833,12 @@ namespace BL
                 {
                     int amount = 0;
                     foreach (Client curClient in mostSimilarClients)//goes over all the clients that are most similar
-                        foreach (DishOrder curDO in GetAllDishOrders(item => (myDal.GetClient(myDal.GetOrder(item.OrderID).ClientID) == curClient) && (item.DishID == curDish.ID)))//gets all DishOrders that are from the current dish in this client
-                            amount += curDO.DishAmount;
+                    {
+                        IEnumerator<DishOrder> en = GetAllDishOrders(item => (myDal.GetClient(myDal.GetOrder(item.OrderID).ClientID) == curClient) && (item.DishID == curDish.ID)).GetEnumerator();
+                        en.MoveNext();
+                            foreach (DishOrder curDO in GetAllDishOrders(item => (myDal.GetClient(myDal.GetOrder(item.OrderID).ClientID) == curClient) && (item.DishID == curDish.ID)))//gets all DishOrders that are from the current dish in this client
+                                amount += curDO.DishAmount;
+                    }
                     if (amount > maxUsedDish)
                     {
                         suggestion = curDish;
