@@ -197,7 +197,7 @@ namespace BL
         /// <returns></returns>
         IEnumerable<Client> GetAllClients(Func<Client, bool> predicate = null);
         /// <summary>
-        /// Suggests a dish by similarity to other similar clients
+        /// Suggests a dish by similarity to other similar clients(may take a little time)
         /// </summary>
         /// <param name="ID">id of the client</param>
         /// <returns></returns>
@@ -567,12 +567,10 @@ namespace BL
                 throw new Exception(str + " the client in the order does not exists!");
             else if (!myDal.ContainID<Branch>(myOrder.BranchID))
                 throw new Exception(str + " the branch in the order does not exists!");
-            //else if (myOrder.Date == null)
-            //    throw new Exception(str + " The Date field can't be empty!");
             else if (myOrder.Kosher > myDal.GetBranch(myOrder.BranchID).Kosher)
                 throw new Exception(str + " The Kashrut in the branch is not sufficient for the order");
-            else if (myDal.GetBranch(myOrder.BranchID).AvailableMessangers == 0)
-                throw new Exception(str + " There isnt any available messangers to deliver the order");
+            //else if (myDal.GetBranch(myOrder.BranchID).AvailableMessangers == 0)
+            //    throw new Exception(str + " There isnt any available messangers to deliver the order"); checked in the Update when order is sended
         }
         public void DeliveredOrder(Order item)
         {
@@ -583,17 +581,16 @@ namespace BL
         }
         public void AddOrder(Order newOrder)
         {
-
             CompatibleOrder(newOrder, "The Order you are trying to add is incompatible:");
-
             myDal.AddOrder(newOrder);
-            myDal.GetBranch(newOrder.BranchID).AvailableMessangers--;
         }
         public void DeleteOrder(int id)
         {
+            BE.Order order = myDal.GetAllOrders(item => item.ID == id).FirstOrDefault();
+            if (order != null && order.IsActive())
+                throw new Exception("You cant Delete an order that is active right now!");
             foreach (DishOrder item in myDal.GetAllDishOrders(item => item.OrderID == id).ToList())
                 DeleteDishOrder(item);
-            myDal.GetBranch((myDal.GetOrder(id).BranchID)).AvailableMessangers++;
             myDal.DeleteOrder(id);
         }
         public void DeleteOrder(Order myOrder)
@@ -606,10 +603,14 @@ namespace BL
             if (oldOrder.BranchID != newOrder.BranchID || oldOrder.ClientID != newOrder.ClientID || oldOrder.Delivered != newOrder.Delivered || myDal.GetAllDishOrders(item => item.OrderID == newOrder.ID).Any(item => myDal.GetDish(item.DishID).Kosher < newOrder.Kosher))
                 throw new Exception("You can't update the order's kashrut level because it has dishes which aren't in the new sufficient kashrout level, also you cant update The client ID , branch ID, or if it was delivered or not(use the proper function to do it)");
             CompatibleOrder(newOrder, "The Updated order you sended to upadte the old one is incompatible:");
-            //if(oldOrder.Date==DateTime.MinValue&&newOrder.Date!=oldOrder.Date)
-            //{
-            //    new Thread(() => Timer(60,newOrder.ID)).Start();
-            //}
+            if (oldOrder.Date == DateTime.MinValue && oldOrder.Date != newOrder.Date)
+            {
+                Branch temp = myDal.GetBranch(newOrder.BranchID);
+                if (temp.AvailableMessangers == 0)
+                    throw new Exception("There isnt any Available Messangers to Handle the order!");
+                temp.AvailableMessangers--;
+                myDal.UpdateBranch(temp);
+            }
             myDal.UpdateOrder(newOrder);
         }
         public IEnumerable<Order> GetAllOrders(Func<Order, bool> predicate = null)

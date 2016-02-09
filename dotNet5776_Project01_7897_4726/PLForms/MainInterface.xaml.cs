@@ -68,8 +68,6 @@ namespace PLForms
                 {
                     MessageBox.Show("Somebody messed up with the XML files! please contact support");
                 }
-                MessageBox.Show(new DateTime(2015, 05, 23)+"A");
-
                 if (!BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger).Any())
                 {
                     MessageBox.Show("Hello! and wellcom to Shy and Ezra program for manging Fred's BBQ Joint\n you will now be redirected to create the First Network Manger account \n please pay attention to this process", "Hello World!", MessageBoxButton.OK, MessageBoxImage.Information);

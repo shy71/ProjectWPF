@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                          xmlns:clr="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:PLForms"
-        Title="Freddy's BBQ Joint" MinWidth="300" MinHeight="500" Height="500" Width="300" FontWeight="Bold" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
+        Title="Freddy's BBQ Joint --- By Ezra Block And Shy Tennenbaum" MinWidth="300" MinHeight="500" Height="500" Width="300" FontWeight="Bold" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
     <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="167*"/>

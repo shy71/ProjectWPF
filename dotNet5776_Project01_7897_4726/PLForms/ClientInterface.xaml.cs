@@ -510,27 +510,36 @@ namespace PLForms
         /// <param name="e"></param>
         private void SendBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send all of this orders?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
+            try
             {
-                foreach (object grid in stackPanel.Children)
+                if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send all of this orders?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
                 {
-                    if (grid.GetType() == typeof(Grid))
+                    foreach (object grid in stackPanel.Children)
                     {
-                        foreach (object item in (grid as Panel).Children)
+                        if (grid.GetType() == typeof(Grid))
                         {
-                            if (item.GetType() == typeof(OrderDeiltes))
+                            foreach (object item in (grid as Panel).Children)
                             {
-                                if ((item as OrderDeiltes).Opacity == 1)
+                                if (item.GetType() == typeof(OrderDeiltes))
                                 {
-                                    //Sending(sender, new BE.EventValue((item as OrderDeiltes).Content));
-                                    (item as OrderDeiltes).SendOrder();
+                                    if ((item as OrderDeiltes).Opacity == 1)
+                                    {
+                                        //Sending(sender, new BE.EventValue((item as OrderDeiltes).Content));
+                                        (item as OrderDeiltes).SendOrder();
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+            catch(Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
+
             Restart(this, null);
+
         }
         /// <summary>
         /// states that specific orders were delivered when the user presses the delivered button for the orders

@@ -135,4 +135,13 @@
     <ClientID>1921</ClientID>
     <Delivered>true</Delivered>
   </Order>
+  <Order>
+    <ID>2605923</ID>
+    <BranchID>56656603</BranchID>
+    <Address>Havved Haleumi 32</Address>
+    <Date>2016-02-10T01:11:01.0487586+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
 </Order>

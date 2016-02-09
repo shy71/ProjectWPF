@@ -139,9 +139,19 @@ namespace PLForms
             }
             if ((!IsWindowMode) || MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send this order? Cost - " + price.ToString() + "$", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
             {
-                var temp = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First();
-                temp.Date = DateTime.Now;
-                BL.FactoryBL.getBL().UpdateOrder(temp);
+                try
+                {
+                    var temp = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First();
+                    temp.Date = DateTime.Now;
+                    BL.FactoryBL.getBL().UpdateOrder(temp);
+                }
+                catch(Exception exp)
+                {
+                    if (IsWindowMode)
+                        MessageBox.Show(exp.Message);
+                    else
+                        throw exp;
+                }
             }
             if (IsWindowMode && Sended != null)
                 Sended(this, new BE.EventValue(ID));

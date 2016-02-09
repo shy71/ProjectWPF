@@ -31,16 +31,6 @@
     <Kosher>LOW</Kosher>
   </Branch>
   <Branch>
-    <ID>49769026</ID>
-    <Name>Jerusalem</Name>
-    <Address>Gilo 15</Address>
-    <PhoneNumber>026587468</PhoneNumber>
-    <Boss>David Rimon @davidR</Boss>
-    <EmployeeCount>11</EmployeeCount>
-    <AvailableMessangers>3</AvailableMessangers>
-    <Kosher>LOW</Kosher>
-  </Branch>
-  <Branch>
     <ID>49651763</ID>
     <Name>Haifa</Name>
     <Address>Alenbi Road</Address>
@@ -51,16 +41,6 @@
     <Kosher>LOW</Kosher>
   </Branch>
   <Branch>
-    <ID>61919381</ID>
-    <Name>Tel Aviv</Name>
-    <Address>Dizengoff Center</Address>
-    <PhoneNumber>032648555</PhoneNumber>
-    <Boss>Nria Granot @nriaGranot</Boss>
-    <EmployeeCount>4</EmployeeCount>
-    <AvailableMessangers>15</AvailableMessangers>
-    <Kosher>MEDIUM</Kosher>
-  </Branch>
-  <Branch>
     <ID>49101594</ID>
     <Name>Rishon Lezion</Name>
     <Address>Sdarot Herzl 67</Address>
@@ -69,16 +49,6 @@
     <EmployeeCount>5</EmployeeCount>
     <AvailableMessangers>3</AvailableMessangers>
     <Kosher>LOW</Kosher>
-  </Branch>
-  <Branch>
-    <ID>95577371</ID>
-    <Name>Petah Tikva</Name>
-    <Address>Orlov 23</Address>
-    <PhoneNumber>036453716</PhoneNumber>
-    <Boss>Kobi Godinger @kobi321</Boss>
-    <EmployeeCount>4</EmployeeCount>
-    <AvailableMessangers>5</AvailableMessangers>
-    <Kosher>HIGH</Kosher>
   </Branch>
   <Branch>
     <ID>87465</ID>
@@ -117,7 +87,37 @@
     <PhoneNumber>046547643</PhoneNumber>
     <Boss>Yishay Catane @icatane</Boss>
     <EmployeeCount>5</EmployeeCount>
-    <AvailableMessangers>5</AvailableMessangers>
+    <AvailableMessangers>6</AvailableMessangers>
     <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>61919381</ID>
+    <Name>Tel Aviv</Name>
+    <Address>Dizengoff Center</Address>
+    <PhoneNumber>032648555</PhoneNumber>
+    <Boss>Nria Granot @nriaGranot</Boss>
+    <EmployeeCount>4</EmployeeCount>
+    <AvailableMessangers>16</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
+    <ID>95577371</ID>
+    <Name>Petah Tikva</Name>
+    <Address>Orlov 23</Address>
+    <PhoneNumber>036453716</PhoneNumber>
+    <Boss>Kobi Godinger @kobi321</Boss>
+    <EmployeeCount>4</EmployeeCount>
+    <AvailableMessangers>5</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>49769026</ID>
+    <Name>Jerusalem</Name>
+    <Address>Gilo 15</Address>
+    <PhoneNumber>026587468</PhoneNumber>
+    <Boss>David Rimon @davidR</Boss>
+    <EmployeeCount>11</EmployeeCount>
+    <AvailableMessangers>3</AvailableMessangers>
+    <Kosher>LOW</Kosher>
   </Branch>
 </Branches>
