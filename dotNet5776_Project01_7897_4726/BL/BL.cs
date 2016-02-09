@@ -380,15 +380,13 @@ namespace BL
         internal void CompatibleUser(User myUser, string str)
         {
             if (myUser.Password == "")
-                throw new Exception(str + "The password cant be empty!");
+                throw new Exception(str + "The password can't be empty!");
             else if (myUser.Name == "")
-                throw new Exception(str + "The name cant be empty!");
+                throw new Exception(str + "The name can't be empty!");
             else if (myUser.UserName == "")
-                throw new Exception(str + "The username cant be empty!");
+                throw new Exception(str + "The username can't be empty!");
             else if (myUser.Type == UserType.Client && !myDal.ContainID<Client>(myUser.ItemID))
-                throw new Exception(str + "There isnt a client that connected to this user!");
-            else if (myUser.Type == UserType.BranchManger && myUser.ItemID != 0)
-                throw new Exception(str + "There is an uncorrected Branch that is connected to this user!");
+                throw new Exception(str + "There isn't a client that connected to this user!");
         }
         /// <summary>
         /// gets all the users that pass the predicate test
@@ -423,8 +421,8 @@ namespace BL
         public void UpdateUser(User user)
         {
             if (myDal.GetUser(user.UserName).ItemID != user.ItemID&&user.Type==BE.UserType.Client)
-                throw new Exception("You cant change the item that is linked to a user!");
-            CompatibleUser(user, "The updated user you sended to upadte the old one is incompatible.");
+                throw new Exception("You can't change the item that is linked to a user!");
+            CompatibleUser(user, "The updated user you sent to update the old one is incompatible.");
             myDal.UpdateUser(user);
         }
         /// <summary>
@@ -593,7 +591,7 @@ namespace BL
                 myDal.DeleteBranch(id);
             }
             else
-                throw new Exception("you cant delete a branch that has active orders from!");
+                throw new Exception("you can't delete a branch that has active orders from!");
         }
         public void DeleteBranch(Branch myBranch)
         {
@@ -605,7 +603,7 @@ namespace BL
         {
             if (!myDal.GetAllOrders(item => item.BranchID == myBranch.ID).Any(item => item.Kosher > myBranch.Kosher && item.IsActive()))
             {
-                CompatibleBranch(myBranch, "The updated branch you sended to upadte the old one is incompatible.");
+                CompatibleBranch(myBranch, "The updated branch you sendt to update the old one is incompatible.");
                 if (myBranch.Boss != myDal.GetBranch(myBranch.ID).Boss)
                     SetBranchManger(myBranch, myBranch.Boss);
                 myDal.UpdateBranch(myBranch);
@@ -703,7 +701,7 @@ namespace BL
         internal void CompatibleDishOrder(DishOrder theDishOrder, string str = null, bool IsNewDishOrder = true)
         {
             if (theDishOrder.DishAmount <= 0)
-                throw new Exception(str + " you cant order less then one from a Dish");
+                throw new Exception(str + " you can't order less then one from a Dish");
             else if (!myDal.ContainID<Dish>(theDishOrder.DishID))
                 throw new Exception(str + " the Dish you are trying to order does not exists!");
             else if (!myDal.ContainID<Order>(theDishOrder.OrderID))
@@ -713,7 +711,7 @@ namespace BL
             else if (IsNewDishOrder && (PriceOfOrder(theDishOrder.OrderID) + theDishOrder.DishAmount * myDal.GetDish(theDishOrder.DishID).Price) > MAX_PRICE)//בודק שהמחיר הצפוי לא גבוה מהמקסימום המותר
                 throw new Exception(str + " with those dishes the order price will be above the approved limit!");
             else if (myDal.GetDish(theDishOrder.DishID).Kosher < myDal.GetBranch(myDal.GetOrder(theDishOrder.OrderID).BranchID).Kosher)
-                throw new Exception(str + " you cant add a dish without the sufficient Kashrut for the order");
+                throw new Exception(str + " you can't add a dish without the sufficient Kashrut for the order");
         }
         public void AddDishOrder(DishOrder newDishOrder)
         {
@@ -734,10 +732,10 @@ namespace BL
             if (item.DishAmount > temp.DishAmount)
             {
                 if (PriceOfOrder(item.OrderID) + (item.DishAmount - temp.DishAmount) * myDal.GetDish(item.DishID).Price > MAX_PRICE)
-                    throw new Exception("you cant upadte the order because with the extra dishs your ordered your order price will be above the approved limit!");
+                    throw new Exception("you can't upadte the order because with the extra dishs your ordered your order price will be above the approved limit!");
             }
             else if (item.DishID != temp.DishID || item.OrderID != temp.OrderID)
-                throw new Exception("You cant update those components!");
+                throw new Exception("You can't update those components!");
             CompatibleDishOrder(item, "The Updated Dish order you sended to upadte the old one is incompatible:", false);
             myDal.UpdateDishOrder(item);
         }
@@ -786,7 +784,7 @@ namespace BL
             if (temp.Address != item.Address)
             {
                 if (myDal.GetAllOrders(var => var.ClientID == var.ID && var.Address == temp.Address && var.IsActive()).Count() > 0)
-                    throw new Exception("You cant upadte a client address when he has an order to that address!");
+                    throw new Exception("You can't upadte a client address when he has an order to that address!");
             }
             CompatibleClient(item, "The Updated Client you sended to upadte the old one is incompatible:");
             myDal.UpdateClient(item);

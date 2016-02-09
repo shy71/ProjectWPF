@@ -49,9 +49,9 @@ namespace PLForms
             IsUpdated = true;
             this.user = user;
             usernameBox.IsEnabled = false;
-            usernameBox.ToolTip = "You cant change your username!";
+            usernameBox.ToolTip = "You can't change your username!";
             if (user.ItemID == 0)
-                idBox.Str = "Doesnt have a branch";
+                idBox.Str = "Doesn't have a branch";
             else
             {
                 idBox.SetText(user.ItemID.ToString());
@@ -67,9 +67,9 @@ namespace PLForms
             try
             {
                 if (passwordBox1.GetPassword() != passwordBox2.GetPassword())
-                    throw new Exception("The passwords does not match!");
+                    throw new Exception("The passwords don't match!");
                 if (passwordBox1.GetPassword() == "")
-                    throw new Exception("The password cant be empty!");
+                    throw new Exception("The password can't be empty!");
                 if (!IsUpdated)
                 {
                     user.Password = passwordBox1.GetPassword();

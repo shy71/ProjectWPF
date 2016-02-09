@@ -37,7 +37,7 @@ namespace PLForms
         {
             branch = BL.FactoryBL.getBL().GetAllBranchs(item => user.ItemID == item.ID).FirstOrDefault();
             if (branch == null)
-                throw new Exception("Sorry, you dont have a branch assinged to you at the moment");
+                throw new Exception("Sorry, you don't have a branch assinged to you at the moment");
             this.user = user;
             details_Loaded(this, null);
 
