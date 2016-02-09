@@ -379,7 +379,7 @@ namespace DAL
                 TElement.Remove();
                 getFile<T>().Save();
             }
-            catch
+            catch(Exception exp)
             {
                 throw new Exception("Problem deleting the item.");
             }
