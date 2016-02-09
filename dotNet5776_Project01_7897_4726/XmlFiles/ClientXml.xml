@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Clients>
   <Client>
+    <ID>1921</ID>
+    <Name>Shay</Name>
+    <Address>Sderot Hertzel 12</Address>
+    <CreditCard>45326</CreditCard>
+    <Age>23</Age>
+  </Client>
+  <Client>
     <ID>10934</ID>
     <Name>ari</Name>
     <Address>Beit Shemesh</Address>
@@ -27,12 +34,5 @@
     <Address>Ma'ale Adumim</Address>
     <CreditCard>38267</CreditCard>
     <Age>19</Age>
-  </Client>
-  <Client>
-    <ID>137361</ID>
-    <Name>shay katz</Name>
-    <Address>hasaks</Address>
-    <CreditCard>31232</CreditCard>
-    <Age>27</Age>
   </Client>
 </Clients>

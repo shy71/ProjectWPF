@@ -30,12 +30,12 @@ namespace PLForms
         {
             try
             {
-                InitializeComponent();
+                InitializeComponent();/*
                 if (MessageBox.Show("would you like to reset the database?", "DataBase Restart", MessageBoxButton.YesNo, MessageBoxImage.Error, MessageBoxResult.No) == MessageBoxResult.Yes)
                 {
                     BL.FactoryBL.getBL().DeleteDataBase();
                     BL.FactoryBL.getBL().Inti();
-                }
+                }*/
                 if (!BL.FactoryBL.getBL().GetAllUsers(item => item.Type == BE.UserType.NetworkManger).Any())
                 {
                     MessageBox.Show("Hello! and wellcom to Shy and Ezra program for manging Fred's BBQ Joint\n you will now be redirected to create the First Network Manger account \n please pay attention to this process", "Hello World!", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -122,7 +122,7 @@ namespace PLForms
                                     IsLostPassword = true;
                                 }
                                 else
-                                    MessageBox.Show("We cant do anything for you, please try to contact your superior");
+                                    MessageBox.Show("We can't do anything for you, please try to contact your superior");
                             }
 
                             InputPassword.Clear();
@@ -147,23 +147,6 @@ namespace PLForms
             FocusManager.SetFocusedElement(this, InputPassword.textBox);
             SignInButton.ToolTip = "Log in to the account";
         }
-
-        //private void passwordLabelBox_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    if ((sender as PasswordBox).Password == "" || backArrow.Visibility==Visibility.Hidden)
-        //    {
-        //        (sender as PasswordBox).Visibility = Visibility.Hidden;
-        //        passwordLabelBox.Text = null;
-        //        //TextBox_LostFocus(passwordLabelBox, null);
-        //        passwordLabelBox.Visibility = Visibility;
-        //        InputPassword.Password = null;
-
-        //    }
-        //    else
-        //    {
-        //        passwordLabelBox.Text = InputPassword.Password;
-        //    }
-        //}
         /// <summary>
         /// opens the window for account creation when the create account button is clicked
         /// </summary>

@@ -30,6 +30,13 @@
   </User>
   <User>
     <Type>Client</Type>
+    <UserName>shay</UserName>
+    <Password>123456</Password>
+    <Name>shay katz</Name>
+    <ItemID>1921</ItemID>
+  </User>
+  <User>
+    <Type>Client</Type>
     <UserName>ari</UserName>
     <Password>123456</Password>
     <Name>ari wiss</Name>
@@ -90,12 +97,5 @@
     <Password>123456</Password>
     <Name>itai deykan</Name>
     <ItemID>9873</ItemID>
-  </User>
-  <User>
-    <Type>Client</Type>
-    <UserName>shay</UserName>
-    <Password>123456</Password>
-    <Name>shay katz</Name>
-    <ItemID>137361</ItemID>
   </User>
 </Users>

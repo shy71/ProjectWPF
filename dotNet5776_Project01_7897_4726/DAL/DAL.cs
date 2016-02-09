@@ -402,7 +402,7 @@ namespace DAL
         {
             getFile<T>().LoadFile();
             if (!ContainID<T>(item.ID))
-                throw new Exception("There isnt any item in the list with this id...");
+                throw new Exception("There isn't any item in the list with this id...");
             Delete(item);
             Add(item);
         }
@@ -416,7 +416,7 @@ namespace DAL
         {
             getFile<T>().LoadFile();
             if (!ContainID<T>(id))
-                throw new Exception("There isnt any item in the datdbase with this id...");
+                throw new Exception("There isn't any item in the datdbase with this id...");
             try
             {
                 T res = new T();
