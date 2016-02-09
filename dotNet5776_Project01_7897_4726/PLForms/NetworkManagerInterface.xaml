@@ -5,7 +5,7 @@
     <Grid>
         <Button x:Name="LogOut" Content="Log Out" ToolTip="Log out of this account" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="24" Click="LogOut_Click"/>
         <Button Content="Edit your profile" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" ToolTip="Edit you're personal profile or user" Click="Edit_Click" Panel.ZIndex="1" Height="39"/>
-        <TabControl Margin="0,39,0,0">
+        <TabControl Margin="0,40,0,0">
             <TabItem Header="Manage Branches">
                 <Grid Background="#FFA50221">
                     <StackPanel>
