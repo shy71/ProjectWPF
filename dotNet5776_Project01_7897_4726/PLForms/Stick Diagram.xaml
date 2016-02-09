@@ -6,7 +6,6 @@
              mc:Ignorable="d" 
            Loaded="UserControl_Loaded">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel x:Name="MainStack" HorizontalAlignment="Center" Orientation="Horizontal">
-        </StackPanel>
+        <StackPanel x:Name="MainStack" HorizontalAlignment="Center" Orientation="Horizontal"/>
     </ScrollViewer>
 </UserControl>

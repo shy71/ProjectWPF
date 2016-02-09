@@ -118,7 +118,13 @@ namespace PLForms
         }
         private void Update_Click(object sender, RoutedEventArgs e)
         {
-            new OrderEditorStep2(BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First(), IsDeliverd).Show();
+            var win = new OrderEditorStep2(BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First(), IsDeliverd);
+            win.Closed += ((sender1, e1) =>
+            {
+                if(Updated!=null)
+                    Updated(this, new BE.EventValue(ID));
+            });
+            win.Show();
             if (IsWindowMode && Updated != null)
                 Updated(this, new BE.EventValue(ID));
             priceOrder.Text = BL.FactoryBL.getBL().PriceOfOrder(ID).ToString() + "$";

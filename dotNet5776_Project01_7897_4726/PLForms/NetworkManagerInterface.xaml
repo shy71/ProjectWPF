@@ -69,6 +69,10 @@
                         <Button Height="35" Content="Statistics Info for one of the branchs" ToolTip="Statitics of a specific e.g. Dish popularity in the branch" FontSize="20" Click="BranchStatic_Click"/>
                         <Button Height="35" Content="Show the best of the thing in the database" ToolTip="Shows the best/most profitable dish/branch/client" FontSize="20" Click="Button_Click" />
                         <Grid>
+                            <ComboBox x:Name="UserCombo" ToolTip="Kick a customer out of the restaurant" SelectionChanged="UserCombo_SelectionChanged" ItemTemplate="{StaticResource UserDataTemplate}" IsEnabled="{Binding ElementName=UserCombo,Path=ItemsSource,Converter={StaticResource ItemsSourceToBoolen}}"/>
+                            <TextBlock Text="Kick a Client out of the restaurant" IsHitTestVisible="False" FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=UserCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+                        </Grid>
+                        <Grid>
                             <ComboBox x:Name="BranchMangerCombo" Height="35" ToolTip="Fire a branch manager" SelectionChanged="BranchMangerCombo_SelectionChanged" ItemTemplate="{StaticResource UserDataTemplate}" IsEnabled="{Binding ElementName=BranchMangerCombo,Path=ItemsSource,Converter={StaticResource ItemsSourceToBoolen}}"/>
                             <TextBlock Text="Delete Branch Manager" IsHitTestVisible="False" FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=BranchMangerCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
                         </Grid>

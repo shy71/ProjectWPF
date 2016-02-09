@@ -136,6 +136,7 @@ namespace PLForms
                 //orderD.Updated += Restart;
                 //orderD.Arived += Restart;
                 orderD.DelivveryArived += OrderArrived;
+                orderD.Updated += Restart;
                 orderD.Opacity = 0.7;
                 orderD.PreviewMouseDown += MouseClick;
                 var ChildEnumrator = stackPanel.Children.GetEnumerator();
@@ -618,7 +619,7 @@ namespace PLForms
             {
                 if (BL.FactoryBL.getBL().GetAllOrders().Any(item => (item.ClientID == user.ItemID) && item.IsActive()))
                 {
-                    MessageBox.Show("You can't delete the user since you still have active orders", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("You can't delete your user since you still have active orders", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 if (MessageBox.Show("Are you sure you want to close the account", "Delete Confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
