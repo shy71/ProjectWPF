@@ -165,7 +165,7 @@ namespace PLForms
         //    }
         //}
         /// <summary>
-        /// opens the window for account creation when the create account button is clicked
+        /// opens the window for account creation when the create account button is clicked 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
