@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Branches>
   <Branch>
+    <ID>87465</ID>
+    <Name>Jerusalem</Name>
+    <Address>malcha 1</Address>
+    <PhoneNumber>026587463</PhoneNumber>
+    <Boss>itai deykan @itai6</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>4</AvailableMessangers>
+    <Kosher>MEDIUM</Kosher>
+  </Branch>
+  <Branch>
     <ID>18932</ID>
     <Name>Bnei Brak</Name>
     <Address>sholm 7</Address>
@@ -21,6 +31,16 @@
     <Kosher>LOW</Kosher>
   </Branch>
   <Branch>
+    <ID>33</ID>
+    <Name>Tel Aviv</Name>
+    <Address>zion 6</Address>
+    <PhoneNumber>032648544</PhoneNumber>
+    <Boss>itai deykan @itai4</Boss>
+    <EmployeeCount>10</EmployeeCount>
+    <AvailableMessangers>10</AvailableMessangers>
+    <Kosher>LOW</Kosher>
+  </Branch>
+  <Branch>
     <ID>9873</ID>
     <Name>Beit Shemesh</Name>
     <Address>Big Center 1</Address>
@@ -28,56 +48,6 @@
     <Boss>itai deykan @itai5</Boss>
     <EmployeeCount>2</EmployeeCount>
     <AvailableMessangers>3</AvailableMessangers>
-    <Kosher>MEDIUM</Kosher>
-  </Branch>
-  <Branch>
-    <ID>96110356</ID>
-    <Name>Jerusalem</Name>
-    <Address>Sdarot Herzel 12</Address>
-    <PhoneNumber>026587464</PhoneNumber>
-    <Boss>Ariel Feriga @arielf</Boss>
-    <EmployeeCount>3</EmployeeCount>
-    <AvailableMessangers>9</AvailableMessangers>
-    <Kosher>HIGH</Kosher>
-  </Branch>
-  <Branch>
-    <ID>49769026</ID>
-    <Name>Jerusalem</Name>
-    <Address>Gilo 15</Address>
-    <PhoneNumber>026587468</PhoneNumber>
-    <Boss>David Rimon @davidR</Boss>
-    <EmployeeCount>11</EmployeeCount>
-    <AvailableMessangers>2</AvailableMessangers>
-    <Kosher>LOW</Kosher>
-  </Branch>
-  <Branch>
-    <ID>87465</ID>
-    <Name>Jerusalem</Name>
-    <Address>Malcha 1</Address>
-    <PhoneNumber>026587463</PhoneNumber>
-    <Boss>itai deykan @itai6</Boss>
-    <EmployeeCount>3</EmployeeCount>
-    <AvailableMessangers>4</AvailableMessangers>
-    <Kosher>MEDIUM</Kosher>
-  </Branch>
-  <Branch>
-    <ID>33</ID>
-    <Name>Tel Aviv</Name>
-    <Address>Zion 6</Address>
-    <PhoneNumber>032648544</PhoneNumber>
-    <Boss>itai deykan @itai4</Boss>
-    <EmployeeCount>17</EmployeeCount>
-    <AvailableMessangers>4</AvailableMessangers>
-    <Kosher>LOW</Kosher>
-  </Branch>
-  <Branch>
-    <ID>61919381</ID>
-    <Name>Tel Aviv</Name>
-    <Address>Dizengoff Center</Address>
-    <PhoneNumber>032648555</PhoneNumber>
-    <Boss>Nria Granot @nriaGranot</Boss>
-    <EmployeeCount>4</EmployeeCount>
-    <AvailableMessangers>13</AvailableMessangers>
     <Kosher>MEDIUM</Kosher>
   </Branch>
 </Branches>

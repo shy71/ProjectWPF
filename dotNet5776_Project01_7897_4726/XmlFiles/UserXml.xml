@@ -98,25 +98,4 @@
     <Name>itai deykan</Name>
     <ItemID>9873</ItemID>
   </User>
-  <User>
-    <Type>BranchManger</Type>
-    <UserName>arielf</UserName>
-    <Password>123456</Password>
-    <Name>Ariel Feriga</Name>
-    <ItemID>96110356</ItemID>
-  </User>
-  <User>
-    <Type>BranchManger</Type>
-    <UserName>davidR</UserName>
-    <Password>123456</Password>
-    <Name>David Rimon</Name>
-    <ItemID>49769026</ItemID>
-  </User>
-  <User>
-    <Type>BranchManger</Type>
-    <UserName>nriaGranot</UserName>
-    <Password>123456</Password>
-    <Name>Nria Granot</Name>
-    <ItemID>61919381</ItemID>
-  </User>
 </Users>
