@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NetworkManagerWindow" Height="500" Width="500" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
     <Grid>
+        <Button Content="Show the DataBase" ToolTip="Shows all of the database with the option to search for something specific and by a specific catagory" HorizontalAlignment="Right" Panel.ZIndex="1" VerticalAlignment="Bottom" Width="150" Height="39" Click="DataBasePrintClickBtn"/>
         <Button x:Name="LogOut" Content="Log Out" ToolTip="Log out of this account" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="24" Click="LogOut_Click"/>
         <Button Content="Edit your profile" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" ToolTip="Edit you're personal profile or user" Click="Edit_Click" Panel.ZIndex="1" Height="39"/>
         <TabControl Margin="0,40,0,0">
@@ -20,7 +21,11 @@
                     <StackPanel>
                         <Button Content="Add Dish" ToolTip="Add a dish to the restaurant network" FontSize="20" Click="AddDish"/>
                         <Grid>
-                            <ComboBox x:Name="DishCombo" ToolTip="Delete/Edit Dishs" SelectionChanged="DishCombo_SelectionChanged" IsEnabled="{Binding ElementName=DishCombo,Path=ItemsSource,Converter={StaticResource ItemsSourceToBoolen}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="22*"/>
+                                <ColumnDefinition Width="219*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox x:Name="DishCombo" ToolTip="Delete/Edit Dishs" SelectionChanged="DishCombo_SelectionChanged" IsEnabled="{Binding ElementName=DishCombo,Path=ItemsSource,Converter={StaticResource ItemsSourceToBoolen}}" Grid.ColumnSpan="2">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock>
@@ -35,14 +40,19 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <TextBlock Text="Delete/Edit Dishs" IsHitTestVisible="False" FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=DishCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+                            <TextBlock Text="Delete/Edit Dishs" IsHitTestVisible="False" FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=DishCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}" Grid.Column="1" Margin="112.779,0,156,0"/>
                         </Grid>
                     </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Other Options">
                 <Grid Background="#FFA50221">
-                    <StackPanel>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="67*"/>
+                        <ColumnDefinition Width="255*"/>
+                        <ColumnDefinition Width="160*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.ColumnSpan="3">
                         <StackPanel.Resources>
                             <DataTemplate x:Key="UserDataTemplate" DataType="ComboBox">
                                 <TextBlock>
@@ -57,6 +67,7 @@
                         </StackPanel.Resources>
                         <Button Content="Statistics Info for the entire network" ToolTip="Statitics of the network e.g. Dish popularity in the network" FontSize="20" Click="Static_Click"/>
                         <Button Content="Statistics Info for one of the branchs" ToolTip="Statitics of a specific e.g. Dish popularity in the branch" FontSize="20" Click="BranchStatic_Click"/>
+                        <Button Content="Show the best of the thing in the database" ToolTip="Shows the best/most profitable dish/branch/client" FontSize="20" Click="Button_Click" />
                         <Grid>
                             <ComboBox x:Name="BranchMangerCombo" ToolTip="Fire a branch manager" SelectionChanged="BranchMangerCombo_SelectionChanged" ItemTemplate="{StaticResource UserDataTemplate}" IsEnabled="{Binding ElementName=BranchMangerCombo,Path=ItemsSource,Converter={StaticResource ItemsSourceToBoolen}}"/>
                             <TextBlock Text="Delete Branch Manager" IsHitTestVisible="False" FontSize="20" FontFamily="Comic Sans MS" Foreground="Maroon" HorizontalAlignment="Center" Visibility="{Binding ElementName=BranchMangerCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>

@@ -1,0 +1,25 @@
+﻿<Window x:Class="PLForms.The_Best_Things"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="The_Best_Things" Height="300" Width="300">
+    <Grid Background="#FFA50221">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1">
+            <TextBox x:Name="Details" Background="Transparent" BorderThickness="0" Foreground="Black" Text="{Binding Text, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Comic Sans MS"/>
+        </ScrollViewer>
+        <ComboBox x:Name="TypeComboBox" Loaded="TypeComboBox_Loaded" SelectionChanged="TypeComboBox_SelectionChanged" Grid.Row="0" Margin="80,0,80,0"/>
+        <TextBlock Grid.Row="0" IsHitTestVisible="False" HorizontalAlignment="Center" Margin="80,0,80,0" VerticalAlignment="Center" TextAlignment="Center" Text="Choose The Type" Visibility="{Binding ElementName=TypeComboBox,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="Maroon" />
+                    <Setter Property="FontFamily" Value="Comic Sans MS" />
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <Button x:Name="OKbtn" Grid.Row="2" Margin="80,0,80,0" Click="Ok_Click" Content="OK"/>
+    </Grid>
+</Window>

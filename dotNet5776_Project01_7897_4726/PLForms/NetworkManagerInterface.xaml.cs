@@ -144,5 +144,15 @@ namespace PLForms
             DishCombo.ItemsSource = BL.FactoryBL.getBL().GetAllDishs();
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new The_Best_Things().Show();
+        }
+
+        private void DataBasePrintClickBtn(object sender, RoutedEventArgs e)
+        {
+            new Print_Data_Base().Show();
+        }
     }
 }
