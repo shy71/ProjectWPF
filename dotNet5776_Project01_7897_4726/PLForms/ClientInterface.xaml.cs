@@ -136,6 +136,7 @@ namespace PLForms
                 //orderD.Updated += Restart;
                 //orderD.Arived += Restart;
                 orderD.DelivveryArived += OrderArrived;
+                orderD.Updated += Restart;
                 orderD.Opacity = 0.7;
                 orderD.PreviewMouseDown += MouseClick;
                 var ChildEnumrator = stackPanel.Children.GetEnumerator();
