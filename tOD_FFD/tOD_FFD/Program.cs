@@ -24,6 +24,13 @@ namespace tOD_FFD
         }
         public int DishID { get; set; }
     }
+    static public class Tools
+    {
+        public static IEnumerable<int> Shy(this int[] arr, Func<int, bool> func)
+        {
+            return arr.Where(func);
+        }
+    }
     class MyClass
     {
         delegate string mydel(int a);
@@ -36,30 +43,6 @@ namespace tOD_FFD
             public static int f1(ref int a)
             {
                 return 2;
-            }
-            public static void Main()
-            {
-                MyClass[] arr = new MyClass[4];
-                arr[0] = new MyClass();
-                List<int> list = new List<int> { 2, 1, 5, 3 };
-                int x = 0;
-                IEnumerable<int> v = from item in list
-                                     where item == x++
-                                     select item;
-                Console.WriteLine("x is : "+x);
-                foreach (var item in v)
-                {
-                    Console.WriteLine("{0}:{1}",x,item);
-                    
-                }
-                foreach (var item in v)
-                {
-                    Console.WriteLine("{0}:{1}", x, item);
-                }
-                f1(ref x); 
-                mydel temp = item => item.ToString();
-                Console.WriteLine(DateTime.Parse(DateTime.Now.ToString()).ToString());
-
             }
         }
     }

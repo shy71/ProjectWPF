@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Clients>
+  <Client>
+    <ID>1921</ID>
+    <Name>Shay Katz</Name>
+    <Address>Havved Haleumi 32</Address>
+    <CreditCard>45326</CreditCard>
+    <Age>18</Age>
+  </Client>
+  <Client>
+    <ID>151721</ID>
+    <Name>Sefi Eliash</Name>
+    <Address>Amek Refaim</Address>
+    <CreditCard>81631238</CreditCard>
+    <Age>21</Age>
+  </Client>
+  <Client>
+    <ID>151164</ID>
+    <Name>Ido Sharpstiain</Name>
+    <Address>Eliat, Eliat Street</Address>
+    <CreditCard>921734</CreditCard>
+    <Age>41</Age>
+  </Client>
+  <Client>
+    <ID>160391</ID>
+    <Name>Dan Reback</Name>
+    <Address>Maitar, Maitar Road</Address>
+    <CreditCard>4363723</CreditCard>
+    <Age>19</Age>
+  </Client>
+  <Client>
+    <ID>160597</ID>
+    <Name>Daniel Pitro</Name>
+    <Address>Neve Choof</Address>
+    <CreditCard>23647312</CreditCard>
+    <Age>76</Age>
+  </Client>
+  <Client>
+    <ID>154738</ID>
+    <Name>Itan Gotlive</Name>
+    <Address>dolev</Address>
+    <CreditCard>96712391</CreditCard>
+    <Age>19</Age>
+  </Client>
+  <Client>
+    <ID>146927</ID>
+    <Name>Itan Novik</Name>
+    <Address>Chasmoniem</Address>
+    <CreditCard>1590123</CreditCard>
+    <Age>22</Age>
+  </Client>
+  <Client>
+    <ID>153517</ID>
+    <Name>Uriel Eli</Name>
+    <Address>Afula</Address>
+    <CreditCard>91264912</CreditCard>
+    <Age>19</Age>
+  </Client>
+</Clients>
