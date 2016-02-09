@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Dishes>
   <Dish>
-    <ID>957473</ID>
-    <Name>Soup</Name>
-    <Size>LARGE</Size>
-    <Price>13</Price>
-    <Kosher>HIGH</Kosher>
-    <Active>true</Active>
-  </Dish>
-  <Dish>
     <ID>19273</ID>
     <Name>Hot Dogs</Name>
     <Size>MEDIUM</Size>
@@ -22,14 +14,6 @@
     <Size>SMALL</Size>
     <Price>15</Price>
     <Kosher>HIGH</Kosher>
-    <Active>true</Active>
-  </Dish>
-  <Dish>
-    <ID>95840</ID>
-    <Name>Wings</Name>
-    <Size>MEDIUM</Size>
-    <Price>12</Price>
-    <Kosher>MEDIUM</Kosher>
     <Active>true</Active>
   </Dish>
   <Dish>
@@ -199,5 +183,21 @@
     <Price>4</Price>
     <Kosher>LOW</Kosher>
     <Active>true</Active>
+  </Dish>
+  <Dish>
+    <ID>957473</ID>
+    <Name>Soup|Unactive</Name>
+    <Size>LARGE</Size>
+    <Price>13</Price>
+    <Kosher>HIGH</Kosher>
+    <Active>false</Active>
+  </Dish>
+  <Dish>
+    <ID>95840</ID>
+    <Name>Wings|Unactive</Name>
+    <Size>MEDIUM</Size>
+    <Price>12</Price>
+    <Kosher>MEDIUM</Kosher>
+    <Active>false</Active>
   </Dish>
 </Dishes>

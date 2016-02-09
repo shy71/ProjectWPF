@@ -64,15 +64,6 @@
     <Delivered>true</Delivered>
   </Order>
   <Order>
-    <ID>3477063</ID>
-    <BranchID>18932</BranchID>
-    <Address>Maitar, Maitar Road</Address>
-    <Date>2016-02-09T23:08:11.6355822+02:00</Date>
-    <Kosher>HIGH</Kosher>
-    <ClientID>160391</ClientID>
-    <Delivered>false</Delivered>
-  </Order>
-  <Order>
     <ID>3431070</ID>
     <BranchID>87465</BranchID>
     <Address>Maitar, Maitar Road</Address>
@@ -116,5 +107,23 @@
     <Kosher>MEDIUM</Kosher>
     <ClientID>146927</ClientID>
     <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>3477063</ID>
+    <BranchID>18932</BranchID>
+    <Address>Maitar, Maitar Road</Address>
+    <Date>2016-02-09T23:08:11.6355822+02:00</Date>
+    <Kosher>HIGH</Kosher>
+    <ClientID>160391</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>2605922</ID>
+    <BranchID>61919381</BranchID>
+    <Address>Havved Haleumi 32</Address>
+    <Date>0001-01-01T00:00:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>false</Delivered>
   </Order>
 </Order>

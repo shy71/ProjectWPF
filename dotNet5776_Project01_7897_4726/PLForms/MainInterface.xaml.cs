@@ -34,22 +34,35 @@ namespace PLForms
                 InitializeComponent();
                 try
                 {
-                    BE.Client temp = null;
-                    BE.Order temp1 = null;
-                    foreach (BE.DishOrder item in BL.FactoryBL.getBL().GetAllDishOrders())
+                    var ClientList = BL.FactoryBL.getBL().GetAllClients();
+                    var UsertList = BL.FactoryBL.getBL().GetAllUsers();
+                    var BranchList = BL.FactoryBL.getBL().GetAllBranchs();
+                    var DishList=BL.FactoryBL.getBL().GetAllDishs();
+                    var OrderList = BL.FactoryBL.getBL().GetAllOrders();
+                    var DishOrderList = BL.FactoryBL.getBL().GetAllDishOrders();
+                    foreach (BE.Client item in ClientList)
+                        UsertList.First(item2 => item2.ItemID == item.ID&&item2.Type==BE.UserType.Client);
+                    foreach (BE.User item in UsertList)
+                        if (item.Type == BE.UserType.Client)
+                            ClientList.First(item2 => item2.ID == item.ItemID);
+                        else if (item.Type == BE.UserType.BranchManger)
+                            BranchList.First(item2 => item2.ID == item.ItemID);
+                    foreach (BE.Branch item in BranchList)
+                        UsertList.First(item2=>item2.UserName==item.Boss.Substring(item.Boss.IndexOf('@')+1));
+                    foreach (BE.Order item in OrderList)
                     {
-                        temp1 = BL.FactoryBL.getBL().GetAllOrders(item2 => item2.ID == item.OrderID).First();
-                        temp = BL.FactoryBL.getBL().GetAllClients(item2 => item2.ID == temp1.ClientID).First();
-                        BL.FactoryBL.getBL().GetAllUsers(item2 => item2.ItemID == temp.ID);
-                        BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ID == temp1.BranchID);
+                        ClientList.First(item2 => item2.ID == item.ClientID);
+                        BranchList.First(item2 => item2.ID == item.BranchID);
+                        if (BL.FactoryBL.getBL().PriceOfOrder(item) > BL.FactoryBL.getBL().MAX_PRICE)
+                            throw new Exception();
                     }
-                    foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers())
+                    foreach (BE.DishOrder item in DishOrderList)
                     {
-                        if(item.ItemID!=0&&item.Type==BE.UserType.Client)
-                        BL.FactoryBL.getBL().GetAllClients(item2 => item2.ID == item.ItemID).First();
-                        else if(item.ItemID!=0)
-                            BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ID == item.ItemID).First();
+                       var temp= OrderList.First(item2 => item2.ID == item.OrderID);
+                        DishList.First(item2 => item2.ID == item.DishID &&( (temp.Delivered==false)?item2.Active==true:true));//
                     }
+
+                  
                 }
                 catch
                 {

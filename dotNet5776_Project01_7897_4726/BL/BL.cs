@@ -210,6 +210,42 @@ namespace BL
         IEnumerable<Client> SearchClients(string str);
         #endregion
 
+        #region User Functions
+        /// <summary>
+        /// Gets all users that pass the predicate test
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null);
+        /// <summary>
+        /// Gets a specific user by its name
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
+        User GetUser(string UserName);
+        /// <summary>
+        /// Adds a new user
+        /// </summary>
+        /// <param name="user"></param>
+        void AddUser(User user);
+        /// <summary>
+        /// updates a user
+        /// </summary>
+        /// <param name="user"></param>
+        void UpdateUser(User user);
+        /// <summary>
+        /// Deletes a user by its name
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="DeleteClient"></param>
+        void RemoveUser(string username, bool DeleteClient = false);
+        /// <summary>
+        /// deletes a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="DeleteClient"></param>
+        void RemoveUser(BE.User user, bool DeleteClient = false);
+        #endregion
 
 
         #region ToString Functions
@@ -298,6 +334,9 @@ namespace BL
         Dish BestDishInBranch(Branch myBranch);
         #endregion
 
+        /// <summary>
+        /// delete the entire DataBase
+        /// </summary>
         void DeleteDataBase();
 
         /// <summary>
@@ -325,40 +364,6 @@ namespace BL
         void Inti();
 
 
-        /// <summary>
-        /// Gets all users that pass the predicate test
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null);
-        /// <summary>
-        /// Gets a specific user by its name
-        /// </summary>
-        /// <param name="UserName"></param>
-        /// <returns></returns>
-        User GetUser(string UserName);
-        /// <summary>
-        /// Adds a new user
-        /// </summary>
-        /// <param name="user"></param>
-        void AddUser(User user);
-        /// <summary>
-        /// updates a user
-        /// </summary>
-        /// <param name="user"></param>
-        void UpdateUser(User user);
-        /// <summary>
-        /// Deletes a user by its name
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="DeleteClient"></param>
-        void RemoveUser(string username, bool DeleteClient = false);
-        /// <summary>
-        /// deletes a user
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="DeleteClient"></param>
-        void RemoveUser(BE.User user, bool DeleteClient = false);
 
     }
 
@@ -371,81 +376,6 @@ namespace BL
         public void DeleteDataBase()
         {
             myDal.DeleteDataBase();
-        }
-        /// <summary>
-        /// checks if the user is compatible 
-        /// </summary>
-        /// <param name="myUser"></param>
-        /// <param name="str"></param>
-        internal void CompatibleUser(User myUser, string str)
-        {
-            if (myUser.Password == "")
-                throw new Exception(str + "The password can't be empty!");
-            else if (myUser.Name == "")
-                throw new Exception(str + "The name can't be empty!");
-            else if (myUser.UserName == "")
-                throw new Exception(str + "The username can't be empty!");
-            else if (myUser.Type == UserType.Client && !myDal.ContainID<Client>(myUser.ItemID))
-                throw new Exception(str + "There isn't a client that connected to this user!");
-        }
-        /// <summary>
-        /// gets all the users that pass the predicate test
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null)
-        {
-            return myDal.GetAllUsers(predicate);
-        }
-        /// <summary>
-        /// adds a user
-        /// </summary>
-        /// <param name="user"></param>
-        public void AddUser(User user)
-        {
-            myDal.AddUser(user);
-        }
-        /// <summary>
-        /// gets a specific user by its name
-        /// </summary>
-        /// <param name="UserName"></param>
-        /// <returns></returns>
-        public User GetUser(string UserName)
-        {
-            return myDal.GetUser(UserName);
-        }
-        /// <summary>
-        /// updates a user
-        /// </summary>
-        /// <param name="user"></param>
-        public void UpdateUser(User user)
-        {
-            if (myDal.GetUser(user.UserName).ItemID != user.ItemID&&user.Type==BE.UserType.Client)
-                throw new Exception("You can't change the item that is linked to a user!");
-            CompatibleUser(user, "The updated user you sent to update the old one is incompatible.");
-            myDal.UpdateUser(user);
-        }
-        /// <summary>
-        /// removes a user by its name
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="DeleteClient"></param>
-        public void RemoveUser(string username, bool DeleteClient = false)
-        {
-            if (DeleteClient)
-                myDal.DeleteClient(myDal.GetUser(username).ItemID);
-            myDal.DeleteUser(username);
-        }
-        /// <summary>
-        /// removes a user
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="DeleteClient"></param>
-        public void RemoveUser(BE.User user, bool DeleteClient = false)
-        {
-            if (DeleteClient)
-                myDal.DeleteClient(user.ItemID);
-            myDal.DeleteUser(user.UserName);
         }
         /// <summary>
         /// Max Price for an order
@@ -487,12 +417,12 @@ namespace BL
         }
         public void DeleteDish(int id)
         {
-            if (!myDal.GetAllDishOrders(item => item.DishID == id).Any((item) => myDal.GetOrder(item.OrderID).IsActive()))
-            {
+            Dish temp;
+            temp = myDal.GetAllDishs(item => item.ID == id).FirstOrDefault();
+            if (temp == null)
                 myDal.DeleteDish(id);
-            }
             else
-                throw new Exception("You can't delete a dish which is being ordered");
+                DeleteDish(temp);
         }
         public void DeleteDish(Dish dish)
         {
@@ -500,6 +430,8 @@ namespace BL
             {
                 dish.Active = false;
                 myDal.UpdateDish(dish);
+                foreach (DishOrder item in myDal.GetAllDishOrders(item => item.DishID == dish.ID && myDal.GetOrder(item.OrderID).Delivered == false))
+                    DeleteDishOrder(item);
             }
             else
                 throw new Exception("You can't delete a dish which is being ordered");
@@ -848,6 +780,84 @@ namespace BL
             }
             Random rand = new Random();
             return GetAllDishs().ToList()[rand.Next(0, GetAllDishs().ToList().Count - 1)];
+        }
+        #endregion
+
+        #region User Functions
+        /// <summary>
+        /// checks if the user is compatible 
+        /// </summary>
+        /// <param name="myUser"></param>
+        /// <param name="str"></param>
+        internal void CompatibleUser(User myUser, string str)
+        {
+            if (myUser.Password == "")
+                throw new Exception(str + "The password can't be empty!");
+            else if (myUser.Name == "")
+                throw new Exception(str + "The name can't be empty!");
+            else if (myUser.UserName == "")
+                throw new Exception(str + "The username can't be empty!");
+            else if (myUser.Type == UserType.Client && !myDal.ContainID<Client>(myUser.ItemID))
+                throw new Exception(str + "There isn't a client that connected to this user!");
+        }
+        /// <summary>
+        /// gets all the users that pass the predicate test
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null)
+        {
+            return myDal.GetAllUsers(predicate);
+        }
+        /// <summary>
+        /// adds a user
+        /// </summary>
+        /// <param name="user"></param>
+        public void AddUser(User user)
+        {
+            myDal.AddUser(user);
+        }
+        /// <summary>
+        /// gets a specific user by its name
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
+        public User GetUser(string UserName)
+        {
+            return myDal.GetUser(UserName);
+        }
+        /// <summary>
+        /// updates a user
+        /// </summary>
+        /// <param name="user"></param>
+        public void UpdateUser(User user)
+        {
+            if (myDal.GetUser(user.UserName).ItemID != user.ItemID && user.Type == BE.UserType.Client)
+                throw new Exception("You can't change the item that is linked to a user!");
+            CompatibleUser(user, "The updated user you sent to update the old one is incompatible.");
+            myDal.UpdateUser(user);
+        }
+        /// <summary>
+        /// removes a user by its name
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="DeleteClient"></param>
+        public void RemoveUser(string username, bool DeleteClient = false)
+        {
+            if (DeleteClient)
+                myDal.DeleteClient(myDal.GetUser(username).ItemID);
+            myDal.DeleteUser(username);
+        }
+        /// <summary>
+        /// removes a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="DeleteClient"></param>
+        public void RemoveUser(BE.User user, bool DeleteClient = false)
+        {
+            if (DeleteClient)
+                myDal.DeleteClient(user.ItemID);
+            myDal.DeleteUser(user.UserName);
         }
         #endregion
 
