@@ -420,10 +420,17 @@ namespace BL
         /// <param name="user"></param>
         public void UpdateUser(User user)
         {
+            User oldUser = myDal.GetAllUsers(item => item.ItemID == user.ItemID).FirstOrDefault();
             if (myDal.GetUser(user.UserName).ItemID != user.ItemID&&user.Type==BE.UserType.Client)
                 throw new Exception("You can't change the item that is linked to a user!");
             CompatibleUser(user, "The updated user you sent to update the old one is incompatible.");
             myDal.UpdateUser(user);
+            if(user.Name!=oldUser.Name && user.Type==BE.UserType.BranchManger)
+            {
+                Branch theBranch = myDal.GetAllBranchs(item => item.Boss == oldUser.Name + " @" +oldUser.UserName).FirstOrDefault();
+                theBranch.Boss=user.Name+" @"+ user.UserName;
+                myDal.UpdateBranch(theBranch);
+            }
         }
         /// <summary>
         /// removes a user by its name
