@@ -200,12 +200,4 @@
     <Kosher>LOW</Kosher>
     <Active>true</Active>
   </Dish>
-  <Dish>
-    <ID>458752</ID>
-    <Name>green beans</Name>
-    <Size>SMALL</Size>
-    <Price>1</Price>
-    <Kosher>MEDIUM</Kosher>
-    <Active>true</Active>
-  </Dish>
 </Dishes>

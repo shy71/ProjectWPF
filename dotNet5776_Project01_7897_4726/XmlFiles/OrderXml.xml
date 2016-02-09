@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Order>
   <Order>
+    <ID>2444915</ID>
+    <BranchID>96110356</BranchID>
+    <Address>Havved Haleumi 32</Address>
+    <Date>2016-02-09T22:50:03.036979+02:00</Date>
+    <Kosher>HIGH</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
     <ID>2605921</ID>
     <BranchID>56656603</BranchID>
     <Address>Havved Haleumi 32</Address>
@@ -106,33 +115,6 @@
     <Date>2016-02-09T23:38:11.8483455+02:00</Date>
     <Kosher>MEDIUM</Kosher>
     <ClientID>146927</ClientID>
-    <Delivered>true</Delivered>
-  </Order>
-  <Order>
-    <ID>2597465</ID>
-    <BranchID>96110356</BranchID>
-    <Address>hasaks</Address>
-    <Date>2016-02-09T23:14:00.1518596+02:00</Date>
-    <Kosher>MEDIUM</Kosher>
-    <ClientID>1921</ClientID>
-    <Delivered>true</Delivered>
-  </Order>
-  <Order>
-    <ID>2390100</ID>
-    <BranchID>2</BranchID>
-    <Address>hasaks</Address>
-    <Date>2016-02-09T23:17:08.7228596+02:00</Date>
-    <Kosher>LOW</Kosher>
-    <ClientID>1921</ClientID>
-    <Delivered>true</Delivered>
-  </Order>
-  <Order>
-    <ID>2436465</ID>
-    <BranchID>96110356</BranchID>
-    <Address>hasaks</Address>
-    <Date>2016-02-09T23:17:08.7328596+02:00</Date>
-    <Kosher>HIGH</Kosher>
-    <ClientID>1921</ClientID>
     <Delivered>true</Delivered>
   </Order>
 </Order>
