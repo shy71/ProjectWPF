@@ -386,9 +386,7 @@ namespace BL
             else if (myUser.UserName == "")
                 throw new Exception(str + "The username can't be empty!");
             else if (myUser.Type == UserType.Client && !myDal.ContainID<Client>(myUser.ItemID))
-                throw new Exception(str + "There isnt a client that connected to this user!");
-            else if (myUser.Type == UserType.BranchManger && myUser.ItemID != 0)
-                throw new Exception(str + "There is an uncorrectable Branch that is connected to this user!");
+                throw new Exception(str + "There isn't a client that connected to this user!");
         }
         /// <summary>
         /// gets all the users that pass the predicate test
