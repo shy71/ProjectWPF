@@ -163,13 +163,14 @@ namespace PLForms
         }
         private void OrderDetails_Sending(int ID)
         {
-            Thread.Sleep(10000+rand.Next(5000,10000));
+            int waitingTime=rand.Next(15000,20000);
+            Thread.Sleep(waitingTime);
             BE.Order order = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == ID).First();
             if (order.Delivered == false)
             {
                 BL.FactoryBL.getBL().DeliveredOrder(order);
                 if (DelivveryArived != null)
-                    DelivveryArived(this, new BE.EventValue(ID));
+                    DelivveryArived(this, new BE.EventValue(waitingTime,ID.ToString()));
             }
         }
     }

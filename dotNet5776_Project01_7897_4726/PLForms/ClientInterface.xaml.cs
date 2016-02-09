@@ -24,7 +24,7 @@ namespace PLForms
     {
         List<Window> subWin = new List<Window>();
         int numOfOrders = 0;
-        BE.User user;
+        public BE.User user;
         bool IsCtrlDown = false;
         /// <summary>
         /// constructor
@@ -55,7 +55,7 @@ namespace PLForms
         private void Restart(object sender, BE.EventValue e)
         {
             foreach (Window item in subWin)
-                item.Close();//שיסגר רק החלון שעשה את הריסטרט
+                item.Close();
             Clear_window();
             if (DeliveredButton.IsChecked == true)
                 DeliveredButton_Checked(DeliveredButton, null);
@@ -67,20 +67,10 @@ namespace PLForms
                 if (item.GetType() == typeof(Expander))
                     (item as Expander).IsExpanded = false;
             foreach (object grid in stackPanel.Children)
-            {
                 if (grid.GetType() == typeof(Grid))
-                {
                     foreach (object item in (grid as Panel).Children)
-                    {
                         if (item.GetType() == typeof(OrderDeiltes))
-                        {
                             (item as OrderDeiltes).Opacity = 0.7;
-                            //(item as OrderDeiltes).BorderThickness = new Thickness(1);
-                            //(item as OrderDeiltes).BorderBrush = Brushes.Black;
-                        }
-                    }
-                }
-            }
         }
         /// <summary>
         /// open when the window is loaded 
@@ -565,36 +555,38 @@ namespace PLForms
             }
             Restart(this, null);
         }
-        private void OrderArrived(object sender,BE.EventValue e)
+        private void OrderArrived(object sender, BE.EventValue e)
         {
             OrderDeiltes us;
-           BE.Order order= BL.FactoryBL.getBL().GetAllOrders(item=>item.ID==int.Parse(e.Value.ToString())).First();
-               if (order.ClientID == user.ItemID)
-               {
-                   if (MessageBoxResult.Yes == MessageBox.Show("An order of you has arived!\n would you like to open it?", "Order Arived!", MessageBoxButton.YesNo))
-                   {
-                       Dispatcher.Invoke(() =>
-                           {
-                               if (!this.IsActive)
-                               {
-                                   MessageBox.Show("Sorry, you dont have permission to see the order");
-                                   return;
-                               }
-                               us = new OrderDeiltes(order, true);
-                               us.Deleted += Restart;
-                               us.Sended += Restart;
-                               us.Updated += Restart;
-                               us.Arived += Restart;
-                               us.DelivveryArived += OrderArrived;
-                               Restart(this, null);
-                               subWin.Add(new ShowUserControl(us));
-                               subWin.Last().Show();
-
-                       
-                           });
-                   }
-                   }
-               Dispatcher.Invoke(() => Restart(this, null));
+            BE.Order order = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == int.Parse(e.pName)).First();
+            Dispatcher.Invoke(() =>
+                {
+                    foreach (Window item in App.Current.Windows)
+                    {
+                        if (item is ClientInterface)
+                        {
+                            if ((item as ClientInterface).user.ItemID == BL.FactoryBL.getBL().GetAllOrders(item2 => item2.ID.ToString() == e.pName).First().ClientID)
+                            {
+                                if (MessageBoxResult.Yes == MessageBox.Show("An order of you has arived, it took -- "+int.Parse(e.Value.ToString())/1000+" sec !\nWould you like to open it?", "Order Arived!", MessageBoxButton.YesNo))
+                                {
+                                    us = new OrderDeiltes(order, true);
+                                    us.Deleted += Restart;
+                                    us.Sended += Restart;
+                                    us.Updated += Restart;
+                                    us.Arived += Restart;
+                                    us.DelivveryArived += OrderArrived;
+                                    Restart(this, null);
+                                    subWin.Add(new ShowUserControl(us));
+                                    subWin.Last().Show();
+                                }
+                                else
+                                Restart(this, null);
+                            }
+                            else
+                            return;
+                        }
+                    }
+                });
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
