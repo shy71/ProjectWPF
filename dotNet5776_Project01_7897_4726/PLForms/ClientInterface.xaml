@@ -13,7 +13,7 @@
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="LogOut" Content="Log Out" HorizontalAlignment="Right" VerticalAlignment="Top" Width="95" Grid.Column="1" FontSize="24" Click="LogOut_Click" Panel.ZIndex="1" ToolTip="Log out of this account"/>
-        <Button x:Name="DeleteUser" Content="Delete the Account" HorizontalAlignment="Right" Margin="0,0,95,0" VerticalAlignment="Top" Grid.Column="1" FontSize="24" Click="DeleteUser_Click" Panel.ZIndex="1" ToolTip="Log out of this account"/>
+        <Button x:Name="DeleteUser" Content="Delete the Account" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="20" Click="DeleteUser_Click" Panel.ZIndex="1" ToolTip="Log out of this account" Grid.Row="1" Width="234" Height="43"/>
         <Button x:Name="addBtn" Height="150" Width="150" Click="addBtn_Click" Background="Transparent" Content="{StaticResource AddOrders}" ToolTip="Add a new order"/>
         <ScrollViewer Grid.Column="1"  VerticalScrollBarVisibility="Auto" Grid.RowSpan="1">
             <StackPanel>
@@ -48,7 +48,7 @@
                 </ScrollViewer>
             </Expander>
         </StackPanel>
-        <Button Content="Edit your profile" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Click="EditProfileButton_Click" Margin="74,0" Grid.Row="1"/>
+        <Button Content="Edit your profile" HorizontalAlignment="Left" FontSize="20" VerticalAlignment="Bottom" Width="234" Click="EditProfileButton_Click" Margin="0,0,0,43" Grid.Row="1" Height="43"/>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
             <Button x:Name="DeleteBtn"  Margin="0,0,30,0" Click="DeleteBtn_Click" Visibility="Collapsed" ToolTip="Delete The Orders" Content="{StaticResource DeleteOrders}"/>
             <Button x:Name="EditBtn"  Margin="0,0,30,0" Click="EditBtn_Click" Visibility="Collapsed" ToolTip="Edit The Orders" Content="{StaticResource EditOrders}"/>
