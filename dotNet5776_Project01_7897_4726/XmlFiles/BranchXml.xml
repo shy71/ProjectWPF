@@ -51,16 +51,6 @@
     <Kosher>LOW</Kosher>
   </Branch>
   <Branch>
-    <ID>96110356</ID>
-    <Name>Jerusalem</Name>
-    <Address>Sdarot Herzel 12</Address>
-    <PhoneNumber>026587464</PhoneNumber>
-    <Boss>Ariel Feriga @arielf</Boss>
-    <EmployeeCount>3</EmployeeCount>
-    <AvailableMessangers>11</AvailableMessangers>
-    <Kosher>HIGH</Kosher>
-  </Branch>
-  <Branch>
     <ID>56656603</ID>
     <Name>Haifa</Name>
     <Address>Sea Road</Address>
@@ -118,6 +108,16 @@
     <Boss>Brauch Belzberg @brauchB</Boss>
     <EmployeeCount>2</EmployeeCount>
     <AvailableMessangers>8</AvailableMessangers>
+    <Kosher>HIGH</Kosher>
+  </Branch>
+  <Branch>
+    <ID>96110356</ID>
+    <Name>Jerusalem</Name>
+    <Address>Sdarot Herzel 12</Address>
+    <PhoneNumber>026587464</PhoneNumber>
+    <Boss>Ariel Ferigaaa @arielf</Boss>
+    <EmployeeCount>3</EmployeeCount>
+    <AvailableMessangers>11</AvailableMessangers>
     <Kosher>HIGH</Kosher>
   </Branch>
 </Branches>
