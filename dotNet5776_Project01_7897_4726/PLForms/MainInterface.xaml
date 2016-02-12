@@ -1,0 +1,72 @@
+﻿<Window x:Class="PLForms.MainInterface"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:clr="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:PLForms"
+        Title="Freddy's BBQ Joint --- By Ezra Block And Shy Tennenbaum" MinWidth="300" MinHeight="500" Height="500" Width="300" FontWeight="Bold" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
+    <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="167*"/>
+            <RowDefinition Height="136*"/>
+            <RowDefinition Height="46*"/>
+            <RowDefinition Height="121*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Source="Images\Logo.png"/>
+        <local:TextControl x:Name="InputBox" FontS="20" Str="Enter your Username" Grid.Row="2" Height="35" VerticalAlignment="Center" PreviewKeyDown="InputPreviewKeyDown" Width="217"/>
+        <Button x:Name="SignInButton" Grid.Row="3" VerticalAlignment="Top" Height="40" FontSize="20" Margin="47,24,47,0" Click="NextLogin">
+            <Button.Style>
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=InputBox, Path=ForeG}" Value="Gray"/>
+                                <Condition Binding="{Binding ElementName=InputPassword, Path=Visibility}" Value="Hidden"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Button.IsEnabled" Value="False"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=backArrow, Path=Visibility}" Value="Visible"/>
+                                <Condition Binding="{Binding ElementName=InputPassword, Path=ForeG}" Value="Gray"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Button.IsEnabled" Value="False"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=backArrow, Path=Visibility}" Value="Hidden">
+                            <Setter Property="Button.Content" Value="Next"/>
+                            
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=backArrow, Path=Visibility}" Value="Visible">
+                            <Setter Property="Button.Content" Value="Sign In"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="19*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="typeLabel" Content="{Binding Type,Converter={StaticResource TypeToString}}" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontWeight="Bold" FontSize="15" Height="48" Width="294" Grid.ColumnSpan="2"/>
+            <Label x:Name="nameLabel" Content="{Binding Name}" Grid.Row="1" HorizontalContentAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="2"/>
+            <Label x:Name="UsernameLabel" Content="{Binding UserName}" Grid.Row="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="26" Grid.ColumnSpan="2" />
+
+            <Button x:Name="backArrow" Grid.Column="1" Click="backArrow_Click" Grid.Row="0" Visibility="Hidden">
+                <Button.Content>
+                    <Image Source="Images\Back Arrow.png"/>
+                </Button.Content>
+            </Button>
+        </Grid>
+        <Button x:Name="createAccountButton" Visibility="{Binding ElementName=backArrow,Path=Visibility,Converter={StaticResource NotVisibility}}" Content="Create account" Margin="90,88,90,0" Grid.Row="3" VerticalAlignment="Top" FontFamily="auto" Click="createAccountButton_Click" ToolTip="Dont have an account? create one now!"/>
+        <local:PasswordControl x:Name="InputPassword" FontS="15" Grid.Row="2"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" Width="217" PreviewKeyDown="InputPreviewKeyDown" Str="Password"  Visibility="Hidden"/>
+    </Grid>
+</Window>

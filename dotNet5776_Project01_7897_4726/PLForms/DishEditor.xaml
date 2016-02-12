@@ -1,0 +1,80 @@
+﻿<Window x:Class="PLForms.DishEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PLForms"
+        Title="Dish Editor" MinHeight="335" Height="335" MinWidth="380" Width="380" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="107*"/>
+            <ColumnDefinition Width="69*"/>
+            <ColumnDefinition Width="92*"/>
+            <ColumnDefinition Width="84*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.75*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="InformationText" Grid.Row="0" Text="Dish Details:" FontSize="18" FontWeight="ExtraBold" VerticalAlignment="Center" HorizontalAlignment="Left"  Height="22" Width="132" Margin="0,10,0,11" Grid.ColumnSpan="2"/>
+        <local:TextControl x:Name="nameBox" Grid.Row="1" Str="Dish Name" Grid.ColumnSpan="4" pName="Name" Changed="TextControl_Changed"/>
+        <local:TextControl x:Name="priceBox" Str="Price" Grid.Row="3"  pName="Price" Changed="priceBox_Changed"/>
+        <ComboBox x:Name="SizeCombo" Grid.Row="5"  Grid.ColumnSpan="2" SelectionChanged="SizeCombo_SelectionChanged"/>
+        <TextBlock Text="Select Size for the Dish" IsHitTestVisible="False" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="24,21,31,20" Grid.ColumnSpan="2" Visibility="{Binding ElementName=SizeCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+        <ComboBox x:Name="KashrutCombo" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="2" ToolTip="The Kashrut level of the dish)" SelectionChanged="KashrutCombo_SelectionChanged"/>
+        <TextBlock Text="Select Kashrut level" IsHitTestVisible="False" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=KashrutCombo ,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+        <Button x:Name="DoButton" Content="Create!" Grid.Column="2" ToolTip="Create the dish" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="7" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24"  Margin="51,16,51,17" Click="DoButton_Click">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=nameBox, Path=ForeG}" Value="Gray">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=priceBox, Path=ForeG}" Value="Gray">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=SizeCombo,Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=KashrutCombo,Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Content="Copy Dish!" Grid.Column="3" FontWeight="Bold" ToolTip="Copy Dish details into the new branch." Click="Copy_Click" >
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=dishCombo,Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <ComboBox x:Name="dishCombo" Grid.Column="2"  ToolTipService.ShowOnDisabled="True" Loaded="dishCombo_Loaded">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding  StringFormat="{}{0} -- {1}$ -- {2}">
+                                <Binding Path="Name"/>
+                                <Binding Path="Price"/>
+                                <Binding Path="Kosher"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="Base Dish" IsHitTestVisible="False" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=dishCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+        <local:TextControl x:Name="idBox" IsEnabled="{Binding IsChecked, ElementName=checkBox}" Str="ID"  Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Panel.ZIndex="1" Grid.Row="3" MinWidth="75" Margin="0,0,0,10" ToolTipService.ShowOnDisabled="True" Changed="idBox_Changed"/>
+        <CheckBox x:Name="checkBox"  Content="Self appointed ID(Not recommended!)" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="1"/>
+    </Grid>
+</Window>

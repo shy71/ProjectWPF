@@ -144,7 +144,7 @@ namespace Console_UI
                                 case "1":
                                     #region By Dishs
                                     temp = 0;
-                                    var grouping = myBL.GetProfitByDishs();
+                                    var grouping = myBL.GetProfitByDishs(x=>true);
                                     foreach (IGrouping<int, float> item in grouping)
                                     {
                                         Console.WriteLine("Details for profit from Dish" + myBL.GetAllDishs(item2 => item2.ID == item.Key).FirstOrDefault().Name + " (" + item.Key + "):");
@@ -161,7 +161,7 @@ namespace Console_UI
                                 case "2":
                                     #region By Dates
                                     temp = 0;
-                                    var grouping2 = myBL.GetProfitByDates();
+                                    var grouping2 = myBL.GetProfitByDates(x=>true);
                                     foreach (IGrouping<string, float> item in grouping2)
                                     {
                                         Console.WriteLine("Details for profit from Date " + item.Key + ":");
@@ -178,7 +178,7 @@ namespace Console_UI
                                 case "3":
                                     #region By Clients
                                     temp = 0;
-                                    var grouping3 = myBL.GetProfitByAddress();
+                                    var grouping3 = myBL.GetProfitByAddress(x=>true);
                                     foreach (IGrouping<int, float> item in grouping3)
                                     {
                                         Console.WriteLine("Details for profit from Client" + myBL.GetAllClients(item2 => item2.ID == item.Key).FirstOrDefault().Name + " (" + item.Key + "):");
@@ -215,7 +215,7 @@ namespace Console_UI
                             #region Print all Undelivered orders
                             temp = 0;
                             temp2 = 0;
-                            foreach (Order item in myBL.GetAllOrders(item => item.Delivered == false))
+                            foreach (Order item in myBL.GetAllOrders(item => item.Delivered == false && item.Date != DateTime.MinValue))
                             {
                                 Console.WriteLine(item);
                                 Console.WriteLine("Dishs in the Order:");

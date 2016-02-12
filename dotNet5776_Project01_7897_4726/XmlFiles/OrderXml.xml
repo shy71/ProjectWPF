@@ -1,2 +1,147 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Order></Order>
+<Order>
+  <Order>
+    <ID>2444915</ID>
+    <BranchID>96110356</BranchID>
+    <Address>Havved Haleumi 32</Address>
+    <Date>2016-02-09T22:50:03.036979+02:00</Date>
+    <Kosher>HIGH</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>2605921</ID>
+    <BranchID>56656603</BranchID>
+    <Address>Havved Haleumi 32</Address>
+    <Date>2016-02-09T22:50:06.2451625+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>2398927</ID>
+    <BranchID>49769026</BranchID>
+    <Address>Havved Haleumi 32</Address>
+    <Date>2016-02-09T22:50:08.9093149+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>3601222</ID>
+    <BranchID>61919381</BranchID>
+    <Address>Amek Refaim</Address>
+    <Date>2016-02-09T22:52:48.1918861+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>151721</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>3440228</ID>
+    <BranchID>95577371</BranchID>
+    <Address>Amek Refaim</Address>
+    <Date>2016-02-09T22:52:50.4070128+02:00</Date>
+    <Kosher>HIGH</Kosher>
+    <ClientID>151721</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>3411415</ID>
+    <BranchID>49651763</BranchID>
+    <Address>Amek Refaim</Address>
+    <Date>2016-02-09T22:56:46.2653175+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>151164</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>3710365</ID>
+    <BranchID>96110356</BranchID>
+    <Address>Neve Choof</Address>
+    <Date>2016-02-09T22:57:12.5359708+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>160597</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>3477063</ID>
+    <BranchID>18932</BranchID>
+    <Address>Maitar, Maitar Road</Address>
+    <Date>2015-05-09T23:08:11.6355822+02:00</Date>
+    <Kosher>HIGH</Kosher>
+    <ClientID>160391</ClientID>
+    <Delivered>false</Delivered>
+  </Order>
+  <Order>
+    <ID>3431070</ID>
+    <BranchID>87465</BranchID>
+    <Address>Maitar, Maitar Road</Address>
+    <Date>2016-02-09T23:08:11.6235816+02:00</Date>
+    <Kosher>LOW</Kosher>
+    <ClientID>160391</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>3638063</ID>
+    <BranchID>18932</BranchID>
+    <Address>Maitar, Maitar Road</Address>
+    <Date>2016-02-09T23:08:11.6455828+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>160391</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>3485018</ID>
+    <BranchID>95577371</BranchID>
+    <Address>Afula</Address>
+    <Date>2016-02-09T23:31:58.2489768+02:00</Date>
+    <Kosher>HIGH</Kosher>
+    <ClientID>153517</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>3706350</ID>
+    <BranchID>87465</BranchID>
+    <Address>dolev</Address>
+    <Date>2014-11-19T23:37:43.7027356+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>154738</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>3721243</ID>
+    <BranchID>18932</BranchID>
+    <Address>Chasmoniem</Address>
+    <Date>2016-02-09T23:38:11.8483455+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>146927</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>2605915</ID>
+    <BranchID>96110356</BranchID>
+    <Address>Havved Haleumi 32</Address>
+    <Date>2016-02-10T00:51:04.623327+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>2605922</ID>
+    <BranchID>56656603</BranchID>
+    <Address>Havved Haleumi 32</Address>
+    <Date>2015-07-18T00:51:04.6433281+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+  <Order>
+    <ID>2605923</ID>
+    <BranchID>56656603</BranchID>
+    <Address>Havved Haleumi 32</Address>
+    <Date>2016-02-10T01:11:01.0487586+02:00</Date>
+    <Kosher>MEDIUM</Kosher>
+    <ClientID>1921</ClientID>
+    <Delivered>true</Delivered>
+  </Order>
+</Order>

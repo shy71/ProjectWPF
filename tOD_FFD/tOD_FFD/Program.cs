@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace tOD_FFD
     { }
     class Dish : Inta
     {
-        public string S{get;set;}
+        public string S { get; set; }
         public Dish(string s, int a)
         {
             S = s;
@@ -23,19 +24,26 @@ namespace tOD_FFD
         }
         public int DishID { get; set; }
     }
-    class Program
+    static public class Tools
     {
-        public static void Main()
+        public static IEnumerable<int> Shy(this int[] arr, Func<int, bool> func)
         {
-            //לעזרא 
-            float x = Convert.ToSingle("4.234");
-            Console.WriteLine( x);
-            Console.ReadKey();
-            return;
-            Dish d = new Dish("Hot dogs", 0);
-            new XElement("Dish", from item in d.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
-                                 select new XElement(item.Name, item.GetValue(d))).Save(@"Dish.xml");
+            return arr.Where(func);
         }
-
+    }
+    class MyClass
+    {
+        delegate string mydel(int a);
+        public MyClass()
+        {
+            Console.WriteLine("a");
+        }
+        class Program
+        {
+            public static int f1(ref int a)
+            {
+                return 2;
+            }
+        }
     }
 }

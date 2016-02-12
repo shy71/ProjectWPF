@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="250" Width="196" Background="#FFA50221">
+             MinHeight="250" MinWidth="196" Height="250" Width="196" Background="#FFA50221">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -23,7 +23,7 @@
             <RowDefinition Height="37*"/>
             <RowDefinition Height="57*"/>
         </Grid.RowDefinitions>
-        <Image Source="Images\Order1 - Copy.jpg" Grid.RowSpan="7" Grid.ColumnSpan="5" Margin="0,0,0,-2"/>
+        <Image Source="Images\Order Details.jpg" Grid.RowSpan="7" VerticalAlignment="Top" Grid.ColumnSpan="5" Margin="0,0,0,-2"/>
         <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3" Margin="0,2,0,1">
             <TextBlock x:Name="ShortAddress" TextAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Foreground="Green"/>
         </ScrollViewer>
@@ -31,65 +31,40 @@
             <TextBlock x:Name="FullAddress" TextWrapping="WrapWithOverflow" FontSize="20" FontFamily="Comic Sans MS" Foreground="Green" Background="Transparent" TextAlignment="Center"/>
         </ScrollViewer>
         <Label x:Name="Date" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Grid.Column="1" Grid.Row="5" FontSize="20" FontFamily="Comic Sans MS" Foreground="Green" Grid.ColumnSpan="3" Margin="0,2" />
-        <Image x:Name="DeleteImg" Source="Images\recycle_bin1.png" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="3" Visibility="{Binding ElementName=Delete,Path=Visibility}">
-            <Image.Style>
-                <Style TargetType="{x:Type Image}">
-                    <Setter Property="Width" Value="44"/>
-                    <Setter Property="Height" Value="56"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=Delete, Path=IsMouseOver}" Value="True">
-                            <Setter Property="Width" Value="66"/>
-                            <Setter Property="Height" Value="84"/>
-                        </DataTrigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Width" Value="66"/>
-                            <Setter Property="Height" Value="84"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Image.Style>
-        </Image>
-        <Button x:Name="Delete" Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="44" Height="56" Grid.Column="3" ToolTip="Delete the order!" Click="Delete_Click"/>
-        <Image x:Name="EditImg" Grid.Row="6" Source="Images\text-edit-2.png" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Grid.Column="2" Visibility="{Binding ElementName=SendBtn,Path=Visibility}" >
-            <Image.Style>
-                <Style TargetType="{x:Type Image}">
-                    <Setter Property="Width" Value="56"/>
-                    <Setter Property="Height" Value="56"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=EditBtn, Path=IsMouseOver}" Value="True">
-                            <Setter Property="Width" Value="84"/>
-                            <Setter Property="Height" Value="84"/>
-                        </DataTrigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Width" Value="66"/>
-                            <Setter Property="Height" Value="84"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Image.Style>
-        </Image>
-        <Button x:Name="EditBtn"  Style="{x:Null}" Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="52" Height="52" Grid.Column="2" ToolTip="Edit the order!" Click="Update_Click" Visibility="{Binding ElementName=SendBtn,Path=Visibility}"/>
-        
-        <Image x:Name="SendImg" Source="Images\send5.jpg" Grid.Row="6"  Grid.Column="0"  Grid.ColumnSpan="2" VerticalAlignment="Bottom" Visibility="{Binding ElementName=SendBtn,Path=Visibility}">
-            <Image.Style>
-                <Style TargetType="{x:Type Image}">
-                    <Setter Property="Width" Value="44"/>
-                    <Setter Property="Height" Value="56"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=SendBtn, Path=IsMouseOver}" Value="True">
-                            <Setter Property="Width" Value="66"/>
-                            <Setter Property="Height" Value="84"/>
-                        </DataTrigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Width" Value="66"/>
-                            <Setter Property="Height" Value="84"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Image.Style>
-        </Image>
-        <Button x:Name="SendBtn"  Opacity="0.1" Background="Gray"  Grid.Row="6"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="46" Height="46" Grid.Column="0" Grid.ColumnSpan="2" ToolTip="Send the order!" Click="Send_Click" />
+        <Button x:Name="DeleteBtn" MouseLeave="MouseLeave" MouseEnter="MouseEnter" Grid.RowSpan="2" Grid.Row="5" Background="Transparent" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="44" Height="56" Grid.Column="3" ToolTip="Delete the order!" Click="Delete_Click" Panel.ZIndex="1">
+            <Button.Content>
+                <Image  Source="Images\Delete Order.png"/>
+            </Button.Content>
+        </Button>
+        <Button x:Name="EditBtn" MouseLeave="MouseLeave"  Background="Transparent" MouseEnter="MouseEnter" Grid.RowSpan="2" Grid.Row="5"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="50" Height="56" Grid.Column="2" ToolTip="Edit the order!" Click="Update_Click">
+            <Button.Content>
+                <Image Source="Images\Edit Order.png"/>
+            </Button.Content>
+        </Button>
+        <Button x:Name="SendBtn" MouseLeave="MouseLeave" Background="Transparent" MouseEnter="MouseEnter" Grid.RowSpan="2" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50" Height="56" Grid.Column="0" Grid.ColumnSpan="3" ToolTip="Send the order!" Click="Send_Click" >
+            <Button.Content>
+                <Image Source="Images\Next.jpg"/>
+            </Button.Content>
+        </Button>
         <Label x:Name="timeLeft" Grid.Row="6" Grid.ColumnSpan="5" IsHitTestVisible="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Visibility="Hidden"/>
-        <Button x:Name="Arrived" Content="Report delivery" ToolTip="press when the order has arived you you" Click="Arrived_Click" Grid.Row="6" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Visibility="{Binding ElementName=timeLeft,Path=Visibility}"/>
+        <Button x:Name="ArrivedBtn" Content="Report delivery" ToolTip="press when the order has arived you you" Click="Arrived_Click" Grid.Row="6" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Visibility="{Binding ElementName=timeLeft,Path=Visibility}"/>
+        <TextBlock x:Name="priceOrder" Grid.Row="6" Grid.ColumnSpan="5" Foreground="GreenYellow" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style>
+                    <Setter Property="TextBlock.Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=ArrivedBtn,Path=Visibility}" Value="Collapsed"/>
+                                <Condition Binding="{Binding ElementName=DeleteBtn,Path=Visibility}" Value="Collapsed"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="TextBlock.Visibility" Value="Visible"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Grid>
 </UserControl>

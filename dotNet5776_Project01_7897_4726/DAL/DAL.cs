@@ -170,6 +170,7 @@ namespace DAL
         /// <param name="predicate">the predicate test</param>
         /// <returns>An Enumerable of all of the DishOrders that pass the predicate</returns>
         IEnumerable<DishOrder> GetAllDishOrders(Func<DishOrder, bool> predicate = null);
+        IEnumerable<DishOrder> GetAllDishOrders(Predicate<int> predicate);
         #endregion
 
         #region Client Functions
@@ -218,7 +219,6 @@ namespace DAL
         /// <returns>True: there is an item with this ID , False: There isnt</returns>
         bool ContainID<T>(int id) where T : InterID;
 
-        //New
         #region User Functions
 
         /// <summary>
@@ -254,12 +254,17 @@ namespace DAL
         /// <returns>An Enumerable of all of the Users that pass the predicate </returns>
         IEnumerable<User> GetAllUsers(Func<User, bool> predicate = null);
         #endregion
-
+        /// <summary>
+        /// deletes the database
+        /// </summary>
         void DeleteDataBase();
     }
     class XmlSample
     {
         XElement fileRoot;
+        /// <summary>
+        /// The root of the xml file
+        /// </summary>
         public XElement FileRoot
         { get { return fileRoot; } set { fileRoot = value; } }
         string fPath, name;
@@ -276,6 +281,9 @@ namespace DAL
             else
                 LoadFile();
         }
+        /// <summary>
+        /// deletes the file
+        /// </summary>
         public void Delete()
         {
             LoadFile();
@@ -283,6 +291,9 @@ namespace DAL
             CreateFile();
             Save();
         }
+        /// <summary>
+        /// loads the file
+        /// </summary>
         public void LoadFile()
         {
             try
@@ -294,15 +305,25 @@ namespace DAL
                 throw new Exception("File upload problem.");
             }
         }
+        /// <summary>
+        /// creates the file 
+        /// </summary>
         void CreateFile()
         {
             FileRoot = new XElement(Name);
             FileRoot.Save(FPath);
         }
+        /// <summary>
+        /// saves the content of fileRoot in the file
+        /// </summary>
         public void Save()
         {
             FileRoot.Save(FPath);
         }
+        /// <summary>
+        /// Adds an item to the file
+        /// </summary>
+        /// <param name="obj"></param>
         public void Add(object obj)
         {
             FileRoot.Add(new XElement(obj.GetType().Name,
@@ -310,6 +331,9 @@ namespace DAL
                                select new XElement(item.Name, item.GetValue(obj))));
         }
     }
+    /// <summary>
+    /// The DAL by xml files
+    /// </summary>
     class Dal_XML_imp : Idal
     {
         Random rand = new Random();
@@ -319,10 +343,6 @@ namespace DAL
                   xmlDishOrder = new XmlSample("../../../" + @"XmlFiles\DishOrderXml.xml", "DishOrders"),
                   xmlClient = new XmlSample("../../../" + @"XmlFiles\ClientXml.xml", "Clients"),
                   xmlUser = new XmlSample("../../../" + @"XmlFiles\UserXml.xml", "Users");
-        //public Dal_XML_imp()
-        //{
-        //    xmlDish.
-        //}
         #region Generic Functions
         /// <summary>
         /// מוסיפה איבר לרשימה, יחד עם כל הבדיקות הנצרכות
@@ -359,7 +379,7 @@ namespace DAL
                 TElement.Remove();
                 getFile<T>().Save();
             }
-            catch
+            catch(Exception exp)
             {
                 throw new Exception("Problem deleting the item.");
             }
@@ -382,7 +402,7 @@ namespace DAL
         {
             getFile<T>().LoadFile();
             if (!ContainID<T>(item.ID))
-                throw new Exception("There isnt any item in the list with this id...");
+                throw new Exception("There isn't any item in the list with this id...");
             Delete(item);
             Add(item);
         }
@@ -396,7 +416,7 @@ namespace DAL
         {
             getFile<T>().LoadFile();
             if (!ContainID<T>(id))
-                throw new Exception("There isnt any item in the datdbase with this id...");
+                throw new Exception("There isn't any item in the datdbase with this id...");
             try
             {
                 T res = new T();
@@ -407,6 +427,10 @@ namespace DAL
                 {
                     if (item.PropertyType.Name == typeof(int).Name)
                         item.SetValue(res, Convert.ToInt32(s.Element(item.Name).Value));
+                    else if (item.PropertyType == typeof(bool))
+                        item.SetValue(res, Convert.ToBoolean(s.Element(item.Name).Value));
+                    else if (item.PropertyType == typeof(float))
+                        item.SetValue(res, (float.Parse(s.Element(item.Name).Value)));
                     else if (item.PropertyType.Name == typeof(string).Name)
                         item.SetValue(res, s.Element(item.Name).Value);
                     else if (item.PropertyType.Name == typeof(Size).Name)
@@ -423,12 +447,6 @@ namespace DAL
                 throw new Exception("Failed to load item.");
             }
 
-        }
-        float ConvertStringToFloat(string str)
-        {
-            float num;
-            float.TryParse(str, out num);
-            return num;
         }
         /// <summary>
         /// Get all the item that matches the predicate function
@@ -452,7 +470,7 @@ namespace DAL
                                                else if (item2.PropertyType == typeof(bool))
                                                    item2.SetValue(res,Convert.ToBoolean(item.Element(item2.Name).Value));
                                                else if (item2.PropertyType == typeof(float))
-                                                   item2.SetValue(res, ConvertStringToFloat(Convert.ToString(item.Element(item2.Name).Value)));
+                                                   item2.SetValue(res, float.Parse(Convert.ToString(item.Element(item2.Name).Value)));
                                                else if (item2.PropertyType == typeof(string))
                                                    item2.SetValue(res, item.Element(item2.Name).Value);
                                                else if (item2.PropertyType == typeof(Size))
@@ -504,6 +522,11 @@ namespace DAL
         {
             return getFile<T>().FileRoot.Elements().Any(p => Convert.ToInt32(p.Element("ID").Value) == id);
         }
+        /// <summary>
+        /// Gets a file of a specific type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         XmlSample getFile<T>()
         {
             if (typeof(T) == typeof(Dish))
@@ -635,6 +658,13 @@ namespace DAL
         {
             return GetAll(predicate);
         }
+        public IEnumerable<DishOrder> GetAllDishOrders(Predicate<int> predicate)
+        {
+            return from item in GetAll<DishOrder>()
+                   let order = GetOrder(item.OrderID)
+                   where predicate(order.BranchID)
+                   select item;
+        }
         #endregion
 
         #region Client Functions
@@ -748,7 +778,7 @@ namespace DAL
                 }
                 return res;
             }
-            catch (Exception exp)
+            catch (Exception)
             {
                 throw new Exception("Failed to load item.");
             }
@@ -790,6 +820,9 @@ namespace DAL
             }
         }
         #endregion
+        /// <summary>
+        /// deletes the whole database
+        /// </summary>
         public void DeleteDataBase()
         {
             getFile<User>().Delete();
@@ -800,10 +833,15 @@ namespace DAL
             getFile<DishOrder>().Delete();
         }
     }
+    /// <summary>
+    /// The DAL by DS
+    /// </summary>
     class Dal_imp : Idal
     {
         Random rand = new Random();
-
+        /// <summary>
+        /// Deletes the whole database
+        /// </summary>
         public void DeleteDataBase()
         {
             getList<User>().RemoveAll(item=> true);
@@ -838,10 +876,9 @@ namespace DAL
         /// <param name="list">הרשימה ממנה נמחוק אותו</param>
         void Delete<T>(int id) where T : InterID
         {
-            List<T> list = getList<T>();
             if (ContainID<T>(id) == false)
                 throw new Exception("There isnt any item in the list with this id...");
-            list.Remove(list.FirstOrDefault(item => item.ID == id));
+            getList<T>().Remove(getList<T>().FirstOrDefault(item => item.ID == id));
 
         }
         /// <summary>
@@ -860,9 +897,7 @@ namespace DAL
         void Update<T>(T item) where T : InterID
         {
             List<T> list = getList<T>();
-            if (ContainID<T>(item.ID) == false)
-                throw new Exception("There isnt any item in the list with this id...");
-            list.Remove(list.FirstOrDefault(var => var.ID == item.ID));
+            list.Remove(Get<T>(item.ID));
             list.Add(item);
 
         }
@@ -1053,6 +1088,13 @@ namespace DAL
         {
             return GetAll(predicate);
         }
+        public IEnumerable<DishOrder> GetAllDishOrders(Predicate<int> predicate)
+        {
+            return from item in GetAll<DishOrder>()
+                   let order = GetOrder(item.OrderID)
+                   where predicate(order.BranchID)
+                   select item;
+        }
         #endregion
 
         #region Client Functions
@@ -1081,8 +1123,6 @@ namespace DAL
             return GetAll(predicate);
         }
         #endregion
-
-        //New
 
         #region User Functions
 

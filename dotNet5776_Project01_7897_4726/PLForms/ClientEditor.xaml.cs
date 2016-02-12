@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +14,14 @@ using System.Windows.Shapes;
 /*
 להוסיף אייקון למסעדה
 להוסיף קידוד לסיסמא
-האם כל השגיאות בהודעה נפתחת או בהערה
  * אפשרות במקרה שלא ידעת את השם משתמש לחפש לפי פרטים אחרים על הבן אדם
- * אפשרות שכחתי סיסמא - לבקש ממנהל מערכת לשחזר לך אותה
- * להוסיף יותר דברים לגרידים
- * באג-לבדוק לגבי שגיאות
- * להוסיף פונצקית מחיקה
- * לבדוק לגבי שמות בצד או בתוך השדות
- *כאשר מוחקים מנה ישנה את ה תעודת זהות שלה בהזמנות
+ * אפשרות שכחתי סיסמא - לבקש ממנהל מערכת לשחזר לך אותה - completed
+ *כאשר מוחקים מנה ישנה את ה תעודת זהות שלה בהזמנות - completed
  *להוסיף תמונות למנות
  *לעשות שהכפתורים יגדלו כאשר לוחצים עליהם
- *
- * 
+ *להוסיף מחיר של הזמנה בכל מיני מקומות - completed
+ * חובה! לשנות גרופינג לרק לאלה שנשלחו - completed
+ * לשנות מ get to first
 */
 namespace PLForms
 {
@@ -36,15 +32,21 @@ namespace PLForms
     {
         BE.Client client;
         BE.User user;
-        bool IsUpdated=false;
+        bool IsUpdated = false;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public ClientEditor()
         {
-           
             InitializeComponent();
             client = new BE.Client();
             user = new BE.User();
             this.SetBinding();
         }
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="str"></param>
         public ClientEditor(string str)
         {
 
@@ -54,6 +56,10 @@ namespace PLForms
             this.SetBinding();
             usernameBox.SetText(str);
         }
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="user"></param>
         public ClientEditor(BE.User user)
         {
 
@@ -61,7 +67,7 @@ namespace PLForms
             IsUpdated = true;
             if (user.Type != BE.UserType.Client)
                 throw new Exception("Error!");
-            client = BL.FactoryBL.getBL().GetAllClients(item=>item.ID==user.ItemID).FirstOrDefault();
+            client = BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).FirstOrDefault();
             this.user = user;
             this.SetBinding();
             usernameBox.SetText(user.UserName);
@@ -73,6 +79,9 @@ namespace PLForms
             idBox.IsEnabled = false;
             usernameBox.IsEnabled = false;
         }
+        /// <summary>
+        /// sets the bindings up with the xaml
+        /// </summary>
         void SetBinding()
         {
             usernameBox.SetBinding(user, "UserName", BindingMode.TwoWay);
@@ -81,7 +90,11 @@ namespace PLForms
             addressBox.SetBinding(client, "Address", BindingMode.TwoWay);
             idBox.SetBinding(client, "ID", BindingMode.TwoWay);
         }
-
+        /// <summary>
+        /// checks when next button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -92,14 +105,15 @@ namespace PLForms
                     throw new Exception("The passwords does not match!");
                 if (passwordBox1.GetPassword() == "")
                     throw new Exception("The password cant be empty!");
-                if(!IsUpdated)
-                { 
-                BL.FactoryBL.getBL().AddClient(client);
-                user.Password = passwordBox1.GetPassword();
-                user.Type = BE.UserType.Client;
-                user.ItemID = client.ID;
-                BL.FactoryBL.getBL().AddUser(user);
-                MessageBox.Show("The account " + user.UserName + " was created!", "Account created", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (!IsUpdated)
+                {
+                    BL.FactoryBL.getBL().AddClient(client);
+                    user.Name = client.Name;
+                    user.Password = passwordBox1.GetPassword();
+                    user.Type = BE.UserType.Client;
+                    user.ItemID = client.ID;
+                    BL.FactoryBL.getBL().AddUser(user);
+                    MessageBox.Show("The account " + user.UserName + " was created!", "Account created", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -110,25 +124,29 @@ namespace PLForms
                     MessageBox.Show("The account " + user.UserName + " was Updated!", "Account Updated", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 this.Close();
-                
+
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 MessageBox.Show(exp.Message, "Problem with account", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// checks if the age was changed by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PlusMinusTextBox_Changed(object sender, BE.EventValue e)
         {
             if (client != null)
-                client.Age =Convert.ToInt32(e.Value);
+                client.Age = Convert.ToInt32(e.Value);
         }
         //bool GotPropty(object obj,string str)
         //{
         //    if(obj.GetType().GetProperty(str)!=null)
         //        return true;
         //    return false;
-            
+
         //}
     }
 }

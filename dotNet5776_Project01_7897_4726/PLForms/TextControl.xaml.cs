@@ -42,8 +42,8 @@ namespace PLForms
         public string pName { get; set; }
         Brush foreG;
         [Bindable(true)]
-        public Brush ForeG 
-        { 
+        public Brush ForeG
+        {
             get
             {
                 return foreG;
@@ -53,22 +53,23 @@ namespace PLForms
                 SetField(ref foreG, value, "foreG");
             }
         }
-   
-        Binding myBind=null;
+
+        Binding myBind = null;
         public TextControl()
         {
             InitializeComponent();
         }
-        public TextControl(string  waterMark)
+        public TextControl(string waterMark)
         {
             InitializeComponent();
             Str = waterMark;
         }
         public void SetBinding(object BindingObject, string PropertyName, BindingMode Mode = BindingMode.OneWay)
         {
+            var temp = BindingObject.GetType().GetProperty(PropertyName);
             myBind = new Binding();
             myBind.Source = BindingObject;
-            myBind.Path = new PropertyPath(BindingObject.GetType().GetProperty(PropertyName));
+            myBind.Path = new PropertyPath(temp);
             myBind.Mode = Mode;
             myBind.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
         }
@@ -112,8 +113,8 @@ namespace PLForms
         private void textBox_Loaded(object sender, RoutedEventArgs e)
         {
             textBox_LostFocus(textBox, null);
-            if(FontS!=0)
-            textBox.FontSize = FontS;
+            if (FontS != 0)
+                textBox.FontSize = FontS;
         }
 
         private void UserControl_TextInput(object sender, TextChangedEventArgs e)
@@ -123,12 +124,12 @@ namespace PLForms
                 textBox.Foreground = Brushes.Black;
                 ForeG = Brushes.Black;
             }
-            else if(textBox.Text =="")
+            else if (textBox.Text == "")
             {
                 textBox.Foreground = Brushes.Gray;
                 ForeG = Brushes.Gray;
             }
-            if (textBox.Foreground == Brushes.Black && Changed != null)
+            if (textBox.Text != Str && textBox.Text != null && Changed != null)//check affect! textBox.Foreground==Brushes.Black &&
                 Changed(this, new BE.EventValue(textBox.Text, pName));
         }
 

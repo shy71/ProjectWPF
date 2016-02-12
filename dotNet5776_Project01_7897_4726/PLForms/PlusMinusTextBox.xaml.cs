@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace PLForms
 {
-    
+
     /// <summary>
     /// Interaction logic for PlusMinusTextBox.xaml
     /// </summary>
@@ -72,7 +72,7 @@ namespace PLForms
                 MinusButton.IsEnabled = false;
             else if ((!MinusButton.IsEnabled) && num != 0)
                 MinusButton.IsEnabled = true;
-            else if ((!MinusButton.IsEnabled) && num < maxNum)
+            else if ((!PlusButton.IsEnabled) && num < maxNum)
                 PlusButton.IsEnabled = true;
             else if (num >= maxNum)
             {

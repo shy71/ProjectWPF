@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,18 +16,26 @@ namespace PLForms
 {
     /// <summary>
     /// Interaction logic for BranchEditor.xaml
+    /// Incharge of editing or creating a branch
     /// </summary>
     public partial class BranchEditor : Window
     {
         bool IsUpadte;
         BE.Branch branch;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public BranchEditor()
         {
             InitializeComponent();
             branch = new BE.Branch();
-
         }
-        public BranchEditor(BE.Branch bra)
+        /// <summary>
+        /// constructor which starts everything
+        /// </summary>
+        /// <param name="bra"></param>
+        /// <param name="IsNetworkManager"></param>
+        public BranchEditor(BE.Branch bra, bool IsNetworkManager = true)
         {
             InitializeComponent();
             nameBox.SetText(bra.Name);
@@ -36,34 +44,65 @@ namespace PLForms
             empoyeBox.SetNum(bra.EmployeeCount);
             messengersBox.SetNum(bra.AvailableMessangers);
             KashrutCombo.SelectedItem = bra.Kosher.ToString();
-                       branch = bra;
+            branch = bra;
             IsUpadte = true;
             DoButton.Content = "Update!";
-            
+            if (!IsNetworkManager)
+            {
+                nameBox.IsEnabled = false;
+                addressBox.IsEnabled = false;
+                ManagerCombo.Visibility = Visibility.Hidden;
+                KashrutCombo.Visibility = Visibility.Hidden;
+                branchCombo.Visibility = Visibility.Hidden;
+                branchComboText.Visibility = Visibility.Hidden;
+            }
         }
-
+        /// <summary>
+        /// in case the user decided to hire a new manager for the branch, this deals with it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateBranchManagerButton_Click(object sender, RoutedEventArgs e)
         {
-            //add new branch manager window
+            new UserEditor(BE.UserType.BranchManger).ShowDialog();
+            ManagerCombo.Items.Clear();
+            ManagerComboBox_Loaded(this, null);
         }
-
+        /// <summary>
+        /// checks if the number of employees was changed by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NumberOfEmplyes_Changed(object sender, BE.EventValue e)
         {
             if (branch != null)
                 branch.EmployeeCount = Convert.ToInt32(e.Value);
         }
-        private void AvilbleMesnngers_Changed(object sender, BE.EventValue e)
+        /// <summary>
+        /// checks if the user changed the number of available messanagers the branch starts with
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AvailableMessangers_Changed(object sender, BE.EventValue e)
         {
             if (branch != null)
                 branch.AvailableMessangers = Convert.ToInt32(e.Value);
         }
-
+        /// <summary>
+        /// checks if a specific text box was changed by the user and changes the property in the branch that that text box represents
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextControl_Changed(object sender, BE.EventValue e)
         {
             if (branch != null)
                 branch.GetType().GetProperty(e.pName).SetValue(branch, e.Value);
         }
-
+        /// <summary>
+        /// in case the finalizing button was clicked it deals with it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -75,97 +114,116 @@ namespace PLForms
                 MessageBox.Show("The branch " + branch.Name + " was " + ((IsUpadte) ? "Updated!" : "created!"), "Branch created", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 MessageBox.Show(exp.Message, "Problem with branch", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
-
-        private void MangerComboBox_Loaded(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// loading the items into the comboBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ManagerComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var temp = new ComboBoxItem();
-            temp.Content = "Create a New manger!";
-            temp.ToolTip = "Will give you the option to\ncreate a new manger that\nwill run the branch";
-            MangerCombo.Items.Add(temp);
-            if(IsUpadte)
+            temp.Content = "Create a new manager!";
+            temp.ToolTip = "Will give you the option to\ncreate a new manager that\nwill run the branch";
+            ManagerCombo.Items.Add(temp);
+            if (IsUpadte)
             {
                 temp = new ComboBoxItem();
-                temp.Content = "Stay with the current manger!";
+                temp.Content = "Stay with the current manager!";
                 temp.ToolTip = branch.Boss;
-                MangerCombo.Items.Add(temp);
-                MangerCombo.SelectedItem = temp;
+                ManagerCombo.Items.Add(temp);
+                ManagerCombo.SelectedItem = temp;
             }
-            foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers(item2=>item2.Type==BE.UserType.BranchManger&&item2.ItemID==0))
+            foreach (BE.User item in BL.FactoryBL.getBL().GetAllUsers(item2 => item2.Type == BE.UserType.BranchManger && item2.ItemID == 0).OrderBy(item=>item.UserName))
             {
                 temp = new ComboBoxItem();
-                
+
                 temp.Content = item.Name + " @" + item.UserName;
                 temp.ToolTip = item.ToString();
-                MangerCombo.Items.Add(temp);
+                ManagerCombo.Items.Add(temp);
             }
         }
-
-        private void MangerCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// checks if a manager was chosen from the managers in the system
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ManagerCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (MangerCombo.SelectedIndex == 0)
+            if (ManagerCombo.SelectedIndex == 0)
                 CreateBranchManagerButton.IsEnabled = true;
-            else if(MangerCombo.SelectedIndex!=0)
+            else if (ManagerCombo.SelectedIndex != 0)
                 CreateBranchManagerButton.IsEnabled = false;
-            if (MangerCombo.SelectedIndex > 0)
-                branch.Boss =( MangerCombo.Items.GetItemAt(MangerCombo.SelectedIndex) as ComboBoxItem).Content.ToString();
+            if (ManagerCombo.SelectedIndex > 0 && ((!IsUpadte) || ManagerCombo.SelectedIndex > 1))
+                branch.Boss = (ManagerCombo.Items.GetItemAt(ManagerCombo.SelectedIndex) as ComboBoxItem).Content.ToString();
         }
-
-        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// loading the items into the comboBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BranchComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             var temp = new ComboBoxItem();//בזבוז
-            foreach (BE.Branch item in BL.FactoryBL.getBL().GetAllBranchs())
-            {
-                temp = new ComboBoxItem();
-                temp.Content = item.Name + " - " + item.Address;
-                temp.ToolTip = item.ToString();
-                branchCombo.Items.Add(temp); 
-            }
-            if (branchCombo.Items.Count == 0)
+            branchCombo.ItemsSource = BL.FactoryBL.getBL().GetAllBranchs().OrderBy(item=>item.Name);
+            branchCombo.SelectedValuePath = "ID";
+            if (branchCombo.ItemsSource.GetEnumerator().MoveNext()==false)
             {
                 branchCombo.IsEnabled = false;
-                branchCombo.ToolTip = "There isnt any branchs to pick from!";
+                branchCombo.ToolTip = "There isn't any branchs to pick from!";
             }
         }
-
+        /// <summary>
+        /// loading the items into the comboBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KashrutCombo_Loaded(object sender, RoutedEventArgs e)
         {
             KashrutCombo.ItemsSource = typeof(BE.Kashrut).GetEnumNames();
         }
-
+        /// <summary>
+        /// copies a branch to use as a sample for the new one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CopyBranch(object sender, RoutedEventArgs e)
-       {
-           try
-           {
-               BE.Branch temp;
-               if (branchCombo.SelectedIndex >= 0)
-               {
-                   temp = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ToString() == (branchCombo.Items.GetItemAt(branchCombo.SelectedIndex) as ComboBoxItem).ToolTip.ToString()).FirstOrDefault();
-                   if (temp == null)
-                       throw new Exception("ERROR");
-                   nameBox.SetText(temp.Name);
-                   addressBox.SetText(temp.Address);
-                   phoneBox.SetText(temp.PhoneNumber);
-                   empoyeBox.SetNum(temp.EmployeeCount);
-                   messengersBox.SetNum(temp.AvailableMessangers);
-                   KashrutCombo.SelectedIndex = (temp.Kosher == BE.Kashrut.HIGH) ? 2 : (temp.Kosher == BE.Kashrut.MEDIUM) ? 1 : 0;
-                   branchCombo.SelectedIndex = -1;
-               }
-               else
-                   throw new Exception("ERROR");
-           }
-            catch(Exception Exp)
-           {
-               MessageBox.Show(Exp.ToString(), "Error");
-           }
+        {
+            try
+            {
+                BE.Branch temp;
+                if (branchCombo.SelectedIndex >= 0)
+                {
+                    temp = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ID.ToString() == branchCombo.SelectedValue.ToString()).FirstOrDefault();
+                    if (temp == null)
+                        throw new Exception("ERROR");
+                    nameBox.SetText(temp.Name);
+                    addressBox.SetText(temp.Address);
+                    phoneBox.SetText(temp.PhoneNumber);
+                    empoyeBox.SetNum(temp.EmployeeCount);
+                    messengersBox.SetNum(temp.AvailableMessangers);
+                    KashrutCombo.SelectedIndex = (temp.Kosher == BE.Kashrut.HIGH) ? 2 : (temp.Kosher == BE.Kashrut.MEDIUM) ? 1 : 0;
+                    branchCombo.SelectedIndex = -1;
+                }
+                else
+                    throw new Exception("ERROR");
+            }
+            catch (Exception Exp)
+            {
+                MessageBox.Show(Exp.ToString(), "Error");
+            }
 
         }
-
+        /// <summary>
+        /// checks if the kashrut level was changed and updated the Kosher level of the branch
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KashrutCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (KashrutCombo.SelectedIndex >= 0)

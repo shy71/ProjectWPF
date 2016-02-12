@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,37 +11,52 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
+using BE;
+using System.Windows.Threading;
 
 namespace PLForms
 {
+
     /// <summary>
     /// Interaction logic for ClientInterface.xaml
     /// </summary>
     public partial class ClientInterface : Window
     {
-        List<Window> subWin=new List<Window>();
+        List<Window> subWin = new List<Window>();
         int numOfOrders = 0;
-        BE.User user;
+        public BE.User user;
+        bool IsCtrlDown = false;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public ClientInterface()
         {
             InitializeComponent();
-            //erroe
+            //error
+            throw new Exception("You cant open a user interface without a user!");
         }
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="user"></param>
         public ClientInterface(BE.User user)
         {
             InitializeComponent();
+            if (user.Type != BE.UserType.Client)
+                throw new Exception("You cant open client interface with a user that isnt a client!");
             this.user = user;
-            MainTitle.Content = "Hello " + user.Name+"!";
+            MainTitle.Content = "Hello " + user.Name + "!";
         }
-
-        private void Button_Drop(object sender, DragEventArgs e)
-        {
-            int a;
-        }
+        /// <summary>
+        /// restarts the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Restart(object sender, BE.EventValue e)
         {
             foreach (Window item in subWin)
-                item.Close();//שיסגר רק החלון שעשה את הריסטרט
+                item.Close();
             Clear_window();
             if (DeliveredButton.IsChecked == true)
                 DeliveredButton_Checked(DeliveredButton, null);
@@ -51,36 +66,50 @@ namespace PLForms
                 UnsentButton_Checked(UnsentButton, null);
             foreach (object item in MenuStack.Children)
                 if (item.GetType() == typeof(Expander))
-                        (item as Expander).IsExpanded = false;    
+                    (item as Expander).IsExpanded = false;
+            foreach (object grid in stackPanel.Children)
+                if (grid.GetType() == typeof(Grid))
+                    foreach (object item in (grid as Panel).Children)
+                        if (item.GetType() == typeof(OrderDeiltes))
+                            (item as OrderDeiltes).Opacity = 0.7;
         }
-        private void Window_Loaded(object sender,RoutedEventArgs e)
+        /// <summary>
+        /// open when the window is loaded 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //UnsentButton.IsChecked = true;
-            if (add.Parent != null)
-                (add.Parent as Grid).Children.Remove(add);
-            Title.Content = "";
+            if (addBtn.Parent != null)
+                (addBtn.Parent as Grid).Children.Remove(addBtn);
+            LittleTitle.Content = "";
         }
+        /// <summary>
+        /// clears the window
+        /// </summary>
         void Clear_window()
         {
-            if (MainTitle.Visibility == Visibility.Visible)
-                MainTitle.Visibility = Visibility.Collapsed;
+            SelectAtLeastOne(false);
             MainTitle.Content = user.Name + "'s account:";
+            MainTitle.FontSize = 35;
             stackPanel.Children.RemoveRange(1, stackPanel.Children.Count - 1);
             numOfOrders = 0;
-            add.Visibility = Visibility.Hidden;
-            if (add.Parent != null)
-                (add.Parent as Grid).Children.Remove(add);
+            addBtn.Visibility = Visibility.Hidden;
+            if (addBtn.Parent != null)
+                (addBtn.Parent as Grid).Children.Remove(addBtn);
 
         }
-        void DeleteMsg(object sender, EventArgs e)
-        {
-            MessageBox.Show("It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer","Not recommended");
-        }
-        private void Window_Loaded_Active(RadioButton sender,Func<BE.Order,bool> predicate)
+        /// <summary>
+        /// refresh the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="predicate"></param>
+        private void RefreshWindow(RadioButton sender, Func<BE.Order, bool> predicate)
         {
             Grid g;
             ColumnDefinition a, b, c, d;
-            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item=>item.ClientID==user.ItemID&&predicate(item)))
+            foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && predicate(item)).OrderBy(item => -BL.FactoryBL.getBL().PriceOfOrder(item.ID)))
             {
                 if (numOfOrders % 4 == 0)
                 {
@@ -100,16 +129,18 @@ namespace PLForms
                     g.ColumnDefinitions.Add(d);
                     stackPanel.Children.Add(g);
                 }
-                var orderD = new OrderDeiltes(item);
+                var orderD = new OrderDeiltes(item, false);
                 orderD.HorizontalAlignment = HorizontalAlignment.Center;
-                orderD.Deleted += Restart;
-                orderD.Sended += Restart;
+                //orderD.Deleted += Restart;
+                //orderD.Sended += Restart;
+                //orderD.Updated += Restart;
+                //orderD.Arived += Restart;
+                orderD.DelivveryArived += OrderArrived;
                 orderD.Updated += Restart;
-                orderD.Arived += Restart;
-                if (sender.Name == "DeliveredButton")
-                    orderD.TryDelete += DeleteMsg;
+                orderD.Opacity = 0.7;
+                orderD.PreviewMouseDown += MouseClick;
                 var ChildEnumrator = stackPanel.Children.GetEnumerator();
-                for (int i = 0; i < ((int)(numOfOrders / 4))*2 + 3; i++)
+                for (int i = 0; i < ((int)(numOfOrders / 4)) * 2 + 3; i++)
                     ChildEnumrator.MoveNext();
                 (ChildEnumrator.Current as Grid).Children.Add(orderD);
                 Grid.SetColumn(orderD, numOfOrders % 4);
@@ -138,58 +169,78 @@ namespace PLForms
                 var tempEnumrator = stackPanel.Children.GetEnumerator();
                 for (int i = 0; i < ((int)(numOfOrders / 4)) * 2 + 3; i++)
                     tempEnumrator.MoveNext();
-                add.Visibility = Visibility.Visible;
-                (tempEnumrator.Current as Grid).Children.Add(add);
-                Grid.SetColumn(add, 3);
+                addBtn.Visibility = Visibility.Visible;
+                (tempEnumrator.Current as Grid).Children.Add(addBtn);
+                Grid.SetColumn(addBtn, 3);
             }
         }
-
+        /// <summary>
+        /// enter when the UnsentButton is checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UnsentButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
-            Title.Content = "Unsent orders";
-            Window_Loaded_Active(sender as RadioButton, item => item.Date == DateTime.MinValue && !item.Delivered);
+            LittleTitle.Content = "Unsent orders";
+            DeleteBtn.Visibility = Visibility.Visible;
+            EditBtn.Visibility = Visibility.Visible;
+            EditBtn.ToolTip = "Edit The Orders";
+            SendBtn.Visibility = Visibility.Visible;
+            ArivedBtn.Visibility = Visibility.Collapsed;
+            RefreshWindow(sender as RadioButton, item => item.Date == DateTime.MinValue && !item.Delivered);
         }
+        /// <summary>
+        ///enter when the ActiveButton is checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ActiveButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
-            Title.Content = "Active orders";
-            Window_Loaded_Active(sender as RadioButton, item => item.Date != DateTime.MinValue && !item.Delivered);
+            LittleTitle.Content = "Active orders";
+            DeleteBtn.Visibility = Visibility.Collapsed;
+            EditBtn.Visibility = Visibility.Collapsed;
+            SendBtn.Visibility = Visibility.Collapsed;
+            ArivedBtn.Visibility = Visibility.Visible;
+            RefreshWindow(sender as RadioButton, item => item.Date != DateTime.MinValue && !item.Delivered);
         }
+        /// <summary>
+        /// enter when the DekuveredButton is checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeliveredButton_Checked(object sender, RoutedEventArgs e)
         {
             Clear_window();
-            Title.Content = "Delivered orders";
-            Window_Loaded_Active(sender as RadioButton, item =>item.Delivered);
+            LittleTitle.Content = "Delivered orders";
+            DeleteBtn.Visibility = Visibility.Visible;
+            EditBtn.Visibility = Visibility.Visible;
+            EditBtn.ToolTip = "Look at the specific of the order";
+            SendBtn.Visibility = Visibility.Collapsed;
+            ArivedBtn.Visibility = Visibility.Collapsed;
+            RefreshWindow(sender as RadioButton, item => item.Delivered);
         }
-
-        private void Unsent_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            UnsentButton.IsChecked = true;
-        }
-
-        private void Active_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            ActiveButton.IsChecked = true;
-        }
-
-        private void Deliverd_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            DeliveredButton.IsChecked = true;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// enter when the Edit Profile button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditProfileButton_Click(object sender, RoutedEventArgs e)
         {
             Clear_window();
-            Title.Content = "Profile editing is in progress";
+            LittleTitle.Content = "Profile editing is in progress";
             new ClientEditor(user).ShowDialog();
             if (UnsentButton.IsChecked != true)
                 UnsentButton.IsChecked = true;
             else
                 UnsentButton_Checked(UnsentButton, null);
-
         }
-
+        /// <summary>
+        /// enter when the expender is expanded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Expender_Expanded(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource == sender)
@@ -201,17 +252,17 @@ namespace PLForms
                 StackPanel temp;
                 TextBox text;
                 Button btn;
-                foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && GetPredicte()(item)))
+                foreach (var item in BL.FactoryBL.getBL().GetAllOrders(item => item.ClientID == user.ItemID && GetPredicte()(item)).OrderBy(item => -BL.FactoryBL.getBL().PriceOfOrder(item.ID)))
                 {
                     exp = new Expander();
                     text = new TextBox();
                     exp.Expanded += CloseOthersExpenders;
                     text.Foreground = Brushes.Black;
-                    text.FontFamily=new FontFamily("Comic Sans MS");
-                    text.Background =Brushes.DarkRed;
+                    text.FontFamily = new FontFamily("Comic Sans MS");
+                    text.Background = Brushes.DarkRed;
                     text.Text = item.ToString();
                     exp.Header = BL.FactoryBL.getBL().GetAllBranchs(item2 => item2.ID == item.BranchID).First().Name + " " + item.Address;
-                    exp.ToolTip = (item.Date == DateTime.MinValue) ? "Not sended" : item.Date.ToShortDateString();
+                    exp.ToolTip = ((item.Date == DateTime.MinValue) ? "Not sended" : item.Date.ToShortDateString()) + " - " + BL.FactoryBL.getBL().PriceOfOrder(item.ID).ToString() + "$";
                     btn = new Button();
                     btn.Content = "Open Order";
                     btn.Click += OpenOrder;
@@ -224,6 +275,11 @@ namespace PLForms
                 }
             }
         }
+        /// <summary>
+        /// closes all other expanders except for the sender
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="s"></param>
         void CloseOthersExpenders(object sender, EventArgs s)
         {
             foreach (object item in ((sender as Expander).Parent as StackPanel).Children)
@@ -231,39 +287,361 @@ namespace PLForms
                     if (sender.GetHashCode() != item.GetHashCode())
                         (item as Expander).IsExpanded = false;
         }
+        /// <summary>
+        /// opens an order window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void OpenOrder(object sender, EventArgs e)
         {
-            var temp=(sender as Button).Resources.Values.GetEnumerator();
+            var temp = (sender as Button).Resources.Values.GetEnumerator();
             temp.MoveNext();
             var us = new OrderDeiltes(BL.FactoryBL.getBL().GetAllOrders(item => item.ID == Convert.ToInt32(temp.Current)).First());
             us.Deleted += Restart;
             us.Sended += Restart;
             us.Updated += Restart;
             us.Arived += Restart;
-            if (DeliveredExpender.IsExpanded)
-                us.TryDelete += DeleteMsg;
+            us.DelivveryArived += OrderArrived;
             subWin.Add(new ShowUserControl(us));
             subWin.Last().Show();
         }
-       Func<BE.Order,bool> GetPredicte()
+        /// <summary>
+        /// returns the macthing predicate (test) for each case
+        /// </summary>
+        /// <returns></returns>
+        Func<BE.Order, bool> GetPredicte()
         {
-             if(UnsentExpender.IsExpanded) 
+            if (UnsentExpender.IsExpanded)
                 return item => item.Date == DateTime.MinValue && !item.Delivered;
-             else if (ActiveExpender.IsExpanded)
-                 return item => item.Date != DateTime.MinValue && !item.Delivered;
-           else if(DeliveredExpender.IsExpanded)
-               return item =>item.Delivered;
-             return item=>false;
+            else if (ActiveExpender.IsExpanded)
+                return item => item.Date != DateTime.MinValue && !item.Delivered;
+            else if (DeliveredExpender.IsExpanded)
+                return item => item.Delivered;
+            return item => false;
         }
-       RadioButton GetRadioChecked()
-       {
-           if (UnsentExpender.IsExpanded)
-               return UnsentButton;
-           else if (ActiveExpender.IsExpanded)
-               return ActiveButton;
-           else if (DeliveredExpender.IsExpanded)
-               return DeliveredButton;
-           return null;
-       }
+        /// <summary>
+        /// returns the radio button by the expanded menu
+        /// </summary>
+        /// <returns></returns>
+        RadioButton GetRadioChecked()
+        {
+            if (UnsentExpender.IsExpanded)
+                return UnsentButton;
+            else if (ActiveExpender.IsExpanded)
+                return ActiveButton;
+            else if (DeliveredExpender.IsExpanded)
+                return DeliveredButton;
+            return null;
+        }
+        /// <summary>
+        /// deals with mouse clicking 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void MouseClick(object sender, MouseButtonEventArgs e)
+        {
+            bool WasSelected = (sender as OrderDeiltes).Opacity == 1;
+            if (!IsCtrlDown)
+                foreach (object grid in stackPanel.Children)
+                    if (grid.GetType() == typeof(Grid))
+                        foreach (object item in (grid as Panel).Children)
+                            if (item.GetType() == typeof(OrderDeiltes))
+                                (item as OrderDeiltes).Opacity = 0.7;
+            if (!WasSelected)
+                (sender as OrderDeiltes).Opacity = 1;
+            else if (IsCtrlDown)
+                (sender as OrderDeiltes).Opacity = 0.7;
+            if (!DoesSelect())
+                SelectAtLeastOne(false);
+            else if (DeleteBtn.IsEnabled == false)
+                SelectAtLeastOne(true);
+        }
+        /// <summary>
+        /// enter and acts in the cases that there is at least one(IsSelected=true) and that there isnt(IsSelected=false);
+        /// </summary>
+        /// <param name="IsSelected"></param>
+        void SelectAtLeastOne(bool IsSelected)
+        {
+            if (IsSelected)
+            {
+                DeleteBtn.IsEnabled = true;
+                EditBtn.IsEnabled = true;
+                SendBtn.IsEnabled = true;
+                ArivedBtn.IsEnabled = true;
+                DeleteBtn.Opacity = 1;
+                EditBtn.Opacity = 1;
+                SendBtn.Opacity = 1;
+                ArivedBtn.Opacity = 1;
+            }
+            else
+            {
+                DeleteBtn.IsEnabled = false;
+                EditBtn.IsEnabled = false;
+                SendBtn.IsEnabled = false;
+                ArivedBtn.IsEnabled = false;
+                DeleteBtn.Opacity = 0.7;
+                EditBtn.Opacity = 0.7;
+                SendBtn.Opacity = 0.7;
+                ArivedBtn.Opacity = 0.7;
+            }
+
+        }
+        /// <summary>
+        /// check and report that ctrl is being held down
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KeyDownCheck(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                IsCtrlDown = true;
+        }
+        /// <summary>
+        /// check and report that ctrl was released
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KeyUpCheck(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                IsCtrlDown = false;
+        }
+        /// <summary>
+        /// checks if something is selected(at least one)
+        /// </summary>
+        /// <returns></returns>
+        bool DoesSelect()
+        {
+            foreach (object grid in stackPanel.Children)
+            {
+                if (grid.GetType() == typeof(Grid))
+                {
+                    foreach (object item in (grid as Panel).Children)
+                    {
+                        if (item.GetType() == typeof(OrderDeiltes))
+                        {
+                            if ((item as OrderDeiltes).Opacity == 1)
+                                return true;
+
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// logs out when the log out button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to log out?", "Log out?", MessageBoxButton.YesNo))
+            {
+                new MainInterface().Show();
+                this.Close();
+            }
+        }
+        /// <summary>
+        /// when the add order button is clicked it opens the window for that
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new OrderEditorStep1(BL.FactoryBL.getBL().GetAllClients(item => item.ID == user.ItemID).FirstOrDefault()).ShowDialog();
+            UnsentButton_Checked(UnsentButton, null);
+        }
+        /// <summary>
+        /// deletes selected orders when the delete button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBoxResult.Yes == MessageBox.Show(((DeliveredButton.IsChecked == true) ? "It is recommended not to delete deliverd orders! without them you will not get the full exprince the resturant has to offer\n" : "") + "Are you sure you want to delete this orders?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No))
+                foreach (object grid in stackPanel.Children)
+                {
+                    if (grid.GetType() == typeof(Grid))
+                    {
+                        foreach (object item in (grid as Panel).Children)
+                        {
+                            if (item.GetType() == typeof(OrderDeiltes))
+                            {
+                                if ((item as OrderDeiltes).Opacity == 1)
+                                    (item as OrderDeiltes).DeleteOrder();
+                                //(item as OrderDeiltes).BorderThickness = new Thickness(1);
+                                //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                            }
+                        }
+                    }
+                }
+            Restart(this, null);
+        }
+        /// <summary>
+        /// edits all orders selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (object grid in stackPanel.Children)
+            {
+                if (grid.GetType() == typeof(Grid))
+                {
+                    foreach (object item in (grid as Panel).Children)
+                    {
+                        if (item.GetType() == typeof(OrderDeiltes))
+                        {
+                            if ((item as OrderDeiltes).Opacity == 1)
+                                (item as OrderDeiltes).UpdateOrder();
+                            //(item as OrderDeiltes).BorderThickness = new Thickness(1);
+                            //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                        }
+                    }
+                }
+            }
+            Restart(this, null);
+        }
+        /// <summary>
+        /// sends all orders selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MessageBoxResult.Yes == MessageBox.Show("Are you sure you want to send all of this orders?", "Send Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes))
+                {
+                    foreach (object grid in stackPanel.Children)
+                    {
+                        if (grid.GetType() == typeof(Grid))
+                        {
+                            foreach (object item in (grid as Panel).Children)
+                            {
+                                if (item.GetType() == typeof(OrderDeiltes))
+                                {
+                                    if ((item as OrderDeiltes).Opacity == 1)
+                                    {
+                                        //Sending(sender, new BE.EventValue((item as OrderDeiltes).Content));
+                                        (item as OrderDeiltes).SendOrder();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch(Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
+
+            Restart(this, null);
+
+        }
+        /// <summary>
+        /// states that specific orders were delivered when the user presses the delivered button for the orders
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ArivedBtn_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (object grid in stackPanel.Children)
+            {
+                if (grid.GetType() == typeof(Grid))
+                {
+                    foreach (object item in (grid as Panel).Children)
+                    {
+                        if (item.GetType() == typeof(OrderDeiltes))
+                        {
+                            if ((item as OrderDeiltes).Opacity == 1)
+                                (item as OrderDeiltes).ArivedOrder();
+                            //(item as OrderDeiltes).BorderThickness = new Thickness(1);
+                            //(item as OrderDeiltes).BorderBrush = Brushes.Black;
+                        }
+                    }
+                }
+            }
+            Restart(this, null);
+        }
+        private void OrderArrived(object sender, BE.EventValue e)
+        {
+            OrderDeiltes us;
+            BE.Order order = BL.FactoryBL.getBL().GetAllOrders(item => item.ID == int.Parse(e.pName)).First();
+            Dispatcher.Invoke(() =>
+                {
+                    foreach (Window item in App.Current.Windows)
+                    {
+                        if (item is ClientInterface)
+                        {
+                            if ((item as ClientInterface).user.ItemID == BL.FactoryBL.getBL().GetAllOrders(item2 => item2.ID.ToString() == e.pName).First().ClientID)
+                            {
+                                if (MessageBoxResult.Yes == MessageBox.Show("An order of you has arived, it took -- "+int.Parse(e.Value.ToString())/1000+" sec !\nWould you like to open it?", "Order Arived!", MessageBoxButton.YesNo))
+                                {
+                                    us = new OrderDeiltes(order, true);
+                                    us.Deleted += Restart;
+                                    us.Sended += Restart;
+                                    us.Updated += Restart;
+                                    us.Arived += Restart;
+                                    us.DelivveryArived += OrderArrived;
+                                    Restart(this, null);
+                                    subWin.Add(new ShowUserControl(us));
+                                    subWin.Last().Show();
+                                }
+                                else
+                                Restart(this, null);
+                            }
+                            else
+                            return;
+                        }
+                    }
+                });
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            foreach (object grid in stackPanel.Children)
+            {
+                if (grid.GetType() == typeof(Grid))
+                {
+                    foreach (object item in (grid as Panel).Children)
+                    {
+                        if (item.GetType() == typeof(OrderDeiltes))
+                        {
+                            (item as OrderDeiltes).DelivveryArived -= OrderArrived;
+
+                        }
+                    }
+                }
+            }
+            foreach (ShowUserControl item in subWin)
+            {
+                (item.us as OrderDeiltes).DelivveryArived -= OrderArrived;
+            }
+        }
+
+        private void DeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (BL.FactoryBL.getBL().GetAllOrders().Any(item => (item.ClientID == user.ItemID) && item.IsActive()))
+                {
+                    MessageBox.Show("You can't delete your user since you still have active orders", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (MessageBox.Show("Are you sure you want to close the account", "Delete Confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    BL.FactoryBL.getBL().RemoveUser(user, true);
+                    new MainInterface().Show();
+                    this.Close();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("There has been a problem while trying to delete the user!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

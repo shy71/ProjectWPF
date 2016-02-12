@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:PLForms" x:Class="PLForms.BranchEditor"
-        Title="BranchEditor" MinHeight="335" Height="335" Width="360" Background="#FFA50221">
+        Title="BranchEditor" MinHeight="335" Height="335" MinWidth="390" Width="390" WindowStartupLocation="CenterOwner" Icon="Images/Logo.png" Background="#FFA50221">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="44*"/>
@@ -31,50 +31,28 @@
         <local:TextControl x:Name="phoneBox" Str="Phone Number" Grid.Row="5" Grid.ColumnSpan="3" pName="PhoneNumber" Changed="TextControl_Changed"/>
         <Button x:Name="CreateBranchManagerButton" Grid.Row="7" FontSize="14" FontWeight="Bold" Content="Create new manager" Click="CreateBranchManagerButton_Click" Grid.Column="1" Grid.ColumnSpan="2" Width="150" HorizontalAlignment="Center" Margin="13,0">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="Button.Visibility" Value="Hidden"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=MangerCombo , Path=SelectedIndex}" Value="0">
+                        <DataTrigger Binding="{Binding ElementName=ManagerCombo , Path=SelectedIndex}" Value="0">
                             <Setter Property="Button.Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
         </Button>
-        <ComboBox x:Name="MangerCombo" Grid.Row="7" ToolTip="Chose the manger that will be assigned to the branch." Loaded="MangerComboBox_Loaded" SelectionChanged="MangerCombo_SelectionChanged"/>
-        <TextBlock Text="Select Manger for the branch" IsHitTestVisible="False" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,10,15,10">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=MangerCombo,Path=SelectedItem}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+        <Label Content="Fire/Hire Emplyes:" FontSize="24" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Top" Visibility="{Binding ElementName=ManagerCombo,Path=Visibility,Converter={StaticResource NotVisibility}}"/>
+        <ComboBox x:Name="ManagerCombo" Grid.Row="7" ToolTip="Chose the manager that will be assigned to the branch." Loaded="ManagerComboBox_Loaded" SelectionChanged="ManagerCombo_SelectionChanged"/>
+        <TextBlock Text="Select Manager for the branch" IsHitTestVisible="False" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,10,15,10" Visibility="{Binding ElementName=ManagerCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
         <local:PlusMinusTextBox x:Name="empoyeBox" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" Width="80" Changed="NumberOfEmplyes_Changed" />
-        <local:PlusMinusTextBox x:Name="messengersBox" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Center" Width="80" Changed="AvilbleMesnngers_Changed"/>
+        <local:PlusMinusTextBox x:Name="messengersBox" Grid.Row="11" Grid.Column="1" HorizontalAlignment="Center" Width="80" Changed="AvailableMessangers_Changed"/>
         <Label Content="Number of Employees:" HorizontalContentAlignment="Center" FontWeight="Bold" VerticalContentAlignment="Center" Grid.Row="9"/>
         <TextBlock TextAlignment="Center" Grid.Row="11"><Run Text="Available messengers" FontWeight="Bold"/><LineBreak/><Run Text=" in the branch :" FontWeight="Bold"/></TextBlock>
         <ComboBox x:Name="KashrutCombo" Grid.Row="13" Grid.Column="0" Loaded="KashrutCombo_Loaded" SelectionChanged="KashrutCombo_SelectionChanged" ToolTip="The Kashrut level of the new branch)"/>
-        <TextBlock Text="Select Kashrut level" IsHitTestVisible="False" Grid.Row="13" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=KashrutCombo,Path=SelectedItem}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-
-        <Button x:Name="DoButton" Content="Create!" Grid.Column="1" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="13" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24" Click="Button_Click">
+        <TextBlock Text="Select Kashrut level" IsHitTestVisible="False" Grid.Row="13" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=KashrutCombo,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}"/>
+        <Button x:Name="DoButton" ToolTip="Create the account" Content="Create!" Grid.Column="1" HorizontalAlignment="Center"  FontWeight="Bold" Grid.Row="13" VerticalAlignment="Center" Width="74" Grid.ColumnSpan="2" Height="24" Click="Button_Click">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=nameBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="False"/>
@@ -85,22 +63,22 @@
                         <DataTrigger Binding="{Binding ElementName=phoneBox, Path=ForeG}" Value="Gray">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=MangerCombo,Path=SelectedItem}" Value="{x:Null}">
+                        <DataTrigger Binding="{Binding ElementName=ManagerCombo,Path=SelectedItem}" Value="{x:Null}">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=KashrutCombo,Path=SelectedItem}" Value="{x:Null}">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=MangerCombo,Path=SelectedIndex}" Value="0">
+                        <DataTrigger Binding="{Binding ElementName=ManagerCombo,Path=SelectedIndex}" Value="0">
                             <Setter Property="Button.IsEnabled" Value="False"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Copy Branch" Grid.Column="2" FontWeight="Bold" ToolTip="Copy branch details into the new branch." HorizontalAlignment="Center" Click="CopyBranch">
+        <Button Content="Copy Branch" Grid.Column="2" FontWeight="Bold" ToolTip="Copy branch details into the new branch." HorizontalAlignment="Center" Click="CopyBranch"  Visibility="{Binding ElementName=branchCombo,Path=Visibility}">
             <Button.Style>
-                <Style TargetType="Button" BasedOn="{StaticResource StyleButton}">
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=branchCombo,Path=SelectedItem}" Value="{x:Null}">
                             <Setter Property="IsEnabled" Value="False"/>
@@ -109,19 +87,22 @@
                 </Style>
             </Button.Style>
         </Button>
-        <ComboBox x:Name="branchCombo" Grid.Column="1" Loaded="ComboBox_Loaded" ToolTipService.ShowOnDisabled="True"/>
-        <TextBlock Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=branchCombo,Path=SelectedItem}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+        <ComboBox x:Name="branchCombo" Grid.Column="1" Loaded="BranchComboBox_Loaded" ToolTipService.ShowOnDisabled="True" IsEnabled="{Binding ElementName=branchCombo,Path=ItemsSource,Converter={StaticResource ItemsSourceToBoolen}}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding  StringFormat="{}{0} -- {1} -- {2}">
+                                <Binding Path="Name"/>
+                                <Binding Path="Address"/>
+                                <Binding Path="Kosher"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock x:Name="branchComboText" Text="Base Branch" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding ElementName=branchCombo ,Path=SelectedItem,Converter={StaticResource SelectedItemToVisibility}}" Margin="14,5,0,5"/>
 
     </Grid>
 </Window>
