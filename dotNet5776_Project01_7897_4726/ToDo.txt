@@ -1,0 +1,2 @@
+﻿Todo:
+Fix the bug when deleteing a client and not deleteing his orders
